@@ -1,0 +1,519 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e6]:
+        - img [ref=e8]
+        - generic [ref=e10]:
+          - heading "Travel Express" [level=1] [ref=e11]
+          - paragraph [ref=e12]: Votre avenir commence ici
+      - generic [ref=e13]:
+        - link "Accueil" [ref=e14] [cursor=pointer]:
+          - /url: "#accueil"
+          - text: Accueil
+        - link "Programmes" [ref=e15] [cursor=pointer]:
+          - /url: "#agence"
+          - text: Programmes
+        - link "Destinations" [active] [ref=e16] [cursor=pointer]:
+          - /url: "#destinations"
+          - text: Destinations
+        - link "Services" [ref=e18] [cursor=pointer]:
+          - /url: "#services"
+          - text: Services
+        - link "Contact" [ref=e19] [cursor=pointer]:
+          - /url: "#contact"
+          - text: Contact
+        - generic [ref=e20]:
+          - button "Connexion" [ref=e21]
+          - button "Ma Bourse" [ref=e22]:
+            - generic [ref=e23]: Ma Bourse
+            - img [ref=e24]
+  - generic [ref=e26]:
+    - img "Étudiants africains réussissant" [ref=e29]
+    - generic [ref=e32]:
+      - generic [ref=e34]: ✨ VOTRE SUCCÈS EST NOTRE MISSION
+      - heading "Transformez Vos Rêves en Diplômes Internationaux" [level=2] [ref=e35]:
+        - text: Transformez Vos Rêves
+        - text: en Diplômes Internationaux
+      - paragraph [ref=e36]: Depuis 10 ans, nous accompagnons des centaines d'étudiants burkinabè vers les meilleures universités de Chine et d'Espagne. Bourses complètes • Visa garanti • Suivi personnalisé
+      - generic [ref=e37]:
+        - button "🎓 Obtenir Ma Bourse" [ref=e38]
+        - button "📞 Contactez-nous" [ref=e39]
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - generic [ref=e42]: 1000+
+          - generic [ref=e43]: Étudiants Accompagnés
+        - generic [ref=e44]:
+          - generic [ref=e45]: 98%
+          - generic [ref=e46]: Taux de Réussite
+        - generic [ref=e47]:
+          - generic [ref=e48]: "35"
+          - generic [ref=e49]: Pays Partenaires
+        - generic [ref=e50]:
+          - generic [ref=e51]: 500+
+          - generic [ref=e52]: Bourses Disponibles
+    - generic [ref=e53]:
+      - generic [ref=e54]: Découvrez plus
+      - img [ref=e55]
+  - generic [ref=e58]:
+    - generic [ref=e59]:
+      - generic [ref=e60]: ✨ Nos Réussites
+      - heading "Des Étudiants Africains Qui Excellent dans le Monde Entier" [level=2] [ref=e61]:
+        - text: Des Étudiants Africains
+        - text: Qui Excellent dans le Monde Entier
+      - paragraph [ref=e62]: Chaque année, des centaines d'étudiants burkinabè et africains réalisent leurs rêves académiques grâce à Travel Express
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - img "Étudiante africaine diplômée" [ref=e65]
+        - generic [ref=e67]:
+          - paragraph [ref=e68]: Aminata K.
+          - paragraph [ref=e69]: Master en Chine
+      - generic [ref=e70]:
+        - img "Étudiant africain" [ref=e71]
+        - generic [ref=e73]:
+          - paragraph [ref=e74]: Moussa T.
+          - paragraph [ref=e75]: MBA Espagne
+      - generic [ref=e76]:
+        - img "Étudiante africaine heureuse" [ref=e77]
+        - generic [ref=e79]:
+          - paragraph [ref=e80]: Fatima S.
+          - paragraph [ref=e81]: Doctorat Chine
+      - generic [ref=e82]:
+        - img "Étudiant africain souriant" [ref=e83]
+        - generic [ref=e85]:
+          - paragraph [ref=e86]: Ibrahim D.
+          - paragraph [ref=e87]: Licence Espagne
+    - generic [ref=e90]:
+      - generic [ref=e91]:
+        - img "Fatima" [ref=e92]
+        - generic [ref=e93]:
+          - heading "Fatima Ouédraogo" [level=4] [ref=e94]
+          - paragraph [ref=e95]: Master en Génie Logiciel - Pékin
+      - generic [ref=e97]: ★★★★★
+      - paragraph [ref=e98]: "\"Travel Express a littéralement changé ma vie. De Ouagadougou à Beijing, ils m'ont accompagnée à chaque étape. Aujourd'hui, je travaille dans une entreprise tech internationale grâce à mon diplôme chinois.\""
+      - button "Lire Plus de Témoignages →" [ref=e99]
+  - generic [ref=e101]:
+    - generic [ref=e102]:
+      - heading "Nos Programmes d'Excellence" [level=2] [ref=e103]
+      - paragraph [ref=e104]: Que vous visiez une Licence, un Master ou un Doctorat, nous vous ouvrons les portes des meilleures institutions académiques internationales. Plus de 200 universités partenaires dans 35 pays.
+    - generic [ref=e105]:
+      - generic [ref=e106]:
+        - img [ref=e108]
+        - heading "Licence" [level=3] [ref=e110]
+        - paragraph [ref=e111]: BAC+3 | 3 ans
+        - paragraph [ref=e112]: "Démarrez votre carrière avec un diplôme de Bachelor reconnu internationalement. Plus de 150 domaines d'études disponibles : Business, Ingénierie, Médecine, Sciences Sociales, Arts et bien plus encore."
+        - list [ref=e113]:
+          - listitem [ref=e114]:
+            - img [ref=e115]
+            - text: Bourses jusqu'à 100%
+          - listitem [ref=e117]:
+            - img [ref=e118]
+            - text: Admission garantie
+        - button "Découvrir" [ref=e121]
+      - generic [ref=e122]:
+        - img [ref=e124]
+        - heading "Master" [level=3] [ref=e128]
+        - paragraph [ref=e129]: BAC+5 | 2 ans
+        - paragraph [ref=e130]: Devenez un expert dans votre domaine avec un Master d'excellence. MBA, MSc, MA - programmes enseignés en anglais ou français dans les universités les plus prestigieuses d'Europe, d'Amérique et d'Asie.
+        - list [ref=e131]:
+          - listitem [ref=e132]:
+            - img [ref=e133]
+            - text: Bourses d'excellence
+          - listitem [ref=e135]:
+            - img [ref=e136]
+            - text: Stage inclus
+        - button "Découvrir" [ref=e139]
+      - generic [ref=e140]:
+        - img [ref=e142]
+        - heading "Doctorat" [level=3] [ref=e144]
+        - paragraph [ref=e145]: BAC+8 | 3-5 ans
+        - paragraph [ref=e146]: Rejoignez l'élite de la recherche mondiale avec un PhD. Financement complet, laboratoires d'excellence, supervision de professeurs renommés. Devenez un leader dans votre domaine de recherche.
+        - list [ref=e147]:
+          - listitem [ref=e148]:
+            - img [ref=e149]
+            - text: Financement garanti
+          - listitem [ref=e151]:
+            - img [ref=e152]
+            - text: Recherche de pointe
+        - button "Découvrir" [ref=e155]
+  - generic [ref=e157]:
+    - generic [ref=e158]:
+      - heading "Pourquoi Plus de 1000 Étudiants Nous Font Confiance?" [level=2] [ref=e159]
+      - paragraph [ref=e160]: Travel Express n'est pas qu'une simple agence. Nous sommes votre partenaire de réussite, avec un taux de satisfaction de 98% et une présence dans toute l'Afrique de l'Ouest.
+    - generic [ref=e161]:
+      - generic [ref=e162]:
+        - img [ref=e164]
+        - heading "Gestion Complète du Voyage" [level=3] [ref=e166]
+        - paragraph [ref=e167]: "De A à Z, nous gérons tous les aspects logistiques de votre départ : réservation de billets d'avion aux meilleurs tarifs, assistance complète pour l'obtention du visa, recherche et réservation d'hébergement étudiant sécurisé."
+        - paragraph [ref=e168]: ✈️ Partenariats avec 15+ compagnies aériennes
+      - generic [ref=e169]:
+        - img [ref=e171]
+        - heading "500+ Bourses d'Excellence" [level=3] [ref=e173]
+        - paragraph [ref=e174]: "Accédez à notre base de données exclusive de plus de 500 bourses actualisées quotidiennement. Bourses complètes (frais de scolarité + logement + allocation mensuelle), bourses partielles, bourses gouvernementales et privées. Taux de réussite : 85%."
+        - paragraph [ref=e175]: 💰 Bourses de 5,000€ à 50,000€/an disponibles
+      - generic [ref=e176]:
+        - img [ref=e178]
+        - heading "Accompagnement 360° Premium" [level=3] [ref=e180]
+        - paragraph [ref=e181]: Un conseiller dédié vous accompagne personnellement du choix de l'université jusqu'à votre intégration complète. Coaching pour entretiens, révision de dossiers, préparation culturelle, accueil à l'aéroport et suivi post-arrivée pendant 6 mois.
+        - paragraph [ref=e182]: 👥 Support 24/7 via WhatsApp
+  - generic [ref=e186]:
+    - generic [ref=e187]:
+      - generic [ref=e188]: Destinations Phares
+      - heading "Nous Vous Accompagnons Vers" [level=2] [ref=e189]
+      - paragraph [ref=e190]: Profitez de notre expertise dans deux destinations d'excellence offrant des opportunités académiques exceptionnelles et des bourses généreuses
+    - generic [ref=e192]:
+      - generic [ref=e193]:
+        - img "Chine - Shanghai" [ref=e194]
+        - generic [ref=e197]:
+          - generic [ref=e198]:
+            - generic [ref=e199]: 🇨🇳
+            - generic [ref=e200]:
+              - heading "Chine" [level=3] [ref=e201]
+              - paragraph [ref=e202]: 中国 - Zhōngguó
+          - paragraph [ref=e203]: La destination numéro 1 pour les étudiants africains - Plus de 60,000 étudiants africains étudient actuellement en Chine
+        - generic [ref=e204]: "⭐ Destination #1"
+      - generic [ref=e205]:
+        - generic [ref=e206]:
+          - heading "Pourquoi Étudier en Chine ?" [level=4] [ref=e207]
+          - paragraph [ref=e208]: La Chine s'est imposée comme la destination privilégiée pour les étudiants africains cherchant une éducation de classe mondiale. Avec son économie dynamique, ses universités de renommée internationale et son programme de bourses généreux, la Chine offre des opportunités incomparables pour votre avenir.
+        - generic [ref=e209]:
+          - generic [ref=e210]:
+            - img "Campus universitaire en Chine" [ref=e211]
+            - paragraph [ref=e213]: Campus Moderne
+          - generic [ref=e214]:
+            - img "Étudiants internationaux" [ref=e215]
+            - paragraph [ref=e217]: Vie Étudiante
+          - generic [ref=e218]:
+            - img "Culture chinoise" [ref=e219]
+            - paragraph [ref=e221]: Culture Riche
+        - generic [ref=e222]:
+          - heading "Les Avantages Incomparables" [level=5] [ref=e223]
+          - generic [ref=e224]:
+            - generic [ref=e226]:
+              - img [ref=e228]
+              - generic [ref=e231]:
+                - paragraph [ref=e232]: Bourses CSC Complètes
+                - paragraph [ref=e233]: "Le programme de bourses du gouvernement chinois (CSC) couvre 100% des frais : scolarité, logement, assurance médicale et allocation mensuelle pour vivre confortablement."
+            - generic [ref=e235]:
+              - img [ref=e237]
+              - generic [ref=e239]:
+                - paragraph [ref=e240]: Universités de Renommée Mondiale
+                - paragraph [ref=e241]: "Accédez aux meilleures universités chinoises classées parmi le top mondial : Tsinghua, Peking University, Fudan, Shanghai Jiao Tong, Zhejiang University."
+            - generic [ref=e243]:
+              - img [ref=e245]
+              - generic [ref=e247]:
+                - paragraph [ref=e248]: Programmes en Anglais
+                - paragraph [ref=e249]: Plus de 500 programmes de Licence, Master et Doctorat enseignés entièrement en anglais. Cours de chinois mandarin gratuits inclus.
+            - generic [ref=e251]:
+              - img [ref=e253]
+              - generic [ref=e255]:
+                - paragraph [ref=e256]: Coût de Vie Très Abordable
+                - paragraph [ref=e257]: Vivez confortablement avec un budget étudiant. Logement moderne, nourriture variée, transport ultra-efficace. Contactez-nous pour un devis personnalisé.
+        - generic [ref=e259]:
+          - generic [ref=e260]:
+            - generic [ref=e261]: 350+
+            - generic [ref=e262]: Étudiants Accompagnés
+          - generic [ref=e263]:
+            - generic [ref=e264]: 95%
+            - generic [ref=e265]: Taux d'Admission
+          - generic [ref=e266]:
+            - generic [ref=e267]: 150+
+            - generic [ref=e268]: Universités Partenaires
+          - generic [ref=e269]:
+            - generic [ref=e270]: 100%
+            - generic [ref=e271]: Bourses Disponibles
+        - generic [ref=e272]:
+          - heading "Ce Que Disent Nos Étudiants en Chine" [level=5] [ref=e273]
+          - generic [ref=e274]:
+            - generic [ref=e275]:
+              - generic [ref=e276]:
+                - img "Fatima" [ref=e277]
+                - generic [ref=e278]:
+                  - heading "Fatima Ouédraogo" [level=6] [ref=e279]
+                  - paragraph [ref=e280]: Master en Ingénierie - Beijing
+              - generic [ref=e282]: ★★★★★
+              - paragraph [ref=e283]: "\"Grâce à Travel Express, j'ai obtenu une bourse CSC complète à l'Université de Beijing. Le processus était simple et leur équipe m'a accompagnée du début à la fin. Aujourd'hui, je vis mon rêve en Chine !\""
+            - generic [ref=e284]:
+              - generic [ref=e285]:
+                - img "Abdoulaye" [ref=e286]
+                - generic [ref=e287]:
+                  - heading "Abdoulaye Sawadogo" [level=6] [ref=e288]
+                  - paragraph [ref=e289]: Doctorat en Médecine - Shanghai
+              - generic [ref=e291]: ★★★★★
+              - paragraph [ref=e292]: "\"La Chine offre des infrastructures médicales ultra-modernes. Travel Express m'a aidé à intégrer Shanghai Jiao Tong avec une bourse complète. Un investissement qui change une vie !\""
+        - generic [ref=e293]:
+          - generic [ref=e294]:
+            - heading "🎓 Prêt à Étudier en Chine ?" [level=5] [ref=e295]
+            - paragraph [ref=e296]: Obtenez votre devis personnalisé et découvrez les bourses disponibles pour votre profil. Nos conseillers spécialisés en admissions chinoises vous répondent sous 24h.
+          - generic [ref=e297]:
+            - button "Contactez-nous" [ref=e298]:
+              - generic [ref=e299]: Contactez-nous
+              - img [ref=e300]
+            - button "Télécharger la Brochure" [ref=e302]
+    - generic [ref=e304]:
+      - generic [ref=e305]:
+        - img "Espagne - Barcelona" [ref=e306]
+        - generic [ref=e309]:
+          - generic [ref=e310]:
+            - generic [ref=e311]: 🇪🇸
+            - generic [ref=e312]:
+              - heading "Espagne" [level=3] [ref=e313]
+              - paragraph [ref=e314]: España
+          - paragraph [ref=e315]: Votre porte d'entrée vers l'Europe - Éducation d'excellence, culture vibrante et opportunités infinies
+        - generic [ref=e316]: ⭐ Destination Premium
+      - generic [ref=e317]:
+        - generic [ref=e318]:
+          - heading "Pourquoi Étudier en Espagne ?" [level=4] [ref=e319]
+          - paragraph [ref=e320]: L'Espagne combine l'excellence académique européenne avec un coût de vie abordable et une qualité de vie exceptionnelle. Avec ses diplômes reconnus dans toute l'Union Européenne, ses programmes innovants et sa culture accueillante, l'Espagne est le choix idéal pour votre réussite académique et professionnelle.
+        - generic [ref=e321]:
+          - generic [ref=e322]:
+            - img "Architecture espagnole" [ref=e323]
+            - paragraph [ref=e325]: Architecture Historique
+          - generic [ref=e326]:
+            - img "Université en Espagne" [ref=e327]
+            - paragraph [ref=e329]: Universités Prestigieuses
+          - generic [ref=e330]:
+            - img "Vie en Espagne" [ref=e331]
+            - paragraph [ref=e333]: Qualité de Vie
+        - generic [ref=e334]:
+          - heading "Les Avantages Exclusifs" [level=5] [ref=e335]
+          - generic [ref=e336]:
+            - generic [ref=e338]:
+              - img [ref=e340]
+              - generic [ref=e343]:
+                - paragraph [ref=e344]: Diplômes Reconnus dans toute l'UE
+                - paragraph [ref=e345]: Système européen LMD (Licence-Master-Doctorat). Votre diplôme espagnol est automatiquement reconnu dans les 27 pays de l'Union Européenne, vous ouvrant les portes du marché du travail européen.
+            - generic [ref=e347]:
+              - img [ref=e349]
+              - generic [ref=e351]:
+                - paragraph [ref=e352]: Universités d'Excellence
+                - paragraph [ref=e353]: Universitat de Barcelona (classée top 200 mondial), Complutense de Madrid, Politècnica de València, IE Business School, et bien d'autres institutions de renommée internationale.
+            - generic [ref=e355]:
+              - img [ref=e357]
+              - generic [ref=e360]:
+                - paragraph [ref=e361]: Bourses et Aides Financières
+                - paragraph [ref=e362]: Bourses MEC (Ministère espagnol), Fondation Carolina pour étudiants africains, bourses régionales, réductions universitaires. Contactez-nous pour connaître votre éligibilité.
+            - generic [ref=e364]:
+              - img [ref=e366]
+              - generic [ref=e368]:
+                - paragraph [ref=e369]: Permis de Travail Post-Études
+                - paragraph [ref=e370]: Après vos études, restez 2 ans en Espagne pour chercher un emploi ou créer votre entreprise. L'Espagne facilite l'intégration professionnelle des diplômés internationaux.
+        - generic [ref=e372]:
+          - generic [ref=e373]:
+            - generic [ref=e374]: 200+
+            - generic [ref=e375]: Étudiants en Espagne
+          - generic [ref=e376]:
+            - generic [ref=e377]: 92%
+            - generic [ref=e378]: Taux d'Admission
+          - generic [ref=e379]:
+            - generic [ref=e380]: 75+
+            - generic [ref=e381]: Universités Partenaires
+          - generic [ref=e382]:
+            - generic [ref=e383]: 80%
+            - generic [ref=e384]: Bourses Disponibles
+        - generic [ref=e385]:
+          - heading "Témoignages de Nos Étudiants en Espagne" [level=5] [ref=e386]
+          - generic [ref=e387]:
+            - generic [ref=e388]:
+              - generic [ref=e389]:
+                - img "Kadidia" [ref=e390]
+                - generic [ref=e391]:
+                  - heading "Kadidia Traoré" [level=6] [ref=e392]
+                  - paragraph [ref=e393]: MBA - IE Business School, Madrid
+              - generic [ref=e395]: ★★★★★
+              - paragraph [ref=e396]: "\"L'Espagne a transformé ma carrière ! J'ai obtenu mon MBA à IE Business School grâce à Travel Express. L'accompagnement est exceptionnel, du dossier de candidature jusqu'à mon installation à Madrid.\""
+            - generic [ref=e397]:
+              - generic [ref=e398]:
+                - img "Souleymane" [ref=e399]
+                - generic [ref=e400]:
+                  - heading "Souleymane Koné" [level=6] [ref=e401]
+                  - paragraph [ref=e402]: Master en Architecture - Barcelona
+              - generic [ref=e404]: ★★★★★
+              - paragraph [ref=e405]: "\"Barcelone est incroyable ! La qualité de vie, les professeurs renommés et l'environnement multiculturel font de l'Espagne la destination parfaite. Merci Travel Express pour avoir rendu ce rêve possible !\""
+        - generic [ref=e406]:
+          - generic [ref=e407]:
+            - heading "🇪🇸 Vivez l'Expérience Espagnole !" [level=5] [ref=e408]
+            - paragraph [ref=e409]: Découvrez comment étudier en Espagne peut changer votre vie. Contactez nos experts en admissions espagnoles pour un accompagnement personnalisé et des réponses sous 24h.
+          - generic [ref=e410]:
+            - button "Contactez-nous" [ref=e411]:
+              - generic [ref=e412]: Contactez-nous
+              - img [ref=e413]
+            - button "Télécharger la Brochure" [ref=e415]
+    - generic [ref=e416]:
+      - heading "Nos Conseillers Spécialisés Vous Accompagnent" [level=3] [ref=e417]
+      - paragraph [ref=e418]: "Experts en admissions chinoises et espagnoles, nous maîtrisons chaque étape du processus : traduction de documents, obtention de visas, recherche de logement et intégration culturelle."
+      - generic [ref=e419]:
+        - generic [ref=e420]:
+          - img [ref=e421]
+          - generic [ref=e423]: Accompagnement en français
+        - generic [ref=e424]:
+          - img [ref=e425]
+          - generic [ref=e427]: Support visa garanti
+        - generic [ref=e428]:
+          - img [ref=e429]
+          - generic [ref=e431]: Réseau d'anciens étudiants
+  - generic [ref=e434]:
+    - generic [ref=e435]:
+      - generic [ref=e436]: 1000+
+      - generic [ref=e437]: Étudiants Accompagnés
+      - generic [ref=e438]: Depuis 2012
+    - generic [ref=e439]:
+      - generic [ref=e440]: "35"
+      - generic [ref=e441]: Pays de Destination
+      - generic [ref=e442]: 🇨🇳 Chine & 🇪🇸 Espagne en tête
+    - generic [ref=e443]:
+      - generic [ref=e444]: 98%
+      - generic [ref=e445]: Taux de Satisfaction
+      - generic [ref=e446]: Clients satisfaits
+    - generic [ref=e447]:
+      - generic [ref=e448]: 200+
+      - generic [ref=e449]: Universités Partenaires
+      - generic [ref=e450]: Institutions d'excellence
+  - generic [ref=e452]:
+    - generic [ref=e453]:
+      - heading "Ils Ont Réussi Avec Nous" [level=2] [ref=e454]
+      - paragraph [ref=e455]: Des centaines d'étudiants burkinabè poursuivent aujourd'hui leurs rêves dans les plus grandes universités du monde grâce à Travel Express
+    - generic [ref=e456]:
+      - generic [ref=e457]:
+        - generic [ref=e458]:
+          - img "Aminata" [ref=e459]
+          - generic [ref=e460]:
+            - heading "Aminata Traoré" [level=4] [ref=e461]
+            - paragraph [ref=e462]: Master au Canada
+        - generic [ref=e463]:
+          - img [ref=e464]
+          - img [ref=e466]
+          - img [ref=e468]
+          - img [ref=e470]
+          - img [ref=e472]
+        - paragraph [ref=e474]: "\"Travel Express a complètement changé ma vie ! J'ai obtenu une bourse complète pour McGill University. Leur équipe m'a accompagnée du début à la fin avec professionnalisme. Merci infiniment !\""
+      - generic [ref=e475]:
+        - generic [ref=e476]:
+          - img "Ibrahim" [ref=e477]
+          - generic [ref=e478]:
+            - heading "Ibrahim Koné" [level=4] [ref=e479]
+            - paragraph [ref=e480]: Doctorat en France
+        - paragraph [ref=e481]: "\"Grâce à Travel Express, j'ai pu réaliser mon rêve d'étudier en France. L'équipe est très professionnelle.\""
+      - generic [ref=e482]:
+        - generic [ref=e483]:
+          - img "Fatoumata" [ref=e484]
+          - generic [ref=e485]:
+            - heading "Fatoumata Sawadogo" [level=4] [ref=e486]
+            - paragraph [ref=e487]: Licence aux USA
+        - paragraph [ref=e488]: "\"Un accompagnement de qualité du début à la fin. Je suis très satisfaite de leur travail.\""
+      - generic [ref=e489]:
+        - generic [ref=e490]:
+          - img "Moussa" [ref=e491]
+          - generic [ref=e492]:
+            - heading "Moussa Ouédraogo" [level=4] [ref=e493]
+            - paragraph [ref=e494]: Master en Belgique
+        - paragraph [ref=e495]: "\"Service rapide et efficace. Toute mon admiration pour cette équipe dévouée !\""
+  - generic [ref=e497]:
+    - heading "Prêt à Réaliser Votre Rêve ?" [level=2] [ref=e498]
+    - paragraph [ref=e499]: Contactez-nous dès aujourd'hui et commencez votre aventure académique
+    - generic [ref=e500]:
+      - button "Demander une Bourse" [ref=e501]
+      - button "Nous contacter" [ref=e502]
+  - contentinfo [ref=e503]:
+    - generic [ref=e507]:
+      - generic [ref=e509]:
+        - heading "Restez Informé des Nouvelles Bourses" [level=3] [ref=e510]
+        - paragraph [ref=e511]: Recevez chaque semaine les dernières opportunités de bourses directement dans votre boîte mail
+        - generic [ref=e512]:
+          - textbox "Votre adresse email" [ref=e513]
+          - button "S'abonner" [ref=e514]
+      - generic [ref=e516]:
+        - generic [ref=e517]:
+          - generic [ref=e518]:
+            - img [ref=e520]
+            - generic [ref=e522]:
+              - heading "Travel Express" [level=3] [ref=e523]
+              - paragraph [ref=e524]: Votre avenir commence ici
+          - paragraph [ref=e525]: Leader burkinabè de l'accompagnement académique international. Depuis 2012, nous transformons les rêves en réalité.
+          - generic [ref=e526]:
+            - img [ref=e527]
+            - generic [ref=e529]: Agence certifiée et agréée
+        - generic [ref=e530]:
+          - heading "Programmes" [level=4] [ref=e531]: Programmes
+          - list [ref=e533]:
+            - listitem [ref=e534]:
+              - link "Licence (BAC+3)" [ref=e535] [cursor=pointer]:
+                - /url: "#"
+                - text: Licence (BAC+3)
+            - listitem [ref=e537]:
+              - link "Master (BAC+5)" [ref=e538] [cursor=pointer]:
+                - /url: "#"
+                - text: Master (BAC+5)
+            - listitem [ref=e540]:
+              - link "Doctorat (BAC+8)" [ref=e541] [cursor=pointer]:
+                - /url: "#"
+                - text: Doctorat (BAC+8)
+            - listitem [ref=e543]:
+              - link "Bourses d'études" [ref=e544] [cursor=pointer]:
+                - /url: "#"
+                - text: Bourses d'études
+        - generic [ref=e546]:
+          - heading "Ressources" [level=4] [ref=e547]: Ressources
+          - list [ref=e549]:
+            - listitem [ref=e550]:
+              - link "À propos" [ref=e551] [cursor=pointer]:
+                - /url: "#"
+                - text: À propos
+            - listitem [ref=e553]:
+              - link "FAQ" [ref=e554] [cursor=pointer]:
+                - /url: "#"
+                - text: FAQ
+            - listitem [ref=e556]:
+              - link "Blog" [ref=e557] [cursor=pointer]:
+                - /url: "#"
+                - text: Blog
+            - listitem [ref=e559]:
+              - link "Témoignages" [ref=e560] [cursor=pointer]:
+                - /url: "#"
+                - text: Témoignages
+        - generic [ref=e562]:
+          - heading "Contact" [level=4] [ref=e563]: Contact
+          - list [ref=e565]:
+            - listitem [ref=e566]:
+              - img [ref=e567]
+              - generic [ref=e570]:
+                - text: Ouagadougou
+                - text: Burkina Faso
+            - listitem [ref=e571]:
+              - img [ref=e572]
+              - generic [ref=e574]: contact@travel-express.bf
+            - listitem [ref=e575]:
+              - img [ref=e576]
+              - generic [ref=e578]: +226 XX XX XX XX
+          - generic [ref=e579]:
+            - paragraph [ref=e580]: Suivez-nous
+            - generic [ref=e581]:
+              - link [ref=e582] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e583]
+              - link [ref=e585] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e586]
+              - link [ref=e588] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e589]
+              - link [ref=e591] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e592]
+      - generic [ref=e595]:
+        - paragraph [ref=e596]: © 2025 Travel Express Burkina Faso. Tous droits réservés.
+        - generic [ref=e597]:
+          - link "Politique de confidentialité" [ref=e598] [cursor=pointer]:
+            - /url: "#"
+          - link "Conditions d'utilisation" [ref=e599] [cursor=pointer]:
+            - /url: "#"
+          - link "Mentions légales" [ref=e600] [cursor=pointer]:
+            - /url: "#"
+  - link [ref=e601] [cursor=pointer]:
+    - /url: https://wa.me/226XXXXXXXX
+    - img [ref=e602]
+  - button [ref=e604]:
+    - img [ref=e605]
+```
