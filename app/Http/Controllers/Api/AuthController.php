@@ -19,23 +19,21 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'country' => 'required|string|max:255',
             'password' => 'required|string|min:8|confirmed',
-            'country' => 'nullable|string|max:255',
-            'nationality' => 'nullable|string|max:255',
-            'whatsapp' => 'nullable|string|max:20',
-            'phone' => 'nullable|string|max:20',
-            'date_of_birth' => 'nullable|date',
-            'gender' => 'nullable|in:male,female,other',
-            'language' => 'nullable|string|max:10',
-            'company' => 'nullable|string|max:255',
-            'position' => 'nullable|string|max:255',
-            'location' => 'nullable|string|max:255',
-            'linkedin' => 'nullable|url|max:255',
-            'twitter' => 'nullable|url|max:255',
-            'instagram' => 'nullable|url|max:255',
-            'website' => 'nullable|url|max:255',
-            'interests' => 'nullable|string|max:1000',
-            'bio' => 'nullable|string|max:500',
+            'status' => 'required|string|max:255',
+            'specialty' => 'required|string|max:500',
+        ], [
+            'name.required' => 'Le nom et prénom sont requis.',
+            'email.required' => 'L\'adresse e-mail est requise.',
+            'email.email' => 'L\'adresse e-mail doit être valide.',
+            'email.unique' => 'Cette adresse e-mail est déjà utilisée.',
+            'country.required' => 'Veuillez sélectionner votre pays.',
+            'password.required' => 'Le mot de passe est requis.',
+            'password.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
+            'password.confirmed' => 'Les mots de passe ne correspondent pas.',
+            'status.required' => 'Veuillez sélectionner votre statut.',
+            'specialty.required' => 'Veuillez indiquer votre spécialité.',
         ]);
 
         $user = User::create([
@@ -43,21 +41,9 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'country' => $request->country,
-            'nationality' => $request->nationality,
-            'whatsapp' => $request->whatsapp,
-            'phone' => $request->phone,
-            'date_of_birth' => $request->date_of_birth,
-            'gender' => $request->gender,
-            'language' => $request->language ?? 'fr',
-            'company' => $request->company,
-            'position' => $request->position,
-            'location' => $request->location,
-            'linkedin' => $request->linkedin,
-            'twitter' => $request->twitter,
-            'instagram' => $request->instagram,
-            'website' => $request->website,
-            'interests' => $request->interests,
-            'bio' => $request->bio,
+            'position' => $request->status, // Using position field for status
+            'bio' => $request->specialty, // Using bio field for specialty
+            'language' => 'fr',
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;

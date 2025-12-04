@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Rediriger vers HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Rediriger vers le dossier public
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ /public/$1 [L]
+</IfModule>
+
+# Sécurité - Bloquer l'accès aux fichiers sensibles
+<FilesMatch "^\.env|composer\.json|composer\.lock|package\.json|package-lock\.json|artisan$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Bloquer l'accès aux dossiers sensibles
+<IfModule mod_rewrite.c>
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests|vendor)/ - [F,L]
+</IfModule>

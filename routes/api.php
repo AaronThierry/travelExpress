@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\TestimonialController;
+use App\Http\Controllers\Api\Admin\TestimonialController as AdminTestimonialController;
+use App\Http\Controllers\Api\Admin\DashboardController;
+use App\Http\Controllers\Api\Admin\UserController as AdminUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +24,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// Testimonials - public can view
+Route::get('/testimonials', [TestimonialController::class, 'index']);
+
 // Protected routes (authentication required)
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -31,4 +38,26 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/profile', [ProfileController::class, 'update']);
     Route::post('/profile/avatar', [ProfileController::class, 'uploadAvatar']);
     Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar']);
+
+    // Testimonials - protected routes
+    Route::post('/testimonials', [TestimonialController::class, 'store']);
+    Route::get('/testimonials/my', [TestimonialController::class, 'myTestimonials']);
+
+    // Admin routes (authentication + admin role required)
+    Route::middleware('admin')->prefix('admin')->group(function () {
+        // Dashboard
+        Route::get('/stats', [DashboardController::class, 'stats']);
+
+        // Users management
+        Route::get('/users', [AdminUserController::class, 'index']);
+        Route::post('/users/{id}/toggle-admin', [AdminUserController::class, 'toggleAdmin']);
+        Route::delete('/users/{id}', [AdminUserController::class, 'destroy']);
+
+        // Testimonials management
+        Route::get('/testimonials', [AdminTestimonialController::class, 'index']);
+        Route::get('/testimonials/pending', [AdminTestimonialController::class, 'pending']);
+        Route::post('/testimonials/{id}/approve', [AdminTestimonialController::class, 'approve']);
+        Route::post('/testimonials/{id}/reject', [AdminTestimonialController::class, 'reject']);
+        Route::post('/testimonials/{id}/unapprove', [AdminTestimonialController::class, 'unapprove']);
+    });
 });

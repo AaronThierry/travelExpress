@@ -24,7 +24,7 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::get('/register', function () {
-    return view('auth.register-steps');
+    return view('auth.register');
 })->name('register');
 
 // Profile routes
@@ -35,3 +35,16 @@ Route::get('/profile', function () {
 Route::get('/profile/edit', function () {
     return view('profile.edit');
 })->name('profile.edit');
+
+// Admin routes
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->name('admin.dashboard');
+
+Route::get('/admin/users', function () {
+    return view('admin.users');
+})->name('admin.users');
+
+Route::get('/admin/testimonials', function () {
+    return view('admin.testimonials');
+})->name('admin.testimonials');
