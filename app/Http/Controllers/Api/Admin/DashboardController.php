@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Testimonial;
+use App\Models\ContactRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -69,6 +70,28 @@ class DashboardController extends Controller
         $averageRating = Testimonial::where('is_approved', true)
             ->avg('rating');
 
+        // Contact requests stats
+        $totalRequests = ContactRequest::count();
+        $newRequests = ContactRequest::where('status', 'new')->count();
+        $pendingRequests = ContactRequest::whereIn('status', ['new', 'contacted', 'in_progress'])->count();
+        $completedRequests = ContactRequest::where('status', 'completed')->count();
+
+        // Recent contact requests
+        $recentRequests = ContactRequest::orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get()
+            ->map(function ($req) {
+                return [
+                    'id' => $req->id,
+                    'name' => $req->name,
+                    'phone' => $req->phone,
+                    'destination' => $req->destination,
+                    'project_type' => $req->project_type,
+                    'status' => $req->status,
+                    'created_at' => $req->created_at->format('d M Y H:i'),
+                ];
+            });
+
         return response()->json([
             'success' => true,
             'data' => [
@@ -84,8 +107,15 @@ class DashboardController extends Controller
                     'new_this_month' => $newTestimonialsThisMonth,
                     'average_rating' => round($averageRating, 1),
                 ],
+                'contact_requests' => [
+                    'total' => $totalRequests,
+                    'new' => $newRequests,
+                    'pending' => $pendingRequests,
+                    'completed' => $completedRequests,
+                ],
                 'recent_users' => $recentUsers,
                 'recent_testimonials' => $recentTestimonials,
+                'recent_requests' => $recentRequests,
                 'users_by_country' => $usersByCountry,
             ]
         ], 200);

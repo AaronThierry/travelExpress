@@ -3,9 +3,11 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\TestimonialController;
+use App\Http\Controllers\Api\ContactRequestController;
 use App\Http\Controllers\Api\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Api\Admin\ContactRequestController as AdminContactRequestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,9 @@ Route::post('/login', [AuthController::class, 'login']);
 
 // Testimonials - public can view
 Route::get('/testimonials', [TestimonialController::class, 'index']);
+
+// Contact requests - public can submit
+Route::post('/contact-requests', [ContactRequestController::class, 'store']);
 
 // Protected routes (authentication required)
 Route::middleware('auth:sanctum')->group(function () {
@@ -59,5 +64,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/testimonials/{id}/approve', [AdminTestimonialController::class, 'approve']);
         Route::post('/testimonials/{id}/reject', [AdminTestimonialController::class, 'reject']);
         Route::post('/testimonials/{id}/unapprove', [AdminTestimonialController::class, 'unapprove']);
+
+        // Contact requests management
+        Route::get('/contact-requests', [AdminContactRequestController::class, 'index']);
+        Route::get('/contact-requests/stats', [AdminContactRequestController::class, 'stats']);
+        Route::get('/contact-requests/{id}', [AdminContactRequestController::class, 'show']);
+        Route::post('/contact-requests/{id}/status', [AdminContactRequestController::class, 'updateStatus']);
+        Route::post('/contact-requests/{id}/notes', [AdminContactRequestController::class, 'addNotes']);
+        Route::post('/contact-requests/{id}/assign', [AdminContactRequestController::class, 'assign']);
+        Route::post('/contact-requests/{id}/contacted', [AdminContactRequestController::class, 'markContacted']);
+        Route::delete('/contact-requests/{id}', [AdminContactRequestController::class, 'destroy']);
     });
 });

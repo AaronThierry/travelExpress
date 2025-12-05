@@ -1477,38 +1477,49 @@
             </div>
 
             <div class="card p-5 md:p-8">
-                <form action="#" method="POST" class="space-y-4">
-                    @csrf
+                <!-- Success Message -->
+                <div id="contact-success" class="hidden bg-green-50 border border-green-200 rounded-xl p-6 text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-green-800 mb-2">Demande envoyée avec succès!</h3>
+                    <p class="text-green-700">Merci pour votre demande. Notre équipe vous contactera très bientôt via WhatsApp ou email.</p>
+                </div>
+
+                <!-- Contact Form -->
+                <form id="contact-form" class="space-y-4">
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label for="name" class="block text-xs font-medium text-dark mb-1">Nom complet *</label>
-                            <input type="text" id="name" name="name" required
+                            <label for="contact-name" class="block text-xs font-medium text-dark mb-1">Nom complet *</label>
+                            <input type="text" id="contact-name" name="name" required
                                    class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                         </div>
                         <div>
-                            <label for="email" class="block text-xs font-medium text-dark mb-1">Email *</label>
-                            <input type="email" id="email" name="email" required
+                            <label for="contact-email" class="block text-xs font-medium text-dark mb-1">Email *</label>
+                            <input type="email" id="contact-email" name="email" required
                                    class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                         </div>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label for="phone" class="block text-xs font-medium text-dark mb-1">Téléphone / WhatsApp *</label>
-                            <input type="tel" id="phone" name="phone" required
+                            <label for="contact-phone" class="block text-xs font-medium text-dark mb-1">Téléphone / WhatsApp *</label>
+                            <input type="tel" id="contact-phone" name="phone" required
                                    class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                         </div>
                         <div>
-                            <label for="country" class="block text-xs font-medium text-dark mb-1">Pays de résidence *</label>
-                            <input type="text" id="country" name="country" required
+                            <label for="contact-country" class="block text-xs font-medium text-dark mb-1">Pays de résidence</label>
+                            <input type="text" id="contact-country" name="country"
                                    class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                         </div>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label for="destination" class="block text-xs font-medium text-dark mb-1">Destination souhaitée *</label>
-                            <select id="destination" name="destination" required
+                            <label for="contact-destination" class="block text-xs font-medium text-dark mb-1">Destination souhaitée *</label>
+                            <select id="contact-destination" name="destination" required
                                     class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                                 <option value="">Sélectionnez...</option>
                                 <option value="china">🇨🇳 Chine</option>
@@ -1518,8 +1529,8 @@
                             </select>
                         </div>
                         <div>
-                            <label for="project_type" class="block text-xs font-medium text-dark mb-1">Type de projet *</label>
-                            <select id="project_type" name="project_type" required
+                            <label for="contact-project-type" class="block text-xs font-medium text-dark mb-1">Type de projet *</label>
+                            <select id="contact-project-type" name="project_type" required
                                     class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                                 <option value="">Sélectionnez...</option>
                                 <option value="etudes">Études (Université, Formation)</option>
@@ -1531,31 +1542,38 @@
                     </div>
 
                     <div>
-                        <label for="field" class="block text-xs font-medium text-dark mb-1">Précisez votre projet *</label>
-                        <input type="text" id="field" name="field" required
+                        <label for="contact-details" class="block text-xs font-medium text-dark mb-1">Précisez votre projet *</label>
+                        <input type="text" id="contact-details" name="project_details" required
                                placeholder="Ex: Master en informatique, Recherche d'emploi en ingénierie, Import de produits électroniques..."
                                class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                     </div>
 
                     <div>
-                        <label for="message" class="block text-xs font-medium text-dark mb-1">Parlez-nous de votre projet</label>
-                        <textarea id="message" name="message" rows="5"
+                        <label for="contact-message" class="block text-xs font-medium text-dark mb-1">Parlez-nous de votre projet</label>
+                        <textarea id="contact-message" name="message" rows="5"
                                   placeholder="Décrivez brièvement votre parcours, vos objectifs et vos motivations..."
                                   class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all"></textarea>
                     </div>
 
                     <div class="flex items-start">
-                        <input type="checkbox" id="consent" name="consent" required
+                        <input type="checkbox" id="contact-consent" name="consent" required
                                class="mt-1 w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-600">
-                        <label for="consent" class="ml-3 text-sm text-gray">
+                        <label for="contact-consent" class="ml-3 text-sm text-gray">
                             J'accepte que mes informations soient utilisées pour me contacter concernant mon projet. *
                         </label>
                     </div>
 
-                    <button type="submit" class="btn-primary w-full text-center text-sm">
-                        Envoyer ma demande
-                        <svg class="inline-block w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Error Message -->
+                    <div id="contact-error" class="hidden bg-red-50 border border-red-200 rounded-lg p-3 text-red-700 text-sm"></div>
+
+                    <button type="submit" id="contact-submit" class="btn-primary w-full text-center text-sm">
+                        <span id="submit-text">Envoyer ma demande</span>
+                        <svg id="submit-icon" class="inline-block w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                        <svg id="submit-loading" class="hidden animate-spin inline-block w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
                     </button>
 
@@ -1966,5 +1984,77 @@
             </form>
         </div>
     </div>
+
+    <!-- Contact Form Script -->
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = this;
+            const submitBtn = document.getElementById('contact-submit');
+            const submitText = document.getElementById('submit-text');
+            const submitIcon = document.getElementById('submit-icon');
+            const submitLoading = document.getElementById('submit-loading');
+            const errorDiv = document.getElementById('contact-error');
+            const successDiv = document.getElementById('contact-success');
+
+            // Hide error
+            errorDiv.classList.add('hidden');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitText.textContent = 'Envoi en cours...';
+            submitIcon.classList.add('hidden');
+            submitLoading.classList.remove('hidden');
+
+            // Gather form data
+            const formData = {
+                name: document.getElementById('contact-name').value,
+                email: document.getElementById('contact-email').value,
+                phone: document.getElementById('contact-phone').value,
+                country: document.getElementById('contact-country').value || null,
+                destination: document.getElementById('contact-destination').value,
+                project_type: document.getElementById('contact-project-type').value,
+                project_details: document.getElementById('contact-details').value,
+                message: document.getElementById('contact-message').value || null
+            };
+
+            try {
+                const response = await fetch('/api/contact-requests', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Show success message
+                    form.classList.add('hidden');
+                    successDiv.classList.remove('hidden');
+
+                    // Scroll to success message
+                    successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    // Show error
+                    errorDiv.textContent = result.message || 'Une erreur est survenue. Veuillez réessayer.';
+                    errorDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                errorDiv.textContent = 'Une erreur est survenue. Veuillez vérifier votre connexion et réessayer.';
+                errorDiv.classList.remove('hidden');
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitText.textContent = 'Envoyer ma demande';
+                submitIcon.classList.remove('hidden');
+                submitLoading.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>

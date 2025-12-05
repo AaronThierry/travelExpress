@@ -138,6 +138,14 @@
                     <span id="pending-badge" class="ml-auto bg-amber-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">0</span>
                 </a>
 
+                <a href="/admin/contact-requests" class="nav-item {{ request()->is('admin/contact-requests') ? 'active' : '' }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span>Demandes</span>
+                    <span id="requests-badge" class="ml-auto bg-green-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">0</span>
+                </a>
+
                 <p class="px-4 py-2 mt-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Configuration</p>
 
                 <a href="/admin/settings" class="nav-item {{ request()->is('admin/settings') ? 'active' : '' }}">
@@ -296,6 +304,40 @@
             }
         }
 
+        // Load new contact requests count
+        async function loadNewRequestsCount() {
+            try {
+                const response = await fetch('/api/admin/contact-requests/stats', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    const count = result.data.by_status.new;
+                    const badge = document.getElementById('requests-badge');
+                    const notifBadge = document.getElementById('notif-badge');
+
+                    if (badge) {
+                        badge.textContent = count;
+                        if (count === 0) {
+                            badge.classList.add('hidden');
+                        } else {
+                            badge.classList.remove('hidden');
+                        }
+                    }
+
+                    if (notifBadge && count > 0) {
+                        notifBadge.classList.remove('hidden');
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading requests count:', error);
+            }
+        }
+
         // Logout
         function logout() {
             localStorage.removeItem('auth_token');
@@ -305,6 +347,7 @@
         // Initialize
         loadUserInfo();
         loadPendingCount();
+        loadNewRequestsCount();
     </script>
 
     @yield('scripts')

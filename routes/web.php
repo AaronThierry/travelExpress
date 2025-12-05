@@ -48,3 +48,7 @@ Route::get('/admin/users', function () {
 Route::get('/admin/testimonials', function () {
     return view('admin.testimonials');
 })->name('admin.testimonials');
+
+Route::get('/admin/contact-requests', function () {
+    return view('admin.contact-requests');
+})->name('admin.contact-requests');
