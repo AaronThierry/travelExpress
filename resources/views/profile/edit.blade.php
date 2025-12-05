@@ -7,221 +7,457 @@
     <title>Modifier le Profil - Travel Express</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
+        * {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #0f0f1a;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        /* Animated gradient background */
+        .bg-animated {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 119, 198, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            animation: bgMove 20s ease infinite;
+            z-index: 0;
         }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        @keyframes bgMove {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
         }
-        .fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .slide-down { animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        .glass-card {
+
+        /* Glass morphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-light {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        .input-elegant {
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-delay {
+            animation: float 6s ease-in-out infinite;
+            animation-delay: -3s;
+        }
+
+        /* Form inputs */
+        .input-modern {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: white;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .input-elegant:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+
+        .input-modern::placeholder {
+            color: rgba(255, 255, 255, 0.4);
         }
+
+        .input-modern:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1), 0 8px 20px rgba(139, 92, 246, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .input-modern:hover:not(:focus) {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Section cards */
+        .section-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .section-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(139, 92, 246, 0.2);
+        }
+
+        /* Button gradient */
         .btn-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
+
+        .btn-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-gradient:hover::before {
+            left: 100%;
+        }
+
         .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-gradient:active {
+            transform: translateY(-1px);
+        }
+
+        /* Avatar upload */
+        .avatar-upload {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .avatar-upload:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar-upload:hover .avatar-overlay {
+            opacity: 1;
+        }
+
+        .avatar-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Labels */
+        .label-modern {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .label-modern i {
+            color: #8b5cf6;
+        }
+
+        /* Error messages */
+        .error-msg {
+            color: #f87171;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Alert */
+        .alert {
+            animation: fadeInUp 0.5s ease;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #8b5cf6, #ec4899);
+            border-radius: 4px;
+        }
+
+        /* Character counter */
+        .char-counter {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            transition: color 0.3s ease;
+        }
+
+        .char-counter.warning {
+            color: #fbbf24;
+        }
+
+        .char-counter.danger {
+            color: #f87171;
         }
     </style>
 </head>
-<body class="min-h-screen">
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animated"></div>
+
+    <!-- Floating decorative elements -->
+    <div class="fixed top-20 left-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl floating"></div>
+    <div class="fixed bottom-20 right-10 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl floating-delay"></div>
 
     <!-- Navigation Bar -->
-    <nav class="bg-white/10 backdrop-blur-md border-b border-white/20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="glass fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <a href="/profile" class="flex items-center space-x-2 text-white hover:text-white/80 transition-colors group">
-                    <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                    </svg>
-                    <span class="font-semibold">Retour au profil</span>
+                <a href="/profile" class="flex items-center space-x-3 text-white/80 hover:text-white transition-all group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-arrow-left text-white"></i>
+                    </div>
+                    <span class="font-semibold hidden sm:block">Retour au profil</span>
                 </a>
-                <h1 class="text-xl font-bold text-white">Modifier le profil</h1>
-                <div class="w-40"></div>
+
+                <h1 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fas fa-user-edit text-violet-400"></i>
+                    Modifier le profil
+                </h1>
+
+                <div class="w-10 sm:w-40"></div>
             </div>
         </div>
     </nav>
 
-    <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="relative z-10 max-w-5xl mx-auto px-4 pt-24 pb-12">
         <div class="fade-in-up">
+
             <!-- Alert Container -->
             <div id="alert-container" class="mb-6"></div>
 
-            <!-- Main Edit Card -->
-            <div class="glass-card rounded-3xl shadow-2xl overflow-hidden">
-                <!-- Avatar Section -->
-                <div class="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 px-8 py-12">
-                    <div class="text-center">
-                        <div class="flex justify-center mb-6">
-                            <div id="avatar-preview" class="w-32 h-32 rounded-full bg-white shadow-2xl flex items-center justify-center ring-4 ring-white/50 overflow-hidden"></div>
-                        </div>
-                        <div class="flex justify-center space-x-3">
-                            <label class="cursor-pointer px-6 py-2.5 bg-white text-violet-600 font-semibold rounded-xl hover:bg-white/90 transition-all shadow-lg">
-                                <input type="file" id="avatar-input" accept="image/*" class="hidden">
-                                📸 Changer la photo
-                            </label>
-                            <button onclick="deleteAvatar()" id="delete-avatar-btn" class="px-6 py-2.5 bg-red-500 text-white font-semibold rounded-xl hover:bg-red-600 transition-all shadow-lg hidden">
-                                🗑️ Supprimer
+            <!-- Main Form Card -->
+            <div class="glass rounded-3xl overflow-hidden">
+
+                <!-- Header with Avatar -->
+                <div class="relative bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 px-8 py-12">
+                    <div class="absolute inset-0 overflow-hidden">
+                        <div class="absolute -top-1/2 -right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                        <div class="absolute -bottom-1/2 -left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    </div>
+
+                    <div class="relative text-center">
+                        <label class="avatar-upload inline-block">
+                            <input type="file" id="avatar-input" accept="image/*" class="hidden">
+                            <div id="avatar-preview" class="w-32 h-32 rounded-full bg-white/20 flex items-center justify-center ring-4 ring-white/30 overflow-hidden mx-auto"></div>
+                            <div class="avatar-overlay">
+                                <div class="text-center">
+                                    <i class="fas fa-camera text-2xl text-white mb-1"></i>
+                                    <p class="text-xs text-white font-medium">Changer</p>
+                                </div>
+                            </div>
+                        </label>
+
+                        <div class="mt-4 flex justify-center gap-3">
+                            <button onclick="document.getElementById('avatar-input').click()" class="px-4 py-2 bg-white/20 hover:bg-white/30 text-white text-sm font-medium rounded-xl transition-all backdrop-blur-sm">
+                                <i class="fas fa-upload mr-2"></i>Changer la photo
+                            </button>
+                            <button onclick="deleteAvatar()" id="delete-avatar-btn" class="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-200 text-sm font-medium rounded-xl transition-all backdrop-blur-sm hidden">
+                                <i class="fas fa-trash mr-2"></i>Supprimer
                             </button>
                         </div>
-                        <p class="text-white/80 text-sm mt-4">JPG, PNG ou GIF · Max 2MB</p>
+                        <p class="text-white/60 text-xs mt-3">JPG, PNG ou GIF - Max 2MB</p>
                     </div>
                 </div>
 
-                <!-- Form Section -->
-                <form id="profileForm" class="p-8 space-y-6">
-                    <!-- Personal Information -->
-                    <div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                            <span class="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center mr-3">
-                                <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
-                            </span>
+                <!-- Form -->
+                <form id="profileForm" class="p-8 space-y-8">
+
+                    <!-- Personal Information Section -->
+                    <div class="section-card rounded-2xl p-6">
+                        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+                                <i class="fas fa-user text-white"></i>
+                            </div>
                             Informations personnelles
                         </h3>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Nom complet *</label>
+                                <label class="label-modern">
+                                    <i class="fas fa-signature"></i>
+                                    Nom complet <span class="text-pink-400">*</span>
+                                </label>
                                 <input type="text" id="name" required
-                                    class="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-violet-500 focus:ring-0 outline-none text-gray-900 input-elegant">
-                                <p class="text-red-600 text-sm mt-1.5 hidden slide-down" id="name-error"></p>
+                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
+                                    placeholder="Jean Dupont">
+                                <p class="error-msg hidden" id="name-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
+
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
+                                <label class="label-modern">
+                                    <i class="fas fa-envelope"></i>
+                                    Email <span class="text-pink-400">*</span>
+                                </label>
                                 <input type="email" id="email" required
-                                    class="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-violet-500 focus:ring-0 outline-none text-gray-900 input-elegant">
-                                <p class="text-red-600 text-sm mt-1.5 hidden slide-down" id="email-error"></p>
+                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
+                                    placeholder="jean@exemple.com">
+                                <p class="error-msg hidden" id="email-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
                         </div>
                     </div>
 
-                    <hr class="border-gray-200">
-
-                    <!-- Contact Information -->
-                    <div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                            <span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                </svg>
-                            </span>
+                    <!-- Contact Section -->
+                    <div class="section-card rounded-2xl p-6">
+                        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                                <i class="fas fa-address-book text-white"></i>
+                            </div>
                             Contact
                         </h3>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Téléphone</label>
+                                <label class="label-modern">
+                                    <i class="fas fa-phone"></i>
+                                    Téléphone
+                                </label>
                                 <input type="tel" id="phone"
-                                    class="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-violet-500 focus:ring-0 outline-none text-gray-900 input-elegant"
+                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
                                     placeholder="+33 6 12 34 56 78">
-                                <p class="text-red-600 text-sm mt-1.5 hidden slide-down" id="phone-error"></p>
+                                <p class="error-msg hidden" id="phone-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
+
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Localisation</label>
+                                <label class="label-modern">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Localisation
+                                </label>
                                 <input type="text" id="location"
-                                    class="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-violet-500 focus:ring-0 outline-none text-gray-900 input-elegant"
+                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
                                     placeholder="Paris, France">
-                                <p class="text-red-600 text-sm mt-1.5 hidden slide-down" id="location-error"></p>
+                                <p class="error-msg hidden" id="location-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
                         </div>
                     </div>
 
-                    <hr class="border-gray-200">
-
-                    <!-- Professional Information -->
-                    <div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                            <span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                </svg>
-                            </span>
+                    <!-- Professional Section -->
+                    <div class="section-card rounded-2xl p-6">
+                        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
+                                <i class="fas fa-briefcase text-white"></i>
+                            </div>
                             Informations professionnelles
                         </h3>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Entreprise</label>
+                                <label class="label-modern">
+                                    <i class="fas fa-building"></i>
+                                    Entreprise
+                                </label>
                                 <input type="text" id="company"
-                                    class="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-violet-500 focus:ring-0 outline-none text-gray-900 input-elegant"
+                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
                                     placeholder="Travel Express">
-                                <p class="text-red-600 text-sm mt-1.5 hidden slide-down" id="company-error"></p>
+                                <p class="error-msg hidden" id="company-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
+
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Poste</label>
+                                <label class="label-modern">
+                                    <i class="fas fa-user-tie"></i>
+                                    Poste
+                                </label>
                                 <input type="text" id="position"
-                                    class="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-violet-500 focus:ring-0 outline-none text-gray-900 input-elegant"
+                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
                                     placeholder="Designer UI/UX">
-                                <p class="text-red-600 text-sm mt-1.5 hidden slide-down" id="position-error"></p>
+                                <p class="error-msg hidden" id="position-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <label class="label-modern">
+                                    <i class="fas fa-globe"></i>
+                                    Site web
+                                </label>
+                                <input type="url" id="website"
+                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
+                                    placeholder="https://exemple.com">
+                                <p class="error-msg hidden" id="website-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Website -->
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
-                            </svg>
-                            Site web
-                        </label>
-                        <input type="url" id="website" placeholder="https://example.com"
-                            class="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-violet-500 focus:ring-0 outline-none text-gray-900 input-elegant">
-                        <p class="text-red-600 text-sm mt-1.5 hidden slide-down" id="website-error"></p>
-                    </div>
+                    <!-- Bio Section -->
+                    <div class="section-card rounded-2xl p-6">
+                        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center">
+                                <i class="fas fa-quote-left text-white"></i>
+                            </div>
+                            À propos de vous
+                        </h3>
 
-                    <hr class="border-gray-200">
-
-                    <!-- Bio -->
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center justify-between">
-                            <span class="flex items-center">
-                                <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
-                                </svg>
-                                Bio
-                            </span>
-                            <span class="text-xs text-gray-400" id="bio-counter">0/500</span>
-                        </label>
-                        <textarea id="bio" rows="4" maxlength="500"
-                            class="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-violet-500 focus:ring-0 outline-none text-gray-900 input-elegant resize-none"
-                            placeholder="Parlez-nous de vous..."></textarea>
-                        <p class="text-red-600 text-sm mt-1.5 hidden slide-down" id="bio-error"></p>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="label-modern mb-0">
+                                    <i class="fas fa-pen-fancy"></i>
+                                    Bio
+                                </label>
+                                <span class="char-counter" id="bio-counter">0/500</span>
+                            </div>
+                            <textarea id="bio" rows="4" maxlength="500"
+                                class="w-full px-4 py-3.5 rounded-xl input-modern outline-none resize-none"
+                                placeholder="Parlez-nous de vous, vos passions, vos expériences..."></textarea>
+                            <p class="error-msg hidden" id="bio-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
+                        </div>
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
                         <button type="submit" id="saveButton"
-                            class="flex-1 py-4 btn-gradient text-white font-bold rounded-xl shadow-xl flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
+                            class="flex-1 py-4 btn-gradient text-white font-bold rounded-xl flex items-center justify-center gap-2">
+                            <i class="fas fa-check-circle"></i>
                             <span id="saveButtonText">Enregistrer les modifications</span>
                         </button>
+
                         <a href="/profile"
-                            class="px-8 py-4 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-all flex items-center justify-center">
+                            class="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-times"></i>
                             Annuler
                         </a>
                     </div>
@@ -242,8 +478,17 @@
         // Bio character counter
         const bioInput = document.getElementById('bio');
         const bioCounter = document.getElementById('bio-counter');
+
         bioInput.addEventListener('input', function() {
-            bioCounter.textContent = `${this.value.length}/500`;
+            const length = this.value.length;
+            bioCounter.textContent = `${length}/500`;
+
+            bioCounter.classList.remove('warning', 'danger');
+            if (length > 450) {
+                bioCounter.classList.add('danger');
+            } else if (length > 350) {
+                bioCounter.classList.add('warning');
+            }
         });
 
         async function loadProfile() {
@@ -282,7 +527,8 @@
             document.getElementById('website').value = user.website || '';
             document.getElementById('location').value = user.location || '';
 
-            bioCounter.textContent = `${(user.bio || '').length}/500`;
+            const bioLength = (user.bio || '').length;
+            bioCounter.textContent = `${bioLength}/500`;
             updateAvatarPreview(user);
         }
 
@@ -295,7 +541,7 @@
                 deleteBtn.classList.remove('hidden');
             } else {
                 const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
-                preview.innerHTML = `<div class="w-full h-full bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center"><span class="text-4xl font-bold text-white">${initials}</span></div>`;
+                preview.innerHTML = `<div class="w-full h-full bg-gradient-to-br from-violet-600 via-purple-600 to-pink-600 flex items-center justify-center"><span class="text-4xl font-bold text-white">${initials}</span></div>`;
                 deleteBtn.classList.add('hidden');
             }
         }
@@ -324,7 +570,7 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    showAlert('Photo de profil mise à jour! ✨', 'success');
+                    showAlert('Photo de profil mise à jour avec succès!', 'success');
                     currentUser = data.data.user;
                     updateAvatarPreview(currentUser);
                     localStorage.setItem('user', JSON.stringify(currentUser));
@@ -375,7 +621,7 @@
             document.querySelectorAll('[id$="-error"]').forEach(el => el.classList.add('hidden'));
 
             button.disabled = true;
-            buttonText.textContent = 'Enregistrement...';
+            buttonText.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Enregistrement...';
 
             try {
                 const response = await fetch('/api/profile', {
@@ -402,14 +648,14 @@
 
                 if (response.ok) {
                     localStorage.setItem('user', JSON.stringify(data.data));
-                    showAlert('Profil mis à jour avec succès! 🎉', 'success');
+                    showAlert('Profil mis à jour avec succès!', 'success');
                     setTimeout(() => window.location.href = '/profile', 1500);
                 } else {
                     if (data.errors) {
                         Object.keys(data.errors).forEach(key => {
                             const el = document.getElementById(`${key}-error`);
                             if (el) {
-                                el.textContent = data.errors[key][0];
+                                el.querySelector('span').textContent = data.errors[key][0];
                                 el.classList.remove('hidden');
                             }
                         });
@@ -421,32 +667,36 @@
                 showAlert('Erreur lors de la mise à jour', 'error');
             } finally {
                 button.disabled = false;
-                buttonText.textContent = 'Enregistrer les modifications';
+                buttonText.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Enregistrer les modifications';
             }
         });
 
         function showAlert(message, type) {
             const alertContainer = document.getElementById('alert-container');
-            const bgGradient = type === 'success' ? 'from-green-500 to-emerald-600' : 'from-red-500 to-pink-600';
-            const icon = type === 'success' ?
-                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>' :
-                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+            const bgClass = type === 'success' ? 'from-emerald-500 to-green-600' : 'from-red-500 to-pink-600';
+            const iconClass = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
 
             alertContainer.innerHTML = `
-                <div class="glass-card rounded-2xl p-4 shadow-2xl slide-down">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br ${bgGradient} rounded-full flex items-center justify-center flex-shrink-0">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                ${icon}
-                            </svg>
+                <div class="alert glass rounded-2xl p-4 border ${type === 'success' ? 'border-emerald-500/30' : 'border-red-500/30'}">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br ${bgClass} flex items-center justify-center flex-shrink-0">
+                            <i class="fas ${iconClass} text-white text-xl"></i>
                         </div>
-                        <p class="text-gray-900 font-semibold">${message}</p>
+                        <p class="text-white font-medium flex-1">${message}</p>
+                        <button onclick="this.parentElement.parentElement.remove()" class="text-white/50 hover:text-white transition-colors">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
                 </div>
             `;
 
             setTimeout(() => {
-                alertContainer.innerHTML = '';
+                const alert = alertContainer.querySelector('.alert');
+                if (alert) {
+                    alert.style.opacity = '0';
+                    alert.style.transform = 'translateY(-10px)';
+                    setTimeout(() => alert.remove(), 300);
+                }
             }, 5000);
         }
 
