@@ -461,20 +461,20 @@
                     </p>
 
                     <!-- CTA Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                        <a href="#contact" class="group relative px-8 py-4 bg-gradient-to-r from-accent-600 to-accent-500 text-white text-base font-bold rounded-xl shadow-2xl hover:shadow-accent-600/50 transform hover:scale-105 transition-all duration-300 overflow-hidden">
+                    <div class="flex flex-col sm:flex-row gap-3 pt-3">
+                        <a href="#contact" class="group relative px-5 py-2.5 bg-gradient-to-r from-accent-600 to-accent-500 text-white text-sm font-semibold rounded-lg shadow-xl hover:shadow-accent-600/50 transform hover:scale-105 transition-all duration-300 overflow-hidden">
                             <span class="relative z-10 flex items-center justify-center space-x-2">
                                 <span>Démarrer mon projet</span>
-                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                 </svg>
                             </span>
                             <div class="absolute inset-0 bg-gradient-to-r from-accent-700 to-accent-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </a>
-                        <a href="#programmes" class="group px-8 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white text-base font-bold rounded-xl hover:bg-white/20 hover:border-white/50 transition-all duration-300">
+                        <a href="#programmes" class="group px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/30 text-white text-sm font-semibold rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300">
                             <span class="flex items-center justify-center space-x-2">
-                                <span>Découvrir nos programmes</span>
-                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <span>Nos programmes</span>
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </span>
@@ -614,15 +614,15 @@
                 <h2 class="text-5xl md:text-6xl font-display font-black text-dark mb-6 tracking-apple-tight">
                     Pourquoi choisir <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-600">Travel Express</span> ?
                 </h2>
-                <p class="text-xl md:text-2xl text-gray max-w-3xl mx-auto leading-relaxed">
+                <p class="text-base text-gray max-w-2xl mx-auto leading-relaxed">
                     Votre partenaire de confiance pour concrétiser vos projets d'études, de travail et d'affaires à l'international
                 </p>
             </div>
 
             <!-- Features Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                 <!-- Feature 1 - Enhanced -->
-                <div class="group relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 overflow-hidden card-3d">
+                <div class="group relative bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-primary-200 overflow-hidden card-3d">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative">
                         <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
@@ -644,7 +644,7 @@
                 </div>
 
                 <!-- Feature 2 - Enhanced -->
-                <div class="group relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-accent-200 overflow-hidden card-3d">
+                <div class="group relative bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-accent-200 overflow-hidden card-3d">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative">
                         <div class="w-20 h-20 bg-gradient-to-br from-accent-500 to-accent-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
@@ -666,7 +666,7 @@
                 </div>
 
                 <!-- Feature 3 - Enhanced -->
-                <div class="group relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 overflow-hidden card-3d">
+                <div class="group relative bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-primary-200 overflow-hidden card-3d">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative">
                         <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
@@ -688,7 +688,7 @@
                 </div>
 
                 <!-- Feature 4 - Enhanced -->
-                <div class="group relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-accent-200 overflow-hidden card-3d">
+                <div class="group relative bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-accent-200 overflow-hidden card-3d">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative">
                         <div class="w-20 h-20 bg-gradient-to-br from-accent-500 to-accent-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
@@ -710,7 +710,7 @@
                 </div>
 
                 <!-- Feature 5 - Enhanced -->
-                <div class="group relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 overflow-hidden card-3d">
+                <div class="group relative bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-primary-200 overflow-hidden card-3d">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative">
                         <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
@@ -732,7 +732,7 @@
                 </div>
 
                 <!-- Feature 6 - Enhanced -->
-                <div class="group relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-accent-200 overflow-hidden card-3d">
+                <div class="group relative bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-accent-200 overflow-hidden card-3d">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative">
                         <div class="w-20 h-20 bg-gradient-to-br from-accent-500 to-accent-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
@@ -767,7 +767,7 @@
     </section>
 
     <!-- Destinations Section - Immersive Design -->
-    <section id="programmes" class="relative py-24 bg-dark overflow-hidden">
+    <section id="programmes" class="relative py-16 bg-dark overflow-hidden">
         <!-- Background Pattern -->
         <div class="absolute inset-0 opacity-5">
             <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.4\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
@@ -782,7 +782,7 @@
                 <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">
                     Choisissez votre <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">destination</span>
                 </h2>
-                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                <p class="text-base text-gray-400 max-w-2xl mx-auto">
                     Études, travail ou business : découvrez nos destinations et lancez votre projet international
                 </p>
             </div>
@@ -801,14 +801,14 @@
                     </div>
 
                     <!-- Content -->
-                    <div class="relative z-10 p-8 md:p-12 lg:p-16 min-h-[400px] flex flex-col justify-center">
+                    <div class="relative z-10 p-5 md:p-8 lg:p-10 min-h-[400px] flex flex-col justify-center">
                         <div class="max-w-2xl">
                             <div class="flex items-center gap-4 mb-4">
                                 <span class="text-5xl">🇨🇳</span>
                                 <span class="px-4 py-1 bg-yellow-500 text-yellow-900 text-xs font-bold rounded-full uppercase tracking-wide">Destination #1</span>
                             </div>
 
-                            <h3 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+                            <h3 class="text-2xl md:text-3xl font-display font-bold text-white mb-3">
                                 Chine
                             </h3>
 
@@ -851,7 +851,7 @@
                                 <span class="text-white/70 text-sm">Universités partenaires</span>
                             </div>
 
-                            <a href="#contact" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-red-600 font-bold rounded-xl hover:bg-yellow-400 hover:text-red-700 transition-all duration-300 group-hover:translate-x-2">
+                            <a href="#contact" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-red-600 font-semibold rounded-lg text-sm hover:bg-yellow-400 hover:text-red-700 transition-all duration-300 group-hover:translate-x-2">
                                 Découvrir la Chine
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -894,12 +894,12 @@
                         </div>
 
                         <!-- Content -->
-                        <div class="relative z-10 p-8 h-full flex flex-col justify-end">
+                        <div class="relative z-10 p-5 h-full flex flex-col justify-end">
                             <div class="flex items-center gap-3 mb-4">
                                 <span class="text-5xl drop-shadow-lg">🇪🇸</span>
                                 <div class="flex flex-col">
                                     <span class="text-yellow-400 text-xs font-bold uppercase tracking-widest">Europe</span>
-                                    <h3 class="text-3xl md:text-4xl font-display font-bold text-white">Espagne</h3>
+                                    <h3 class="text-xl md:text-2xl font-display font-bold text-white">Espagne</h3>
                                 </div>
                             </div>
 
@@ -966,12 +966,12 @@
                         </div>
 
                         <!-- Content -->
-                        <div class="relative z-10 p-8 h-full flex flex-col justify-end">
+                        <div class="relative z-10 p-5 h-full flex flex-col justify-end">
                             <div class="flex items-center gap-3 mb-4">
                                 <span class="text-5xl drop-shadow-lg">🇩🇪</span>
                                 <div class="flex flex-col">
                                     <span class="text-yellow-400 text-xs font-bold uppercase tracking-widest">Innovation</span>
-                                    <h3 class="text-3xl md:text-4xl font-display font-bold text-white">Allemagne</h3>
+                                    <h3 class="text-xl md:text-2xl font-display font-bold text-white">Allemagne</h3>
                                 </div>
                             </div>
 
@@ -1025,19 +1025,19 @@
             <!-- Bottom Stats -->
             <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                    <div class="text-4xl md:text-5xl font-display font-bold text-white mb-2">500+</div>
+                    <div class="text-2xl md:text-3xl font-display font-bold text-white mb-1">500+</div>
                     <div class="text-gray-400">Étudiants accompagnés</div>
                 </div>
                 <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                    <div class="text-4xl md:text-5xl font-display font-bold text-primary-400 mb-2">98%</div>
+                    <div class="text-2xl md:text-3xl font-display font-bold text-primary-400 mb-1">98%</div>
                     <div class="text-gray-400">Taux de réussite</div>
                 </div>
                 <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                    <div class="text-4xl md:text-5xl font-display font-bold text-accent-400 mb-2">50+</div>
+                    <div class="text-2xl md:text-3xl font-display font-bold text-accent-400 mb-1">50+</div>
                     <div class="text-gray-400">Universités partenaires</div>
                 </div>
                 <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                    <div class="text-4xl md:text-5xl font-display font-bold text-green-400 mb-2">24h</div>
+                    <div class="text-2xl md:text-3xl font-display font-bold text-green-400 mb-1">24h</div>
                     <div class="text-gray-400">Réponse garantie</div>
                 </div>
             </div>
@@ -1057,13 +1057,13 @@
     </section>
 
     <!-- Process Section -->
-    <section id="processus" class="py-24 bg-white">
+    <section id="processus" class="py-16 bg-white">
         <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
-            <div class="text-center mb-16 fade-in-up">
-                <h2 class="text-4xl md:text-5xl font-display font-bold text-dark mb-4 tracking-apple-tight">
+            <div class="text-center mb-10 fade-in-up">
+                <h2 class="text-2xl md:text-3xl font-display font-bold text-dark mb-3 tracking-apple-tight">
                     Notre accompagnement en 4 étapes
                 </h2>
-                <p class="text-xl text-gray ">
+                <p class="text-base text-gray">
                     Un processus clair et personnalisé pour concrétiser votre projet
                 </p>
             </div>
@@ -1152,7 +1152,7 @@
     </section>
 
     <!-- Section: Ils nous ont fait confiance - Carrousel Animé -->
-    <section id="temoignages" class="py-24 bg-gradient-to-b from-slate-50 to-white overflow-hidden"
+    <section id="temoignages" class="py-16 bg-gradient-to-b from-slate-50 to-white overflow-hidden"
              x-data="{
                 scrollContainer: null,
                 scrollAmount: 420,
@@ -1265,7 +1265,7 @@
                     <span class="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
                     <span class="text-primary-700 text-sm font-semibold">+500 Étudiants Accompagnés</span>
                 </div>
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-slate-900 mb-6">
+                <h2 class="text-2xl md:text-3xl font-display font-bold text-slate-900 mb-4">
                     Ils nous ont fait <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">confiance</span>
                 </h2>
                 <p class="text-xl text-slate-600 max-w-2xl mx-auto">
@@ -1274,17 +1274,17 @@
             </div>
 
             <!-- Stats rapides -->
-            <div class="flex flex-wrap justify-center gap-8 md:gap-16 mb-16 px-6">
+            <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-10 px-6">
                 <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-display font-bold text-primary-600">98%</div>
+                    <div class="text-2xl md:text-3xl font-display font-bold text-primary-600">98%</div>
                     <div class="text-slate-500 text-sm font-medium mt-1">Taux de satisfaction</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-display font-bold text-accent-500">4.9<span class="text-2xl">/5</span></div>
+                    <div class="text-2xl md:text-3xl font-display font-bold text-accent-500">4.9<span class="text-2xl">/5</span></div>
                     <div class="text-slate-500 text-sm font-medium mt-1">Note moyenne</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-display font-bold text-emerald-500">50+</div>
+                    <div class="text-2xl md:text-3xl font-display font-bold text-emerald-500">50+</div>
                     <div class="text-slate-500 text-sm font-medium mt-1">Universités partenaires</div>
                 </div>
             </div>
@@ -1292,14 +1292,14 @@
             <!-- Carrousel avec flèches de navigation -->
             <div class="relative">
                 <!-- Flèche gauche -->
-                <button @click="scrollLeft()" class="nav-arrow absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-slate-600 hover:text-primary-600 hover:shadow-xl">
+                <button @click="scrollLeft()" class="nav-arrow absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-slate-600 hover:text-primary-600 hover:shadow-xl">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                     </svg>
                 </button>
 
                 <!-- Flèche droite -->
-                <button @click="scrollRight()" class="nav-arrow absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-slate-600 hover:text-primary-600 hover:shadow-xl">
+                <button @click="scrollRight()" class="nav-arrow absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-slate-600 hover:text-primary-600 hover:shadow-xl">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
@@ -1310,23 +1310,23 @@
                 <!-- Gradient fade droite -->
                 <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
 
-                <div x-ref="testimonialScroll" class="testimonial-scroll flex gap-6 overflow-x-auto px-16 py-4">
+                <div x-ref="testimonialScroll" class="testimonial-scroll flex gap-4 overflow-x-auto px-12 py-3">
                     <!-- Loading state -->
                     <template x-if="loading">
-                        <div class="flex gap-6">
+                        <div class="flex gap-4">
                             <template x-for="i in 4" :key="i">
-                                <div class="w-[400px] flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg border border-slate-100 animate-pulse">
-                                    <div class="flex items-start gap-4 mb-4">
-                                        <div class="w-14 h-14 bg-slate-200 rounded-xl"></div>
+                                <div class="w-[320px] flex-shrink-0 bg-white rounded-xl p-4 shadow-md border border-slate-100 animate-pulse">
+                                    <div class="flex items-start gap-3 mb-3">
+                                        <div class="w-11 h-11 bg-slate-200 rounded-lg"></div>
                                         <div class="flex-1">
-                                            <div class="h-4 bg-slate-200 rounded w-32 mb-2"></div>
-                                            <div class="h-3 bg-slate-200 rounded w-48"></div>
+                                            <div class="h-3 bg-slate-200 rounded w-24 mb-2"></div>
+                                            <div class="h-2 bg-slate-200 rounded w-32"></div>
                                         </div>
                                     </div>
                                     <div class="space-y-2">
-                                        <div class="h-3 bg-slate-200 rounded w-full"></div>
-                                        <div class="h-3 bg-slate-200 rounded w-full"></div>
-                                        <div class="h-3 bg-slate-200 rounded w-3/4"></div>
+                                        <div class="h-2 bg-slate-200 rounded w-full"></div>
+                                        <div class="h-2 bg-slate-200 rounded w-full"></div>
+                                        <div class="h-2 bg-slate-200 rounded w-3/4"></div>
                                     </div>
                                 </div>
                             </template>
@@ -1335,8 +1335,8 @@
 
                     <!-- Témoignages dynamiques -->
                     <template x-for="(testimonial, index) in testimonials" :key="testimonial.id">
-                        <div class="testimonial-card w-[400px] flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg border border-slate-100 relative overflow-hidden">
-                            <svg class="quote-icon absolute top-4 right-4 w-12 h-12 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
+                        <div class="testimonial-card w-[320px] flex-shrink-0 bg-white rounded-xl p-4 shadow-md border border-slate-100 relative overflow-hidden">
+                            <svg class="quote-icon absolute top-3 right-3 w-8 h-8 text-primary-600/50" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
                             </svg>
                             <div class="flex items-start gap-4 mb-4">
@@ -1345,17 +1345,17 @@
                                     <template x-if="testimonial.user && testimonial.user.profile_photo">
                                         <img :src="'/storage/' + testimonial.user.profile_photo"
                                              :alt="testimonial.name"
-                                             class="w-14 h-14 rounded-xl object-cover shadow-lg">
+                                             class="w-11 h-11 rounded-lg object-cover shadow">
                                     </template>
                                     <template x-if="!testimonial.user || !testimonial.user.profile_photo">
-                                        <div class="w-14 h-14 bg-gradient-to-br rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-lg"
+                                        <div class="w-11 h-11 bg-gradient-to-br rounded-lg flex items-center justify-center text-white text-sm font-bold shadow"
                                              :class="getColor(index)">
                                             <span x-text="getInitials(testimonial.name)"></span>
                                         </div>
                                     </template>
                                     <!-- Drapeau destination -->
-                                    <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
-                                        <span class="text-sm" x-text="getFlag(testimonial.destination)"></span>
+                                    <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-sm">
+                                        <span class="text-xs" x-text="getFlag(testimonial.destination)"></span>
                                     </div>
                                 </div>
                                 <div class="flex-1">
@@ -1395,7 +1395,7 @@
             <!-- CTA Section -->
             <div class="text-center mt-16 px-6">
                 <p class="text-slate-500 mb-6">Vous aussi, partagez votre expérience avec nous</p>
-                <button @click="testimonialModalOpen = true" class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary-600 to-accent-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                <button @click="testimonialModalOpen = true" class="inline-flex items-center gap-3 px-5 py-2.5 bg-gradient-to-r from-primary-600 to-accent-500 text-white font-semibold rounded-lg text-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                     </svg>
@@ -1409,13 +1409,13 @@
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="py-24 bg-white">
+    <section id="faq" class="py-16 bg-white">
         <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
-            <div class="text-center mb-16 fade-in-up">
-                <h2 class="text-4xl md:text-5xl font-display font-bold text-dark mb-4 tracking-apple-tight">
+            <div class="text-center mb-10 fade-in-up">
+                <h2 class="text-2xl md:text-3xl font-display font-bold text-dark mb-3 tracking-apple-tight">
                     Questions fréquentes
                 </h2>
-                <p class="text-xl text-gray ">
+                <p class="text-base text-gray">
                     Tout ce que vous devez savoir sur nos services et les études à l'étranger
                 </p>
             </div>
@@ -1449,51 +1449,51 @@
     </section>
 
     <!-- Contact/Application Form Section -->
-    <section id="contact" class="py-24 bg-gradient-to-br from-gray-light via-white to-primary-50">
+    <section id="contact" class="py-16 bg-gradient-to-br from-gray-light via-white to-primary-50">
         <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
-            <div class="text-center mb-16 fade-in-up">
-                <h2 class="text-4xl md:text-5xl font-display font-bold text-dark mb-4 tracking-apple-tight">
+            <div class="text-center mb-10 fade-in-up">
+                <h2 class="text-2xl md:text-3xl font-display font-bold text-dark mb-3 tracking-apple-tight">
                     Concrétisez votre projet international
                 </h2>
-                <p class="text-xl text-gray ">
+                <p class="text-base text-gray">
                     Études, travail ou business ? Parlez-nous de votre projet et recevez un accompagnement personnalisé
                 </p>
             </div>
 
-            <div class="card  p-8 md:p-12">
-                <form action="#" method="POST" class="space-y-6">
+            <div class="card p-5 md:p-8">
+                <form action="#" method="POST" class="space-y-4">
                     @csrf
-                    <div class="grid md:grid-cols-2 gap-6">
+                    <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label for="name" class="block text-sm font-semibold text-dark mb-2">Nom complet *</label>
+                            <label for="name" class="block text-xs font-medium text-dark mb-1">Nom complet *</label>
                             <input type="text" id="name" name="name" required
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-apple focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
+                                   class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                         </div>
                         <div>
-                            <label for="email" class="block text-sm font-semibold text-dark mb-2">Email *</label>
+                            <label for="email" class="block text-xs font-medium text-dark mb-1">Email *</label>
                             <input type="email" id="email" name="email" required
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-apple focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
+                                   class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                         </div>
                     </div>
 
-                    <div class="grid md:grid-cols-2 gap-6">
+                    <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label for="phone" class="block text-sm font-semibold text-dark mb-2">Téléphone / WhatsApp *</label>
+                            <label for="phone" class="block text-xs font-medium text-dark mb-1">Téléphone / WhatsApp *</label>
                             <input type="tel" id="phone" name="phone" required
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-apple focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
+                                   class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                         </div>
                         <div>
-                            <label for="country" class="block text-sm font-semibold text-dark mb-2">Pays de résidence *</label>
+                            <label for="country" class="block text-xs font-medium text-dark mb-1">Pays de résidence *</label>
                             <input type="text" id="country" name="country" required
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-apple focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
+                                   class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                         </div>
                     </div>
 
-                    <div class="grid md:grid-cols-2 gap-6">
+                    <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label for="destination" class="block text-sm font-semibold text-dark mb-2">Destination souhaitée *</label>
+                            <label for="destination" class="block text-xs font-medium text-dark mb-1">Destination souhaitée *</label>
                             <select id="destination" name="destination" required
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-apple focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
+                                    class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                                 <option value="">Sélectionnez...</option>
                                 <option value="china">🇨🇳 Chine</option>
                                 <option value="spain">🇪🇸 Espagne</option>
@@ -1502,9 +1502,9 @@
                             </select>
                         </div>
                         <div>
-                            <label for="project_type" class="block text-sm font-semibold text-dark mb-2">Type de projet *</label>
+                            <label for="project_type" class="block text-xs font-medium text-dark mb-1">Type de projet *</label>
                             <select id="project_type" name="project_type" required
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-apple focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
+                                    class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                                 <option value="">Sélectionnez...</option>
                                 <option value="etudes">Études (Université, Formation)</option>
                                 <option value="travail">Travail (Emploi, Contrat)</option>
@@ -1515,17 +1515,17 @@
                     </div>
 
                     <div>
-                        <label for="field" class="block text-sm font-semibold text-dark mb-2">Précisez votre projet *</label>
+                        <label for="field" class="block text-xs font-medium text-dark mb-1">Précisez votre projet *</label>
                         <input type="text" id="field" name="field" required
                                placeholder="Ex: Master en informatique, Recherche d'emploi en ingénierie, Import de produits électroniques..."
-                               class="w-full px-4 py-3 border border-gray-300 rounded-apple focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
+                               class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                     </div>
 
                     <div>
-                        <label for="message" class="block text-sm font-semibold text-dark mb-2">Parlez-nous de votre projet</label>
+                        <label for="message" class="block text-xs font-medium text-dark mb-1">Parlez-nous de votre projet</label>
                         <textarea id="message" name="message" rows="5"
                                   placeholder="Décrivez brièvement votre parcours, vos objectifs et vos motivations..."
-                                  class="w-full px-4 py-3 border border-gray-300 rounded-apple focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all"></textarea>
+                                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all"></textarea>
                     </div>
 
                     <div class="flex items-start">
@@ -1536,7 +1536,7 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="btn-primary w-full text-center text-lg">
+                    <button type="submit" class="btn-primary w-full text-center text-sm">
                         Envoyer ma demande
                         <svg class="inline-block w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -1550,10 +1550,10 @@
             </div>
 
             <!-- Contact Info -->
-            <div class="grid md:grid-cols-3 gap-8 mt-16 ">
+            <div class="grid md:grid-cols-3 gap-6 mt-10 ">
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                         </svg>
                     </div>
@@ -1561,8 +1561,8 @@
                     <p class="text-gray">contact@travelexpress.com</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                         </svg>
                     </div>
@@ -1570,8 +1570,8 @@
                     <p class="text-gray">+221 77 123 45 67</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
@@ -1584,9 +1584,9 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-16">
+    <footer class="bg-dark text-white py-12">
         <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
-            <div class="grid md:grid-cols-4 gap-8 mb-12">
+            <div class="grid md:grid-cols-4 gap-6 mb-8">
                 <!-- Company Info -->
                 <div>
                     <div class="flex items-center space-x-2 mb-4">
@@ -1807,7 +1807,7 @@
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Votre nom</label>
                             <input type="text" x-model="name" required
-                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                   class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
                                    placeholder="Ex: Fatou Diallo">
                         </div>
 
@@ -1815,7 +1815,7 @@
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Votre pays d'origine</label>
                             <select x-model="country" required
-                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
+                                    class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
                                 <option value="">Sélectionnez votre pays</option>
                                 <option value="SN">Sénégal</option>
                                 <option value="CI">Côte d'Ivoire</option>
@@ -1840,7 +1840,7 @@
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Pays de destination</label>
                             <select x-model="destination" required
-                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
+                                    class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
                                 <option value="">Sélectionnez la destination</option>
                                 <option value="CN">Chine</option>
                                 <option value="ES">Espagne</option>
@@ -1867,18 +1867,18 @@
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Votre témoignage</label>
                             <textarea x-model="message" required rows="4"
-                                      class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all resize-none"
+                                      class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all resize-none"
                                       placeholder="Partagez votre expérience avec Travel Express..."></textarea>
                         </div>
 
                         <!-- Boutons -->
                         <div class="flex gap-3 pt-2">
                             <button type="button" @click="testimonialModalOpen = false"
-                                    class="flex-1 px-6 py-3 border border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all">
+                                    class="flex-1 px-4 py-2 border border-gray-200 text-gray-700 font-medium rounded-lg text-sm hover:bg-gray-50 transition-all">
                                 Annuler
                             </button>
                             <button type="submit" :disabled="submitting"
-                                    class="flex-1 px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                                    class="flex-1 px-4 py-2 bg-gradient-to-r from-primary-600 to-accent-500 text-white font-medium rounded-lg text-sm hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                                 <svg x-show="submitting" class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
