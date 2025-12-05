@@ -448,20 +448,16 @@
                     </div>
 
                     <!-- Main Heading -->
-                    <h1 class="text-4xl md:text-6xl xl:text-7xl font-display font-black text-white leading-tight">
-                        Réalisez vos
-                        <span class="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-accent-400 via-accent-500 to-primary-400 animate-gradient">
-                            projets à l'international
+                    <h1 class="text-3xl md:text-5xl xl:text-6xl font-display font-black text-white leading-tight">
+                        Vos projets
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-400 via-accent-500 to-primary-400 animate-gradient">
+                            à l'international
                         </span>
-                        <span class="block mt-2">avec nous</span>
                     </h1>
 
                     <!-- Subheading -->
-                    <p class="text-lg md:text-xl text-white/80 leading-relaxed max-w-xl">
-                        Travel Express accompagne les <strong class="text-white font-bold">étudiants, travailleurs et entrepreneurs</strong> dans leurs projets en
-                        <span class="text-accent-400 font-semibold">Chine</span>,
-                        <span class="text-accent-400 font-semibold">Espagne</span> et
-                        <span class="text-accent-400 font-semibold">Allemagne</span>.
+                    <p class="text-base md:text-lg text-white/80 leading-relaxed max-w-lg">
+                        Accompagnement personnalisé en <span class="text-accent-400 font-semibold">Chine</span>, <span class="text-accent-400 font-semibold">Espagne</span> et <span class="text-accent-400 font-semibold">Allemagne</span>.
                     </p>
 
                     <!-- CTA Buttons -->
@@ -504,22 +500,22 @@
                 </div>
 
                 <!-- Right Column - Stats Cards -->
-                <div class="grid grid-cols-2 gap-4 lg:gap-6">
-                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
-                        <div class="text-5xl font-black text-white mb-2 group-hover:scale-110 transition-transform">500+</div>
-                        <div class="text-white/80 font-semibold">Clients<br/>accompagnés</div>
+                <div class="grid grid-cols-2 gap-3 lg:gap-4">
+                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
+                        <div class="text-3xl font-black text-white mb-1 group-hover:scale-110 transition-transform">500+</div>
+                        <div class="text-white/80 text-sm font-medium">Clients</div>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
-                        <div class="text-5xl font-black text-accent-400 mb-2 group-hover:scale-110 transition-transform">3</div>
-                        <div class="text-white/80 font-semibold">Destinations<br/>privilégiées</div>
+                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
+                        <div class="text-3xl font-black text-accent-400 mb-1 group-hover:scale-110 transition-transform">3</div>
+                        <div class="text-white/80 text-sm font-medium">Destinations</div>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
-                        <div class="text-5xl font-black text-white mb-2 group-hover:scale-110 transition-transform">10+</div>
-                        <div class="text-white/80 font-semibold">Années<br/>d'expérience</div>
+                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
+                        <div class="text-3xl font-black text-white mb-1 group-hover:scale-110 transition-transform">10+</div>
+                        <div class="text-white/80 text-sm font-medium">Ans d'expérience</div>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
-                        <div class="text-5xl font-black text-accent-400 mb-2 group-hover:scale-110 transition-transform">100%</div>
-                        <div class="text-white/80 font-semibold">Accompagnement<br/>personnalisé</div>
+                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
+                        <div class="text-3xl font-black text-accent-400 mb-1 group-hover:scale-110 transition-transform">100%</div>
+                        <div class="text-white/80 text-sm font-medium">Personnalisé</div>
                     </div>
                 </div>
             </div>
