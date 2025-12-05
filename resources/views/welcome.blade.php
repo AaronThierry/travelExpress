@@ -115,6 +115,10 @@
                         <span class="relative z-10">Processus</span>
                         <div class="absolute bottom-0 left-3 right-3 h-0.5 bg-gradient-to-r from-primary-600 to-accent-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-full"></div>
                     </a>
+                    <a href="#temoignages" class="relative px-3 py-2 text-sm font-semibold text-gray-600 hover:text-dark transition-all duration-300 group">
+                        <span class="relative z-10">Témoignages</span>
+                        <div class="absolute bottom-0 left-3 right-3 h-0.5 bg-gradient-to-r from-primary-600 to-accent-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-full"></div>
+                    </a>
                     <a href="#faq" class="relative px-3 py-2 text-sm font-semibold text-gray-600 hover:text-dark transition-all duration-300 group">
                         <span class="relative z-10">FAQ</span>
                         <div class="absolute bottom-0 left-3 right-3 h-0.5 bg-gradient-to-r from-primary-600 to-accent-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-full"></div>
@@ -295,8 +299,20 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                 </a>
+                <a href="#temoignages" @click="mobileMenuOpen = false" class="flex items-center justify-between py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
+                    <span class="font-medium">Témoignages</span>
+                    <svg class="w-4 h-4 text-gray group-hover:text-primary-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
                 <a href="#faq" @click="mobileMenuOpen = false" class="flex items-center justify-between py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
                     <span class="font-medium">FAQ</span>
+                    <svg class="w-4 h-4 text-gray group-hover:text-primary-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="flex items-center justify-between py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
+                    <span class="font-medium">Contact</span>
                     <svg class="w-4 h-4 text-gray group-hover:text-primary-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
@@ -448,7 +464,7 @@
                     </div>
 
                     <!-- Main Heading -->
-                    <h1 class="text-3xl md:text-5xl xl:text-6xl font-display font-black text-white leading-tight">
+                    <h1 class="text-2xl md:text-4xl xl:text-5xl font-display font-black text-white leading-tight">
                         Vos projets
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-400 via-accent-500 to-primary-400 animate-gradient">
                             à l'international
@@ -604,34 +620,34 @@
 
         <div class="relative w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
             <!-- Section Header -->
-            <div class="text-center mb-20 fade-in-up">
-                <div class="inline-flex items-center space-x-2 bg-primary-100 px-4 py-2 rounded-full mb-6">
-                    <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+            <div class="text-center mb-12 fade-in-up">
+                <div class="inline-flex items-center space-x-2 bg-primary-100 px-3 py-1.5 rounded-full mb-4">
+                    <svg class="w-4 h-4 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                     </svg>
-                    <span class="text-primary-600 font-bold text-sm uppercase tracking-wider">Excellence & Confiance</span>
+                    <span class="text-primary-600 font-semibold text-xs uppercase tracking-wider">Nos avantages</span>
                 </div>
-                <h2 class="text-5xl md:text-6xl font-display font-black text-dark mb-6 tracking-apple-tight">
-                    Pourquoi choisir <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-600">Travel Express</span> ?
+                <h2 class="text-2xl md:text-3xl font-display font-bold text-dark mb-3 tracking-apple-tight">
+                    Pourquoi <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-600">Travel Express</span> ?
                 </h2>
-                <p class="text-base text-gray max-w-2xl mx-auto leading-relaxed">
-                    Votre partenaire de confiance pour concrétiser vos projets d'études, de travail et d'affaires à l'international
+                <p class="text-sm text-gray max-w-xl mx-auto leading-relaxed">
+                    Votre partenaire pour vos projets d'études, travail et business à l'international
                 </p>
             </div>
 
             <!-- Features Grid -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                 <!-- Feature 1 - Enhanced -->
-                <div class="group relative bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-primary-200 overflow-hidden card-3d">
+                <div class="group relative bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary-200 overflow-hidden card-hover">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative">
-                        <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-primary-600 transition-colors">Expertise prouvée</h3>
-                        <p class="text-gray leading-relaxed text-lg mb-4">
+                        <h3 class="text-base font-display font-bold text-dark mb-2 group-hover:text-primary-600 transition-colors">Expertise prouvée</h3>
+                        <p class="text-gray leading-relaxed text-sm mb-3">
                             Plus de <strong class="text-primary-600">10 ans d'expérience</strong> et <strong class="text-primary-600">500+ étudiants</strong> accompagnés avec succès vers leurs destinations de rêve.
                         </p>
                         <div class="flex items-center text-primary-600 font-semibold group-hover:translate-x-2 transition-transform">
@@ -644,16 +660,16 @@
                 </div>
 
                 <!-- Feature 2 - Enhanced -->
-                <div class="group relative bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-accent-200 overflow-hidden card-3d">
+                <div class="group relative bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-accent-200 overflow-hidden card-hover">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative">
-                        <div class="w-20 h-20 bg-gradient-to-br from-accent-500 to-accent-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-accent-600 transition-colors">Services complets</h3>
-                        <p class="text-gray leading-relaxed text-lg mb-4">
+                        <h3 class="text-base font-display font-bold text-dark mb-2 group-hover:text-accent-600 transition-colors">Services complets</h3>
+                        <p class="text-gray leading-relaxed text-sm mb-3">
                             Études, travail, business : nous vous accompagnons dans <strong class="text-accent-600">tous vos projets</strong> à l'international avec des solutions adaptées.
                         </p>
                         <div class="flex items-center text-accent-600 font-semibold group-hover:translate-x-2 transition-transform">
@@ -666,16 +682,16 @@
                 </div>
 
                 <!-- Feature 3 - Enhanced -->
-                <div class="group relative bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-primary-200 overflow-hidden card-3d">
+                <div class="group relative bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary-200 overflow-hidden card-hover">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative">
-                        <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-primary-600 transition-colors">Accompagnement 360°</h3>
-                        <p class="text-gray leading-relaxed text-lg mb-4">
+                        <h3 class="text-base font-display font-bold text-dark mb-2 group-hover:text-primary-600 transition-colors">Accompagnement 360°</h3>
+                        <p class="text-gray leading-relaxed text-sm mb-3">
                             De la sélection du programme jusqu'à votre installation : nous sommes <strong class="text-primary-600">à vos côtés</strong> à chaque étape.
                         </p>
                         <div class="flex items-center text-primary-600 font-semibold group-hover:translate-x-2 transition-transform">
@@ -688,16 +704,16 @@
                 </div>
 
                 <!-- Feature 4 - Enhanced -->
-                <div class="group relative bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-accent-200 overflow-hidden card-3d">
+                <div class="group relative bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-accent-200 overflow-hidden card-hover">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative">
-                        <div class="w-20 h-20 bg-gradient-to-br from-accent-500 to-accent-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-accent-600 transition-colors">Réseau international</h3>
-                        <p class="text-gray leading-relaxed text-lg mb-4">
+                        <h3 class="text-base font-display font-bold text-dark mb-2 group-hover:text-accent-600 transition-colors">Réseau international</h3>
+                        <p class="text-gray leading-relaxed text-sm mb-3">
                             Des contacts établis avec <strong class="text-accent-600">universités, entreprises et partenaires</strong> en Chine, Espagne et Allemagne.
                         </p>
                         <div class="flex items-center text-accent-600 font-semibold group-hover:translate-x-2 transition-transform">
@@ -710,16 +726,16 @@
                 </div>
 
                 <!-- Feature 5 - Enhanced -->
-                <div class="group relative bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-primary-200 overflow-hidden card-3d">
+                <div class="group relative bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary-200 overflow-hidden card-hover">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative">
-                        <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-primary-600 transition-colors">Processus rapide</h3>
-                        <p class="text-gray leading-relaxed text-lg mb-4">
+                        <h3 class="text-base font-display font-bold text-dark mb-2 group-hover:text-primary-600 transition-colors">Processus rapide</h3>
+                        <p class="text-gray leading-relaxed text-sm mb-3">
                             <strong class="text-primary-600">Délais optimisés</strong> pour vos admissions et visas. Commencez votre aventure plus rapidement.
                         </p>
                         <div class="flex items-center text-primary-600 font-semibold group-hover:translate-x-2 transition-transform">
@@ -732,16 +748,16 @@
                 </div>
 
                 <!-- Feature 6 - Enhanced -->
-                <div class="group relative bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-accent-200 overflow-hidden card-3d">
+                <div class="group relative bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-accent-200 overflow-hidden card-hover">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative">
-                        <div class="w-20 h-20 bg-gradient-to-br from-accent-500 to-accent-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-accent-600 transition-colors">Suivi post-arrivée</h3>
-                        <p class="text-gray leading-relaxed text-lg mb-4">
+                        <h3 class="text-base font-display font-bold text-dark mb-2 group-hover:text-accent-600 transition-colors">Suivi post-arrivée</h3>
+                        <p class="text-gray leading-relaxed text-sm mb-3">
                             Notre <strong class="text-accent-600">assistance continue</strong> même après votre arrivée : logement, installation, intégration sociale.
                         </p>
                         <div class="flex items-center text-accent-600 font-semibold group-hover:translate-x-2 transition-transform">
@@ -779,7 +795,7 @@
                 <div class="inline-flex items-center px-5 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6 border border-white/20">
                     <span class="text-sm font-semibold text-white">🌍 Votre aventure commence ici</span>
                 </div>
-                <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">
+                <h2 class="text-2xl md:text-3xl font-display font-bold text-white mb-4">
                     Choisissez votre <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">destination</span>
                 </h2>
                 <p class="text-base text-gray-400 max-w-2xl mx-auto">
@@ -804,11 +820,11 @@
                     <div class="relative z-10 p-5 md:p-8 lg:p-10 min-h-[400px] flex flex-col justify-center">
                         <div class="max-w-2xl">
                             <div class="flex items-center gap-4 mb-4">
-                                <span class="text-5xl">🇨🇳</span>
+                                <span class="text-3xl">🇨🇳</span>
                                 <span class="px-4 py-1 bg-yellow-500 text-yellow-900 text-xs font-bold rounded-full uppercase tracking-wide">Destination #1</span>
                             </div>
 
-                            <h3 class="text-2xl md:text-3xl font-display font-bold text-white mb-3">
+                            <h3 class="text-xl md:text-2xl font-display font-bold text-white mb-2">
                                 Chine
                             </h3>
 
@@ -863,11 +879,11 @@
                     <!-- Stats Floating Cards -->
                     <div class="hidden lg:block absolute right-12 top-1/2 -translate-y-1/2 space-y-4">
                         <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-transform">
-                            <div class="text-4xl font-display font-bold text-white mb-1">98%</div>
+                            <div class="text-2xl font-display font-bold text-white mb-1">98%</div>
                             <div class="text-sm text-white/70">Taux d'admission</div>
                         </div>
                         <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-transform">
-                            <div class="text-4xl font-display font-bold text-yellow-400 mb-1">A-Z</div>
+                            <div class="text-2xl font-display font-bold text-yellow-400 mb-1">A-Z</div>
                             <div class="text-sm text-white/70">Accompagnement complet</div>
                         </div>
                     </div>
@@ -896,7 +912,7 @@
                         <!-- Content -->
                         <div class="relative z-10 p-5 h-full flex flex-col justify-end">
                             <div class="flex items-center gap-3 mb-4">
-                                <span class="text-5xl drop-shadow-lg">🇪🇸</span>
+                                <span class="text-3xl drop-shadow-lg">🇪🇸</span>
                                 <div class="flex flex-col">
                                     <span class="text-yellow-400 text-xs font-bold uppercase tracking-widest">Europe</span>
                                     <h3 class="text-xl md:text-2xl font-display font-bold text-white">Espagne</h3>
@@ -968,7 +984,7 @@
                         <!-- Content -->
                         <div class="relative z-10 p-5 h-full flex flex-col justify-end">
                             <div class="flex items-center gap-3 mb-4">
-                                <span class="text-5xl drop-shadow-lg">🇩🇪</span>
+                                <span class="text-3xl drop-shadow-lg">🇩🇪</span>
                                 <div class="flex flex-col">
                                     <span class="text-yellow-400 text-xs font-bold uppercase tracking-widest">Innovation</span>
                                     <h3 class="text-xl md:text-2xl font-display font-bold text-white">Allemagne</h3>
@@ -1265,7 +1281,7 @@
                     <span class="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
                     <span class="text-primary-700 text-sm font-semibold">+500 Étudiants Accompagnés</span>
                 </div>
-                <h2 class="text-2xl md:text-3xl font-display font-bold text-slate-900 mb-4">
+                <h2 class="text-xl md:text-2xl font-display font-bold text-slate-900 mb-4">
                     Ils nous ont fait <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">confiance</span>
                 </h2>
                 <p class="text-xl text-slate-600 max-w-2xl mx-auto">
@@ -1276,15 +1292,15 @@
             <!-- Stats rapides -->
             <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-10 px-6">
                 <div class="text-center">
-                    <div class="text-2xl md:text-3xl font-display font-bold text-primary-600">98%</div>
+                    <div class="text-xl md:text-2xl font-display font-bold text-primary-600">98%</div>
                     <div class="text-slate-500 text-sm font-medium mt-1">Taux de satisfaction</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-2xl md:text-3xl font-display font-bold text-accent-500">4.9<span class="text-2xl">/5</span></div>
+                    <div class="text-xl md:text-2xl font-display font-bold text-accent-500">4.9<span class="text-2xl">/5</span></div>
                     <div class="text-slate-500 text-sm font-medium mt-1">Note moyenne</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-2xl md:text-3xl font-display font-bold text-emerald-500">50+</div>
+                    <div class="text-xl md:text-2xl font-display font-bold text-emerald-500">50+</div>
                     <div class="text-slate-500 text-sm font-medium mt-1">Universités partenaires</div>
                 </div>
             </div>
@@ -1670,28 +1686,87 @@
     </footer>
 
     <style>
+        /* Animations de base */
         @keyframes blob {
-            0%, 100% {
-                transform: translate(0px, 0px) scale(1);
-            }
-            33% {
-                transform: translate(30px, -50px) scale(1.1);
-            }
-            66% {
-                transform: translate(-20px, 20px) scale(0.9);
-            }
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        .animate-blob { animation: blob 7s infinite; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+
+        /* Animations d'apparition au scroll */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        .animate-blob {
-            animation: blob 7s infinite;
+        /* Classes d'animation */
+        .fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .fade-in-left {
+            opacity: 0;
+            animation: fadeInLeft 0.6s ease-out forwards;
+        }
+        .fade-in-right {
+            opacity: 0;
+            animation: fadeInRight 0.6s ease-out forwards;
+        }
+        .scale-in {
+            opacity: 0;
+            animation: scaleIn 0.5s ease-out forwards;
         }
 
-        .animation-delay-2000 {
-            animation-delay: 2s;
+        /* Délais d'animation échelonnés */
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+
+        /* Sections avec transition douce */
+        section {
+            scroll-margin-top: 100px;
         }
 
-        .animation-delay-4000 {
-            animation-delay: 4s;
+        /* Hover effects améliorés pour les cards */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Gradient animé pour les titres */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 
