@@ -21,6 +21,7 @@
 <body class="font-sans text-dark antialiased bg-white overflow-x-hidden" x-data="{
     mobileMenuOpen: false,
     activeCountry: 'china',
+    testimonialModalOpen: false,
     faqs: [
         { id: 1, open: false, question: 'Quelles sont les conditions pour obtenir une bourse ?', answer: 'Les conditions varient selon le pays et le programme. En général, un bon dossier académique, une lettre de motivation solide et parfois un niveau de langue sont requis. Notre équipe vous accompagne dans la constitution d\'un dossier compétitif.' },
         { id: 2, open: false, question: 'Combien de temps prend le processus d\'admission ?', answer: 'Le processus complet prend généralement entre 3 et 6 mois, incluant la préparation du dossier, les candidatures, l\'obtention de l\'admission et le visa. Nous recommandons de commencer au moins 6 mois avant la rentrée souhaitée.' },
@@ -112,10 +113,6 @@
                     </a>
                     <a href="#processus" class="relative px-3 py-2 text-sm font-semibold text-gray-600 hover:text-dark transition-all duration-300 group">
                         <span class="relative z-10">Processus</span>
-                        <div class="absolute bottom-0 left-3 right-3 h-0.5 bg-gradient-to-r from-primary-600 to-accent-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-full"></div>
-                    </a>
-                    <a href="#temoignages" class="relative px-3 py-2 text-sm font-semibold text-gray-600 hover:text-dark transition-all duration-300 group">
-                        <span class="relative z-10">Témoignages</span>
                         <div class="absolute bottom-0 left-3 right-3 h-0.5 bg-gradient-to-r from-primary-600 to-accent-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-full"></div>
                     </a>
                     <a href="#faq" class="relative px-3 py-2 text-sm font-semibold text-gray-600 hover:text-dark transition-all duration-300 group">
@@ -294,12 +291,6 @@
                 </a>
                 <a href="#processus" @click="mobileMenuOpen = false" class="flex items-center justify-between py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
                     <span class="font-medium">Notre processus</span>
-                    <svg class="w-4 h-4 text-gray group-hover:text-primary-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </a>
-                <a href="#temoignages" @click="mobileMenuOpen = false" class="flex items-center justify-between py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
-                    <span class="font-medium">Témoignages</span>
                     <svg class="w-4 h-4 text-gray group-hover:text-primary-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
@@ -1506,13 +1497,16 @@
 
             <!-- CTA Section -->
             <div class="text-center mt-16 px-6">
-                <p class="text-slate-500 mb-6">Rejoignez les centaines d'étudiants qui nous ont fait confiance</p>
-                <a href="#contact" class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary-600 to-accent-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-                    <span>Commencer mon projet</span>
+                <p class="text-slate-500 mb-6">Vous aussi, partagez votre expérience avec nous</p>
+                <button @click="testimonialModalOpen = true" class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary-600 to-accent-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                    <span>Laisser un témoignage</span>
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                     </svg>
-                </a>
+                </button>
             </div>
         </div>
     </section>
@@ -1735,7 +1729,6 @@
                         <li><a href="#programmes" class="text-gray-400 hover:text-white transition-colors">Nos programmes</a></li>
                         <li><a href="#pourquoi" class="text-gray-400 hover:text-white transition-colors">Pourquoi nous</a></li>
                         <li><a href="#processus" class="text-gray-400 hover:text-white transition-colors">Notre processus</a></li>
-                        <li><a href="#temoignages" class="text-gray-400 hover:text-white transition-colors">Témoignages</a></li>
                         <li><a href="#faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
                         <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
                     </ul>
@@ -1807,5 +1800,202 @@
             animation-delay: 4s;
         }
     </style>
+
+    <!-- Modal Témoignage -->
+    <div x-show="testimonialModalOpen"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+         @click.self="testimonialModalOpen = false"
+         style="display: none;">
+
+        <div x-show="testimonialModalOpen"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden">
+
+            <!-- Header du modal -->
+            <div class="bg-gradient-to-r from-primary-600 to-accent-500 px-6 py-5">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-white">Partagez votre expérience</h3>
+                    <button @click="testimonialModalOpen = false" class="text-white/80 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <p class="text-white/80 text-sm mt-1">Votre témoignage aidera d'autres étudiants à se lancer</p>
+            </div>
+
+            <!-- Formulaire -->
+            <form x-data="{
+                name: '',
+                country: '',
+                destination: '',
+                message: '',
+                rating: 5,
+                submitting: false,
+                success: false,
+                error: '',
+                async submitTestimonial() {
+                    this.submitting = true;
+                    this.error = '';
+
+                    try {
+                        const token = localStorage.getItem('auth_token');
+                        const response = await fetch('/api/testimonials', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Authorization': token ? 'Bearer ' + token : ''
+                            },
+                            body: JSON.stringify({
+                                name: this.name,
+                                country: this.country,
+                                destination: this.destination,
+                                content: this.message,
+                                rating: this.rating
+                            })
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            this.success = true;
+                            setTimeout(() => {
+                                testimonialModalOpen = false;
+                                this.success = false;
+                                this.name = '';
+                                this.country = '';
+                                this.destination = '';
+                                this.message = '';
+                                this.rating = 5;
+                            }, 2000);
+                        } else {
+                            this.error = data.message || 'Une erreur est survenue';
+                        }
+                    } catch (e) {
+                        this.error = 'Erreur de connexion. Veuillez réessayer.';
+                    } finally {
+                        this.submitting = false;
+                    }
+                }
+            }" @submit.prevent="submitTestimonial" class="p-6 space-y-5">
+
+                <!-- Message de succès -->
+                <div x-show="success" class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl flex items-center gap-3">
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Merci ! Votre témoignage a été envoyé avec succès.</span>
+                </div>
+
+                <!-- Message d'erreur -->
+                <div x-show="error" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-3">
+                    <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span x-text="error"></span>
+                </div>
+
+                <template x-if="!success">
+                    <div class="space-y-5">
+                        <!-- Nom -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Votre nom</label>
+                            <input type="text" x-model="name" required
+                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                   placeholder="Ex: Fatou Diallo">
+                        </div>
+
+                        <!-- Pays d'origine -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Votre pays d'origine</label>
+                            <select x-model="country" required
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
+                                <option value="">Sélectionnez votre pays</option>
+                                <option value="SN">Sénégal</option>
+                                <option value="CI">Côte d'Ivoire</option>
+                                <option value="ML">Mali</option>
+                                <option value="CM">Cameroun</option>
+                                <option value="BF">Burkina Faso</option>
+                                <option value="GN">Guinée</option>
+                                <option value="TG">Togo</option>
+                                <option value="BJ">Bénin</option>
+                                <option value="NE">Niger</option>
+                                <option value="GA">Gabon</option>
+                                <option value="CG">Congo</option>
+                                <option value="CD">RD Congo</option>
+                                <option value="MA">Maroc</option>
+                                <option value="TN">Tunisie</option>
+                                <option value="DZ">Algérie</option>
+                                <option value="other">Autre</option>
+                            </select>
+                        </div>
+
+                        <!-- Destination -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Pays de destination</label>
+                            <select x-model="destination" required
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
+                                <option value="">Sélectionnez la destination</option>
+                                <option value="CN">Chine</option>
+                                <option value="ES">Espagne</option>
+                                <option value="DE">Allemagne</option>
+                            </select>
+                        </div>
+
+                        <!-- Note -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Votre note</label>
+                            <div class="flex items-center gap-2">
+                                <template x-for="star in 5" :key="star">
+                                    <button type="button" @click="rating = star" class="focus:outline-none transition-transform hover:scale-110">
+                                        <svg class="w-8 h-8" :class="star <= rating ? 'text-yellow-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        </svg>
+                                    </button>
+                                </template>
+                                <span class="ml-2 text-gray-500 text-sm" x-text="rating + '/5'"></span>
+                            </div>
+                        </div>
+
+                        <!-- Message -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Votre témoignage</label>
+                            <textarea x-model="message" required rows="4"
+                                      class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all resize-none"
+                                      placeholder="Partagez votre expérience avec Travel Express..."></textarea>
+                        </div>
+
+                        <!-- Boutons -->
+                        <div class="flex gap-3 pt-2">
+                            <button type="button" @click="testimonialModalOpen = false"
+                                    class="flex-1 px-6 py-3 border border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all">
+                                Annuler
+                            </button>
+                            <button type="submit" :disabled="submitting"
+                                    class="flex-1 px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                                <svg x-show="submitting" class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <span x-text="submitting ? 'Envoi...' : 'Envoyer'"></span>
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
