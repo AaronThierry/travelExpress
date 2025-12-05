@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,464 +7,568 @@
     <title>Modifier le Profil - Travel Express</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        * {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --accent: #f97316;
+            --dark: #0f172a;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --success: #10b981;
+            --error: #ef4444;
         }
+
+        .font-display { font-family: 'Montserrat', sans-serif; }
+        .font-sans { font-family: 'Poppins', sans-serif; }
 
         body {
-            background: #0f0f1a;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Animated gradient background */
-        .bg-animated {
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 20% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(255, 119, 198, 0.2) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
-            animation: bgMove 20s ease infinite;
-            z-index: 0;
-        }
-
-        @keyframes bgMove {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(5deg); }
-        }
-
-        /* Glass morphism */
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .glass-light {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+            font-family: 'Poppins', sans-serif;
+            background: var(--gray-50);
+            color: var(--dark);
         }
 
         /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        /* Navigation */
+        .nav-bar {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--gray-100);
         }
 
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 500;
+            color: var(--gray-600);
+            transition: all 0.2s ease;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .nav-link:hover {
+            background: var(--gray-100);
+            color: var(--dark);
         }
 
-        .fade-in-up {
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        /* Card */
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+            border: 1px solid var(--gray-100);
         }
 
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-delay {
-            animation: float 6s ease-in-out infinite;
-            animation-delay: -3s;
-        }
-
-        /* Form inputs */
-        .input-modern {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .input-modern::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .input-modern:focus {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(139, 92, 246, 0.5);
-            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1), 0 8px 20px rgba(139, 92, 246, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .input-modern:hover:not(:focus) {
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Section cards */
-        .section-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.3s ease;
-        }
-
-        .section-card:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(139, 92, 246, 0.2);
-        }
-
-        /* Button gradient */
-        .btn-gradient {
-            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+        /* Header gradient */
+        .edit-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 50%, var(--dark) 100%);
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
         }
 
-        .btn-gradient::before {
+        .edit-header::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
+            right: 0;
+            width: 50%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .btn-gradient:hover::before {
-            left: 100%;
-        }
-
-        .btn-gradient:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
-        }
-
-        .btn-gradient:active {
-            transform: translateY(-1px);
+            background: linear-gradient(135deg, transparent 0%, rgba(249, 115, 22, 0.1) 100%);
         }
 
         /* Avatar upload */
         .avatar-upload {
             position: relative;
+            width: 120px;
+            height: 120px;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
 
-        .avatar-upload:hover {
-            transform: scale(1.05);
+        .avatar-upload img,
+        .avatar-upload .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            object-fit: cover;
         }
 
-        .avatar-upload:hover .avatar-overlay {
-            opacity: 1;
+        .avatar-placeholder {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .avatar-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 9999px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
-        /* Labels */
-        .label-modern {
-            color: rgba(255, 255, 255, 0.7);
-            font-weight: 600;
+        .avatar-upload:hover .avatar-overlay {
+            opacity: 1;
+        }
+
+        /* Form sections */
+        .form-section {
+            padding: 24px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             font-size: 0.875rem;
-            margin-bottom: 0.5rem;
+        }
+
+        /* Form inputs */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: var(--error);
+            margin-left: 2px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 0.9375rem;
+            color: var(--dark);
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:hover {
+            border-color: var(--gray-300);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .form-input.error {
+            border-color: var(--error);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .input-error {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 6px;
+            margin-top: 6px;
+            font-size: 0.8125rem;
+            color: var(--error);
         }
 
-        .label-modern i {
-            color: #8b5cf6;
-        }
-
-        /* Error messages */
-        .error-msg {
-            color: #f87171;
+        .char-counter {
             font-size: 0.75rem;
-            margin-top: 0.5rem;
-            display: flex;
+            color: var(--gray-400);
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        .char-counter.warning { color: #f59e0b; }
+        .char-counter.danger { color: var(--error); }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
             align-items: center;
-            gap: 0.25rem;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: 0 4px 14px rgba(30, 64, 175, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 64, 175, 0.35);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-200);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.35);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.8125rem;
         }
 
         /* Alert */
         .alert {
-            animation: fadeInUp 0.5s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            animation: fadeIn 0.3s ease;
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .alert-success {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
         }
 
-        ::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.05);
+        .alert-error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #8b5cf6, #ec4899);
-            border-radius: 4px;
+        .alert-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
-        /* Character counter */
-        .char-counter {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.4);
-            transition: color 0.3s ease;
+        .alert-success .alert-icon {
+            background: #10b981;
+            color: white;
         }
 
-        .char-counter.warning {
-            color: #fbbf24;
+        .alert-error .alert-icon {
+            background: #ef4444;
+            color: white;
         }
 
-        .char-counter.danger {
-            color: #f87171;
+        /* Avatar buttons */
+        .avatar-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .avatar-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .avatar-btn-upload {
+            background: white;
+            color: var(--primary);
+            border: none;
+        }
+
+        .avatar-btn-upload:hover {
+            background: rgba(255,255,255,0.9);
+        }
+
+        .avatar-btn-delete {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fecaca;
+            border: none;
+        }
+
+        .avatar-btn-delete:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        /* Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="bg-animated"></div>
-
-    <!-- Floating decorative elements -->
-    <div class="fixed top-20 left-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl floating"></div>
-    <div class="fixed bottom-20 right-10 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl floating-delay"></div>
-
-    <!-- Navigation Bar -->
-    <nav class="glass fixed top-0 left-0 right-0 z-50">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Navigation -->
+    <nav class="nav-bar sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <a href="/profile" class="flex items-center space-x-3 text-white/80 hover:text-white transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i class="fas fa-arrow-left text-white"></i>
-                    </div>
-                    <span class="font-semibold hidden sm:block">Retour au profil</span>
+                <a href="/profile" class="nav-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour au profil</span>
                 </a>
 
-                <h1 class="text-lg font-bold text-white flex items-center gap-2">
-                    <i class="fas fa-user-edit text-violet-400"></i>
-                    Modifier le profil
-                </h1>
+                <a href="/" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-globe text-white"></i>
+                    </div>
+                    <span class="font-display font-bold text-lg text-gray-900 hidden sm:block">Travel Express</span>
+                </a>
 
-                <div class="w-10 sm:w-40"></div>
+                <div class="w-32"></div>
             </div>
         </div>
     </nav>
 
-    <div class="relative z-10 max-w-5xl mx-auto px-4 pt-24 pb-12">
-        <div class="fade-in-up">
+    <!-- Main Content -->
+    <main class="pb-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 fade-in">
 
             <!-- Alert Container -->
-            <div id="alert-container" class="mb-6"></div>
+            <div id="alert-container"></div>
 
-            <!-- Main Form Card -->
-            <div class="glass rounded-3xl overflow-hidden">
+            <!-- Edit Card -->
+            <div class="card overflow-hidden">
 
                 <!-- Header with Avatar -->
-                <div class="relative bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 px-8 py-12">
-                    <div class="absolute inset-0 overflow-hidden">
-                        <div class="absolute -top-1/2 -right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-                        <div class="absolute -bottom-1/2 -left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-                    </div>
-
-                    <div class="relative text-center">
-                        <label class="avatar-upload inline-block">
+                <div class="edit-header px-6 py-10 relative z-10">
+                    <div class="flex flex-col items-center">
+                        <label class="avatar-upload">
                             <input type="file" id="avatar-input" accept="image/*" class="hidden">
-                            <div id="avatar-preview" class="w-32 h-32 rounded-full bg-white/20 flex items-center justify-center ring-4 ring-white/30 overflow-hidden mx-auto"></div>
+                            <div id="avatar-preview"></div>
                             <div class="avatar-overlay">
-                                <div class="text-center">
-                                    <i class="fas fa-camera text-2xl text-white mb-1"></i>
-                                    <p class="text-xs text-white font-medium">Changer</p>
-                                </div>
+                                <i class="fas fa-camera text-white text-xl mb-1"></i>
+                                <span class="text-white text-xs font-medium">Modifier</span>
                             </div>
                         </label>
 
-                        <div class="mt-4 flex justify-center gap-3">
-                            <button onclick="document.getElementById('avatar-input').click()" class="px-4 py-2 bg-white/20 hover:bg-white/30 text-white text-sm font-medium rounded-xl transition-all backdrop-blur-sm">
-                                <i class="fas fa-upload mr-2"></i>Changer la photo
+                        <div class="avatar-actions">
+                            <button type="button" onclick="document.getElementById('avatar-input').click()" class="avatar-btn avatar-btn-upload">
+                                <i class="fas fa-upload mr-2"></i>Changer
                             </button>
-                            <button onclick="deleteAvatar()" id="delete-avatar-btn" class="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-200 text-sm font-medium rounded-xl transition-all backdrop-blur-sm hidden">
+                            <button type="button" onclick="deleteAvatar()" id="delete-avatar-btn" class="avatar-btn avatar-btn-delete hidden">
                                 <i class="fas fa-trash mr-2"></i>Supprimer
                             </button>
                         </div>
-                        <p class="text-white/60 text-xs mt-3">JPG, PNG ou GIF - Max 2MB</p>
+
+                        <p class="text-blue-200 text-xs mt-3">JPG, PNG ou GIF - Max 2MB</p>
                     </div>
                 </div>
 
                 <!-- Form -->
-                <form id="profileForm" class="p-8 space-y-8">
+                <form id="profileForm">
 
-                    <!-- Personal Information Section -->
-                    <div class="section-card rounded-2xl p-6">
-                        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
-                                <i class="fas fa-user text-white"></i>
-                            </div>
+                    <!-- Personal Info Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <span class="section-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8)">
+                                <i class="fas fa-user"></i>
+                            </span>
                             Informations personnelles
                         </h3>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="label-modern">
-                                    <i class="fas fa-signature"></i>
-                                    Nom complet <span class="text-pink-400">*</span>
-                                </label>
-                                <input type="text" id="name" required
-                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
-                                    placeholder="Jean Dupont">
-                                <p class="error-msg hidden" id="name-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
+                            <div class="form-group">
+                                <label class="form-label">Nom complet <span class="required">*</span></label>
+                                <input type="text" id="name" class="form-input" placeholder="Jean Dupont" required>
+                                <p class="input-error hidden" id="name-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
 
-                            <div>
-                                <label class="label-modern">
-                                    <i class="fas fa-envelope"></i>
-                                    Email <span class="text-pink-400">*</span>
-                                </label>
-                                <input type="email" id="email" required
-                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
-                                    placeholder="jean@exemple.com">
-                                <p class="error-msg hidden" id="email-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
+                            <div class="form-group">
+                                <label class="form-label">Email <span class="required">*</span></label>
+                                <input type="email" id="email" class="form-input" placeholder="jean@exemple.com" required>
+                                <p class="input-error hidden" id="email-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Contact Section -->
-                    <div class="section-card rounded-2xl p-6">
-                        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
-                                <i class="fas fa-address-book text-white"></i>
-                            </div>
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <span class="section-icon" style="background: linear-gradient(135deg, #10b981, #059669)">
+                                <i class="fas fa-phone"></i>
+                            </span>
                             Contact
                         </h3>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="label-modern">
-                                    <i class="fas fa-phone"></i>
-                                    Téléphone
-                                </label>
-                                <input type="tel" id="phone"
-                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
-                                    placeholder="+33 6 12 34 56 78">
-                                <p class="error-msg hidden" id="phone-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
+                            <div class="form-group">
+                                <label class="form-label">Téléphone</label>
+                                <input type="tel" id="phone" class="form-input" placeholder="+33 6 12 34 56 78">
+                                <p class="input-error hidden" id="phone-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
 
-                            <div>
-                                <label class="label-modern">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    Localisation
-                                </label>
-                                <input type="text" id="location"
-                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
-                                    placeholder="Paris, France">
-                                <p class="error-msg hidden" id="location-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
+                            <div class="form-group">
+                                <label class="form-label">Localisation</label>
+                                <input type="text" id="location" class="form-input" placeholder="Paris, France">
+                                <p class="input-error hidden" id="location-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Professional Section -->
-                    <div class="section-card rounded-2xl p-6">
-                        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
-                                <i class="fas fa-briefcase text-white"></i>
-                            </div>
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <span class="section-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706)">
+                                <i class="fas fa-briefcase"></i>
+                            </span>
                             Informations professionnelles
                         </h3>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="label-modern">
-                                    <i class="fas fa-building"></i>
-                                    Entreprise
-                                </label>
-                                <input type="text" id="company"
-                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
-                                    placeholder="Travel Express">
-                                <p class="error-msg hidden" id="company-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
+                            <div class="form-group">
+                                <label class="form-label">Entreprise</label>
+                                <input type="text" id="company" class="form-input" placeholder="Travel Express">
+                                <p class="input-error hidden" id="company-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
 
-                            <div>
-                                <label class="label-modern">
-                                    <i class="fas fa-user-tie"></i>
-                                    Poste
-                                </label>
-                                <input type="text" id="position"
-                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
-                                    placeholder="Designer UI/UX">
-                                <p class="error-msg hidden" id="position-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
+                            <div class="form-group">
+                                <label class="form-label">Poste</label>
+                                <input type="text" id="position" class="form-input" placeholder="Designer UI/UX">
+                                <p class="input-error hidden" id="position-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
 
-                            <div class="md:col-span-2">
-                                <label class="label-modern">
-                                    <i class="fas fa-globe"></i>
-                                    Site web
-                                </label>
-                                <input type="url" id="website"
-                                    class="w-full px-4 py-3.5 rounded-xl input-modern outline-none"
-                                    placeholder="https://exemple.com">
-                                <p class="error-msg hidden" id="website-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
+                            <div class="form-group md:col-span-2">
+                                <label class="form-label">Site web</label>
+                                <input type="url" id="website" class="form-input" placeholder="https://exemple.com">
+                                <p class="input-error hidden" id="website-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Bio Section -->
-                    <div class="section-card rounded-2xl p-6">
-                        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center">
-                                <i class="fas fa-quote-left text-white"></i>
-                            </div>
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <span class="section-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed)">
+                                <i class="fas fa-quote-left"></i>
+                            </span>
                             À propos de vous
                         </h3>
 
-                        <div>
-                            <div class="flex justify-between items-center mb-2">
-                                <label class="label-modern mb-0">
-                                    <i class="fas fa-pen-fancy"></i>
-                                    Bio
-                                </label>
-                                <span class="char-counter" id="bio-counter">0/500</span>
-                            </div>
-                            <textarea id="bio" rows="4" maxlength="500"
-                                class="w-full px-4 py-3.5 rounded-xl input-modern outline-none resize-none"
-                                placeholder="Parlez-nous de vous, vos passions, vos expériences..."></textarea>
-                            <p class="error-msg hidden" id="bio-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
+                        <div class="form-group">
+                            <label class="form-label">Bio</label>
+                            <textarea id="bio" class="form-input" maxlength="500" placeholder="Parlez-nous de vous, vos passions, vos expériences..."></textarea>
+                            <div class="char-counter" id="bio-counter">0/500</div>
+                            <p class="input-error hidden" id="bio-error"><i class="fas fa-exclamation-circle"></i><span></span></p>
                         </div>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                        <button type="submit" id="saveButton"
-                            class="flex-1 py-4 btn-gradient text-white font-bold rounded-xl flex items-center justify-center gap-2">
-                            <i class="fas fa-check-circle"></i>
-                            <span id="saveButtonText">Enregistrer les modifications</span>
-                        </button>
+                    <!-- Actions -->
+                    <div class="form-section bg-gray-50">
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button type="submit" id="saveButton" class="btn btn-primary flex-1">
+                                <i class="fas fa-check"></i>
+                                <span id="saveButtonText">Enregistrer les modifications</span>
+                            </button>
 
-                        <a href="/profile"
-                            class="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
-                            <i class="fas fa-times"></i>
-                            Annuler
-                        </a>
+                            <a href="/profile" class="btn btn-secondary">
+                                <i class="fas fa-times"></i>
+                                Annuler
+                            </a>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
         const authToken = localStorage.getItem('auth_token');
@@ -537,11 +641,11 @@
             const deleteBtn = document.getElementById('delete-avatar-btn');
 
             if (user.avatar) {
-                preview.innerHTML = `<img src="/storage/${user.avatar}" alt="${user.name}" class="w-full h-full object-cover">`;
+                preview.innerHTML = `<img src="/storage/${user.avatar}" alt="${user.name}">`;
                 deleteBtn.classList.remove('hidden');
             } else {
                 const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
-                preview.innerHTML = `<div class="w-full h-full bg-gradient-to-br from-violet-600 via-purple-600 to-pink-600 flex items-center justify-center"><span class="text-4xl font-bold text-white">${initials}</span></div>`;
+                preview.innerHTML = `<div class="avatar-placeholder">${initials}</div>`;
                 deleteBtn.classList.add('hidden');
             }
         }
@@ -619,9 +723,10 @@
             const buttonText = document.getElementById('saveButtonText');
 
             document.querySelectorAll('[id$="-error"]').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.form-input').forEach(el => el.classList.remove('error'));
 
             button.disabled = true;
-            buttonText.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Enregistrement...';
+            buttonText.innerHTML = '<span class="spinner"></span> Enregistrement...';
 
             try {
                 const response = await fetch('/api/profile', {
@@ -653,10 +758,12 @@
                 } else {
                     if (data.errors) {
                         Object.keys(data.errors).forEach(key => {
-                            const el = document.getElementById(`${key}-error`);
-                            if (el) {
-                                el.querySelector('span').textContent = data.errors[key][0];
-                                el.classList.remove('hidden');
+                            const input = document.getElementById(key);
+                            const errorEl = document.getElementById(`${key}-error`);
+                            if (input) input.classList.add('error');
+                            if (errorEl) {
+                                errorEl.querySelector('span').textContent = data.errors[key][0];
+                                errorEl.classList.remove('hidden');
                             }
                         });
                     } else {
@@ -667,36 +774,29 @@
                 showAlert('Erreur lors de la mise à jour', 'error');
             } finally {
                 button.disabled = false;
-                buttonText.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Enregistrer les modifications';
+                buttonText.innerHTML = '<i class="fas fa-check"></i> Enregistrer les modifications';
             }
         });
 
         function showAlert(message, type) {
             const alertContainer = document.getElementById('alert-container');
-            const bgClass = type === 'success' ? 'from-emerald-500 to-green-600' : 'from-red-500 to-pink-600';
-            const iconClass = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            const iconClass = type === 'success' ? 'fa-check' : 'fa-exclamation-triangle';
 
             alertContainer.innerHTML = `
-                <div class="alert glass rounded-2xl p-4 border ${type === 'success' ? 'border-emerald-500/30' : 'border-red-500/30'}">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br ${bgClass} flex items-center justify-center flex-shrink-0">
-                            <i class="fas ${iconClass} text-white text-xl"></i>
-                        </div>
-                        <p class="text-white font-medium flex-1">${message}</p>
-                        <button onclick="this.parentElement.parentElement.remove()" class="text-white/50 hover:text-white transition-colors">
-                            <i class="fas fa-times"></i>
-                        </button>
+                <div class="alert alert-${type}">
+                    <div class="alert-icon">
+                        <i class="fas ${iconClass}"></i>
                     </div>
+                    <p class="flex-1 font-medium">${message}</p>
+                    <button onclick="this.parentElement.remove()" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
             `;
 
             setTimeout(() => {
                 const alert = alertContainer.querySelector('.alert');
-                if (alert) {
-                    alert.style.opacity = '0';
-                    alert.style.transform = 'translateY(-10px)';
-                    setTimeout(() => alert.remove(), 300);
-                }
+                if (alert) alert.remove();
             }, 5000);
         }
 
