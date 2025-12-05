@@ -18,7 +18,7 @@
         .font-sans { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; }
     </style>
 </head>
-<body class="font-sans text-dark antialiased bg-white overflow-x-hidden" x-data="{
+<body class="font-sans text-dark antialiased bg-white overflow-x-hidden w-full max-w-none m-0 p-0" x-data="{
     mobileMenuOpen: false,
     activeCountry: 'china',
     testimonialModalOpen: false,
