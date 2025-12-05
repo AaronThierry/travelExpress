@@ -755,458 +755,253 @@
         </div>
     </section>
 
-    <!-- Countries & Programs Section -->
-    <section id="programmes" class="relative py-24 bg-gradient-to-b from-white via-gray-light to-white overflow-hidden">
-        <!-- Background Decorative Elements -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-10 right-10 w-96 h-96 bg-primary-200/20 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-10 left-10 w-96 h-96 bg-accent-200/20 rounded-full blur-3xl"></div>
+    <!-- Destinations Section - Immersive Design -->
+    <section id="programmes" class="relative py-24 bg-dark overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.4\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
         </div>
 
         <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24 relative z-10">
-            <!-- Header with Badge -->
-            <div class="text-center mb-16 fade-in-up">
-                <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-primary-100 to-accent-100 rounded-capsule mb-6">
-                    <span class="text-sm font-bold text-primary-600">🎓 Plus de 500 étudiants accompagnés</span>
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center px-5 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6 border border-white/20">
+                    <span class="text-sm font-semibold text-white">🌍 Votre aventure commence ici</span>
                 </div>
-                <h2 class="text-4xl md:text-6xl font-display font-bold text-dark mb-6 tracking-apple-tight">
-                    <span class="text-gradient-animated">Étudiez</span> dans les meilleures universités
+                <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">
+                    Choisissez votre <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">destination</span>
                 </h2>
-                <p class="text-xl text-gray max-w-3xl mx-auto leading-apple">
-                    Trois destinations d'excellence avec des bourses complètes, des programmes en anglais et un accompagnement personnalisé de A à Z
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Explorez nos destinations d'excellence et trouvez l'université parfaite pour réaliser vos ambitions
                 </p>
             </div>
 
-            <!-- Stats Bar -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 fade-in-up">
-                <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
-                    <div class="text-4xl font-display font-bold text-primary-600 mb-2">98%</div>
-                    <div class="text-sm text-gray">Taux d'admission</div>
+            <!-- Destination Cards - Full Width Immersive -->
+            <div class="space-y-8">
+
+                <!-- CHINA Card -->
+                <div class="group relative rounded-3xl overflow-hidden cursor-pointer" @click="activeCountry = 'china'">
+                    <!-- Background Image -->
+                    <div class="absolute inset-0">
+                        <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+                             alt="Chine - Shanghai skyline"
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-r from-red-900/90 via-red-800/70 to-transparent"></div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="relative z-10 p-8 md:p-12 lg:p-16 min-h-[400px] flex flex-col justify-center">
+                        <div class="max-w-2xl">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="text-5xl">🇨🇳</span>
+                                <span class="px-4 py-1 bg-yellow-500 text-yellow-900 text-xs font-bold rounded-full uppercase tracking-wide">Destination #1</span>
+                            </div>
+
+                            <h3 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+                                Chine
+                            </h3>
+
+                            <p class="text-lg text-white/80 mb-6 max-w-xl">
+                                Plongez au cœur de la puissance économique mondiale. Étudiez dans des universités classées Top 100 mondial et vivez une expérience culturelle unique.
+                            </p>
+
+                            <!-- Key Points -->
+                            <div class="flex flex-wrap gap-3 mb-8">
+                                <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
+                                    💰 Aides financières disponibles
+                                </span>
+                                <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
+                                    🎓 200+ programmes en anglais
+                                </span>
+                                <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
+                                    🏛️ Universités prestigieuses
+                                </span>
+                            </div>
+
+                            <!-- Universities Preview -->
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="flex -space-x-3">
+                                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border-2 border-white">
+                                        <span class="text-xs font-bold text-red-600">THU</span>
+                                    </div>
+                                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border-2 border-white">
+                                        <span class="text-xs font-bold text-red-600">PKU</span>
+                                    </div>
+                                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border-2 border-white">
+                                        <span class="text-xs font-bold text-red-600">FDU</span>
+                                    </div>
+                                    <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center shadow-lg border-2 border-white">
+                                        <span class="text-xs font-bold text-white">+50</span>
+                                    </div>
+                                </div>
+                                <span class="text-white/70 text-sm">Universités partenaires</span>
+                            </div>
+
+                            <a href="#contact" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-red-600 font-bold rounded-xl hover:bg-yellow-400 hover:text-red-700 transition-all duration-300 group-hover:translate-x-2">
+                                Découvrir la Chine
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Stats Floating Cards -->
+                    <div class="hidden lg:block absolute right-12 top-1/2 -translate-y-1/2 space-y-4">
+                        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-transform">
+                            <div class="text-4xl font-display font-bold text-white mb-1">98%</div>
+                            <div class="text-sm text-white/70">Taux d'admission</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-transform">
+                            <div class="text-4xl font-display font-bold text-yellow-400 mb-1">0€</div>
+                            <div class="text-sm text-white/70">Frais de scolarité*</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
-                    <div class="text-4xl font-display font-bold text-primary-600 mb-2">100%</div>
-                    <div class="text-sm text-gray">Bourses disponibles</div>
-                </div>
-                <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
-                    <div class="text-4xl font-display font-bold text-primary-600 mb-2">50+</div>
-                    <div class="text-sm text-gray">Universités partenaires</div>
-                </div>
-                <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
-                    <div class="text-4xl font-display font-bold text-primary-600 mb-2">3-6</div>
-                    <div class="text-sm text-gray">Mois de traitement</div>
+
+                <!-- Two Columns: Spain & Germany -->
+                <div class="grid md:grid-cols-2 gap-8">
+
+                    <!-- SPAIN Card -->
+                    <div class="group relative rounded-3xl overflow-hidden cursor-pointer min-h-[500px]" @click="activeCountry = 'spain'">
+                        <!-- Background Image -->
+                        <div class="absolute inset-0">
+                            <img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+                                 alt="Espagne - Barcelone"
+                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-orange-900/95 via-red-800/60 to-transparent"></div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="relative z-10 p-8 h-full flex flex-col justify-end">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-4xl">🇪🇸</span>
+                                <span class="px-3 py-1 bg-yellow-500 text-yellow-900 text-xs font-bold rounded-full">Europe</span>
+                            </div>
+
+                            <h3 class="text-3xl md:text-4xl font-display font-bold text-white mb-3">
+                                Espagne
+                            </h3>
+
+                            <p class="text-white/80 mb-5">
+                                Vivez l'excellence européenne sous le soleil méditerranéen. Diplômes reconnus dans toute l'UE et qualité de vie exceptionnelle.
+                            </p>
+
+                            <!-- Key Features -->
+                            <div class="grid grid-cols-2 gap-3 mb-6">
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                                    <div class="text-2xl mb-1">🎨</div>
+                                    <div class="text-sm text-white font-medium">Arts & Design</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                                    <div class="text-2xl mb-1">💼</div>
+                                    <div class="text-sm text-white font-medium">Business</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                                    <div class="text-2xl mb-1">🏛️</div>
+                                    <div class="text-sm text-white font-medium">Architecture</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                                    <div class="text-2xl mb-1">⚖️</div>
+                                    <div class="text-sm text-white font-medium">Droit UE</div>
+                                </div>
+                            </div>
+
+                            <a href="#contact" class="inline-flex items-center justify-center gap-2 w-full px-6 py-4 bg-gradient-to-r from-red-500 to-yellow-500 text-white font-bold rounded-xl hover:from-red-600 hover:to-yellow-600 transition-all duration-300">
+                                Explorer l'Espagne
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- GERMANY Card -->
+                    <div class="group relative rounded-3xl overflow-hidden cursor-pointer min-h-[500px]" @click="activeCountry = 'germany'">
+                        <!-- Background Image -->
+                        <div class="absolute inset-0">
+                            <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+                                 alt="Allemagne - Berlin"
+                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/95 via-gray-800/60 to-transparent"></div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="relative z-10 p-8 h-full flex flex-col justify-end">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-4xl">🇩🇪</span>
+                                <span class="px-3 py-1 bg-yellow-400 text-gray-900 text-xs font-bold rounded-full">Innovation</span>
+                            </div>
+
+                            <h3 class="text-3xl md:text-4xl font-display font-bold text-white mb-3">
+                                Allemagne
+                            </h3>
+
+                            <p class="text-white/80 mb-5">
+                                Intégrez le pays de l'innovation et de l'ingénierie. Études gratuites dans les universités publiques et opportunités de carrière mondiales.
+                            </p>
+
+                            <!-- Key Features -->
+                            <div class="grid grid-cols-2 gap-3 mb-6">
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                                    <div class="text-2xl mb-1">⚙️</div>
+                                    <div class="text-sm text-white font-medium">Ingénierie</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                                    <div class="text-2xl mb-1">💻</div>
+                                    <div class="text-sm text-white font-medium">Informatique</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                                    <div class="text-2xl mb-1">🚗</div>
+                                    <div class="text-sm text-white font-medium">Automobile</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                                    <div class="text-2xl mb-1">🔬</div>
+                                    <div class="text-sm text-white font-medium">Recherche</div>
+                                </div>
+                            </div>
+
+                            <a href="#contact" class="inline-flex items-center justify-center gap-2 w-full px-6 py-4 bg-gradient-to-r from-gray-700 via-red-600 to-yellow-500 text-white font-bold rounded-xl hover:from-gray-800 hover:via-red-700 hover:to-yellow-600 transition-all duration-300">
+                                Découvrir l'Allemagne
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Country Tabs -->
-            <div class="flex flex-wrap justify-center gap-4 mb-12">
-                <button @click="activeCountry = 'china'"
-                        :class="activeCountry === 'china' ? 'bg-primary-600 text-white shadow-xl scale-105' : 'bg-white text-gray hover:text-dark'"
-                        class="px-8 py-4 rounded-capsule font-semibold transition-all duration-300 transform hover:scale-105">
-                    🇨🇳 Chine
-                </button>
-                <button @click="activeCountry = 'spain'"
-                        :class="activeCountry === 'spain' ? 'bg-primary-600 text-white shadow-xl scale-105' : 'bg-white text-gray hover:text-dark'"
-                        class="px-8 py-4 rounded-capsule font-semibold transition-all duration-300 transform hover:scale-105">
-                    🇪🇸 Espagne
-                </button>
-                <button @click="activeCountry = 'germany'"
-                        :class="activeCountry === 'germany' ? 'bg-primary-600 text-white shadow-xl scale-105' : 'bg-white text-gray hover:text-dark'"
-                        class="px-8 py-4 rounded-capsule font-semibold transition-all duration-300 transform hover:scale-105">
-                    🇩🇪 Allemagne
-                </button>
+            <!-- Bottom Stats -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                    <div class="text-4xl md:text-5xl font-display font-bold text-white mb-2">500+</div>
+                    <div class="text-gray-400">Étudiants accompagnés</div>
+                </div>
+                <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                    <div class="text-4xl md:text-5xl font-display font-bold text-primary-400 mb-2">98%</div>
+                    <div class="text-gray-400">Taux de réussite</div>
+                </div>
+                <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                    <div class="text-4xl md:text-5xl font-display font-bold text-accent-400 mb-2">50+</div>
+                    <div class="text-gray-400">Universités partenaires</div>
+                </div>
+                <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                    <div class="text-4xl md:text-5xl font-display font-bold text-green-400 mb-2">24h</div>
+                    <div class="text-gray-400">Réponse garantie</div>
+                </div>
             </div>
 
-            <!-- Country Content -->
-            <div class="relative">
-                <!-- China -->
-                <div x-show="activeCountry === 'china'"
-                     x-transition:enter="transition ease-out duration-300"
-                     x-transition:enter-start="opacity-0 transform translate-x-8"
-                     x-transition:enter-end="opacity-100 transform translate-x-0"
-                     class="grid md:grid-cols-2 gap-8">
-                    <div class="relative group">
-                        <!-- Chinese-inspired decorative glow effect (Red and Gold) -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-red-500 to-yellow-500 rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-
-                        <div class="relative card p-8 bg-gradient-to-br from-red-50 via-white to-yellow-50 border-2 border-red-100">
-                            <!-- Chinese Flag & Decoration -->
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="text-6xl">🇨🇳</div>
-                                <div class="text-4xl opacity-10 transform rotate-12">🏮</div>
-                            </div>
-
-                            <div class="mb-6">
-                                <h3 class="text-3xl font-display font-bold text-dark mb-2 flex items-center">
-                                    中国 - Chine
-                                </h3>
-                                <span class="px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white text-sm font-semibold rounded-xl shadow-lg inline-block">
-                                    ⭐ Destination Phare
-                                </span>
-                            </div>
-
-                            <!-- Value Proposition avec couleurs chinoises -->
-                            <div class="bg-gradient-to-br from-red-100 via-yellow-50 to-red-50 rounded-2xl p-5 mb-6 border-2 border-red-200 relative overflow-hidden">
-                                <div class="absolute top-0 right-0 text-6xl opacity-5">🐉</div>
-                                <p class="text-lg font-bold text-red-700 mb-2 relative z-10">🎓 Programme de Bourses CSC</p>
-                                <p class="text-sm text-gray-700 relative z-10">Financement gouvernemental intégral pour excellence académique</p>
-                            </div>
-
-                            <p class="text-gray leading-apple mb-6">
-                                Intégrez des universités chinoises de renommée internationale classées dans le Top 100 mondial grâce aux bourses CSC du gouvernement chinois.
-                            </p>
-
-                            <ul class="space-y-4 mb-8">
-                                <li class="flex items-start">
-                                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-red-100 to-yellow-100 rounded-lg flex items-center justify-center mr-3 border border-red-200">
-                                        <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-dark"><strong>Bourses complètes</strong> - Financement intégral de vos études</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-red-100 to-yellow-100 rounded-lg flex items-center justify-center mr-3 border border-red-200">
-                                        <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-dark"><strong>Programmes internationaux</strong> - Enseignement en anglais</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-red-100 to-yellow-100 rounded-lg flex items-center justify-center mr-3 border border-red-200">
-                                        <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-dark"><strong>Tous cycles</strong> - Licence, Master, Doctorat</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-red-100 to-yellow-100 rounded-lg flex items-center justify-center mr-3 border border-red-200">
-                                        <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-dark"><strong>Universités d'élite</strong> - Tsinghua, Peking, Fudan, SJTU</span>
-                                </li>
-                            </ul>
-
-                            <a href="#contact" class="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 w-full text-center block">
-                                Candidater maintenant
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="relative card p-8 bg-gradient-to-br from-red-600 via-red-700 to-yellow-600 text-white shadow-2xl overflow-hidden">
-                        <!-- Chinese decorative pattern overlay -->
-                        <div class="absolute top-0 right-0 text-9xl opacity-5 -rotate-12">🐉</div>
-
-                        <div class="relative z-10">
-                            <h4 class="text-2xl font-display font-bold mb-2">Domaines d'études</h4>
-                            <p class="text-red-100 mb-6 text-sm">Plus de 200 programmes disponibles</p>
-
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">💻</div>
-                                    <div class="text-sm font-semibold">Informatique & IA</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Très demandé</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">⚕️</div>
-                                    <div class="text-sm font-semibold">Médecine</div>
-                                    <div class="text-xs text-yellow-200 mt-1">MBBS en anglais</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">🏗️</div>
-                                    <div class="text-sm font-semibold">Ingénierie</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Tous domaines</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">💼</div>
-                                    <div class="text-sm font-semibold">Business & MBA</div>
-                                    <div class="text-xs text-yellow-200 mt-1">International</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">🎓</div>
-                                    <div class="text-sm font-semibold">Sciences</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Recherche</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">🌍</div>
-                                    <div class="text-sm font-semibold">Relations Int.</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Diplomatie</div>
-                                </div>
-                            </div>
-
-                            <!-- CTA Section -->
-                            <div class="mt-6 p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-yellow-400/30">
-                                <p class="text-sm text-center">
-                                    <strong>+ de 30 autres domaines disponibles</strong><br>
-                                    <span class="text-yellow-200 text-xs">Agriculture, Architecture, Arts, Économie, Droit...</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Spain -->
-                <div x-show="activeCountry === 'spain'"
-                     x-transition:enter="transition ease-out duration-300"
-                     x-transition:enter-start="opacity-0 transform translate-x-8"
-                     x-transition:enter-end="opacity-100 transform translate-x-0"
-                     class="grid md:grid-cols-2 gap-8">
-                    <div class="relative group">
-                        <!-- Spanish-inspired decorative glow effect (Red and Yellow) -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-red-600 to-yellow-500 rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-
-                        <div class="relative card p-8 bg-gradient-to-br from-yellow-50 via-white to-red-50 border-2 border-red-200">
-                            <!-- Spanish Flag & Decoration -->
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="text-6xl">🇪🇸</div>
-                                <div class="text-4xl opacity-10 transform rotate-12">🏰</div>
-                            </div>
-
-                            <div class="mb-6">
-                                <h3 class="text-3xl font-display font-bold text-dark mb-2 flex items-center">
-                                    España - Espagne
-                                </h3>
-                                <span class="px-4 py-2 bg-gradient-to-r from-red-600 to-yellow-600 text-white text-sm font-semibold rounded-xl shadow-lg inline-block">
-                                    ⭐ Excellence Européenne
-                                </span>
-                            </div>
-
-                            <!-- Value Proposition avec couleurs espagnoles -->
-                            <div class="bg-gradient-to-br from-yellow-100 via-red-50 to-yellow-50 rounded-2xl p-5 mb-6 border-2 border-red-200 relative overflow-hidden">
-                                <div class="absolute top-0 right-0 text-6xl opacity-5">💃</div>
-                                <p class="text-lg font-bold text-red-700 mb-2 relative z-10">🎓 Programmes Européens</p>
-                                <p class="text-sm text-gray-700 relative z-10">Excellence académique et qualité de vie exceptionnelle en Europe</p>
-                            </div>
-
-                            <p class="text-gray leading-apple mb-6">
-                                L'Espagne combine excellence académique européenne, qualité de vie exceptionnelle et opportunités de carrière dans toute l'Union européenne.
-                            </p>
-
-                            <ul class="space-y-4 mb-8">
-                                <li class="flex items-start">
-                                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-red-100 to-yellow-100 rounded-lg flex items-center justify-center mr-3 border border-red-200">
-                                        <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-dark"><strong>Diplômes reconnus</strong> - Dans toute l'Union Européenne</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-red-100 to-yellow-100 rounded-lg flex items-center justify-center mr-3 border border-red-200">
-                                        <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-dark"><strong>Coût de vie abordable</strong> - Qualité de vie méditerranéenne</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-red-100 to-yellow-100 rounded-lg flex items-center justify-center mr-3 border border-red-200">
-                                        <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-dark"><strong>Travail autorisé</strong> - Pendant et après les études</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-red-100 to-yellow-100 rounded-lg flex items-center justify-center mr-3 border border-red-200">
-                                        <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-dark"><strong>Universités prestigieuses</strong> - UB, UAM, UC3M, UPF</span>
-                                </li>
-                            </ul>
-
-                            <a href="#contact" class="bg-gradient-to-r from-red-600 to-yellow-600 hover:from-red-700 hover:to-yellow-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 w-full text-center block">
-                                En savoir plus
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="relative card p-8 bg-gradient-to-br from-red-600 via-red-700 to-yellow-600 text-white shadow-2xl overflow-hidden">
-                        <!-- Spanish decorative pattern overlay -->
-                        <div class="absolute top-0 right-0 text-9xl opacity-5 -rotate-12">🏰</div>
-
-                        <div class="relative z-10">
-                            <h4 class="text-2xl font-display font-bold mb-2">Domaines d'études</h4>
-                            <p class="text-yellow-100 mb-6 text-sm">Programmes variés en espagnol et anglais</p>
-
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">💼</div>
-                                    <div class="text-sm font-semibold">Business & MBA</div>
-                                    <div class="text-xs text-yellow-200 mt-1">International</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">🎨</div>
-                                    <div class="text-sm font-semibold">Arts & Design</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Créativité</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">🏛️</div>
-                                    <div class="text-sm font-semibold">Architecture</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Patrimoine</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">⚖️</div>
-                                    <div class="text-sm font-semibold">Droit Européen</div>
-                                    <div class="text-xs text-yellow-200 mt-1">UE</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">🏥</div>
-                                    <div class="text-sm font-semibold">Santé</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Médecine</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">🌍</div>
-                                    <div class="text-sm font-semibold">Tourisme</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Hôtellerie</div>
-                                </div>
-                            </div>
-
-                            <!-- CTA Section -->
-                            <div class="mt-6 p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-yellow-400/30">
-                                <p class="text-sm text-center">
-                                    <strong>+ de 40 autres domaines disponibles</strong><br>
-                                    <span class="text-yellow-200 text-xs">Communication, Marketing, Sciences Politiques, Langues...</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Germany -->
-                <div x-show="activeCountry === 'germany'"
-                     x-transition:enter="transition ease-out duration-300"
-                     x-transition:enter-start="opacity-0 transform translate-x-8"
-                     x-transition:enter-end="opacity-100 transform translate-x-0"
-                     class="grid md:grid-cols-2 gap-8">
-                    <div class="relative group">
-                        <!-- German-inspired decorative glow effect (Black, Red, Gold) -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-red-600 to-yellow-500 rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-
-                        <div class="relative card p-8 bg-gradient-to-br from-gray-50 via-white to-yellow-50 border-2 border-gray-300">
-                            <!-- German Flag & Decoration -->
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="text-6xl">🇩🇪</div>
-                                <div class="text-4xl opacity-10 transform rotate-12">🏰</div>
-                            </div>
-
-                            <div class="mb-6">
-                                <h3 class="text-3xl font-display font-bold text-dark mb-2 flex items-center">
-                                    Deutschland - Allemagne
-                                </h3>
-                                <span class="px-4 py-2 bg-gradient-to-r from-gray-800 via-red-600 to-yellow-600 text-white text-sm font-semibold rounded-xl shadow-lg inline-block">
-                                    ⭐ Excellence Technologique
-                                </span>
-                            </div>
-
-                            <!-- Value Proposition avec couleurs allemandes -->
-                            <div class="bg-gradient-to-br from-gray-100 via-red-50 to-yellow-100 rounded-2xl p-5 mb-6 border-2 border-gray-300 relative overflow-hidden">
-                                <div class="absolute top-0 right-0 text-6xl opacity-5">🔧</div>
-                                <p class="text-lg font-bold text-gray-800 mb-2 relative z-10">🎓 Éducation Gratuite</p>
-                                <p class="text-sm text-gray-700 relative z-10">Excellence académique sans frais de scolarité dans les universités publiques</p>
-                            </div>
-
-                            <p class="text-gray leading-apple mb-6">
-                                L'Allemagne est reconnue pour l'excellence de son système éducatif, particulièrement en ingénierie et sciences, avec des frais de scolarité très bas ou gratuits.
-                            </p>
-
-                            <ul class="space-y-4 mb-8">
-                                <li class="flex items-start">
-                                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-gray-200 to-yellow-100 rounded-lg flex items-center justify-center mr-3 border border-gray-300">
-                                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-dark"><strong>Frais gratuits</strong> - Universités publiques sans frais de scolarité</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-gray-200 to-yellow-100 rounded-lg flex items-center justify-center mr-3 border border-gray-300">
-                                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-dark"><strong>Excellence ingénierie</strong> - Leader mondial en innovation</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-gray-200 to-yellow-100 rounded-lg flex items-center justify-center mr-3 border border-gray-300">
-                                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-dark"><strong>Visa post-études</strong> - 18 mois pour chercher un emploi</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-gray-200 to-yellow-100 rounded-lg flex items-center justify-center mr-3 border border-gray-300">
-                                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-dark"><strong>Universités prestigieuses</strong> - TUM, LMU, RWTH, Heidelberg</span>
-                                </li>
-                            </ul>
-
-                            <a href="#contact" class="bg-gradient-to-r from-gray-800 via-red-600 to-yellow-600 hover:from-gray-900 hover:via-red-700 hover:to-yellow-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 w-full text-center block">
-                                En savoir plus
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="relative card p-8 bg-gradient-to-br from-gray-800 via-red-700 to-yellow-600 text-white shadow-2xl overflow-hidden">
-                        <!-- German decorative pattern overlay -->
-                        <div class="absolute top-0 right-0 text-9xl opacity-5 -rotate-12">⚙️</div>
-
-                        <div class="relative z-10">
-                            <h4 class="text-2xl font-display font-bold mb-2">Domaines d'études</h4>
-                            <p class="text-yellow-100 mb-6 text-sm">Excellence en ingénierie et sciences</p>
-
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">⚙️</div>
-                                    <div class="text-sm font-semibold">Ingénierie</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Mécanique</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">💻</div>
-                                    <div class="text-sm font-semibold">Informatique</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Technologie</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">🔬</div>
-                                    <div class="text-sm font-semibold">Recherche</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Innovation</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">🚗</div>
-                                    <div class="text-sm font-semibold">Automobile</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Industrie</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">🏭</div>
-                                    <div class="text-sm font-semibold">Industrie 4.0</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Futur</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-yellow-400/30">
-                                    <div class="text-4xl mb-2">💼</div>
-                                    <div class="text-sm font-semibold">Business</div>
-                                    <div class="text-xs text-yellow-200 mt-1">Économie</div>
-                                </div>
-                            </div>
-
-                            <!-- CTA Section -->
-                            <div class="mt-6 p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-yellow-400/30">
-                                <p class="text-sm text-center">
-                                    <strong>+ de 50 autres domaines disponibles</strong><br>
-                                    <span class="text-yellow-200 text-xs">Physique, Chimie, Médecine, Robotique, Aérospatiale...</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- CTA Section -->
+            <div class="mt-16 text-center">
+                <p class="text-gray-400 mb-6">Vous ne savez pas quelle destination choisir ?</p>
+                <a href="#contact" class="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-lg font-bold rounded-2xl shadow-2xl hover:shadow-primary-500/25 hover:scale-105 transition-all duration-300">
+                    <span>Consultation gratuite personnalisée</span>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                </a>
+                <p class="text-gray-500 text-sm mt-4">* Selon les programmes et éligibilité</p>
             </div>
         </div>
     </section>
