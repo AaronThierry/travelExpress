@@ -808,13 +808,16 @@
                             <!-- Key Points -->
                             <div class="flex flex-wrap gap-3 mb-8">
                                 <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
-                                    💰 Aides financières disponibles
+                                    🎯 Accompagnement personnalisé
                                 </span>
                                 <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
                                     🎓 200+ programmes en anglais
                                 </span>
                                 <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
-                                    🏛️ Universités prestigieuses
+                                    💼 Opportunités de bourses
+                                </span>
+                                <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
+                                    🏢 Accompagnement emploi
                                 </span>
                             </div>
 
@@ -853,8 +856,8 @@
                             <div class="text-sm text-white/70">Taux d'admission</div>
                         </div>
                         <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-transform">
-                            <div class="text-4xl font-display font-bold text-yellow-400 mb-1">0€</div>
-                            <div class="text-sm text-white/70">Frais de scolarité*</div>
+                            <div class="text-4xl font-display font-bold text-yellow-400 mb-1">A-Z</div>
+                            <div class="text-sm text-white/70">Accompagnement complet</div>
                         </div>
                     </div>
                 </div>
@@ -862,108 +865,144 @@
                 <!-- Two Columns: Spain & Germany -->
                 <div class="grid md:grid-cols-2 gap-8">
 
-                    <!-- SPAIN Card -->
-                    <div class="group relative rounded-3xl overflow-hidden cursor-pointer min-h-[500px]" @click="activeCountry = 'spain'">
+                    <!-- SPAIN Card - Modern Design -->
+                    <div class="group relative rounded-3xl overflow-hidden cursor-pointer min-h-[550px] shadow-2xl" @click="activeCountry = 'spain'">
                         <!-- Background Image -->
                         <div class="absolute inset-0">
                             <img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
                                  alt="Espagne - Barcelone"
                                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-gradient-to-t from-orange-900/95 via-red-800/60 to-transparent"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-orange-900/50 to-transparent"></div>
+                        </div>
+
+                        <!-- Floating Badge -->
+                        <div class="absolute top-6 right-6 z-20">
+                            <div class="px-4 py-2 bg-gradient-to-r from-red-500 to-yellow-500 rounded-full shadow-lg">
+                                <span class="text-white text-xs font-bold uppercase tracking-wider">Bourses disponibles</span>
+                            </div>
                         </div>
 
                         <!-- Content -->
                         <div class="relative z-10 p-8 h-full flex flex-col justify-end">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="text-4xl">🇪🇸</span>
-                                <span class="px-3 py-1 bg-yellow-500 text-yellow-900 text-xs font-bold rounded-full">Europe</span>
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="text-5xl drop-shadow-lg">🇪🇸</span>
+                                <div class="flex flex-col">
+                                    <span class="text-yellow-400 text-xs font-bold uppercase tracking-widest">Europe</span>
+                                    <h3 class="text-3xl md:text-4xl font-display font-bold text-white">Espagne</h3>
+                                </div>
                             </div>
 
-                            <h3 class="text-3xl md:text-4xl font-display font-bold text-white mb-3">
-                                Espagne
-                            </h3>
-
-                            <p class="text-white/80 mb-5">
-                                Vivez l'excellence européenne sous le soleil méditerranéen. Diplômes reconnus dans toute l'UE et qualité de vie exceptionnelle.
+                            <p class="text-white/90 mb-6 text-lg leading-relaxed">
+                                Vivez l'excellence européenne sous le soleil méditerranéen. Nous vous accompagnons de A à Z pour vos études et votre insertion professionnelle.
                             </p>
 
-                            <!-- Key Features -->
-                            <div class="grid grid-cols-2 gap-3 mb-6">
-                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                                    <div class="text-2xl mb-1">🎨</div>
-                                    <div class="text-sm text-white font-medium">Arts & Design</div>
+                            <!-- Modern Tags -->
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
+                                    🎯 Accompagnement études
+                                </span>
+                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
+                                    💼 Aide à l'emploi
+                                </span>
+                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
+                                    🏛️ Diplômes UE
+                                </span>
+                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
+                                    🎨 Arts & Business
+                                </span>
+                            </div>
+
+                            <!-- Stats Row -->
+                            <div class="grid grid-cols-3 gap-3 mb-6 py-4 border-t border-white/10">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-yellow-400">30+</div>
+                                    <div class="text-xs text-white/60">Universités</div>
                                 </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                                    <div class="text-2xl mb-1">💼</div>
-                                    <div class="text-sm text-white font-medium">Business</div>
+                                <div class="text-center border-x border-white/10">
+                                    <div class="text-2xl font-bold text-white">95%</div>
+                                    <div class="text-xs text-white/60">Réussite</div>
                                 </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                                    <div class="text-2xl mb-1">🏛️</div>
-                                    <div class="text-sm text-white font-medium">Architecture</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                                    <div class="text-2xl mb-1">⚖️</div>
-                                    <div class="text-sm text-white font-medium">Droit UE</div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-400">Job</div>
+                                    <div class="text-xs text-white/60">Support</div>
                                 </div>
                             </div>
 
-                            <a href="#contact" class="inline-flex items-center justify-center gap-2 w-full px-6 py-4 bg-gradient-to-r from-red-500 to-yellow-500 text-white font-bold rounded-xl hover:from-red-600 hover:to-yellow-600 transition-all duration-300">
-                                Explorer l'Espagne
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <a href="#contact" class="inline-flex items-center justify-center gap-2 w-full px-6 py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-yellow-400 transition-all duration-300 group-hover:shadow-xl">
+                                Démarrer mon projet
+                                <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                                 </svg>
                             </a>
                         </div>
                     </div>
 
-                    <!-- GERMANY Card -->
-                    <div class="group relative rounded-3xl overflow-hidden cursor-pointer min-h-[500px]" @click="activeCountry = 'germany'">
+                    <!-- GERMANY Card - Modern Design -->
+                    <div class="group relative rounded-3xl overflow-hidden cursor-pointer min-h-[550px] shadow-2xl" @click="activeCountry = 'germany'">
                         <!-- Background Image -->
                         <div class="absolute inset-0">
                             <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
                                  alt="Allemagne - Berlin"
                                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/95 via-gray-800/60 to-transparent"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-gray-900/50 to-transparent"></div>
+                        </div>
+
+                        <!-- Floating Badge -->
+                        <div class="absolute top-6 right-6 z-20">
+                            <div class="px-4 py-2 bg-gradient-to-r from-gray-800 to-yellow-500 rounded-full shadow-lg">
+                                <span class="text-white text-xs font-bold uppercase tracking-wider">Bourses DAAD</span>
+                            </div>
                         </div>
 
                         <!-- Content -->
                         <div class="relative z-10 p-8 h-full flex flex-col justify-end">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="text-4xl">🇩🇪</span>
-                                <span class="px-3 py-1 bg-yellow-400 text-gray-900 text-xs font-bold rounded-full">Innovation</span>
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="text-5xl drop-shadow-lg">🇩🇪</span>
+                                <div class="flex flex-col">
+                                    <span class="text-yellow-400 text-xs font-bold uppercase tracking-widest">Innovation</span>
+                                    <h3 class="text-3xl md:text-4xl font-display font-bold text-white">Allemagne</h3>
+                                </div>
                             </div>
 
-                            <h3 class="text-3xl md:text-4xl font-display font-bold text-white mb-3">
-                                Allemagne
-                            </h3>
-
-                            <p class="text-white/80 mb-5">
-                                Intégrez le pays de l'innovation et de l'ingénierie. Études gratuites dans les universités publiques et opportunités de carrière mondiales.
+                            <p class="text-white/90 mb-6 text-lg leading-relaxed">
+                                Leader mondial de l'ingénierie et de l'innovation. Nous vous guidons vers les meilleures universités et opportunités de carrière.
                             </p>
 
-                            <!-- Key Features -->
-                            <div class="grid grid-cols-2 gap-3 mb-6">
-                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                                    <div class="text-2xl mb-1">⚙️</div>
-                                    <div class="text-sm text-white font-medium">Ingénierie</div>
+                            <!-- Modern Tags -->
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
+                                    🎯 Accompagnement études
+                                </span>
+                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
+                                    💼 Insertion professionnelle
+                                </span>
+                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
+                                    ⚙️ Ingénierie & Tech
+                                </span>
+                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
+                                    🚗 Automobile
+                                </span>
+                            </div>
+
+                            <!-- Stats Row -->
+                            <div class="grid grid-cols-3 gap-3 mb-6 py-4 border-t border-white/10">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-yellow-400">20+</div>
+                                    <div class="text-xs text-white/60">Universités</div>
                                 </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                                    <div class="text-2xl mb-1">💻</div>
-                                    <div class="text-sm text-white font-medium">Informatique</div>
+                                <div class="text-center border-x border-white/10">
+                                    <div class="text-2xl font-bold text-white">97%</div>
+                                    <div class="text-xs text-white/60">Réussite</div>
                                 </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                                    <div class="text-2xl mb-1">🚗</div>
-                                    <div class="text-sm text-white font-medium">Automobile</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                                    <div class="text-2xl mb-1">🔬</div>
-                                    <div class="text-sm text-white font-medium">Recherche</div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-400">Job</div>
+                                    <div class="text-xs text-white/60">Support</div>
                                 </div>
                             </div>
 
-                            <a href="#contact" class="inline-flex items-center justify-center gap-2 w-full px-6 py-4 bg-gradient-to-r from-gray-700 via-red-600 to-yellow-500 text-white font-bold rounded-xl hover:from-gray-800 hover:via-red-700 hover:to-yellow-600 transition-all duration-300">
-                                Découvrir l'Allemagne
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <a href="#contact" class="inline-flex items-center justify-center gap-2 w-full px-6 py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-yellow-400 transition-all duration-300 group-hover:shadow-xl">
+                                Démarrer mon projet
+                                <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                                 </svg>
                             </a>
@@ -1001,7 +1040,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                     </svg>
                 </a>
-                <p class="text-gray-500 text-sm mt-4">* Selon les programmes et éligibilité</p>
+                <p class="text-gray-500 text-sm mt-4">Accompagnement personnalisé pour chaque étudiant</p>
             </div>
         </div>
     </section>
