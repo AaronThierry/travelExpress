@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Travel Express - Votre partenaire de confiance pour vos études à l'étranger en Chine, Espagne et Allemagne. Bourses, admissions, visas.">
-    <title>Travel Express - Études à l'Étranger | Chine, Espagne, Allemagne</title>
+    <meta name="description" content="Travel Express - Votre partenaire pour réaliser vos projets à l'international. Études, travail et business en Chine, Espagne et Allemagne. Accompagnement personnalisé.">
+    <title>Travel Express - Études, Travail & Business à l'International</title>
 
     <!-- Google Fonts - Premium Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,12 +23,12 @@
     activeCountry: 'china',
     testimonialModalOpen: false,
     faqs: [
-        { id: 1, open: false, question: 'Quelles sont les conditions pour obtenir une bourse ?', answer: 'Les conditions varient selon le pays et le programme. En général, un bon dossier académique, une lettre de motivation solide et parfois un niveau de langue sont requis. Notre équipe vous accompagne dans la constitution d\'un dossier compétitif.' },
-        { id: 2, open: false, question: 'Combien de temps prend le processus d\'admission ?', answer: 'Le processus complet prend généralement entre 3 et 6 mois, incluant la préparation du dossier, les candidatures, l\'obtention de l\'admission et le visa. Nous recommandons de commencer au moins 6 mois avant la rentrée souhaitée.' },
-        { id: 3, open: false, question: 'Dois-je parler la langue du pays d\'accueil ?', answer: 'Pas nécessairement. De nombreux programmes sont dispensés en anglais. Pour les programmes en langue locale, des cours de préparation linguistique sont souvent disponibles avant ou pendant vos études.' },
-        { id: 4, open: false, question: 'Quel est le coût de vos services ?', answer: 'Nos services sont personnalisés selon vos besoins. Nous proposons différentes formules d\'accompagnement. Contactez-nous pour un devis gratuit adapté à votre projet.' },
-        { id: 5, open: false, question: 'Aidez-vous pour le logement et l\'installation ?', answer: 'Absolument ! Notre accompagnement inclut la recherche de logement, l\'accueil à l\'aéroport, l\'inscription administrative et toute l\'aide nécessaire pour votre installation dans votre pays d\'accueil.' },
-        { id: 6, open: false, question: 'Puis-je travailler pendant mes études ?', answer: 'Cela dépend du pays et de votre visa étudiant. En Chine, Espagne et Allemagne, les étudiants internationaux peuvent généralement travailler à temps partiel. Nous vous informons sur les réglementations spécifiques.' }
+        { id: 1, open: false, question: 'Quels types de projets accompagnez-vous ?', answer: 'Nous accompagnons trois types de projets : les études (universités, formations professionnelles), le travail (recherche d\'emploi, contrats de travail) et les affaires (import-export, création d\'entreprise, partenariats commerciaux) en Chine, Espagne et Allemagne.' },
+        { id: 2, open: false, question: 'Combien de temps prend le processus complet ?', answer: 'Le délai varie selon votre projet. Pour les études : 3 à 6 mois. Pour un contrat de travail : 2 à 4 mois. Pour un projet business : 1 à 3 mois selon la complexité. Nous recommandons de nous contacter le plus tôt possible.' },
+        { id: 3, open: false, question: 'Dois-je parler la langue du pays de destination ?', answer: 'Pas nécessairement. Pour les études, de nombreux programmes sont en anglais. Pour le travail et le business, cela dépend du secteur. Nous pouvons vous orienter vers des formations linguistiques adaptées.' },
+        { id: 4, open: false, question: 'Quel est le coût de vos services ?', answer: 'Nos tarifs sont adaptés à chaque projet. Nous proposons différentes formules selon vos besoins : accompagnement études, accompagnement professionnel, accompagnement business. Contactez-nous pour un devis personnalisé gratuit.' },
+        { id: 5, open: false, question: 'Aidez-vous pour le logement et l\'installation ?', answer: 'Oui ! Notre accompagnement inclut la recherche de logement, l\'accueil à l\'aéroport, les démarches administratives et toute l\'aide nécessaire pour votre installation réussie dans votre pays de destination.' },
+        { id: 6, open: false, question: 'Proposez-vous un accompagnement pour le business en Chine ?', answer: 'Absolument ! Nous accompagnons les entrepreneurs dans leurs projets d\'import-export, la recherche de fournisseurs, la création de partenariats commerciaux et l\'installation d\'activités en Chine. Notre réseau local facilite vos démarches.' }
     ]
 }">
 
@@ -444,21 +444,21 @@
                     <!-- Badge -->
                     <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2">
                         <div class="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></div>
-                        <span class="text-white/90 text-sm font-semibold">🎓 Votre avenir commence ici</span>
+                        <span class="text-white/90 text-sm font-semibold">🌍 Études • Travail • Business</span>
                     </div>
 
                     <!-- Main Heading -->
                     <h1 class="text-4xl md:text-6xl xl:text-7xl font-display font-black text-white leading-tight">
-                        Transformez vos
+                        Réalisez vos
                         <span class="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-accent-400 via-accent-500 to-primary-400 animate-gradient">
-                            rêves d'études
+                            projets à l'international
                         </span>
-                        <span class="block mt-2">en réalité</span>
+                        <span class="block mt-2">avec nous</span>
                     </h1>
 
                     <!-- Subheading -->
                     <p class="text-lg md:text-xl text-white/80 leading-relaxed max-w-xl">
-                        Rejoignez <strong class="text-white font-bold">500+ étudiants africains</strong> qui ont décroché leurs bourses pour étudier en
+                        Travel Express accompagne les <strong class="text-white font-bold">étudiants, travailleurs et entrepreneurs</strong> dans leurs projets en
                         <span class="text-accent-400 font-semibold">Chine</span>,
                         <span class="text-accent-400 font-semibold">Espagne</span> et
                         <span class="text-accent-400 font-semibold">Allemagne</span>.
@@ -498,7 +498,7 @@
                             <svg class="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <span class="text-white/90 font-semibold">95% de réussite</span>
+                            <span class="text-white/90 font-semibold">+10 ans d'expérience</span>
                         </div>
                     </div>
                 </div>
@@ -507,15 +507,15 @@
                 <div class="grid grid-cols-2 gap-4 lg:gap-6">
                     <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
                         <div class="text-5xl font-black text-white mb-2 group-hover:scale-110 transition-transform">500+</div>
-                        <div class="text-white/80 font-semibold">Étudiants<br/>accompagnés</div>
+                        <div class="text-white/80 font-semibold">Clients<br/>accompagnés</div>
                     </div>
                     <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
-                        <div class="text-5xl font-black text-accent-400 mb-2 group-hover:scale-110 transition-transform">50+</div>
-                        <div class="text-white/80 font-semibold">Universités<br/>partenaires</div>
+                        <div class="text-5xl font-black text-accent-400 mb-2 group-hover:scale-110 transition-transform">3</div>
+                        <div class="text-white/80 font-semibold">Destinations<br/>privilégiées</div>
                     </div>
                     <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
-                        <div class="text-5xl font-black text-white mb-2 group-hover:scale-110 transition-transform">95%</div>
-                        <div class="text-white/80 font-semibold">Taux de<br/>réussite</div>
+                        <div class="text-5xl font-black text-white mb-2 group-hover:scale-110 transition-transform">10+</div>
+                        <div class="text-white/80 font-semibold">Années<br/>d'expérience</div>
                     </div>
                     <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
                         <div class="text-5xl font-black text-accent-400 mb-2 group-hover:scale-110 transition-transform">100%</div>
@@ -595,7 +595,7 @@
                     Pourquoi choisir <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-600">Travel Express</span> ?
                 </h2>
                 <p class="text-xl md:text-2xl text-gray max-w-3xl mx-auto leading-relaxed">
-                    Une expertise reconnue et un accompagnement sur mesure pour garantir votre réussite
+                    Votre partenaire de confiance pour concrétiser vos projets d'études, de travail et d'affaires à l'international
                 </p>
             </div>
 
@@ -632,12 +632,12 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-accent-600 transition-colors">Bourses garanties</h3>
+                        <h3 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-accent-600 transition-colors">Services complets</h3>
                         <p class="text-gray leading-relaxed text-lg mb-4">
-                            Accès exclusif à des <strong class="text-accent-600">bourses complètes</strong> couvrant frais de scolarité, logement et allocation mensuelle.
+                            Études, travail, business : nous vous accompagnons dans <strong class="text-accent-600">tous vos projets</strong> à l'international avec des solutions adaptées.
                         </p>
                         <div class="flex items-center text-accent-600 font-semibold group-hover:translate-x-2 transition-transform">
-                            <span class="text-sm">Découvrir les bourses</span>
+                            <span class="text-sm">Découvrir nos services</span>
                             <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
@@ -676,12 +676,12 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-accent-600 transition-colors">Réseau mondial</h3>
+                        <h3 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-accent-600 transition-colors">Réseau international</h3>
                         <p class="text-gray leading-relaxed text-lg mb-4">
-                            Partenariats avec <strong class="text-accent-600">50+ universités prestigieuses</strong> en Chine, Espagne et Allemagne.
+                            Des contacts établis avec <strong class="text-accent-600">universités, entreprises et partenaires</strong> en Chine, Espagne et Allemagne.
                         </p>
                         <div class="flex items-center text-accent-600 font-semibold group-hover:translate-x-2 transition-transform">
-                            <span class="text-sm">Voir les universités</span>
+                            <span class="text-sm">Voir nos partenaires</span>
                             <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
@@ -763,7 +763,7 @@
                     Choisissez votre <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">destination</span>
                 </h2>
                 <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                    Explorez nos destinations d'excellence et trouvez l'université parfaite pour réaliser vos ambitions
+                    Études, travail ou business : découvrez nos destinations et lancez votre projet international
                 </p>
             </div>
 
@@ -793,22 +793,22 @@
                             </h3>
 
                             <p class="text-lg text-white/80 mb-6 max-w-xl">
-                                Plongez au cœur de la puissance économique mondiale. Étudiez dans des universités classées Top 100 mondial et vivez une expérience culturelle unique.
+                                Plongez au cœur de la puissance économique mondiale. Études, stages, travail ou opportunités business dans un marché en pleine expansion.
                             </p>
 
                             <!-- Key Points -->
                             <div class="flex flex-wrap gap-3 mb-8">
                                 <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
-                                    🎯 Accompagnement personnalisé
+                                    🎓 Études universitaires
                                 </span>
                                 <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
-                                    🎓 200+ programmes en anglais
+                                    💼 Opportunités de travail
                                 </span>
                                 <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
-                                    💼 Opportunités de bourses
+                                    🏢 Business & Import-Export
                                 </span>
                                 <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
-                                    🏢 Accompagnement emploi
+                                    🎯 Accompagnement complet
                                 </span>
                             </div>
 
@@ -869,7 +869,7 @@
                         <!-- Floating Badge -->
                         <div class="absolute top-6 right-6 z-20">
                             <div class="px-4 py-2 bg-gradient-to-r from-red-500 to-yellow-500 rounded-full shadow-lg">
-                                <span class="text-white text-xs font-bold uppercase tracking-wider">Bourses disponibles</span>
+                                <span class="text-white text-xs font-bold uppercase tracking-wider">Europe & Opportunités</span>
                             </div>
                         </div>
 
@@ -884,7 +884,7 @@
                             </div>
 
                             <p class="text-white/90 mb-6 text-lg leading-relaxed">
-                                Vivez l'excellence européenne sous le soleil méditerranéen. Nous vous accompagnons de A à Z pour vos études et votre insertion professionnelle.
+                                Porte d'entrée vers l'Europe. Études, travail saisonnier, entrepreneuriat : nous vous accompagnons dans tous vos projets.
                             </p>
 
                             <!-- Modern Tags -->
@@ -941,7 +941,7 @@
                         <!-- Floating Badge -->
                         <div class="absolute top-6 right-6 z-20">
                             <div class="px-4 py-2 bg-gradient-to-r from-gray-800 to-yellow-500 rounded-full shadow-lg">
-                                <span class="text-white text-xs font-bold uppercase tracking-wider">Bourses DAAD</span>
+                                <span class="text-white text-xs font-bold uppercase tracking-wider">Travail & Formation</span>
                             </div>
                         </div>
 
@@ -956,7 +956,7 @@
                             </div>
 
                             <p class="text-white/90 mb-6 text-lg leading-relaxed">
-                                Leader mondial de l'ingénierie et de l'innovation. Nous vous guidons vers les meilleures universités et opportunités de carrière.
+                                Première économie européenne. Études, formation professionnelle, emploi qualifié : construisez votre avenir avec nous.
                             </p>
 
                             <!-- Modern Tags -->
@@ -1041,10 +1041,10 @@
         <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
             <div class="text-center mb-16 fade-in-up">
                 <h2 class="text-4xl md:text-5xl font-display font-bold text-dark mb-4 tracking-apple-tight">
-                    Notre processus en 4 étapes
+                    Notre accompagnement en 4 étapes
                 </h2>
                 <p class="text-xl text-gray ">
-                    Un accompagnement structuré et transparent du début à la fin
+                    Un processus clair et personnalisé pour concrétiser votre projet
                 </p>
             </div>
 
@@ -1063,9 +1063,9 @@
                                 <span class="text-2xl font-bold text-blue-600">1</span>
                             </div>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-3">Consultation gratuite</h3>
+                        <h3 class="text-2xl font-display font-bold text-dark mb-3">Consultation initiale</h3>
                         <p class="text-gray leading-apple">
-                            Évaluation de votre profil et définition de vos objectifs académiques et professionnels.
+                            Analyse de votre projet (études, travail ou business) et définition de vos objectifs.
                         </p>
                     </div>
 
@@ -1079,9 +1079,9 @@
                                 <span class="text-2xl font-bold text-purple-600">2</span>
                             </div>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-3">Constitution du dossier</h3>
+                        <h3 class="text-2xl font-display font-bold text-dark mb-3">Préparation du dossier</h3>
                         <p class="text-gray leading-apple">
-                            Préparation complète de votre dossier : documents, lettres de motivation, recommandations.
+                            Constitution et optimisation de votre dossier selon votre projet : admission, contrat ou création d'entreprise.
                         </p>
                     </div>
 
@@ -1095,9 +1095,9 @@
                                 <span class="text-2xl font-bold text-orange-600">3</span>
                             </div>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-3">Admission</h3>
+                        <h3 class="text-2xl font-display font-bold text-dark mb-3">Démarches & Validation</h3>
                         <p class="text-gray leading-apple">
-                            Dépôt de vos candidatures dans les meilleures universités et suivi personnalisé jusqu'à votre admission.
+                            Suivi de vos candidatures, démarches administratives et obtention des validations nécessaires.
                         </p>
                     </div>
 
@@ -1111,9 +1111,9 @@
                                 <span class="text-2xl font-bold text-green-600">4</span>
                             </div>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-3">Visa & Départ</h3>
+                        <h3 class="text-2xl font-display font-bold text-dark mb-3">Visa & Installation</h3>
                         <p class="text-gray leading-apple">
-                            Accompagnement pour le visa, logement, billets d'avion et préparation de votre départ.
+                            Accompagnement visa, logement et préparation à votre nouvelle vie à l'étranger.
                         </p>
                     </div>
                 </div>
@@ -1433,10 +1433,10 @@
         <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
             <div class="text-center mb-16 fade-in-up">
                 <h2 class="text-4xl md:text-5xl font-display font-bold text-dark mb-4 tracking-apple-tight">
-                    Démarrez votre aventure aujourd'hui
+                    Concrétisez votre projet international
                 </h2>
                 <p class="text-xl text-gray ">
-                    Remplissez ce formulaire et notre équipe vous contactera sous 24h pour une consultation gratuite
+                    Études, travail ou business ? Parlez-nous de votre projet et recevez un accompagnement personnalisé
                 </p>
             </div>
 
@@ -1482,22 +1482,22 @@
                             </select>
                         </div>
                         <div>
-                            <label for="level" class="block text-sm font-semibold text-dark mb-2">Niveau d'études souhaité *</label>
-                            <select id="level" name="level" required
+                            <label for="project_type" class="block text-sm font-semibold text-dark mb-2">Type de projet *</label>
+                            <select id="project_type" name="project_type" required
                                     class="w-full px-4 py-3 border border-gray-300 rounded-apple focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                                 <option value="">Sélectionnez...</option>
-                                <option value="licence">Licence / Bachelor</option>
-                                <option value="master">Master</option>
-                                <option value="phd">Doctorat / PhD</option>
-                                <option value="other">Autre</option>
+                                <option value="etudes">Études (Université, Formation)</option>
+                                <option value="travail">Travail (Emploi, Contrat)</option>
+                                <option value="business">Business (Import-Export, Partenariat)</option>
+                                <option value="autre">Autre / Plusieurs projets</option>
                             </select>
                         </div>
                     </div>
 
                     <div>
-                        <label for="field" class="block text-sm font-semibold text-dark mb-2">Domaine d'études *</label>
+                        <label for="field" class="block text-sm font-semibold text-dark mb-2">Précisez votre projet *</label>
                         <input type="text" id="field" name="field" required
-                               placeholder="Ex: Informatique, Médecine, Ingénierie..."
+                               placeholder="Ex: Master en informatique, Recherche d'emploi en ingénierie, Import de produits électroniques..."
                                class="w-full px-4 py-3 border border-gray-300 rounded-apple focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
                     </div>
 
@@ -1512,19 +1512,19 @@
                         <input type="checkbox" id="consent" name="consent" required
                                class="mt-1 w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-600">
                         <label for="consent" class="ml-3 text-sm text-gray">
-                            J'accepte que mes informations soient utilisées pour me contacter concernant ma candidature. *
+                            J'accepte que mes informations soient utilisées pour me contacter concernant mon projet. *
                         </label>
                     </div>
 
                     <button type="submit" class="btn-primary w-full text-center text-lg">
-                        Envoyer ma candidature
+                        Envoyer ma demande
                         <svg class="inline-block w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
                     </button>
 
                     <p class="text-center text-sm text-gray">
-                        Réponse garantie sous 24 heures • Consultation gratuite
+                        Réponse sous 24 heures • Consultation personnalisée gratuite
                     </p>
                 </form>
             </div>
@@ -1612,11 +1612,11 @@
                 <div>
                     <h4 class="font-display font-bold text-lg mb-4">Destinations</h4>
                     <ul class="space-y-2">
-                        <li><a href="#programmes" class="text-gray-400 hover:text-white transition-colors">🇨🇳 Études en Chine</a></li>
-                        <li><a href="#programmes" class="text-gray-400 hover:text-white transition-colors">🇪🇸 Études en Espagne</a></li>
-                        <li><a href="#programmes" class="text-gray-400 hover:text-white transition-colors">🇩🇪 Études en Allemagne</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bourses d'études</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Nos universités</a></li>
+                        <li><a href="#programmes" class="text-gray-400 hover:text-white transition-colors">🇨🇳 Chine</a></li>
+                        <li><a href="#programmes" class="text-gray-400 hover:text-white transition-colors">🇪🇸 Espagne</a></li>
+                        <li><a href="#programmes" class="text-gray-400 hover:text-white transition-colors">🇩🇪 Allemagne</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Nos universités partenaires</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Opportunités business</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Success stories</a></li>
                     </ul>
                 </div>
@@ -1626,9 +1626,9 @@
                     <h4 class="font-display font-bold text-lg mb-4">Ressources</h4>
                     <ul class="space-y-2">
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Guide des bourses</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Préparer son visa</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Vie étudiante</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Guide visa</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Guide études à l'étranger</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Guide import-export</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Télécharger la brochure</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Devenir partenaire</a></li>
                     </ul>
