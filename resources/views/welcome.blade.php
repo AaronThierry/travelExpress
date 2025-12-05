@@ -1686,9 +1686,6 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    @include('components.testimonials')
-
     <!-- Footer -->
     <footer class="bg-dark text-white py-16">
         <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
