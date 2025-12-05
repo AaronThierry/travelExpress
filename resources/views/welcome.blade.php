@@ -1506,8 +1506,35 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
                             <label for="contact-phone" class="block text-xs font-medium text-dark mb-1">Téléphone / WhatsApp *</label>
-                            <input type="tel" id="contact-phone" name="phone" required
-                                   class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
+                            <div class="flex gap-2">
+                                <select id="contact-phone-code" name="phone_code" required
+                                        class="w-28 px-2 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
+                                    <option value="+221">🇸🇳 +221</option>
+                                    <option value="+237">🇨🇲 +237</option>
+                                    <option value="+225">🇨🇮 +225</option>
+                                    <option value="+223">🇲🇱 +223</option>
+                                    <option value="+224">🇬🇳 +224</option>
+                                    <option value="+229">🇧🇯 +229</option>
+                                    <option value="+228">🇹🇬 +228</option>
+                                    <option value="+226">🇧🇫 +226</option>
+                                    <option value="+227">🇳🇪 +227</option>
+                                    <option value="+242">🇨🇬 +242</option>
+                                    <option value="+243">🇨🇩 +243</option>
+                                    <option value="+241">🇬🇦 +241</option>
+                                    <option value="+212">🇲🇦 +212</option>
+                                    <option value="+213">🇩🇿 +213</option>
+                                    <option value="+216">🇹🇳 +216</option>
+                                    <option value="+33">🇫🇷 +33</option>
+                                    <option value="+32">🇧🇪 +32</option>
+                                    <option value="+41">🇨🇭 +41</option>
+                                    <option value="+1">🇺🇸 +1</option>
+                                    <option value="+86">🇨🇳 +86</option>
+                                    <option value="+34">🇪🇸 +34</option>
+                                    <option value="+49">🇩🇪 +49</option>
+                                </select>
+                                <input type="tel" id="contact-phone" name="phone" required placeholder="77 123 45 67"
+                                       class="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
+                            </div>
                         </div>
                         <div>
                             <label for="contact-country" class="block text-xs font-medium text-dark mb-1">Pays de résidence</label>
@@ -2008,10 +2035,14 @@
             submitLoading.classList.remove('hidden');
 
             // Gather form data
+            const phoneCode = document.getElementById('contact-phone-code').value;
+            const phoneNumber = document.getElementById('contact-phone').value.replace(/\s/g, '');
+            const fullPhone = phoneCode + phoneNumber;
+
             const formData = {
                 name: document.getElementById('contact-name').value,
                 email: document.getElementById('contact-email').value,
-                phone: document.getElementById('contact-phone').value,
+                phone: fullPhone,
                 country: document.getElementById('contact-country').value || null,
                 destination: document.getElementById('contact-destination').value,
                 project_type: document.getElementById('contact-project-type').value,

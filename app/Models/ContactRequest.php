@@ -88,14 +88,13 @@ class ContactRequest extends Model
     // Génère le lien WhatsApp
     public function getWhatsappLink(): string
     {
+        // Nettoyer le numéro (garder uniquement les chiffres, l'indicatif est déjà inclus)
         $phone = preg_replace('/[^0-9]/', '', $this->phone);
 
-        // Ajouter l'indicatif si manquant
-        if (!str_starts_with($phone, '221') && !str_starts_with($phone, '+')) {
-            $phone = '221' . $phone;
-        }
+        $projectType = self::getProjectTypes()[$this->project_type] ?? $this->project_type;
+        $destination = self::getDestinations()[$this->destination] ?? $this->destination;
 
-        $message = urlencode("Bonjour {$this->name},\n\nMerci pour votre demande concernant votre projet " . self::getProjectTypes()[$this->project_type] ?? $this->project_type . " en " . self::getDestinations()[$this->destination] ?? $this->destination . ".\n\nJe suis [Votre nom] de Travel Express. Je vous contacte pour discuter de votre projet.\n\nPouvez-vous me donner plus de détails sur vos attentes ?");
+        $message = urlencode("Bonjour {$this->name},\n\nMerci pour votre demande concernant votre projet {$projectType} vers {$destination}.\n\nJe suis de Travel Express. Je vous contacte pour discuter de votre projet.\n\nPouvez-vous me donner plus de détails sur vos attentes ?");
 
         return "https://wa.me/{$phone}?text={$message}";
     }

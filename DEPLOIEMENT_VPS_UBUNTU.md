@@ -76,6 +76,13 @@ CREATE USER 'travel_user'@'localhost' IDENTIFIED BY 'votre_mot_de_passe';
 GRANT ALL PRIVILEGES ON travel_express.* TO 'travel_user'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
+
+
+
+
+
+
+
 ```
 
 ---
