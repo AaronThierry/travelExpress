@@ -20,15 +20,19 @@ class TestimonialController extends Controller
             ->map(function ($testimonial) {
                 return [
                     'id' => $testimonial->id,
+                    'name' => $testimonial->user->name ?? $testimonial->name ?? 'Anonyme',
                     'content' => $testimonial->content,
+                    'country' => $testimonial->country ?? $testimonial->user->country ?? null,
                     'destination' => $testimonial->destination,
+                    'program' => $testimonial->user->position ?? null,
                     'rating' => $testimonial->rating,
-                    'user' => [
+                    'user' => $testimonial->user ? [
                         'name' => $testimonial->user->name,
                         'country' => $testimonial->user->country,
                         'position' => $testimonial->user->position,
-                    ],
-                    'created_at' => $testimonial->created_at->format('d M Y'),
+                        'profile_photo' => $testimonial->user->profile_photo,
+                    ] : null,
+                    'created_at' => $testimonial->created_at,
                 ];
             });
 

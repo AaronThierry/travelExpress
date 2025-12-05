@@ -1154,6 +1154,13 @@
                     'NE': '🇳🇪', 'GA': '🇬🇦', 'CG': '🇨🇬', 'CD': '🇨🇩',
                     'MA': '🇲🇦', 'TN': '🇹🇳', 'DZ': '🇩🇿'
                 },
+                countryNames: {
+                    'CN': 'Chine', 'DE': 'Allemagne', 'ES': 'Espagne', 'FR': 'France',
+                    'SN': 'Sénégal', 'CI': 'Côte d\'Ivoire', 'ML': 'Mali', 'CM': 'Cameroun',
+                    'BF': 'Burkina Faso', 'GN': 'Guinée', 'TG': 'Togo', 'BJ': 'Bénin',
+                    'NE': 'Niger', 'GA': 'Gabon', 'CG': 'Congo', 'CD': 'RD Congo',
+                    'MA': 'Maroc', 'TN': 'Tunisie', 'DZ': 'Algérie'
+                },
                 init() {
                     this.scrollContainer = this.$refs.testimonialScroll;
                     this.loadTestimonials();
@@ -1172,6 +1179,7 @@
                     }
                 },
                 getInitials(name) {
+                    if (!name) return '?';
                     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
                 },
                 getColor(index) {
@@ -1179,6 +1187,9 @@
                 },
                 getFlag(code) {
                     return this.flags[code] || '🌍';
+                },
+                getCountryName(code) {
+                    return this.countryNames[code] || code || '';
                 },
                 scrollLeft() {
                     if (this.scrollContainer) {
@@ -1310,17 +1321,30 @@
                             </svg>
                             <div class="flex items-start gap-4 mb-4">
                                 <div class="relative">
-                                    <div class="w-14 h-14 bg-gradient-to-br rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-lg"
-                                         :class="getColor(index)">
-                                        <span x-text="getInitials(testimonial.name)"></span>
-                                    </div>
+                                    <!-- Photo de profil ou initiales -->
+                                    <template x-if="testimonial.user && testimonial.user.profile_photo">
+                                        <img :src="'/storage/' + testimonial.user.profile_photo"
+                                             :alt="testimonial.name"
+                                             class="w-14 h-14 rounded-xl object-cover shadow-lg">
+                                    </template>
+                                    <template x-if="!testimonial.user || !testimonial.user.profile_photo">
+                                        <div class="w-14 h-14 bg-gradient-to-br rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-lg"
+                                             :class="getColor(index)">
+                                            <span x-text="getInitials(testimonial.name)"></span>
+                                        </div>
+                                    </template>
+                                    <!-- Drapeau destination -->
                                     <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
                                         <span class="text-sm" x-text="getFlag(testimonial.destination)"></span>
                                     </div>
                                 </div>
                                 <div class="flex-1">
-                                    <h4 class="font-display font-bold text-slate-900" x-text="testimonial.name"></h4>
-                                    <p class="text-sm text-slate-500" x-text="testimonial.program || testimonial.country"></p>
+                                    <div class="flex items-center gap-2">
+                                        <h4 class="font-display font-bold text-slate-900" x-text="testimonial.name"></h4>
+                                        <!-- Drapeau pays d'origine -->
+                                        <span class="text-base" x-text="getFlag(testimonial.country)"></span>
+                                    </div>
+                                    <p class="text-sm text-slate-500" x-text="testimonial.program || getCountryName(testimonial.country)"></p>
                                     <div class="flex gap-0.5 mt-1">
                                         <template x-for="star in testimonial.rating" :key="star">
                                             <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
@@ -1331,7 +1355,10 @@
                             <p class="text-slate-600 leading-relaxed text-sm" x-text="'&quot;' + testimonial.content + '&quot;'"></p>
                             <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
                                 <span class="text-xs text-slate-400" x-text="new Date(testimonial.created_at).toLocaleDateString('fr-FR', {year: 'numeric', month: 'short'})"></span>
-                                <span class="px-2 py-1 bg-primary-100 text-primary-700 text-xs font-semibold rounded-full" x-text="getFlag(testimonial.country) + ' ' + (testimonial.country || '')"></span>
+                                <span class="px-2 py-1 bg-primary-100 text-primary-700 text-xs font-semibold rounded-full flex items-center gap-1">
+                                    <span x-text="getFlag(testimonial.destination)"></span>
+                                    <span x-text="getCountryName(testimonial.destination)"></span>
+                                </span>
                             </div>
                         </div>
                     </template>
