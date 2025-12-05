@@ -500,22 +500,46 @@
                 </div>
 
                 <!-- Right Column - Stats Cards -->
-                <div class="grid grid-cols-2 gap-3 lg:gap-4">
-                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
-                        <div class="text-3xl font-black text-white mb-1 group-hover:scale-110 transition-transform">500+</div>
-                        <div class="text-white/80 text-sm font-medium">Clients</div>
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Card 1 -->
+                    <div class="aspect-square bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-5 flex flex-col items-center justify-center hover:from-white/20 hover:to-white/10 hover:scale-[1.02] hover:border-accent-400/50 transition-all duration-500 group cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-accent-500/30">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="text-3xl font-black text-white group-hover:text-accent-400 transition-colors duration-300">500+</div>
+                        <div class="text-white/60 text-xs font-semibold uppercase tracking-wider mt-1">Clients</div>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
-                        <div class="text-3xl font-black text-accent-400 mb-1 group-hover:scale-110 transition-transform">3</div>
-                        <div class="text-white/80 text-sm font-medium">Destinations</div>
+                    <!-- Card 2 -->
+                    <div class="aspect-square bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-5 flex flex-col items-center justify-center hover:from-white/20 hover:to-white/10 hover:scale-[1.02] hover:border-primary-400/50 transition-all duration-500 group cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary-500/30">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="text-3xl font-black text-white group-hover:text-primary-400 transition-colors duration-300">3</div>
+                        <div class="text-white/60 text-xs font-semibold uppercase tracking-wider mt-1">Destinations</div>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
-                        <div class="text-3xl font-black text-white mb-1 group-hover:scale-110 transition-transform">10+</div>
-                        <div class="text-white/80 text-sm font-medium">Ans d'expérience</div>
+                    <!-- Card 3 -->
+                    <div class="aspect-square bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-5 flex flex-col items-center justify-center hover:from-white/20 hover:to-white/10 hover:scale-[1.02] hover:border-accent-400/50 transition-all duration-500 group cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-accent-500/30">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="text-3xl font-black text-white group-hover:text-accent-400 transition-colors duration-300">10+</div>
+                        <div class="text-white/60 text-xs font-semibold uppercase tracking-wider mt-1">Ans d'expérience</div>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 hover:bg-white/15 hover:scale-105 transition-all duration-300 group">
-                        <div class="text-3xl font-black text-accent-400 mb-1 group-hover:scale-110 transition-transform">100%</div>
-                        <div class="text-white/80 text-sm font-medium">Personnalisé</div>
+                    <!-- Card 4 -->
+                    <div class="aspect-square bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-5 flex flex-col items-center justify-center hover:from-white/20 hover:to-white/10 hover:scale-[1.02] hover:border-primary-400/50 transition-all duration-500 group cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary-500/30">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="text-3xl font-black text-white group-hover:text-primary-400 transition-colors duration-300">100%</div>
+                        <div class="text-white/60 text-xs font-semibold uppercase tracking-wider mt-1">Personnalisé</div>
                     </div>
                 </div>
             </div>
