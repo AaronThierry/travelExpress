@@ -1132,25 +1132,34 @@
     </section>
 
     <!-- Section: Ils nous ont fait confiance - Carrousel Animé -->
-    <section id="temoignages" class="py-24 bg-gradient-to-b from-slate-50 to-white overflow-hidden">
+    <section id="temoignages" class="py-24 bg-gradient-to-b from-slate-50 to-white overflow-hidden"
+             x-data="{
+                scrollContainer: null,
+                scrollAmount: 420,
+                init() {
+                    this.scrollContainer = this.$refs.testimonialScroll;
+                },
+                scrollLeft() {
+                    if (this.scrollContainer) {
+                        this.scrollContainer.scrollBy({ left: -this.scrollAmount, behavior: 'smooth' });
+                    }
+                },
+                scrollRight() {
+                    if (this.scrollContainer) {
+                        this.scrollContainer.scrollBy({ left: this.scrollAmount, behavior: 'smooth' });
+                    }
+                }
+             }">
         <!-- CSS pour l'animation du carrousel -->
         <style>
-            @keyframes scroll-left {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-50%); }
+            .testimonial-scroll {
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
             }
-            @keyframes scroll-right {
-                0% { transform: translateX(-50%); }
-                100% { transform: translateX(0); }
-            }
-            .animate-scroll-left {
-                animation: scroll-left 40s linear infinite;
-            }
-            .animate-scroll-right {
-                animation: scroll-right 40s linear infinite;
-            }
-            .testimonial-track:hover {
-                animation-play-state: paused;
+            .testimonial-scroll::-webkit-scrollbar {
+                display: none;
             }
             .testimonial-card {
                 transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1165,6 +1174,15 @@
             }
             .testimonial-card:hover .quote-icon {
                 opacity: 0.2;
+            }
+            .nav-arrow {
+                transition: all 0.3s ease;
+            }
+            .nav-arrow:hover {
+                transform: scale(1.1);
+            }
+            .nav-arrow:active {
+                transform: scale(0.95);
             }
         </style>
 
@@ -1199,17 +1217,29 @@
                 </div>
             </div>
 
-            <!-- Première rangée - Défilement vers la gauche -->
-            <div class="relative mb-6">
-                <!-- Gradient fade gauche -->
-                <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
-                <!-- Gradient fade droite -->
-                <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
+            <!-- Carrousel avec flèches de navigation -->
+            <div class="relative">
+                <!-- Flèche gauche -->
+                <button @click="scrollLeft()" class="nav-arrow absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-slate-600 hover:text-primary-600 hover:shadow-xl">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
 
-                <div class="flex animate-scroll-left testimonial-track" style="width: max-content;">
-                    <!-- Premier set de témoignages -->
-                    <div class="flex gap-6 px-3">
-                        <!-- Témoignage 1 -->
+                <!-- Flèche droite -->
+                <button @click="scrollRight()" class="nav-arrow absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-slate-600 hover:text-primary-600 hover:shadow-xl">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+
+                <!-- Gradient fade gauche -->
+                <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
+                <!-- Gradient fade droite -->
+                <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
+
+                <div x-ref="testimonialScroll" class="testimonial-scroll flex gap-6 overflow-x-auto px-16 py-4">
+                    <!-- Témoignage 1 -->
                         <div class="testimonial-card w-[400px] flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg border border-slate-100 relative overflow-hidden">
                             <svg class="quote-icon absolute top-4 right-4 w-12 h-12 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
@@ -1348,150 +1378,6 @@
                                 <span class="px-2 py-1 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full">CSC Scholar</span>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Duplicate pour boucle infinie -->
-                    <div class="flex gap-6 px-3">
-                        <!-- Témoignage 1 (duplicate) -->
-                        <div class="testimonial-card w-[400px] flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg border border-slate-100 relative overflow-hidden">
-                            <svg class="quote-icon absolute top-4 right-4 w-12 h-12 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                            </svg>
-                            <div class="flex items-start gap-4 mb-4">
-                                <div class="relative">
-                                    <div class="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-lg">
-                                        AD
-                                    </div>
-                                    <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
-                                        <span class="text-sm">🇨🇳</span>
-                                    </div>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-display font-bold text-slate-900">Aminata Diallo</h4>
-                                    <p class="text-sm text-slate-500">Master IA - Université de Pékin</p>
-                                    <div class="flex gap-0.5 mt-1">
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-slate-600 leading-relaxed text-sm">
-                                "Travel Express m'a accompagnée du début à la fin. J'ai obtenu une bourse complète pour mon Master en IA à Pékin. Leur professionnalisme a fait toute la différence."
-                            </p>
-                            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
-                                <span class="text-xs text-slate-400">Promotion 2024</span>
-                                <span class="px-2 py-1 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full">Bourse obtenue</span>
-                            </div>
-                        </div>
-
-                        <!-- Témoignage 2 (duplicate) -->
-                        <div class="testimonial-card w-[400px] flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg border border-slate-100 relative overflow-hidden">
-                            <svg class="quote-icon absolute top-4 right-4 w-12 h-12 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                            </svg>
-                            <div class="flex items-start gap-4 mb-4">
-                                <div class="relative">
-                                    <div class="w-14 h-14 bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-lg">
-                                        MK
-                                    </div>
-                                    <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
-                                        <span class="text-sm">🇩🇪</span>
-                                    </div>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-display font-bold text-slate-900">Mohamed Konaté</h4>
-                                    <p class="text-sm text-slate-500">Ingénierie Auto - TU Munich</p>
-                                    <div class="flex gap-0.5 mt-1">
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-slate-600 leading-relaxed text-sm">
-                                "J'étudie maintenant l'ingénierie automobile à TU Munich. Travel Express m'a guidé dans toutes les démarches. Leur expertise m'a ouvert des portes incroyables."
-                            </p>
-                            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
-                                <span class="text-xs text-slate-400">Promotion 2023</span>
-                                <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">DAAD Scholar</span>
-                            </div>
-                        </div>
-
-                        <!-- Témoignage 3 (duplicate) -->
-                        <div class="testimonial-card w-[400px] flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg border border-slate-100 relative overflow-hidden">
-                            <svg class="quote-icon absolute top-4 right-4 w-12 h-12 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                            </svg>
-                            <div class="flex items-start gap-4 mb-4">
-                                <div class="relative">
-                                    <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-lg">
-                                        FS
-                                    </div>
-                                    <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
-                                        <span class="text-sm">🇪🇸</span>
-                                    </div>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-display font-bold text-slate-900">Fatou Sow</h4>
-                                    <p class="text-sm text-slate-500">MBA - ESADE Barcelona</p>
-                                    <div class="flex gap-0.5 mt-1">
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-slate-600 leading-relaxed text-sm">
-                                "Un accompagnement exceptionnel de A à Z. Visa, logement, inscription... Tout était parfaitement organisé. Je recommande vivement Travel Express !"
-                            </p>
-                            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
-                                <span class="text-xs text-slate-400">Promotion 2024</span>
-                                <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full">Top MBA</span>
-                            </div>
-                        </div>
-
-                        <!-- Témoignage 4 (duplicate) -->
-                        <div class="testimonial-card w-[400px] flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg border border-slate-100 relative overflow-hidden">
-                            <svg class="quote-icon absolute top-4 right-4 w-12 h-12 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                            </svg>
-                            <div class="flex items-start gap-4 mb-4">
-                                <div class="relative">
-                                    <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-lg">
-                                        OB
-                                    </div>
-                                    <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
-                                        <span class="text-sm">🇨🇳</span>
-                                    </div>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-display font-bold text-slate-900">Oumar Ba</h4>
-                                    <p class="text-sm text-slate-500">Médecine - Shanghai Jiao Tong</p>
-                                    <div class="flex gap-0.5 mt-1">
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-slate-600 leading-relaxed text-sm">
-                                "Étudier la médecine en Chine semblait impossible. Travel Express a rendu ce rêve réalité avec un suivi personnalisé et une préparation au top."
-                            </p>
-                            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
-                                <span class="text-xs text-slate-400">Promotion 2023</span>
-                                <span class="px-2 py-1 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full">CSC Scholar</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
