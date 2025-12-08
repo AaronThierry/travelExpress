@@ -318,6 +318,13 @@
                     </svg>
                 </a>
                 <div class="pt-4 space-y-3">
+                    <!-- Connexion button mobile -->
+                    <a href="/login" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-5 py-3 border-2 border-primary-600 text-primary-600 font-semibold rounded-xl hover:bg-primary-50 transition-all">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        <span>Connexion</span>
+                    </a>
                     <a href="tel:+221771234567" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-5 py-3 bg-primary-50 text-primary-600 font-semibold rounded-xl hover:bg-primary-100 transition-all">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
