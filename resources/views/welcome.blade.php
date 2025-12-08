@@ -611,7 +611,7 @@
     </section>
 
     <!-- Why Choose Us Section - Enhanced -->
-    <section id="pourquoi" class="relative py-32 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+    <section id="pourquoi" class="relative py-12 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
         <!-- Background Decorative Elements -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <div class="absolute top-20 -left-20 w-72 h-72 bg-primary-200/20 rounded-full blur-3xl animate-pulse"></div>
