@@ -1361,7 +1361,7 @@
                                 <span class="text-lg font-extrabold text-primary-600">1</span>
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold text-dark mb-2 tracking-tight">Consultation</h3>
+                        <h3 class="text-lg font-display font-extrabold text-dark mb-2 uppercase tracking-widest">Consultation</h3>
                         <p class="text-gray-500 text-sm leading-relaxed font-medium">
                             Analyse de votre projet et définition de vos objectifs.
                         </p>
@@ -1379,7 +1379,7 @@
                                 <span class="text-lg font-extrabold text-purple-600">2</span>
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold text-dark mb-2 tracking-tight">Préparation</h3>
+                        <h3 class="text-lg font-display font-extrabold text-dark mb-2 uppercase tracking-widest">Préparation</h3>
                         <p class="text-gray-500 text-sm leading-relaxed font-medium">
                             Constitution de votre dossier complet.
                         </p>
@@ -1397,7 +1397,7 @@
                                 <span class="text-lg font-extrabold text-orange-600">3</span>
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold text-dark mb-2 tracking-tight">Validation</h3>
+                        <h3 class="text-lg font-display font-extrabold text-dark mb-2 uppercase tracking-widest">Validation</h3>
                         <p class="text-gray-500 text-sm leading-relaxed font-medium">
                             Suivi des démarches et validations.
                         </p>
@@ -1415,7 +1415,7 @@
                                 <span class="text-lg font-extrabold text-green-600">4</span>
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold text-dark mb-2 tracking-tight">Départ</h3>
+                        <h3 class="text-lg font-display font-extrabold text-dark mb-2 uppercase tracking-widest">Départ</h3>
                         <p class="text-gray-500 text-sm leading-relaxed font-medium">
                             Visa, logement et nouvelle vie.
                         </p>
