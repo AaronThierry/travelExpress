@@ -812,7 +812,7 @@
             <!-- CTA Section -->
             <div class="mt-10 text-center">
                 <a href="#contact" class="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-600 text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-                    <span>Commencer</span>
+                    <span>C'est parti !</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                     </svg>
