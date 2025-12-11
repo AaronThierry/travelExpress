@@ -8,9 +8,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
+    /**
+     * Token expiration time in days
+     */
+    private const TOKEN_EXPIRATION_DAYS = 7;
     /**
      * Register a new user
      */
@@ -47,6 +52,7 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
+        $expiresAt = Carbon::now()->addDays(self::TOKEN_EXPIRATION_DAYS);
 
         return response()->json([
             'success' => true,
@@ -55,6 +61,8 @@ class AuthController extends Controller
                 'user' => $user,
                 'access_token' => $token,
                 'token_type' => 'Bearer',
+                'expires_at' => $expiresAt->toISOString(),
+                'expires_in' => self::TOKEN_EXPIRATION_DAYS * 24 * 60 * 60, // seconds
             ]
         ], 201);
     }
@@ -67,6 +75,10 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+        ], [
+            'email.required' => 'L\'adresse e-mail est requise.',
+            'email.email' => 'L\'adresse e-mail doit être valide.',
+            'password.required' => 'Le mot de passe est requis.',
         ]);
 
         $user = User::where('email', $request->email)->first();
@@ -82,6 +94,7 @@ class AuthController extends Controller
 
         // Create new token
         $token = $user->createToken('auth_token')->plainTextToken;
+        $expiresAt = Carbon::now()->addDays(self::TOKEN_EXPIRATION_DAYS);
 
         return response()->json([
             'success' => true,
@@ -90,6 +103,8 @@ class AuthController extends Controller
                 'user' => $user,
                 'access_token' => $token,
                 'token_type' => 'Bearer',
+                'expires_at' => $expiresAt->toISOString(),
+                'expires_in' => self::TOKEN_EXPIRATION_DAYS * 24 * 60 * 60, // seconds
             ]
         ], 200);
     }
@@ -130,14 +145,50 @@ class AuthController extends Controller
 
         // Create new token
         $token = $user->createToken('auth_token')->plainTextToken;
+        $expiresAt = Carbon::now()->addDays(self::TOKEN_EXPIRATION_DAYS);
 
         return response()->json([
             'success' => true,
             'message' => 'Token rafraîchi!',
             'data' => [
+                'user' => $user,
                 'access_token' => $token,
                 'token_type' => 'Bearer',
+                'expires_at' => $expiresAt->toISOString(),
+                'expires_in' => self::TOKEN_EXPIRATION_DAYS * 24 * 60 * 60,
             ]
+        ], 200);
+    }
+
+    /**
+     * Verify token validity
+     */
+    public function verify(Request $request)
+    {
+        $user = $request->user();
+        $token = $user->currentAccessToken();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Token valide',
+            'data' => [
+                'user' => $user,
+                'token_created_at' => $token->created_at->toISOString(),
+                'is_admin' => (bool) $user->is_admin,
+            ]
+        ], 200);
+    }
+
+    /**
+     * Logout from all devices
+     */
+    public function logoutAll(Request $request)
+    {
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Déconnexion de tous les appareils réussie!'
         ], 200);
     }
 }

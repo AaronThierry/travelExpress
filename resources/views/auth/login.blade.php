@@ -258,8 +258,11 @@
                 const data = await response.json();
 
                 if (response.ok) {
+                    // Store auth data
                     localStorage.setItem('auth_token', data.data.access_token);
                     localStorage.setItem('user', JSON.stringify(data.data.user));
+                    localStorage.setItem('token_expires_at', data.data.expires_at);
+                    localStorage.setItem('is_admin', data.data.user.is_admin ? 'true' : 'false');
 
                     alertContainer.innerHTML = `
                         <div class="bg-green-50 border-2 border-green-200 rounded-xl p-4 flex items-center space-x-3 shadow-sm">
@@ -272,7 +275,9 @@
                         </div>
                     `;
 
-                    setTimeout(() => window.location.href = '/', 1200);
+                    // Redirect based on admin status
+                    const redirectUrl = data.data.user.is_admin ? '/admin/dashboard' : '/';
+                    setTimeout(() => window.location.href = redirectUrl, 1200);
                 } else {
                     if (data.errors) {
                         Object.keys(data.errors).forEach(key => {

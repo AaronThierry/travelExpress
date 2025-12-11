@@ -34,9 +34,12 @@ Route::post('/contact-requests', [ContactRequestController::class, 'store']);
 
 // Protected routes (authentication required)
 Route::middleware('auth:sanctum')->group(function () {
+    // Auth routes
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/logout-all', [AuthController::class, 'logoutAll']);
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::get('/verify', [AuthController::class, 'verify']);
 
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'show']);

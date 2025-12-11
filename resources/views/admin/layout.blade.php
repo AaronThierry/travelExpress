@@ -233,16 +233,63 @@
 
     <script>
         let authToken = localStorage.getItem('auth_token');
+        const tokenExpiresAt = localStorage.getItem('token_expires_at');
 
-        // Check authentication
-        if (!authToken) {
+        // Check authentication and token expiration
+        function isTokenExpired() {
+            if (!tokenExpiresAt) return true;
+            return new Date(tokenExpiresAt) < new Date();
+        }
+
+        function clearAuthData() {
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('token_expires_at');
+            localStorage.removeItem('is_admin');
+        }
+
+        if (!authToken || isTokenExpired()) {
+            clearAuthData();
             window.location.href = '/login';
+        }
+
+        // Refresh token if expiring soon (less than 1 day remaining)
+        async function checkAndRefreshToken() {
+            if (!tokenExpiresAt) return;
+
+            const expiresAt = new Date(tokenExpiresAt);
+            const now = new Date();
+            const hoursRemaining = (expiresAt - now) / (1000 * 60 * 60);
+
+            // Refresh if less than 24 hours remaining
+            if (hoursRemaining < 24 && hoursRemaining > 0) {
+                try {
+                    const response = await fetch('/api/refresh', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${authToken}`,
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        authToken = data.data.access_token;
+                        localStorage.setItem('auth_token', data.data.access_token);
+                        localStorage.setItem('token_expires_at', data.data.expires_at);
+                        localStorage.setItem('user', JSON.stringify(data.data.user));
+                        console.log('Token refreshed successfully');
+                    }
+                } catch (error) {
+                    console.error('Token refresh error:', error);
+                }
+            }
         }
 
         // Load user info
         async function loadUserInfo() {
             try {
-                const response = await fetch('/api/user', {
+                const response = await fetch('/api/verify', {
                     headers: {
                         'Authorization': `Bearer ${authToken}`,
                         'Accept': 'application/json'
@@ -254,18 +301,23 @@
                 }
 
                 const data = await response.json();
-                const user = data.data;
+                const user = data.data.user;
 
                 document.getElementById('user-name').textContent = user.name;
                 document.getElementById('user-initial').textContent = user.name.charAt(0).toUpperCase();
 
                 // Check if user is admin
-                if (!user.is_admin) {
+                if (!data.data.is_admin) {
                     alert('Accès non autorisé. Droits administrateur requis.');
-                    setTimeout(() => window.location.href = '/', 3000);
+                    clearAuthData();
+                    setTimeout(() => window.location.href = '/', 2000);
                 }
+
+                // Check and refresh token if needed
+                await checkAndRefreshToken();
             } catch (error) {
                 console.error('Error:', error);
+                clearAuthData();
                 window.location.href = '/login';
             }
         }
@@ -339,9 +391,23 @@
         }
 
         // Logout
-        function logout() {
-            localStorage.removeItem('auth_token');
-            window.location.href = '/login';
+        async function logout() {
+            try {
+                // Call API to revoke token
+                await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Accept': 'application/json'
+                    }
+                });
+            } catch (error) {
+                console.error('Logout error:', error);
+            } finally {
+                // Clear all auth data
+                clearAuthData();
+                window.location.href = '/login';
+            }
         }
 
         // Initialize
