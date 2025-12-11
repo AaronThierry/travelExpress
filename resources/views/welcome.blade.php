@@ -1436,21 +1436,21 @@
         </div>
     </section>
 
-    <!-- Section: Ils nous ont fait confiance - Carrousel Animé -->
-    <section id="temoignages" class="py-16 bg-gradient-to-b from-slate-50 to-white overflow-hidden"
+    <!-- Section: Témoignages - Design Premium avec Auto-Slide -->
+    <section id="temoignages" class="py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-hidden"
              x-data="{
-                scrollContainer: null,
-                scrollAmount: 420,
                 testimonials: [],
                 loading: true,
+                currentIndex: 0,
+                autoPlayInterval: null,
+                isPaused: false,
                 colors: [
-                    'from-red-500 to-red-600',
-                    'from-gray-700 to-gray-900',
-                    'from-orange-500 to-red-500',
+                    'from-blue-500 to-indigo-600',
+                    'from-purple-500 to-pink-600',
                     'from-emerald-500 to-teal-600',
-                    'from-blue-500 to-blue-600',
-                    'from-purple-500 to-purple-600',
-                    'from-pink-500 to-pink-600'
+                    'from-orange-500 to-red-500',
+                    'from-cyan-500 to-blue-600',
+                    'from-rose-500 to-pink-600'
                 ],
                 flags: {
                     'CN': '🇨🇳', 'DE': '🇩🇪', 'ES': '🇪🇸', 'FR': '🇫🇷',
@@ -1467,21 +1467,37 @@
                     'MA': 'Maroc', 'TN': 'Tunisie', 'DZ': 'Algérie'
                 },
                 init() {
-                    this.scrollContainer = this.$refs.testimonialScroll;
                     this.loadTestimonials();
                 },
                 async loadTestimonials() {
                     try {
                         const response = await fetch('/api/testimonials?status=approved');
                         const data = await response.json();
-                        if (data.data) {
+                        if (data.data && data.data.length > 0) {
                             this.testimonials = data.data;
+                            this.startAutoPlay();
                         }
                     } catch (e) {
                         console.error('Erreur chargement témoignages:', e);
                     } finally {
                         this.loading = false;
                     }
+                },
+                startAutoPlay() {
+                    this.autoPlayInterval = setInterval(() => {
+                        if (!this.isPaused) {
+                            this.next();
+                        }
+                    }, 5000);
+                },
+                next() {
+                    this.currentIndex = (this.currentIndex + 1) % this.testimonials.length;
+                },
+                prev() {
+                    this.currentIndex = (this.currentIndex - 1 + this.testimonials.length) % this.testimonials.length;
+                },
+                goTo(index) {
+                    this.currentIndex = index;
                 },
                 getInitials(name) {
                     if (!name) return '?';
@@ -1496,196 +1512,271 @@
                 getCountryName(code) {
                     return this.countryNames[code] || code || '';
                 },
-                scrollLeft() {
-                    if (this.scrollContainer) {
-                        this.scrollContainer.scrollBy({ left: -this.scrollAmount, behavior: 'smooth' });
+                getVisibleCards() {
+                    if (this.testimonials.length === 0) return [];
+                    const total = this.testimonials.length;
+                    const indices = [];
+                    for (let i = -1; i <= 1; i++) {
+                        indices.push((this.currentIndex + i + total) % total);
                     }
-                },
-                scrollRight() {
-                    if (this.scrollContainer) {
-                        this.scrollContainer.scrollBy({ left: this.scrollAmount, behavior: 'smooth' });
-                    }
+                    return indices;
                 }
-             }">
-        <!-- CSS pour l'animation du carrousel -->
+             }"
+             @mouseenter="isPaused = true"
+             @mouseleave="isPaused = false">
+
+        <!-- CSS Animations Premium -->
         <style>
-            .testimonial-scroll {
-                scroll-behavior: smooth;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
             }
-            .testimonial-scroll::-webkit-scrollbar {
-                display: none;
+            @keyframes shimmer {
+                0% { background-position: -200% 0; }
+                100% { background-position: 200% 0; }
             }
-            .testimonial-card {
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            @keyframes pulse-ring {
+                0% { transform: scale(0.8); opacity: 1; }
+                100% { transform: scale(1.3); opacity: 0; }
             }
-            .testimonial-card:hover {
-                transform: translateY(-8px) scale(1.02);
-                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            .testimonial-card-premium {
+                transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             }
-            .quote-icon {
-                opacity: 0.1;
-                transition: opacity 0.3s;
+            .testimonial-card-premium.active {
+                transform: scale(1.05) translateY(-8px);
+                z-index: 20;
             }
-            .testimonial-card:hover .quote-icon {
-                opacity: 0.2;
+            .testimonial-card-premium.side {
+                transform: scale(0.9) translateY(0);
+                opacity: 0.6;
+                filter: blur(1px);
             }
-            .nav-arrow {
-                transition: all 0.3s ease;
+            .testimonial-card-premium:hover {
+                box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
             }
-            .nav-arrow:hover {
-                transform: scale(1.1);
+            .avatar-ring {
+                position: relative;
             }
-            .nav-arrow:active {
-                transform: scale(0.95);
+            .avatar-ring::before {
+                content: '';
+                position: absolute;
+                inset: -4px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #0071e3, #FF9500);
+                z-index: -1;
+                animation: pulse-ring 2s ease-out infinite;
+            }
+            .quote-gradient {
+                background: linear-gradient(135deg, rgba(0,113,227,0.1), rgba(255,149,0,0.1));
+            }
+            .progress-bar {
+                animation: progress 5s linear infinite;
+            }
+            @keyframes progress {
+                0% { width: 0%; }
+                100% { width: 100%; }
+            }
+            .star-animate {
+                animation: starPop 0.3s ease-out forwards;
+            }
+            @keyframes starPop {
+                0% { transform: scale(0); opacity: 0; }
+                50% { transform: scale(1.2); }
+                100% { transform: scale(1); opacity: 1; }
             }
         </style>
 
-        <div class="w-full">
-            <!-- Header -->
-            <div class="text-center mb-16 px-6 lg:px-12">
-                <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 rounded-full mb-6">
-                    <span class="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
-                    <span class="text-primary-700 text-sm font-semibold">+500 Étudiants Accompagnés</span>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header Premium -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-3 px-5 py-2.5 bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-100 rounded-full mb-8">
+                    <div class="relative">
+                        <span class="w-2.5 h-2.5 bg-green-500 rounded-full animate-ping absolute"></span>
+                        <span class="w-2.5 h-2.5 bg-green-500 rounded-full relative"></span>
+                    </div>
+                    <span class="text-primary-700 text-sm font-bold tracking-wide uppercase">+500 Étudiants Accompagnés</span>
                 </div>
-                <h2 class="text-xl md:text-2xl font-display font-bold text-slate-900 mb-4">
-                    Ils nous ont fait <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">confiance</span>
+                <h2 class="text-4xl md:text-5xl font-display font-extrabold text-slate-900 mb-6 tracking-tight">
+                    Ils ont réalisé leur <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 via-purple-600 to-accent-500">rêve</span>
                 </h2>
-                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
-                    Découvrez les parcours inspirants de nos étudiants qui ont réalisé leurs rêves d'études à l'étranger
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium">
+                    Découvrez les parcours inspirants de ceux qui nous ont fait confiance
                 </p>
             </div>
 
-            <!-- Stats rapides -->
-            <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-10 px-6">
-                <div class="text-center">
-                    <div class="text-xl md:text-2xl font-display font-bold text-primary-600">98%</div>
-                    <div class="text-slate-500 text-sm font-medium mt-1">Taux de satisfaction</div>
+            <!-- Stats Premium -->
+            <div class="grid grid-cols-3 gap-4 md:gap-8 mb-16 max-w-3xl mx-auto">
+                <div class="text-center p-6 bg-white rounded-2xl shadow-lg shadow-primary-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent">98%</div>
+                    <div class="text-slate-500 text-sm font-semibold mt-2 uppercase tracking-wider">Satisfaction</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-xl md:text-2xl font-display font-bold text-accent-500">4.9<span class="text-2xl">/5</span></div>
-                    <div class="text-slate-500 text-sm font-medium mt-1">Note moyenne</div>
+                <div class="text-center p-6 bg-white rounded-2xl shadow-lg shadow-amber-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex items-baseline justify-center gap-1">
+                        <span class="text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">4.9</span>
+                        <span class="text-xl text-amber-500">/5</span>
+                    </div>
+                    <div class="text-slate-500 text-sm font-semibold mt-2 uppercase tracking-wider">Note</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-xl md:text-2xl font-display font-bold text-emerald-500">50+</div>
-                    <div class="text-slate-500 text-sm font-medium mt-1">Universités partenaires</div>
+                <div class="text-center p-6 bg-white rounded-2xl shadow-lg shadow-emerald-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">50+</div>
+                    <div class="text-slate-500 text-sm font-semibold mt-2 uppercase tracking-wider">Universités</div>
                 </div>
             </div>
 
-            <!-- Carrousel avec flèches de navigation -->
+            <!-- Carrousel Premium -->
             <div class="relative">
-                <!-- Flèche gauche -->
-                <button @click="scrollLeft()" class="nav-arrow absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-slate-600 hover:text-primary-600 hover:shadow-xl">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                </button>
+                <!-- Loading State -->
+                <template x-if="loading">
+                    <div class="flex justify-center items-center py-20">
+                        <div class="relative">
+                            <div class="w-16 h-16 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-8 h-8 bg-primary-600 rounded-full animate-pulse"></div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
 
-                <!-- Flèche droite -->
-                <button @click="scrollRight()" class="nav-arrow absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-slate-600 hover:text-primary-600 hover:shadow-xl">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
+                <!-- Cards Container -->
+                <template x-if="!loading && testimonials.length > 0">
+                    <div>
+                        <!-- Navigation Arrows -->
+                        <button @click="prev()" class="absolute left-0 md:left-4 top-1/2 -translate-y-1/2 z-30 w-14 h-14 bg-white/90 backdrop-blur-sm rounded-full shadow-xl flex items-center justify-center text-slate-600 hover:text-primary-600 hover:bg-white hover:scale-110 transition-all duration-300 border border-slate-200">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </button>
+                        <button @click="next()" class="absolute right-0 md:right-4 top-1/2 -translate-y-1/2 z-30 w-14 h-14 bg-white/90 backdrop-blur-sm rounded-full shadow-xl flex items-center justify-center text-slate-600 hover:text-primary-600 hover:bg-white hover:scale-110 transition-all duration-300 border border-slate-200">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
 
-                <!-- Gradient fade gauche -->
-                <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
-                <!-- Gradient fade droite -->
-                <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
+                        <!-- Cards -->
+                        <div class="flex justify-center items-center gap-6 py-8 px-16 min-h-[450px]">
+                            <template x-for="(testimonial, index) in testimonials" :key="testimonial.id">
+                                <div class="testimonial-card-premium absolute w-full max-w-lg bg-white rounded-3xl p-8 shadow-2xl border border-slate-100"
+                                     :class="{
+                                         'active': index === currentIndex,
+                                         'side': index !== currentIndex,
+                                         'opacity-0 pointer-events-none': Math.abs(index - currentIndex) > 1 && !(index === 0 && currentIndex === testimonials.length - 1) && !(index === testimonials.length - 1 && currentIndex === 0)
+                                     }"
+                                     :style="index === currentIndex ? 'position: relative;' : 'position: absolute;'"
+                                     x-show="index === currentIndex || Math.abs(index - currentIndex) <= 1 || (index === 0 && currentIndex === testimonials.length - 1) || (index === testimonials.length - 1 && currentIndex === 0)">
 
-                <div x-ref="testimonialScroll" class="testimonial-scroll flex gap-4 overflow-x-auto px-12 py-3">
-                    <!-- Loading state -->
-                    <template x-if="loading">
-                        <div class="flex gap-4">
-                            <template x-for="i in 4" :key="i">
-                                <div class="w-[320px] flex-shrink-0 bg-white rounded-xl p-4 shadow-md border border-slate-100 animate-pulse">
-                                    <div class="flex items-start gap-3 mb-3">
-                                        <div class="w-11 h-11 bg-slate-200 rounded-lg"></div>
-                                        <div class="flex-1">
-                                            <div class="h-3 bg-slate-200 rounded w-24 mb-2"></div>
-                                            <div class="h-2 bg-slate-200 rounded w-32"></div>
-                                        </div>
+                                    <!-- Quote Icon -->
+                                    <div class="absolute -top-4 -left-4 w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl flex items-center justify-center shadow-lg transform -rotate-6">
+                                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                                        </svg>
                                     </div>
-                                    <div class="space-y-2">
-                                        <div class="h-2 bg-slate-200 rounded w-full"></div>
-                                        <div class="h-2 bg-slate-200 rounded w-full"></div>
-                                        <div class="h-2 bg-slate-200 rounded w-3/4"></div>
+
+                                    <!-- Verified Badge -->
+                                    <div class="absolute top-6 right-6 flex items-center gap-1.5 px-3 py-1.5 bg-green-50 rounded-full">
+                                        <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-xs font-bold text-green-700">Vérifié</span>
+                                    </div>
+
+                                    <!-- Content -->
+                                    <div class="pt-8">
+                                        <!-- Stars -->
+                                        <div class="flex gap-1 mb-6">
+                                            <template x-for="star in (testimonial.rating || 5)" :key="'star-'+star">
+                                                <svg class="w-6 h-6 text-amber-400 star-animate" :style="'animation-delay: ' + (star * 0.1) + 's'" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                                </svg>
+                                            </template>
+                                        </div>
+
+                                        <!-- Testimonial Text -->
+                                        <p class="text-slate-700 text-lg leading-relaxed mb-8 italic font-medium" x-text="'« ' + testimonial.content + ' »'"></p>
+
+                                        <!-- Author -->
+                                        <div class="flex items-center gap-4 pt-6 border-t border-slate-100">
+                                            <!-- Avatar -->
+                                            <div class="relative">
+                                                <template x-if="testimonial.user && testimonial.user.profile_photo">
+                                                    <img :src="'/storage/' + testimonial.user.profile_photo"
+                                                         :alt="testimonial.name"
+                                                         class="w-16 h-16 rounded-full object-cover ring-4 ring-white shadow-xl">
+                                                </template>
+                                                <template x-if="!testimonial.user || !testimonial.user.profile_photo">
+                                                    <div class="w-16 h-16 rounded-full bg-gradient-to-br flex items-center justify-center text-white text-xl font-bold ring-4 ring-white shadow-xl"
+                                                         :class="getColor(index)">
+                                                        <span x-text="getInitials(testimonial.name)"></span>
+                                                    </div>
+                                                </template>
+                                                <!-- Country Flag -->
+                                                <div class="absolute -bottom-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-white">
+                                                    <span class="text-lg" x-text="getFlag(testimonial.country)"></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Info -->
+                                            <div class="flex-1">
+                                                <h4 class="font-display font-bold text-slate-900 text-lg" x-text="testimonial.name"></h4>
+                                                <p class="text-slate-500 font-medium" x-text="testimonial.program || 'Étudiant'"></p>
+                                            </div>
+
+                                            <!-- Destination Badge -->
+                                            <div class="px-4 py-2 bg-gradient-to-r from-primary-50 to-accent-50 rounded-xl border border-primary-100">
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-2xl" x-text="getFlag(testimonial.destination)"></span>
+                                                    <span class="text-sm font-bold text-primary-700" x-text="getCountryName(testimonial.destination)"></span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </template>
                         </div>
-                    </template>
 
-                    <!-- Témoignages dynamiques -->
-                    <template x-for="(testimonial, index) in testimonials" :key="testimonial.id">
-                        <div class="testimonial-card w-[320px] flex-shrink-0 bg-white rounded-xl p-4 shadow-md border border-slate-100 relative overflow-hidden">
-                            <svg class="quote-icon absolute top-3 right-3 w-8 h-8 text-primary-600/50" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        <!-- Pagination Dots -->
+                        <div class="flex justify-center items-center gap-3 mt-8">
+                            <template x-for="(testimonial, index) in testimonials" :key="'dot-'+testimonial.id">
+                                <button @click="goTo(index)"
+                                        class="relative w-3 h-3 rounded-full transition-all duration-300"
+                                        :class="index === currentIndex ? 'bg-primary-600 w-10' : 'bg-slate-300 hover:bg-slate-400'">
+                                    <template x-if="index === currentIndex && !isPaused">
+                                        <div class="absolute inset-0 bg-primary-400 rounded-full progress-bar"></div>
+                                    </template>
+                                </button>
+                            </template>
+                        </div>
+
+                        <!-- Auto-play indicator -->
+                        <div class="flex justify-center mt-4">
+                            <span class="text-sm text-slate-400 font-medium" x-text="isPaused ? '⏸ En pause' : '▶ Lecture auto'"></span>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Empty State -->
+                <template x-if="!loading && testimonials.length === 0">
+                    <div class="text-center py-16">
+                        <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                             </svg>
-                            <div class="flex items-start gap-4 mb-4">
-                                <div class="relative">
-                                    <!-- Photo de profil ou initiales -->
-                                    <template x-if="testimonial.user && testimonial.user.profile_photo">
-                                        <img :src="'/storage/' + testimonial.user.profile_photo"
-                                             :alt="testimonial.name"
-                                             class="w-11 h-11 rounded-lg object-cover shadow">
-                                    </template>
-                                    <template x-if="!testimonial.user || !testimonial.user.profile_photo">
-                                        <div class="w-11 h-11 bg-gradient-to-br rounded-lg flex items-center justify-center text-white text-sm font-bold shadow"
-                                             :class="getColor(index)">
-                                            <span x-text="getInitials(testimonial.name)"></span>
-                                        </div>
-                                    </template>
-                                    <!-- Drapeau destination -->
-                                    <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-sm">
-                                        <span class="text-xs" x-text="getFlag(testimonial.destination)"></span>
-                                    </div>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="flex items-center gap-2">
-                                        <h4 class="font-display font-bold text-slate-900" x-text="testimonial.name"></h4>
-                                        <!-- Drapeau pays d'origine -->
-                                        <span class="text-base" x-text="getFlag(testimonial.country)"></span>
-                                    </div>
-                                    <p class="text-sm text-slate-500" x-text="testimonial.program || getCountryName(testimonial.country)"></p>
-                                    <div class="flex gap-0.5 mt-1">
-                                        <template x-for="star in testimonial.rating" :key="star">
-                                            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        </template>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-slate-600 leading-relaxed text-sm" x-text="'&quot;' + testimonial.content + '&quot;'"></p>
-                            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
-                                <span class="text-xs text-slate-400" x-text="new Date(testimonial.created_at).toLocaleDateString('fr-FR', {year: 'numeric', month: 'short'})"></span>
-                                <span class="px-2 py-1 bg-primary-100 text-primary-700 text-xs font-semibold rounded-full flex items-center gap-1">
-                                    <span x-text="getFlag(testimonial.destination)"></span>
-                                    <span x-text="getCountryName(testimonial.destination)"></span>
-                                </span>
-                            </div>
                         </div>
-                    </template>
-
-                    <!-- Message si aucun témoignage -->
-                    <template x-if="!loading && testimonials.length === 0">
-                        <div class="w-full text-center py-12">
-                            <p class="text-slate-500">Aucun témoignage pour le moment. Soyez le premier à partager votre expérience !</p>
-                        </div>
-                    </template>
-                </div>
+                        <p class="text-slate-500 text-lg">Aucun témoignage pour le moment.</p>
+                        <p class="text-slate-400">Soyez le premier à partager votre expérience !</p>
+                    </div>
+                </template>
             </div>
 
             <!-- CTA Section -->
-            <div class="text-center mt-16 px-6">
-                <p class="text-slate-500 mb-6">Vous aussi, partagez votre expérience avec nous</p>
-                <button @click="testimonialModalOpen = true" class="inline-flex items-center gap-3 px-5 py-2.5 bg-gradient-to-r from-primary-600 to-accent-500 text-white font-semibold rounded-lg text-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            <div class="text-center mt-16">
+                <p class="text-slate-500 mb-6 text-lg font-medium">Vous aussi, partagez votre expérience</p>
+                <button @click="testimonialModalOpen = true"
+                        class="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600 text-white font-bold rounded-2xl shadow-xl shadow-primary-500/30 hover:shadow-2xl hover:shadow-primary-500/40 hover:scale-105 transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                     </svg>
-                    <span>Laisser un témoignage</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <span class="text-lg">Laisser un témoignage</span>
+                    <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                     </svg>
                 </button>
