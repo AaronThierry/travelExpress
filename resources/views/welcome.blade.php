@@ -1329,97 +1329,143 @@
         </style>
     </section>
 
-    <!-- Process Section -->
-    <section id="processus" class="py-16 bg-white">
-        <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
-            <div class="text-center mb-10 fade-in-up">
-                <h2 class="text-2xl md:text-3xl font-display font-bold text-dark mb-3 tracking-apple-tight">
-                    Notre accompagnement en 4 étapes
+    <!-- Process Section - Professional & Elegant -->
+    <section id="processus" class="py-20 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
+        <!-- Subtle Background Pattern -->
+        <div class="absolute inset-0 opacity-[0.02]">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23000000\" fill-opacity=\"1\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        </div>
+
+        <div class="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+            <!-- Section Header - Elegant -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 rounded-full mb-6">
+                    <div class="w-1.5 h-1.5 bg-primary-500 rounded-full"></div>
+                    <span class="text-xs font-semibold text-primary-700 uppercase tracking-wider">Processus simplifié</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-dark mb-4">
+                    Notre accompagnement
                 </h2>
-                <p class="text-base text-gray">
-                    Un processus clair et personnalisé pour concrétiser votre projet
+                <p class="text-gray-500 max-w-xl mx-auto">
+                    Un parcours structuré et personnalisé pour transformer votre projet en réalité
                 </p>
             </div>
 
+            <!-- Timeline Steps - Elegant Cards -->
             <div class="relative">
-                <!-- Timeline Line - Rainbow gradient -->
-                <div class="hidden md:block absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-purple-500 via-orange-500 to-green-500"></div>
+                <!-- Connection Line - Desktop -->
+                <div class="hidden lg:block absolute top-[72px] left-[calc(12.5%+24px)] right-[calc(12.5%+24px)] h-[2px]">
+                    <div class="w-full h-full bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200 rounded-full"></div>
+                </div>
 
-                <div class="grid md:grid-cols-4 gap-8 relative z-10">
-                    <!-- Step 1 - Blue -->
-                    <div class="text-center fade-in-up stagger-1">
-                        <div class="relative inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mb-6 shadow-xl shadow-blue-500/50 mx-auto hover:scale-110 transition-transform duration-300">
-                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                            </svg>
-                            <div class="absolute -top-3 -right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg">
-                                <span class="text-2xl font-bold text-blue-600">1</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4">
+
+                    <!-- Step 1 -->
+                    <div class="group relative">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary-100 transition-all duration-500 h-full">
+                            <!-- Step Number -->
+                            <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl mb-5 shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-transform duration-300">
+                                <span class="text-white font-bold text-lg">01</span>
                             </div>
+
+                            <!-- Icon -->
+                            <div class="w-10 h-10 bg-primary-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary-100 transition-colors">
+                                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                </svg>
+                            </div>
+
+                            <h3 class="text-lg font-bold text-dark mb-2">Consultation</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed">
+                                Échange personnalisé pour comprendre votre projet et définir vos objectifs.
+                            </p>
+
+                            <!-- Subtle accent line -->
+                            <div class="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-primary-300 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-3">Consultation initiale</h3>
-                        <p class="text-gray leading-apple">
-                            Analyse de votre projet (études, travail ou business) et définition de vos objectifs.
-                        </p>
                     </div>
 
-                    <!-- Step 2 - Purple -->
-                    <div class="text-center fade-in-up stagger-2">
-                        <div class="relative inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full mb-6 shadow-xl shadow-purple-500/50 mx-auto hover:scale-110 transition-transform duration-300">
-                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            <div class="absolute -top-3 -right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg">
-                                <span class="text-2xl font-bold text-purple-600">2</span>
+                    <!-- Step 2 -->
+                    <div class="group relative">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary-100 transition-all duration-500 h-full">
+                            <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl mb-5 shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-transform duration-300">
+                                <span class="text-white font-bold text-lg">02</span>
                             </div>
+
+                            <div class="w-10 h-10 bg-primary-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary-100 transition-colors">
+                                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+
+                            <h3 class="text-lg font-bold text-dark mb-2">Préparation</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed">
+                                Constitution et optimisation de votre dossier complet avec nos experts.
+                            </p>
+
+                            <div class="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-primary-300 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-3">Préparation du dossier</h3>
-                        <p class="text-gray leading-apple">
-                            Constitution et optimisation de votre dossier selon votre projet : admission, contrat ou création d'entreprise.
-                        </p>
                     </div>
 
-                    <!-- Step 3 - Orange -->
-                    <div class="text-center fade-in-up stagger-3">
-                        <div class="relative inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full mb-6 shadow-xl shadow-orange-500/50 mx-auto hover:scale-110 transition-transform duration-300">
-                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
-                            </svg>
-                            <div class="absolute -top-3 -right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg">
-                                <span class="text-2xl font-bold text-orange-600">3</span>
+                    <!-- Step 3 -->
+                    <div class="group relative">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary-100 transition-all duration-500 h-full">
+                            <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl mb-5 shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-transform duration-300">
+                                <span class="text-white font-bold text-lg">03</span>
                             </div>
+
+                            <div class="w-10 h-10 bg-primary-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary-100 transition-colors">
+                                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                                </svg>
+                            </div>
+
+                            <h3 class="text-lg font-bold text-dark mb-2">Validation</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed">
+                                Suivi des démarches administratives jusqu'à l'obtention des validations.
+                            </p>
+
+                            <div class="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-primary-300 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-3">Démarches & Validation</h3>
-                        <p class="text-gray leading-apple">
-                            Suivi de vos candidatures, démarches administratives et obtention des validations nécessaires.
-                        </p>
                     </div>
 
-                    <!-- Step 4 - Green -->
-                    <div class="text-center fade-in-up stagger-4">
-                        <div class="relative inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-full mb-6 shadow-xl shadow-green-500/50 mx-auto hover:scale-110 transition-transform duration-300">
-                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7l7 7-7 7"></path>
-                            </svg>
-                            <div class="absolute -top-3 -right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg">
-                                <span class="text-2xl font-bold text-green-600">4</span>
+                    <!-- Step 4 -->
+                    <div class="group relative">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary-100 transition-all duration-500 h-full">
+                            <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl mb-5 shadow-lg shadow-green-500/20 group-hover:scale-110 transition-transform duration-300">
+                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
                             </div>
+
+                            <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-100 transition-colors">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+
+                            <h3 class="text-lg font-bold text-dark mb-2">Départ</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed">
+                                Visa, logement et préparation complète pour votre nouvelle aventure.
+                            </p>
+
+                            <div class="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-green-300 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-dark mb-3">Visa & Installation</h3>
-                        <p class="text-gray leading-apple">
-                            Accompagnement visa, logement et préparation à votre nouvelle vie à l'étranger.
-                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- CTA -->
-            <div class="text-center mt-16">
-                <a href="#contact" class="btn-primary inline-block">
-                    Commencer maintenant
-                    <svg class="inline-block w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                    </svg>
-                </a>
+            <!-- Bottom CTA - Elegant -->
+            <div class="mt-14 text-center">
+                <div class="inline-flex flex-col sm:flex-row items-center gap-4">
+                    <a href="#contact" class="group inline-flex items-center gap-2 px-6 py-3 bg-dark text-white text-sm font-semibold rounded-xl hover:bg-gray-800 transition-all duration-300 shadow-lg shadow-dark/20">
+                        <span>Démarrer mon projet</span>
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                    <span class="text-gray-400 text-sm">Réponse sous 24h garantie</span>
+                </div>
             </div>
         </div>
     </section>
