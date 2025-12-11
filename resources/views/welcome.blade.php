@@ -293,34 +293,10 @@
                 },
                 isAdmin() {
                     return this.mobileUser && (this.mobileUser.is_admin === 1 || this.mobileUser.is_admin === true);
-                }
+                },
+                userMenuExpanded: false
              }">
             <div class="w-full px-4 sm:px-6 py-4 sm:py-6 space-y-2">
-                <!-- User Profile Section (if logged in) -->
-                <template x-if="mobileUser">
-                    <div class="pb-4 mb-4 border-b border-gray-100">
-                        <div class="flex items-center space-x-3 px-4 py-3 bg-gray-50 rounded-xl">
-                            <div class="w-12 h-12 bg-gradient-to-br from-primary-600 to-accent-600 rounded-full flex items-center justify-center shadow-md">
-                                <span x-text="getInitials(mobileUser.name)" class="text-sm font-bold text-white"></span>
-                            </div>
-                            <div class="flex-1">
-                                <p x-text="mobileUser.name" class="font-bold text-dark"></p>
-                                <p x-text="mobileUser.email" class="text-xs text-gray-500"></p>
-                            </div>
-                        </div>
-                        <!-- Admin Dashboard Link -->
-                        <template x-if="isAdmin()">
-                            <a href="/admin/dashboard" @click="mobileMenuOpen = false" class="flex items-center space-x-3 mt-3 px-4 py-3 text-white bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl shadow-md">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                                </svg>
-                                <span class="font-bold">Dashboard Admin</span>
-                                <span class="ml-auto bg-white/20 px-2 py-0.5 rounded text-xs">ADMIN</span>
-                            </a>
-                        </template>
-                    </div>
-                </template>
-
                 <!-- Navigation Links -->
                 <a href="#programmes" @click="mobileMenuOpen = false" class="flex items-center justify-between py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
                     <span class="font-medium">Programmes</span>
@@ -353,21 +329,46 @@
                     </svg>
                 </a>
 
-                <!-- User Menu Links (if logged in) -->
+                <!-- User Menu (if logged in) - Collapsible -->
                 <template x-if="mobileUser">
-                    <div class="pt-2 mt-2 border-t border-gray-100 space-y-2">
-                        <a href="/profile" @click="mobileMenuOpen = false" class="flex items-center space-x-3 py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
-                            <svg class="w-5 h-5 text-gray-400 group-hover:text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    <div class="space-y-2">
+                        <!-- User Toggle Button -->
+                        <button @click="userMenuExpanded = !userMenuExpanded" class="flex items-center justify-between w-full py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-gradient-to-br from-primary-600 to-accent-600 rounded-full flex items-center justify-center">
+                                    <span x-text="getInitials(mobileUser.name)" class="text-xs font-bold text-white"></span>
+                                </div>
+                                <span class="font-medium" x-text="mobileUser.name"></span>
+                            </div>
+                            <svg class="w-4 h-4 text-gray-400 transition-transform duration-200" :class="{ 'rotate-90': userMenuExpanded }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
-                            <span class="font-medium">Mon profil</span>
-                        </a>
-                        <button @click="mobileLogout()" class="flex items-center space-x-3 w-full py-3 px-4 text-red-600 hover:bg-red-50 rounded-xl transition-all group">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                            </svg>
-                            <span class="font-medium">Déconnexion</span>
                         </button>
+
+                        <!-- Expanded User Menu -->
+                        <div x-show="userMenuExpanded" x-collapse class="pl-4 space-y-1">
+                            <!-- Admin Dashboard (if admin) -->
+                            <template x-if="isAdmin()">
+                                <a href="/admin/dashboard" @click="mobileMenuOpen = false" class="flex items-center space-x-3 py-2.5 px-4 text-white bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl text-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                    </svg>
+                                    <span class="font-medium">Dashboard Admin</span>
+                                </a>
+                            </template>
+                            <a href="/profile" @click="mobileMenuOpen = false" class="flex items-center space-x-3 py-2.5 px-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                                <span class="font-medium">Mon profil</span>
+                            </a>
+                            <button @click="mobileLogout()" class="flex items-center space-x-3 w-full py-2.5 px-4 text-red-600 hover:bg-red-50 rounded-xl transition-all text-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                </svg>
+                                <span class="font-medium">Déconnexion</span>
+                            </button>
+                        </div>
                     </div>
                 </template>
 
