@@ -175,10 +175,10 @@
 
                     <div class="flex items-center justify-between text-sm">
                         <label class="flex items-center cursor-pointer group">
-                            <input type="checkbox" class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-2 focus:ring-primary-500 transition-all">
+                            <input type="checkbox" id="remember" class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-2 focus:ring-primary-500 transition-all">
                             <span class="ml-2.5 text-gray-700 font-medium group-hover:text-dark transition-colors">Se souvenir de moi</span>
                         </label>
-                        <a href="#" class="text-primary-600 hover:text-primary-700 font-bold transition-colors relative group">
+                        <a href="/forgot-password" class="text-primary-600 hover:text-primary-700 font-bold transition-colors relative group">
                             <span>Mot de passe oublié?</span>
                             <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
                         </a>
@@ -252,6 +252,7 @@
                     body: JSON.stringify({
                         email: document.getElementById('email').value,
                         password: document.getElementById('password').value,
+                        remember: document.getElementById('remember').checked,
                     })
                 });
 

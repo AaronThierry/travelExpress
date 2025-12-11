@@ -26,6 +26,11 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// Password reset routes
+Route::post('/password/forgot', [App\Http\Controllers\Api\PasswordResetController::class, 'sendResetLink']);
+Route::post('/password/reset', [App\Http\Controllers\Api\PasswordResetController::class, 'reset']);
+Route::post('/password/verify-token', [App\Http\Controllers\Api\PasswordResetController::class, 'verifyToken']);
+
 // Testimonials - public can view
 Route::get('/testimonials', [TestimonialController::class, 'index']);
 

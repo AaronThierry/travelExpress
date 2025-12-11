@@ -16,6 +16,11 @@ class AuthController extends Controller
      * Token expiration time in days
      */
     private const TOKEN_EXPIRATION_DAYS = 1;
+
+    /**
+     * Token expiration time for "remember me" in days
+     */
+    private const TOKEN_REMEMBER_ME_DAYS = 30;
     /**
      * Register a new user
      */
@@ -75,6 +80,7 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+            'remember' => 'boolean',
         ], [
             'email.required' => 'L\'adresse e-mail est requise.',
             'email.email' => 'L\'adresse e-mail doit être valide.',
@@ -92,9 +98,13 @@ class AuthController extends Controller
         // Revoke all previous tokens
         $user->tokens()->delete();
 
+        // Determine token expiration based on "remember me"
+        $remember = $request->boolean('remember', false);
+        $expirationDays = $remember ? self::TOKEN_REMEMBER_ME_DAYS : self::TOKEN_EXPIRATION_DAYS;
+
         // Create new token
         $token = $user->createToken('auth_token')->plainTextToken;
-        $expiresAt = Carbon::now()->addDays(self::TOKEN_EXPIRATION_DAYS);
+        $expiresAt = Carbon::now()->addDays($expirationDays);
 
         return response()->json([
             'success' => true,
@@ -104,7 +114,8 @@ class AuthController extends Controller
                 'access_token' => $token,
                 'token_type' => 'Bearer',
                 'expires_at' => $expiresAt->toISOString(),
-                'expires_in' => self::TOKEN_EXPIRATION_DAYS * 24 * 60 * 60, // seconds
+                'expires_in' => $expirationDays * 24 * 60 * 60, // seconds
+                'remember' => $remember,
             ]
         ], 200);
     }

@@ -27,6 +27,14 @@ Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->name('password.request');
+
+Route::get('/reset-password', function () {
+    return view('auth.reset-password');
+})->name('password.reset');
+
 // Profile routes
 Route::get('/profile', function () {
     return view('profile.show');
