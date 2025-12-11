@@ -39,7 +39,7 @@
             :class="scrolled ? 'shadow-md' : ''">
         <!-- Top Info Bar -->
         <div class="bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600 text-white py-1.5 hidden lg:block">
-            <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
+            <div class="w-full px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between text-xs">
                     <div class="flex items-center space-x-6">
                         <a href="tel:+221771234567" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
@@ -82,8 +82,8 @@
         </div>
 
         <!-- Main Navigation - Single Line Layout -->
-        <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
-            <nav class="flex items-center justify-between h-[80px]">
+        <div class="w-full px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-[70px] sm:h-[80px]">
                 <!-- Logo - Compact & Modern -->
                 <a href="#" class="flex items-center space-x-3 group relative flex-shrink-0">
                     <div class="relative">
@@ -302,7 +302,7 @@
                     return this.mobileUser && (this.mobileUser.is_admin === 1 || this.mobileUser.is_admin === true);
                 }
              }">
-            <div class="w-full px-6 py-6 space-y-2">
+            <div class="w-full px-4 sm:px-6 py-4 sm:py-6 space-y-2">
                 <!-- User Profile Section (if logged in) -->
                 <template x-if="mobileUser">
                     <div class="pb-4 mb-4 border-b border-gray-100">
