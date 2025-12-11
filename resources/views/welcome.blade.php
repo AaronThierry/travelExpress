@@ -821,294 +821,310 @@
         </div>
     </section>
 
-    <!-- Destinations Section - Immersive Design -->
-    <section id="programmes" class="relative py-16 bg-dark overflow-hidden">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.4\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <!-- Destinations Section - Futuristic World Map Design -->
+    <section id="programmes" class="relative py-20 overflow-hidden" style="background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0d0d1f 100%);">
+
+        <!-- Animated Stars Background -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="stars-container">
+                <div class="absolute w-1 h-1 bg-white rounded-full animate-pulse" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
+                <div class="absolute w-1.5 h-1.5 bg-blue-300 rounded-full animate-pulse" style="top: 20%; left: 80%; animation-delay: 0.5s;"></div>
+                <div class="absolute w-1 h-1 bg-white rounded-full animate-pulse" style="top: 40%; left: 25%; animation-delay: 1s;"></div>
+                <div class="absolute w-2 h-2 bg-purple-300 rounded-full animate-pulse" style="top: 60%; left: 90%; animation-delay: 1.5s;"></div>
+                <div class="absolute w-1 h-1 bg-white rounded-full animate-pulse" style="top: 80%; left: 10%; animation-delay: 2s;"></div>
+                <div class="absolute w-1.5 h-1.5 bg-cyan-300 rounded-full animate-pulse" style="top: 15%; left: 50%; animation-delay: 0.3s;"></div>
+                <div class="absolute w-1 h-1 bg-white rounded-full animate-pulse" style="top: 70%; left: 60%; animation-delay: 1.2s;"></div>
+                <div class="absolute w-1 h-1 bg-pink-300 rounded-full animate-pulse" style="top: 45%; left: 75%; animation-delay: 0.8s;"></div>
+            </div>
         </div>
 
-        <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24 relative z-10">
-            <!-- Section Header -->
+        <!-- Floating Orbs -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-blob"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-cyan-500/15 to-pink-500/15 rounded-full blur-3xl animate-blob" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-indigo-500/10 to-transparent rounded-full blur-3xl"></div>
+
+        <div class="w-full px-4 sm:px-6 lg:px-8 relative z-10">
+
+            <!-- Section Header with Glow Effect -->
             <div class="text-center mb-16">
-                <div class="inline-flex items-center px-5 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6 border border-white/20">
-                    <span class="text-sm font-semibold text-white">🌍 Votre aventure commence ici</span>
+                <div class="inline-flex items-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-xl rounded-full mb-8 border border-white/10 shadow-lg shadow-purple-500/10">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="text-sm font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Explorez le monde avec nous</span>
                 </div>
-                <h2 class="text-2xl md:text-3xl font-display font-bold text-white mb-4">
-                    Choisissez votre <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">destination</span>
+                <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6 leading-tight">
+                    Votre passeport vers
+                    <span class="relative inline-block">
+                        <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">l'international</span>
+                        <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none">
+                            <path d="M1 5.5C47.6667 2.16667 141 -2.4 199 5.5" stroke="url(#gradient)" stroke-width="3" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="gradient" x1="0" y1="0" x2="200" y2="0">
+                                    <stop offset="0%" stop-color="#22d3ee"/>
+                                    <stop offset="50%" stop-color="#3b82f6"/>
+                                    <stop offset="100%" stop-color="#a855f7"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </span>
                 </h2>
-                <p class="text-base text-gray-400 max-w-2xl mx-auto">
-                    Études, travail ou business : découvrez nos destinations et lancez votre projet international
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+                    Trois destinations exceptionnelles pour transformer vos ambitions en réalité
                 </p>
             </div>
 
-            <!-- Destination Cards - Full Width Immersive -->
-            <div class="space-y-8">
+            <!-- Interactive Destination Cards - Hexagonal Grid Style -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
 
-                <!-- CHINA Card -->
-                <div class="group relative rounded-3xl overflow-hidden cursor-pointer" @click="activeCountry = 'china'">
-                    <!-- Background Image -->
-                    <div class="absolute inset-0">
-                        <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-                             alt="Chine - Shanghai skyline"
-                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-r from-red-900/90 via-red-800/70 to-transparent"></div>
-                    </div>
+                <!-- CHINA Card - Premium Featured -->
+                <div class="group relative lg:row-span-2 cursor-pointer" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                    <div class="absolute inset-0 bg-gradient-to-br from-red-500 to-yellow-500 rounded-3xl blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-700"></div>
+                    <div class="relative h-full min-h-[500px] lg:min-h-[650px] rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm transition-all duration-500 group-hover:border-red-500/50 group-hover:scale-[1.02]">
 
-                    <!-- Content -->
-                    <div class="relative z-10 p-5 md:p-8 lg:p-10 min-h-[400px] flex flex-col justify-center">
-                        <div class="max-w-2xl">
-                            <div class="flex items-center gap-4 mb-4">
-                                <span class="text-3xl">🇨🇳</span>
-                                <span class="px-4 py-1 bg-yellow-500 text-yellow-900 text-xs font-bold rounded-full uppercase tracking-wide">Destination #1</span>
+                        <!-- Background Image with Parallax Effect -->
+                        <div class="absolute inset-0 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+                                 alt="Chine - Shanghai"
+                                 class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+                            <div class="absolute inset-0 bg-gradient-to-br from-red-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        </div>
+
+                        <!-- Premium Badge -->
+                        <div class="absolute top-6 left-6 z-20">
+                            <div class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-full shadow-lg shadow-yellow-500/30">
+                                <svg class="w-4 h-4 text-yellow-900" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                <span class="text-xs font-bold text-yellow-900 uppercase tracking-wider">Destination #1</span>
                             </div>
+                        </div>
 
-                            <h3 class="text-xl md:text-2xl font-display font-bold text-white mb-2">
-                                Chine
-                            </h3>
-
-                            <p class="text-lg text-white/80 mb-6 max-w-xl">
-                                Plongez au cœur de la puissance économique mondiale. Études, stages, travail ou opportunités business dans un marché en pleine expansion.
-                            </p>
-
-                            <!-- Key Points -->
-                            <div class="flex flex-wrap gap-3 mb-8">
-                                <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
-                                    🎓 Études universitaires
-                                </span>
-                                <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
-                                    💼 Opportunités de travail
-                                </span>
-                                <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
-                                    🏢 Business & Import-Export
-                                </span>
-                                <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20">
-                                    🎯 Accompagnement complet
-                                </span>
+                        <!-- Flag Animation -->
+                        <div class="absolute top-6 right-6 z-20">
+                            <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-4xl shadow-xl transform group-hover:rotate-12 transition-transform duration-500">
+                                🇨🇳
                             </div>
+                        </div>
 
-                            <!-- Universities Preview -->
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="flex -space-x-3">
-                                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border-2 border-white">
-                                        <span class="text-xs font-bold text-red-600">THU</span>
+                        <!-- Content -->
+                        <div class="absolute inset-0 p-6 lg:p-8 flex flex-col justify-end z-10">
+
+                            <div class="transform transition-all duration-500 group-hover:-translate-y-2">
+                                <h3 class="text-3xl lg:text-4xl font-display font-bold text-white mb-3">Chine</h3>
+                                <p class="text-white/80 text-lg mb-6 max-w-md">
+                                    Plongez au cœur de la puissance économique mondiale. Études, stages, travail ou business.
+                                </p>
+
+                                <!-- Animated Tags -->
+                                <div class="flex flex-wrap gap-2 mb-6">
+                                    <span class="px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg text-white text-sm border border-white/10 transform transition-all hover:scale-105 hover:bg-red-500/20">
+                                        🎓 Études
+                                    </span>
+                                    <span class="px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg text-white text-sm border border-white/10 transform transition-all hover:scale-105 hover:bg-red-500/20">
+                                        💼 Travail
+                                    </span>
+                                    <span class="px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg text-white text-sm border border-white/10 transform transition-all hover:scale-105 hover:bg-red-500/20">
+                                        🏢 Business
+                                    </span>
+                                    <span class="px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg text-white text-sm border border-white/10 transform transition-all hover:scale-105 hover:bg-red-500/20">
+                                        🎯 A-Z
+                                    </span>
+                                </div>
+
+                                <!-- Stats with Glow -->
+                                <div class="grid grid-cols-3 gap-4 mb-6 p-4 bg-black/30 backdrop-blur-md rounded-2xl border border-white/10">
+                                    <div class="text-center">
+                                        <div class="text-2xl font-bold text-yellow-400 drop-shadow-glow">50+</div>
+                                        <div class="text-xs text-white/60">Universités</div>
                                     </div>
-                                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border-2 border-white">
-                                        <span class="text-xs font-bold text-red-600">PKU</span>
+                                    <div class="text-center border-x border-white/10">
+                                        <div class="text-2xl font-bold text-white">98%</div>
+                                        <div class="text-xs text-white/60">Réussite</div>
                                     </div>
-                                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border-2 border-white">
-                                        <span class="text-xs font-bold text-red-600">FDU</span>
-                                    </div>
-                                    <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center shadow-lg border-2 border-white">
-                                        <span class="text-xs font-bold text-white">+50</span>
+                                    <div class="text-center">
+                                        <div class="text-2xl font-bold text-green-400">24h</div>
+                                        <div class="text-xs text-white/60">Réponse</div>
                                     </div>
                                 </div>
-                                <span class="text-white/70 text-sm">Universités partenaires</span>
+
+                                <!-- CTA Button with Animation -->
+                                <a href="#contact" class="group/btn relative inline-flex items-center justify-center gap-3 w-full px-6 py-4 overflow-hidden rounded-xl font-bold text-white transition-all duration-300">
+                                    <div class="absolute inset-0 bg-gradient-to-r from-red-600 to-yellow-500"></div>
+                                    <div class="absolute inset-0 bg-gradient-to-r from-red-500 to-yellow-400 opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
+                                    <span class="relative z-10">Explorer la Chine</span>
+                                    <svg class="relative z-10 w-5 h-5 transform group-hover/btn:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                    </svg>
+                                </a>
                             </div>
-
-                            <a href="#contact" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-red-600 font-semibold rounded-lg text-sm hover:bg-yellow-400 hover:text-red-700 transition-all duration-300 group-hover:translate-x-2">
-                                Découvrir la Chine
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Stats Floating Cards -->
-                    <div class="hidden lg:block absolute right-12 top-1/2 -translate-y-1/2 space-y-4">
-                        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-transform">
-                            <div class="text-2xl font-display font-bold text-white mb-1">98%</div>
-                            <div class="text-sm text-white/70">Taux d'admission</div>
-                        </div>
-                        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-transform">
-                            <div class="text-2xl font-display font-bold text-yellow-400 mb-1">A-Z</div>
-                            <div class="text-sm text-white/70">Accompagnement complet</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Two Columns: Spain & Germany -->
-                <div class="grid md:grid-cols-2 gap-8">
+                <!-- SPAIN Card -->
+                <div class="group relative cursor-pointer" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                    <div class="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-500 rounded-3xl blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-700"></div>
+                    <div class="relative h-full min-h-[300px] rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm transition-all duration-500 group-hover:border-orange-500/50 group-hover:scale-[1.02]">
 
-                    <!-- SPAIN Card - Modern Design -->
-                    <div class="group relative rounded-3xl overflow-hidden cursor-pointer min-h-[550px] shadow-2xl" @click="activeCountry = 'spain'">
-                        <!-- Background Image -->
-                        <div class="absolute inset-0">
+                        <div class="absolute inset-0 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
                                  alt="Espagne - Barcelone"
-                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-orange-900/50 to-transparent"></div>
+                                 class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
                         </div>
 
-                        <!-- Floating Badge -->
-                        <div class="absolute top-6 right-6 z-20">
-                            <div class="px-4 py-2 bg-gradient-to-r from-red-500 to-yellow-500 rounded-full shadow-lg">
-                                <span class="text-white text-xs font-bold uppercase tracking-wider">Europe & Opportunités</span>
+                        <!-- Flag -->
+                        <div class="absolute top-4 right-4 z-20">
+                            <div class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-2xl shadow-xl transform group-hover:rotate-12 transition-transform duration-500">
+                                🇪🇸
                             </div>
                         </div>
 
-                        <!-- Content -->
-                        <div class="relative z-10 p-5 h-full flex flex-col justify-end">
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-3xl drop-shadow-lg">🇪🇸</span>
-                                <div class="flex flex-col">
-                                    <span class="text-yellow-400 text-xs font-bold uppercase tracking-widest">Europe</span>
-                                    <h3 class="text-xl md:text-2xl font-display font-bold text-white">Espagne</h3>
-                                </div>
+                        <!-- Badge -->
+                        <div class="absolute top-4 left-4 z-20">
+                            <div class="px-3 py-1.5 bg-gradient-to-r from-red-500 to-yellow-500 rounded-full">
+                                <span class="text-xs font-bold text-white uppercase tracking-wider">Europe</span>
+                            </div>
+                        </div>
+
+                        <div class="absolute inset-0 p-6 flex flex-col justify-end z-10">
+                            <h3 class="text-2xl font-display font-bold text-white mb-2">Espagne</h3>
+                            <p class="text-white/70 text-sm mb-4">Porte d'entrée vers l'Europe</p>
+
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                <span class="px-2 py-1 bg-white/10 rounded-md text-white text-xs">🎓 Études</span>
+                                <span class="px-2 py-1 bg-white/10 rounded-md text-white text-xs">💼 Emploi</span>
+                                <span class="px-2 py-1 bg-white/10 rounded-md text-white text-xs">🏛️ Diplômes UE</span>
                             </div>
 
-                            <p class="text-white/90 mb-6 text-lg leading-relaxed">
-                                Porte d'entrée vers l'Europe. Études, travail saisonnier, entrepreneuriat : nous vous accompagnons dans tous vos projets.
-                            </p>
-
-                            <!-- Modern Tags -->
-                            <div class="flex flex-wrap gap-2 mb-6">
-                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
-                                    🎯 Accompagnement études
-                                </span>
-                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
-                                    💼 Aide à l'emploi
-                                </span>
-                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
-                                    🏛️ Diplômes UE
-                                </span>
-                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
-                                    🎨 Arts & Business
-                                </span>
-                            </div>
-
-                            <!-- Stats Row -->
-                            <div class="grid grid-cols-3 gap-3 mb-6 py-4 border-t border-white/10">
+                            <div class="flex items-center justify-between p-3 bg-black/30 backdrop-blur-md rounded-xl border border-white/10">
                                 <div class="text-center">
-                                    <div class="text-2xl font-bold text-yellow-400">30+</div>
-                                    <div class="text-xs text-white/60">Universités</div>
-                                </div>
-                                <div class="text-center border-x border-white/10">
-                                    <div class="text-2xl font-bold text-white">95%</div>
-                                    <div class="text-xs text-white/60">Réussite</div>
+                                    <div class="text-lg font-bold text-yellow-400">30+</div>
+                                    <div class="text-xs text-white/50">Unis</div>
                                 </div>
                                 <div class="text-center">
-                                    <div class="text-2xl font-bold text-green-400">Job</div>
-                                    <div class="text-xs text-white/60">Support</div>
+                                    <div class="text-lg font-bold text-white">95%</div>
+                                    <div class="text-xs text-white/50">Réussite</div>
                                 </div>
+                                <a href="#contact" class="px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg text-white text-sm font-semibold hover:shadow-lg hover:shadow-orange-500/30 transition-all">
+                                    Explorer
+                                </a>
                             </div>
-
-                            <a href="#contact" class="inline-flex items-center justify-center gap-2 w-full px-6 py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-yellow-400 transition-all duration-300 group-hover:shadow-xl">
-                                Démarrer mon projet
-                                <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                </svg>
-                            </a>
                         </div>
                     </div>
+                </div>
 
-                    <!-- GERMANY Card - Modern Design -->
-                    <div class="group relative rounded-3xl overflow-hidden cursor-pointer min-h-[550px] shadow-2xl" @click="activeCountry = 'germany'">
-                        <!-- Background Image -->
-                        <div class="absolute inset-0">
+                <!-- GERMANY Card -->
+                <div class="group relative cursor-pointer" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                    <div class="absolute inset-0 bg-gradient-to-br from-gray-500 to-yellow-500 rounded-3xl blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-700"></div>
+                    <div class="relative h-full min-h-[300px] rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm transition-all duration-500 group-hover:border-yellow-500/50 group-hover:scale-[1.02]">
+
+                        <div class="absolute inset-0 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
                                  alt="Allemagne - Berlin"
-                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-gray-900/50 to-transparent"></div>
+                                 class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
                         </div>
 
-                        <!-- Floating Badge -->
-                        <div class="absolute top-6 right-6 z-20">
-                            <div class="px-4 py-2 bg-gradient-to-r from-gray-800 to-yellow-500 rounded-full shadow-lg">
-                                <span class="text-white text-xs font-bold uppercase tracking-wider">Travail & Formation</span>
+                        <!-- Flag -->
+                        <div class="absolute top-4 right-4 z-20">
+                            <div class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-2xl shadow-xl transform group-hover:rotate-12 transition-transform duration-500">
+                                🇩🇪
                             </div>
                         </div>
 
-                        <!-- Content -->
-                        <div class="relative z-10 p-5 h-full flex flex-col justify-end">
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-3xl drop-shadow-lg">🇩🇪</span>
-                                <div class="flex flex-col">
-                                    <span class="text-yellow-400 text-xs font-bold uppercase tracking-widest">Innovation</span>
-                                    <h3 class="text-xl md:text-2xl font-display font-bold text-white">Allemagne</h3>
-                                </div>
+                        <!-- Badge -->
+                        <div class="absolute top-4 left-4 z-20">
+                            <div class="px-3 py-1.5 bg-gradient-to-r from-gray-700 to-yellow-500 rounded-full">
+                                <span class="text-xs font-bold text-white uppercase tracking-wider">Innovation</span>
+                            </div>
+                        </div>
+
+                        <div class="absolute inset-0 p-6 flex flex-col justify-end z-10">
+                            <h3 class="text-2xl font-display font-bold text-white mb-2">Allemagne</h3>
+                            <p class="text-white/70 text-sm mb-4">Première économie européenne</p>
+
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                <span class="px-2 py-1 bg-white/10 rounded-md text-white text-xs">⚙️ Tech</span>
+                                <span class="px-2 py-1 bg-white/10 rounded-md text-white text-xs">🚗 Auto</span>
+                                <span class="px-2 py-1 bg-white/10 rounded-md text-white text-xs">💼 Emploi</span>
                             </div>
 
-                            <p class="text-white/90 mb-6 text-lg leading-relaxed">
-                                Première économie européenne. Études, formation professionnelle, emploi qualifié : construisez votre avenir avec nous.
-                            </p>
-
-                            <!-- Modern Tags -->
-                            <div class="flex flex-wrap gap-2 mb-6">
-                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
-                                    🎯 Accompagnement études
-                                </span>
-                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
-                                    💼 Insertion professionnelle
-                                </span>
-                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
-                                    ⚙️ Ingénierie & Tech
-                                </span>
-                                <span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/10">
-                                    🚗 Automobile
-                                </span>
-                            </div>
-
-                            <!-- Stats Row -->
-                            <div class="grid grid-cols-3 gap-3 mb-6 py-4 border-t border-white/10">
+                            <div class="flex items-center justify-between p-3 bg-black/30 backdrop-blur-md rounded-xl border border-white/10">
                                 <div class="text-center">
-                                    <div class="text-2xl font-bold text-yellow-400">20+</div>
-                                    <div class="text-xs text-white/60">Universités</div>
-                                </div>
-                                <div class="text-center border-x border-white/10">
-                                    <div class="text-2xl font-bold text-white">97%</div>
-                                    <div class="text-xs text-white/60">Réussite</div>
+                                    <div class="text-lg font-bold text-yellow-400">20+</div>
+                                    <div class="text-xs text-white/50">Unis</div>
                                 </div>
                                 <div class="text-center">
-                                    <div class="text-2xl font-bold text-green-400">Job</div>
-                                    <div class="text-xs text-white/60">Support</div>
+                                    <div class="text-lg font-bold text-white">97%</div>
+                                    <div class="text-xs text-white/50">Réussite</div>
                                 </div>
+                                <a href="#contact" class="px-4 py-2 bg-gradient-to-r from-gray-700 to-yellow-500 rounded-lg text-white text-sm font-semibold hover:shadow-lg hover:shadow-yellow-500/30 transition-all">
+                                    Explorer
+                                </a>
                             </div>
+                        </div>
+                    </div>
+                </div>
 
-                            <a href="#contact" class="inline-flex items-center justify-center gap-2 w-full px-6 py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-yellow-400 transition-all duration-300 group-hover:shadow-xl">
-                                Démarrer mon projet
-                                <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                </svg>
-                            </a>
+            </div>
+
+            <!-- Floating Stats Bar -->
+            <div class="mt-16 max-w-5xl mx-auto">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-xl"></div>
+                    <div class="relative grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10">
+                        <div class="text-center p-4 rounded-2xl hover:bg-white/5 transition-colors">
+                            <div class="text-3xl md:text-4xl font-display font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">500+</div>
+                            <div class="text-gray-400 text-sm mt-1">Étudiants accompagnés</div>
+                        </div>
+                        <div class="text-center p-4 rounded-2xl hover:bg-white/5 transition-colors">
+                            <div class="text-3xl md:text-4xl font-display font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">98%</div>
+                            <div class="text-gray-400 text-sm mt-1">Taux de réussite</div>
+                        </div>
+                        <div class="text-center p-4 rounded-2xl hover:bg-white/5 transition-colors">
+                            <div class="text-3xl md:text-4xl font-display font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">100+</div>
+                            <div class="text-gray-400 text-sm mt-1">Universités partenaires</div>
+                        </div>
+                        <div class="text-center p-4 rounded-2xl hover:bg-white/5 transition-colors">
+                            <div class="text-3xl md:text-4xl font-display font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">24h</div>
+                            <div class="text-gray-400 text-sm mt-1">Réponse garantie</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Bottom Stats -->
-            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                    <div class="text-2xl md:text-3xl font-display font-bold text-white mb-1">500+</div>
-                    <div class="text-gray-400">Étudiants accompagnés</div>
-                </div>
-                <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                    <div class="text-2xl md:text-3xl font-display font-bold text-primary-400 mb-1">98%</div>
-                    <div class="text-gray-400">Taux de réussite</div>
-                </div>
-                <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                    <div class="text-2xl md:text-3xl font-display font-bold text-accent-400 mb-1">50+</div>
-                    <div class="text-gray-400">Universités partenaires</div>
-                </div>
-                <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                    <div class="text-2xl md:text-3xl font-display font-bold text-green-400 mb-1">24h</div>
-                    <div class="text-gray-400">Réponse garantie</div>
-                </div>
-            </div>
-
-            <!-- CTA Section -->
+            <!-- CTA Section with Glow -->
             <div class="mt-16 text-center">
-                <p class="text-gray-400 mb-6">Vous ne savez pas quelle destination choisir ?</p>
-                <a href="#contact" class="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-lg font-bold rounded-2xl shadow-2xl hover:shadow-primary-500/25 hover:scale-105 transition-all duration-300">
-                    <span>Consultation gratuite personnalisée</span>
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                    </svg>
-                </a>
-                <p class="text-gray-500 text-sm mt-4">Accompagnement personnalisé pour chaque étudiant</p>
+                <div class="inline-block relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-2xl blur-xl opacity-50"></div>
+                    <a href="#contact" class="relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-bold rounded-2xl shadow-2xl hover:shadow-purple-500/30 hover:scale-105 transition-all duration-300 border border-white/20">
+                        <span class="text-lg">Consultation gratuite</span>
+                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <p class="text-gray-500 text-sm mt-6">Besoin de conseils ? Notre équipe vous répond en moins de 24h</p>
             </div>
         </div>
+
+        <style>
+            @keyframes blob {
+                0%, 100% { transform: translate(0, 0) scale(1); }
+                25% { transform: translate(20px, -30px) scale(1.1); }
+                50% { transform: translate(-20px, 20px) scale(0.9); }
+                75% { transform: translate(30px, 10px) scale(1.05); }
+            }
+            .animate-blob {
+                animation: blob 8s ease-in-out infinite;
+            }
+            .drop-shadow-glow {
+                filter: drop-shadow(0 0 10px currentColor);
+            }
+        </style>
     </section>
 
     <!-- Process Section -->
