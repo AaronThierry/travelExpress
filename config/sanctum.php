@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'expiration' => 60 * 24 * 7, // 7 jours en minutes
+    'expiration' => 60 * 24, // 1 jour (24 heures) en minutes
 
     /*
     |--------------------------------------------------------------------------

@@ -261,8 +261,8 @@
             const now = new Date();
             const hoursRemaining = (expiresAt - now) / (1000 * 60 * 60);
 
-            // Refresh if less than 24 hours remaining
-            if (hoursRemaining < 24 && hoursRemaining > 0) {
+            // Refresh if less than 6 hours remaining (token expires in 24h)
+            if (hoursRemaining < 6 && hoursRemaining > 0) {
                 try {
                     const response = await fetch('/api/refresh', {
                         method: 'POST',

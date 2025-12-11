@@ -15,7 +15,7 @@ class AuthController extends Controller
     /**
      * Token expiration time in days
      */
-    private const TOKEN_EXPIRATION_DAYS = 7;
+    private const TOKEN_EXPIRATION_DAYS = 1;
     /**
      * Register a new user
      */
