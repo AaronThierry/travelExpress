@@ -1509,6 +1509,10 @@
                 getFlag(code) {
                     return this.flags[code] || '🌍';
                 },
+                getFlagUrl(code) {
+                    if (!code) return 'https://flagcdn.com/w40/xx.png';
+                    return `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
+                },
                 getCountryName(code) {
                     return this.countryNames[code] || code || '';
                 },
@@ -1710,9 +1714,12 @@
                                                         <span x-text="getInitials(testimonial.name)"></span>
                                                     </div>
                                                 </template>
-                                                <!-- Country Flag -->
-                                                <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-white">
-                                                    <span class="text-sm" x-text="getFlag(testimonial.country)"></span>
+                                                <!-- Country Flag PNG -->
+                                                <div class="absolute -bottom-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-white overflow-hidden">
+                                                    <img :src="getFlagUrl(testimonial.country)"
+                                                         :alt="getCountryName(testimonial.country)"
+                                                         class="w-5 h-4 object-cover rounded-sm"
+                                                         onerror="this.style.display='none'">
                                                 </div>
                                             </div>
 
@@ -1722,10 +1729,13 @@
                                                 <p class="text-slate-500 text-sm font-medium truncate" x-text="testimonial.program || 'Étudiant'"></p>
                                             </div>
 
-                                            <!-- Destination Badge -->
-                                            <div class="flex-shrink-0 px-3 py-1.5 bg-gradient-to-r from-primary-50 to-accent-50 rounded-lg border border-primary-100">
-                                                <div class="flex items-center gap-1.5">
-                                                    <span class="text-xl" x-text="getFlag(testimonial.destination)"></span>
+                                            <!-- Destination Badge with PNG Flag -->
+                                            <div class="flex-shrink-0 px-3 py-2 bg-gradient-to-r from-primary-50 to-accent-50 rounded-xl border border-primary-100">
+                                                <div class="flex items-center gap-2">
+                                                    <img :src="getFlagUrl(testimonial.destination)"
+                                                         :alt="getCountryName(testimonial.destination)"
+                                                         class="w-7 h-5 object-cover rounded shadow-sm"
+                                                         onerror="this.style.display='none'">
                                                     <span class="text-xs font-bold text-primary-700" x-text="getCountryName(testimonial.destination)"></span>
                                                 </div>
                                             </div>
