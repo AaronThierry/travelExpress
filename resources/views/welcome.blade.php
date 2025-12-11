@@ -1334,10 +1334,10 @@
         <div class="w-full px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
             <!-- Section Header -->
             <div class="text-center mb-14">
-                <h2 class="text-3xl md:text-4xl font-display font-bold text-dark mb-4">
+                <h2 class="text-3xl md:text-4xl font-display font-extrabold text-dark mb-4 tracking-tight">
                     Notre accompagnement en <span class="text-primary-600">4 étapes</span>
                 </h2>
-                <p class="text-gray-500 max-w-xl mx-auto">
+                <p class="text-gray-500 max-w-xl mx-auto text-base font-medium tracking-wide">
                     Un processus clair et personnalisé pour concrétiser votre projet
                 </p>
             </div>
@@ -1358,11 +1358,11 @@
                                 </svg>
                             </div>
                             <div class="absolute -top-2 -right-2 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-primary-500">
-                                <span class="text-lg font-bold text-primary-600">1</span>
+                                <span class="text-lg font-extrabold text-primary-600">1</span>
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold text-dark mb-2">Consultation</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
+                        <h3 class="text-xl font-bold text-dark mb-2 tracking-tight">Consultation</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed font-medium">
                             Analyse de votre projet et définition de vos objectifs.
                         </p>
                     </div>
@@ -1376,11 +1376,11 @@
                                 </svg>
                             </div>
                             <div class="absolute -top-2 -right-2 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-purple-500">
-                                <span class="text-lg font-bold text-purple-600">2</span>
+                                <span class="text-lg font-extrabold text-purple-600">2</span>
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold text-dark mb-2">Préparation</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
+                        <h3 class="text-xl font-bold text-dark mb-2 tracking-tight">Préparation</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed font-medium">
                             Constitution de votre dossier complet.
                         </p>
                     </div>
@@ -1394,11 +1394,11 @@
                                 </svg>
                             </div>
                             <div class="absolute -top-2 -right-2 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-orange-500">
-                                <span class="text-lg font-bold text-orange-600">3</span>
+                                <span class="text-lg font-extrabold text-orange-600">3</span>
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold text-dark mb-2">Validation</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
+                        <h3 class="text-xl font-bold text-dark mb-2 tracking-tight">Validation</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed font-medium">
                             Suivi des démarches et validations.
                         </p>
                     </div>
@@ -1412,11 +1412,11 @@
                                 </svg>
                             </div>
                             <div class="absolute -top-2 -right-2 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-green-500">
-                                <span class="text-lg font-bold text-green-600">4</span>
+                                <span class="text-lg font-extrabold text-green-600">4</span>
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold text-dark mb-2">Départ</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
+                        <h3 class="text-xl font-bold text-dark mb-2 tracking-tight">Départ</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed font-medium">
                             Visa, logement et nouvelle vie.
                         </p>
                     </div>
@@ -1426,7 +1426,7 @@
 
             <!-- CTA -->
             <div class="text-center mt-14">
-                <a href="#contact" class="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-600 text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                <a href="#contact" class="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-600 text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 tracking-wide">
                     <span>Commencer maintenant</span>
                     <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
