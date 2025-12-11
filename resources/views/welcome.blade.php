@@ -1783,15 +1783,42 @@
                 </template>
             </div>
 
-            <!-- CTA Section - Minimal Pro -->
-            <div class="text-center mt-12">
-                <button @click="testimonialModalOpen = true"
-                        class="group inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold text-sm transition-all duration-300">
-                    <span class="uppercase tracking-widest">Partager mon expérience</span>
-                    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                </button>
+            <!-- CTA Section - Premium Design -->
+            <div class="mt-16 max-w-2xl mx-auto">
+                <div class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl p-8 md:p-10 overflow-hidden">
+                    <!-- Background decoration -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary-500/20 to-accent-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-accent-500/10 to-primary-500/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
+
+                    <div class="relative z-10 text-center">
+                        <!-- Icon -->
+                        <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl mb-6 shadow-lg shadow-primary-500/30">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/>
+                            </svg>
+                        </div>
+
+                        <!-- Text -->
+                        <h3 class="text-white text-2xl md:text-3xl font-display font-bold mb-3">
+                            Votre histoire nous inspire
+                        </h3>
+                        <p class="text-slate-300 text-base md:text-lg leading-relaxed mb-8 max-w-lg mx-auto">
+                            Vous avez vécu l'aventure internationale avec nous ? Partagez votre parcours et inspirez la prochaine génération d'étudiants.
+                        </p>
+
+                        <!-- Button -->
+                        <button @click="testimonialModalOpen = true"
+                                class="group inline-flex items-center gap-3 px-8 py-4 bg-white text-slate-900 font-bold rounded-xl shadow-xl hover:shadow-2xl hover:bg-slate-50 transform hover:-translate-y-1 transition-all duration-300">
+                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"/>
+                            </svg>
+                            <span>Partager mon témoignage</span>
+                            <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
