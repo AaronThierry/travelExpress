@@ -278,9 +278,57 @@
              x-transition:leave="transition ease-in duration-200"
              x-transition:leave-start="opacity-100 transform translate-y-0"
              x-transition:leave-end="opacity-0 transform -translate-y-4"
-             class="lg:hidden bg-white border-t border-black/[0.06] shadow-xl"
-             @click.away="mobileMenuOpen = false">
-            <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24 py-6 space-y-2">
+             class="xl:hidden bg-white border-t border-black/[0.06] shadow-xl"
+             @click.away="mobileMenuOpen = false"
+             x-data="{
+                mobileUser: null,
+                init() {
+                    const userData = localStorage.getItem('user');
+                    if (userData) {
+                        this.mobileUser = JSON.parse(userData);
+                    }
+                },
+                mobileLogout() {
+                    localStorage.removeItem('auth_token');
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('token_expires_at');
+                    localStorage.removeItem('is_admin');
+                    window.location.href = '/';
+                },
+                getInitials(name) {
+                    return name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                },
+                isAdmin() {
+                    return this.mobileUser && (this.mobileUser.is_admin === 1 || this.mobileUser.is_admin === true);
+                }
+             }">
+            <div class="w-full px-6 py-6 space-y-2">
+                <!-- User Profile Section (if logged in) -->
+                <template x-if="mobileUser">
+                    <div class="pb-4 mb-4 border-b border-gray-100">
+                        <div class="flex items-center space-x-3 px-4 py-3 bg-gray-50 rounded-xl">
+                            <div class="w-12 h-12 bg-gradient-to-br from-primary-600 to-accent-600 rounded-full flex items-center justify-center shadow-md">
+                                <span x-text="getInitials(mobileUser.name)" class="text-sm font-bold text-white"></span>
+                            </div>
+                            <div class="flex-1">
+                                <p x-text="mobileUser.name" class="font-bold text-dark"></p>
+                                <p x-text="mobileUser.email" class="text-xs text-gray-500"></p>
+                            </div>
+                        </div>
+                        <!-- Admin Dashboard Link -->
+                        <template x-if="isAdmin()">
+                            <a href="/admin/dashboard" @click="mobileMenuOpen = false" class="flex items-center space-x-3 mt-3 px-4 py-3 text-white bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl shadow-md">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                                <span class="font-bold">Dashboard Admin</span>
+                                <span class="ml-auto bg-white/20 px-2 py-0.5 rounded text-xs">ADMIN</span>
+                            </a>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Navigation Links -->
                 <a href="#programmes" @click="mobileMenuOpen = false" class="flex items-center justify-between py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
                     <span class="font-medium">Programmes</span>
                     <svg class="w-4 h-4 text-gray group-hover:text-primary-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -288,13 +336,13 @@
                     </svg>
                 </a>
                 <a href="#pourquoi" @click="mobileMenuOpen = false" class="flex items-center justify-between py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
-                    <span class="font-medium">Pourquoi nous</span>
+                    <span class="font-medium">Avantages</span>
                     <svg class="w-4 h-4 text-gray group-hover:text-primary-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                 </a>
                 <a href="#processus" @click="mobileMenuOpen = false" class="flex items-center justify-between py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
-                    <span class="font-medium">Notre processus</span>
+                    <span class="font-medium">Processus</span>
                     <svg class="w-4 h-4 text-gray group-hover:text-primary-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
@@ -311,29 +359,54 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                 </a>
-                <a href="#contact" @click="mobileMenuOpen = false" class="flex items-center justify-between py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
-                    <span class="font-medium">Contact</span>
-                    <svg class="w-4 h-4 text-gray group-hover:text-primary-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </a>
+
+                <!-- User Menu Links (if logged in) -->
+                <template x-if="mobileUser">
+                    <div class="pt-2 mt-2 border-t border-gray-100 space-y-2">
+                        <a href="/profile" @click="mobileMenuOpen = false" class="flex items-center space-x-3 py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            <span class="font-medium">Mon profil</span>
+                        </a>
+                        <a href="/profile/edit" @click="mobileMenuOpen = false" class="flex items-center space-x-3 py-3 px-4 text-dark hover:bg-primary-50 rounded-xl transition-all group">
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="font-medium">Paramètres</span>
+                        </a>
+                        <button @click="mobileLogout()" class="flex items-center space-x-3 w-full py-3 px-4 text-red-600 hover:bg-red-50 rounded-xl transition-all group">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                            <span class="font-medium">Déconnexion</span>
+                        </button>
+                    </div>
+                </template>
+
+                <!-- Action Buttons -->
                 <div class="pt-4 space-y-3">
-                    <!-- Connexion button mobile -->
-                    <a href="/login" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-5 py-3 border-2 border-primary-600 text-primary-600 font-semibold rounded-xl hover:bg-primary-50 transition-all">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                        <span>Connexion</span>
-                    </a>
-                    <a href="tel:+221771234567" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-5 py-3 bg-primary-50 text-primary-600 font-semibold rounded-xl hover:bg-primary-100 transition-all">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Login button (if not logged in) -->
+                    <template x-if="!mobileUser">
+                        <a href="/login" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-5 py-3 border-2 border-primary-600 text-primary-600 font-semibold rounded-xl hover:bg-primary-50 transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            <span>Connexion</span>
+                        </a>
+                    </template>
+
+                    <a href="tel:+221771234567" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-5 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-all shadow-md">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                         </svg>
-                        <span>Nous appeler</span>
+                        <span>Appeler</span>
                     </a>
-                    <a href="#contact" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-5 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl hover:shadow-lg transition-all">
-                        <span>Déposer ma candidature</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                    <a href="#contact" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-5 py-3 bg-gradient-to-r from-accent-600 to-accent-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all">
+                        <span>Postuler</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
                     </a>
