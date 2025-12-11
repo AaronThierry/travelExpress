@@ -872,197 +872,405 @@
                 </p>
             </div>
 
-            <!-- Interactive Destination Cards - Hexagonal Grid Style -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
+            <!-- Destination Cards - Equal Size with Image Gallery -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
 
-                <!-- CHINA Card - Premium Featured -->
-                <div class="group relative lg:row-span-2 cursor-pointer" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <!-- ============================================== -->
+                <!-- CHINA Card - Full Featured -->
+                <!-- ============================================== -->
+                <div class="group relative cursor-pointer">
                     <div class="absolute inset-0 bg-gradient-to-br from-red-500 to-yellow-500 rounded-3xl blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-700"></div>
-                    <div class="relative h-full min-h-[500px] lg:min-h-[650px] rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm transition-all duration-500 group-hover:border-red-500/50 group-hover:scale-[1.02]">
+                    <div class="relative h-full rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm transition-all duration-500 group-hover:border-red-500/50 group-hover:scale-[1.01]">
 
-                        <!-- Background Image with Parallax Effect -->
-                        <div class="absolute inset-0 overflow-hidden">
+                        <!-- Main Image -->
+                        <div class="relative h-56 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-                                 alt="Chine - Shanghai"
+                                 alt="Shanghai - Pudong Skyline"
                                  class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
-                            <div class="absolute inset-0 bg-gradient-to-br from-red-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
-                        <!-- Premium Badge -->
-                        <div class="absolute top-6 left-6 z-20">
-                            <div class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-full shadow-lg shadow-yellow-500/30">
-                                <svg class="w-4 h-4 text-yellow-900" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                                </svg>
-                                <span class="text-xs font-bold text-yellow-900 uppercase tracking-wider">Destination #1</span>
+                            <!-- Flag & Badge -->
+                            <div class="absolute top-4 left-4 z-20">
+                                <div class="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-red-600 to-yellow-500 rounded-full shadow-lg">
+                                    <span class="text-lg">🇨🇳</span>
+                                    <span class="text-xs font-bold text-white uppercase tracking-wider">Chine</span>
+                                </div>
+                            </div>
+
+                            <!-- Premium Star -->
+                            <div class="absolute top-4 right-4 z-20">
+                                <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg shadow-yellow-500/50">
+                                    <svg class="w-5 h-5 text-yellow-900" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Title Overlay -->
+                            <div class="absolute bottom-4 left-4 right-4">
+                                <h3 class="text-2xl font-display font-bold text-white">Empire du Milieu</h3>
+                                <p class="text-white/80 text-sm">Shanghai • Pékin • Guangzhou • Shenzhen</p>
                             </div>
                         </div>
 
-                        <!-- Flag Animation -->
-                        <div class="absolute top-6 right-6 z-20">
-                            <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-4xl shadow-xl transform group-hover:rotate-12 transition-transform duration-500">
-                                🇨🇳
+                        <!-- Image Gallery - Landmarks -->
+                        <div class="grid grid-cols-3 gap-1 p-1">
+                            <div class="relative h-20 overflow-hidden rounded-lg group/img">
+                                <img src="https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="Grande Muraille de Chine"
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
+                                    <span class="text-white text-xs font-medium">Grande Muraille</span>
+                                </div>
+                            </div>
+                            <div class="relative h-20 overflow-hidden rounded-lg group/img">
+                                <img src="https://images.unsplash.com/photo-1529921879218-f99546d03a9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="Cité Interdite Pékin"
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
+                                    <span class="text-white text-xs font-medium">Cité Interdite</span>
+                                </div>
+                            </div>
+                            <div class="relative h-20 overflow-hidden rounded-lg group/img">
+                                <img src="https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="Temple du Ciel"
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
+                                    <span class="text-white text-xs font-medium">Temple du Ciel</span>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Content -->
-                        <div class="absolute inset-0 p-6 lg:p-8 flex flex-col justify-end z-10">
+                        <div class="p-5">
+                            <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                                Deuxième économie mondiale, la Chine offre des opportunités uniques : universités de rang mondial, marché du travail dynamique et hub business international.
+                            </p>
 
-                            <div class="transform transition-all duration-500 group-hover:-translate-y-2">
-                                <h3 class="text-3xl lg:text-4xl font-display font-bold text-white mb-3">Chine</h3>
-                                <p class="text-white/80 text-lg mb-6 max-w-md">
-                                    Plongez au cœur de la puissance économique mondiale. Études, stages, travail ou business.
-                                </p>
-
-                                <!-- Animated Tags -->
-                                <div class="flex flex-wrap gap-2 mb-6">
-                                    <span class="px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg text-white text-sm border border-white/10 transform transition-all hover:scale-105 hover:bg-red-500/20">
-                                        🎓 Études
-                                    </span>
-                                    <span class="px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg text-white text-sm border border-white/10 transform transition-all hover:scale-105 hover:bg-red-500/20">
-                                        💼 Travail
-                                    </span>
-                                    <span class="px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg text-white text-sm border border-white/10 transform transition-all hover:scale-105 hover:bg-red-500/20">
-                                        🏢 Business
-                                    </span>
-                                    <span class="px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg text-white text-sm border border-white/10 transform transition-all hover:scale-105 hover:bg-red-500/20">
-                                        🎯 A-Z
-                                    </span>
+                            <!-- Programs Available -->
+                            <div class="mb-4">
+                                <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-2">Programmes disponibles</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2.5 py-1 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 text-xs">🎓 Études universitaires</span>
+                                    <span class="px-2.5 py-1 bg-yellow-500/20 border border-yellow-500/30 rounded-lg text-yellow-300 text-xs">💼 Travail & Stages</span>
+                                    <span class="px-2.5 py-1 bg-orange-500/20 border border-orange-500/30 rounded-lg text-orange-300 text-xs">🏢 Business & Import</span>
+                                    <span class="px-2.5 py-1 bg-purple-500/20 border border-purple-500/30 rounded-lg text-purple-300 text-xs">🌐 Cours de Mandarin</span>
                                 </div>
+                            </div>
 
-                                <!-- Stats with Glow -->
-                                <div class="grid grid-cols-3 gap-4 mb-6 p-4 bg-black/30 backdrop-blur-md rounded-2xl border border-white/10">
-                                    <div class="text-center">
-                                        <div class="text-2xl font-bold text-yellow-400 drop-shadow-glow">50+</div>
-                                        <div class="text-xs text-white/60">Universités</div>
-                                    </div>
-                                    <div class="text-center border-x border-white/10">
-                                        <div class="text-2xl font-bold text-white">98%</div>
-                                        <div class="text-xs text-white/60">Réussite</div>
-                                    </div>
-                                    <div class="text-center">
-                                        <div class="text-2xl font-bold text-green-400">24h</div>
-                                        <div class="text-xs text-white/60">Réponse</div>
-                                    </div>
-                                </div>
-
-                                <!-- CTA Button with Animation -->
-                                <a href="#contact" class="group/btn relative inline-flex items-center justify-center gap-3 w-full px-6 py-4 overflow-hidden rounded-xl font-bold text-white transition-all duration-300">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-red-600 to-yellow-500"></div>
-                                    <div class="absolute inset-0 bg-gradient-to-r from-red-500 to-yellow-400 opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
-                                    <span class="relative z-10">Explorer la Chine</span>
-                                    <svg class="relative z-10 w-5 h-5 transform group-hover/btn:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            <!-- Key Features -->
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-center gap-2 text-sm text-gray-300">
+                                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                     </svg>
-                                </a>
+                                    <span>Bourses CSC disponibles (100% des frais)</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-300">
+                                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Visa étudiant X1/X2 facilité</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-300">
+                                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Accompagnement de A à Z</span>
+                                </div>
                             </div>
+
+                            <!-- Stats -->
+                            <div class="grid grid-cols-3 gap-3 p-3 bg-black/30 backdrop-blur-md rounded-xl border border-white/10 mb-4">
+                                <div class="text-center">
+                                    <div class="text-xl font-bold text-yellow-400">50+</div>
+                                    <div class="text-xs text-white/50">Universités</div>
+                                </div>
+                                <div class="text-center border-x border-white/10">
+                                    <div class="text-xl font-bold text-white">98%</div>
+                                    <div class="text-xs text-white/50">Réussite</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xl font-bold text-green-400">500+</div>
+                                    <div class="text-xs text-white/50">Étudiants</div>
+                                </div>
+                            </div>
+
+                            <!-- CTA Button -->
+                            <a href="#contact" class="group/btn relative flex items-center justify-center gap-2 w-full px-5 py-3 overflow-hidden rounded-xl font-bold text-white transition-all duration-300">
+                                <div class="absolute inset-0 bg-gradient-to-r from-red-600 to-yellow-500"></div>
+                                <div class="absolute inset-0 bg-gradient-to-r from-red-500 to-yellow-400 opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
+                                <span class="relative z-10 text-sm">Découvrir la Chine</span>
+                                <svg class="relative z-10 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- SPAIN Card -->
-                <div class="group relative cursor-pointer" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <!-- ============================================== -->
+                <!-- SPAIN Card - Full Featured -->
+                <!-- ============================================== -->
+                <div class="group relative cursor-pointer">
                     <div class="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-500 rounded-3xl blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-700"></div>
-                    <div class="relative h-full min-h-[300px] rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm transition-all duration-500 group-hover:border-orange-500/50 group-hover:scale-[1.02]">
+                    <div class="relative h-full rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm transition-all duration-500 group-hover:border-orange-500/50 group-hover:scale-[1.01]">
 
-                        <div class="absolute inset-0 overflow-hidden">
+                        <!-- Main Image -->
+                        <div class="relative h-56 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-                                 alt="Espagne - Barcelone"
+                                 alt="Barcelone - Sagrada Familia"
                                  class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
-                        </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
-                        <!-- Flag -->
-                        <div class="absolute top-4 right-4 z-20">
-                            <div class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-2xl shadow-xl transform group-hover:rotate-12 transition-transform duration-500">
-                                🇪🇸
-                            </div>
-                        </div>
-
-                        <!-- Badge -->
-                        <div class="absolute top-4 left-4 z-20">
-                            <div class="px-3 py-1.5 bg-gradient-to-r from-red-500 to-yellow-500 rounded-full">
-                                <span class="text-xs font-bold text-white uppercase tracking-wider">Europe</span>
-                            </div>
-                        </div>
-
-                        <div class="absolute inset-0 p-6 flex flex-col justify-end z-10">
-                            <h3 class="text-2xl font-display font-bold text-white mb-2">Espagne</h3>
-                            <p class="text-white/70 text-sm mb-4">Porte d'entrée vers l'Europe</p>
-
-                            <div class="flex flex-wrap gap-1.5 mb-4">
-                                <span class="px-2 py-1 bg-white/10 rounded-md text-white text-xs">🎓 Études</span>
-                                <span class="px-2 py-1 bg-white/10 rounded-md text-white text-xs">💼 Emploi</span>
-                                <span class="px-2 py-1 bg-white/10 rounded-md text-white text-xs">🏛️ Diplômes UE</span>
-                            </div>
-
-                            <div class="flex items-center justify-between p-3 bg-black/30 backdrop-blur-md rounded-xl border border-white/10">
-                                <div class="text-center">
-                                    <div class="text-lg font-bold text-yellow-400">30+</div>
-                                    <div class="text-xs text-white/50">Unis</div>
+                            <!-- Flag & Badge -->
+                            <div class="absolute top-4 left-4 z-20">
+                                <div class="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-red-600 to-yellow-500 rounded-full shadow-lg">
+                                    <span class="text-lg">🇪🇸</span>
+                                    <span class="text-xs font-bold text-white uppercase tracking-wider">Espagne</span>
                                 </div>
+                            </div>
+
+                            <!-- EU Badge -->
+                            <div class="absolute top-4 right-4 z-20">
+                                <div class="px-3 py-1.5 bg-blue-600 rounded-full flex items-center gap-1.5 shadow-lg">
+                                    <span class="text-sm">🇪🇺</span>
+                                    <span class="text-xs font-bold text-white">UE</span>
+                                </div>
+                            </div>
+
+                            <!-- Title Overlay -->
+                            <div class="absolute bottom-4 left-4 right-4">
+                                <h3 class="text-2xl font-display font-bold text-white">Tierra del Sol</h3>
+                                <p class="text-white/80 text-sm">Madrid • Barcelone • Valence • Séville</p>
+                            </div>
+                        </div>
+
+                        <!-- Image Gallery - Landmarks -->
+                        <div class="grid grid-cols-3 gap-1 p-1">
+                            <div class="relative h-20 overflow-hidden rounded-lg group/img">
+                                <img src="https://images.unsplash.com/photo-1583422409516-2895a77efded?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="Sagrada Familia Barcelone"
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
+                                    <span class="text-white text-xs font-medium">Sagrada Familia</span>
+                                </div>
+                            </div>
+                            <div class="relative h-20 overflow-hidden rounded-lg group/img">
+                                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="Plaza Mayor Madrid"
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
+                                    <span class="text-white text-xs font-medium">Madrid</span>
+                                </div>
+                            </div>
+                            <div class="relative h-20 overflow-hidden rounded-lg group/img">
+                                <img src="https://images.unsplash.com/photo-1504019347908-b45f9b0b8dd5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="Alhambra Grenade"
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
+                                    <span class="text-white text-xs font-medium">Alhambra</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="p-5">
+                            <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                                Porte d'entrée vers l'Europe, l'Espagne offre des diplômes reconnus dans toute l'UE, une qualité de vie exceptionnelle et des opportunités professionnelles variées.
+                            </p>
+
+                            <!-- Programs Available -->
+                            <div class="mb-4">
+                                <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-2">Programmes disponibles</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2.5 py-1 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 text-xs">🎓 Études supérieures</span>
+                                    <span class="px-2.5 py-1 bg-orange-500/20 border border-orange-500/30 rounded-lg text-orange-300 text-xs">💼 Emploi saisonnier</span>
+                                    <span class="px-2.5 py-1 bg-yellow-500/20 border border-yellow-500/30 rounded-lg text-yellow-300 text-xs">🏛️ Diplômes UE</span>
+                                    <span class="px-2.5 py-1 bg-pink-500/20 border border-pink-500/30 rounded-lg text-pink-300 text-xs">🎨 Arts & Design</span>
+                                </div>
+                            </div>
+
+                            <!-- Key Features -->
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-center gap-2 text-sm text-gray-300">
+                                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Diplômes reconnus dans 27 pays UE</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-300">
+                                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Possibilité de travail pendant études</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-300">
+                                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Coût de vie abordable</span>
+                                </div>
+                            </div>
+
+                            <!-- Stats -->
+                            <div class="grid grid-cols-3 gap-3 p-3 bg-black/30 backdrop-blur-md rounded-xl border border-white/10 mb-4">
                                 <div class="text-center">
-                                    <div class="text-lg font-bold text-white">95%</div>
+                                    <div class="text-xl font-bold text-yellow-400">30+</div>
+                                    <div class="text-xs text-white/50">Universités</div>
+                                </div>
+                                <div class="text-center border-x border-white/10">
+                                    <div class="text-xl font-bold text-white">95%</div>
                                     <div class="text-xs text-white/50">Réussite</div>
                                 </div>
-                                <a href="#contact" class="px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg text-white text-sm font-semibold hover:shadow-lg hover:shadow-orange-500/30 transition-all">
-                                    Explorer
-                                </a>
+                                <div class="text-center">
+                                    <div class="text-xl font-bold text-green-400">200+</div>
+                                    <div class="text-xs text-white/50">Étudiants</div>
+                                </div>
                             </div>
+
+                            <!-- CTA Button -->
+                            <a href="#contact" class="group/btn relative flex items-center justify-center gap-2 w-full px-5 py-3 overflow-hidden rounded-xl font-bold text-white transition-all duration-300">
+                                <div class="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-500"></div>
+                                <div class="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-400 opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
+                                <span class="relative z-10 text-sm">Découvrir l'Espagne</span>
+                                <svg class="relative z-10 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- GERMANY Card -->
-                <div class="group relative cursor-pointer" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <!-- ============================================== -->
+                <!-- GERMANY Card - Full Featured -->
+                <!-- ============================================== -->
+                <div class="group relative cursor-pointer">
                     <div class="absolute inset-0 bg-gradient-to-br from-gray-500 to-yellow-500 rounded-3xl blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-700"></div>
-                    <div class="relative h-full min-h-[300px] rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm transition-all duration-500 group-hover:border-yellow-500/50 group-hover:scale-[1.02]">
+                    <div class="relative h-full rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm transition-all duration-500 group-hover:border-yellow-500/50 group-hover:scale-[1.01]">
 
-                        <div class="absolute inset-0 overflow-hidden">
+                        <!-- Main Image -->
+                        <div class="relative h-56 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-                                 alt="Allemagne - Berlin"
+                                 alt="Berlin - Porte de Brandebourg"
                                  class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
-                        </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
-                        <!-- Flag -->
-                        <div class="absolute top-4 right-4 z-20">
-                            <div class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-2xl shadow-xl transform group-hover:rotate-12 transition-transform duration-500">
-                                🇩🇪
-                            </div>
-                        </div>
-
-                        <!-- Badge -->
-                        <div class="absolute top-4 left-4 z-20">
-                            <div class="px-3 py-1.5 bg-gradient-to-r from-gray-700 to-yellow-500 rounded-full">
-                                <span class="text-xs font-bold text-white uppercase tracking-wider">Innovation</span>
-                            </div>
-                        </div>
-
-                        <div class="absolute inset-0 p-6 flex flex-col justify-end z-10">
-                            <h3 class="text-2xl font-display font-bold text-white mb-2">Allemagne</h3>
-                            <p class="text-white/70 text-sm mb-4">Première économie européenne</p>
-
-                            <div class="flex flex-wrap gap-1.5 mb-4">
-                                <span class="px-2 py-1 bg-white/10 rounded-md text-white text-xs">⚙️ Tech</span>
-                                <span class="px-2 py-1 bg-white/10 rounded-md text-white text-xs">🚗 Auto</span>
-                                <span class="px-2 py-1 bg-white/10 rounded-md text-white text-xs">💼 Emploi</span>
-                            </div>
-
-                            <div class="flex items-center justify-between p-3 bg-black/30 backdrop-blur-md rounded-xl border border-white/10">
-                                <div class="text-center">
-                                    <div class="text-lg font-bold text-yellow-400">20+</div>
-                                    <div class="text-xs text-white/50">Unis</div>
+                            <!-- Flag & Badge -->
+                            <div class="absolute top-4 left-4 z-20">
+                                <div class="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-gray-800 to-yellow-500 rounded-full shadow-lg">
+                                    <span class="text-lg">🇩🇪</span>
+                                    <span class="text-xs font-bold text-white uppercase tracking-wider">Allemagne</span>
                                 </div>
+                            </div>
+
+                            <!-- Tech Badge -->
+                            <div class="absolute top-4 right-4 z-20">
+                                <div class="px-3 py-1.5 bg-emerald-600 rounded-full flex items-center gap-1.5 shadow-lg">
+                                    <span class="text-sm">⚙️</span>
+                                    <span class="text-xs font-bold text-white">Tech</span>
+                                </div>
+                            </div>
+
+                            <!-- Title Overlay -->
+                            <div class="absolute bottom-4 left-4 right-4">
+                                <h3 class="text-2xl font-display font-bold text-white">Land der Ideen</h3>
+                                <p class="text-white/80 text-sm">Berlin • Munich • Francfort • Hambourg</p>
+                            </div>
+                        </div>
+
+                        <!-- Image Gallery - Landmarks -->
+                        <div class="grid grid-cols-3 gap-1 p-1">
+                            <div class="relative h-20 overflow-hidden rounded-lg group/img">
+                                <img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="Porte de Brandebourg Berlin"
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
+                                    <span class="text-white text-xs font-medium">Brandebourg</span>
+                                </div>
+                            </div>
+                            <div class="relative h-20 overflow-hidden rounded-lg group/img">
+                                <img src="https://images.unsplash.com/photo-1595867818082-083862f3d630?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="Château Neuschwanstein"
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
+                                    <span class="text-white text-xs font-medium">Neuschwanstein</span>
+                                </div>
+                            </div>
+                            <div class="relative h-20 overflow-hidden rounded-lg group/img">
+                                <img src="https://images.unsplash.com/photo-1534351590666-13e3e96b5017?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                     alt="Cathédrale de Cologne"
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
+                                    <span class="text-white text-xs font-medium">Cologne</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="p-5">
+                            <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                                Première économie européenne et leader mondial de l'innovation. Formation professionnelle d'excellence, industrie automobile et technologies de pointe.
+                            </p>
+
+                            <!-- Programs Available -->
+                            <div class="mb-4">
+                                <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-2">Programmes disponibles</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2.5 py-1 bg-gray-500/20 border border-gray-500/30 rounded-lg text-gray-300 text-xs">🎓 Études techniques</span>
+                                    <span class="px-2.5 py-1 bg-yellow-500/20 border border-yellow-500/30 rounded-lg text-yellow-300 text-xs">⚙️ Ausbildung</span>
+                                    <span class="px-2.5 py-1 bg-blue-500/20 border border-blue-500/30 rounded-lg text-blue-300 text-xs">🚗 Automobile</span>
+                                    <span class="px-2.5 py-1 bg-green-500/20 border border-green-500/30 rounded-lg text-green-300 text-xs">💼 Emploi qualifié</span>
+                                </div>
+                            </div>
+
+                            <!-- Key Features -->
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-center gap-2 text-sm text-gray-300">
+                                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Études gratuites dans universités publiques</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-300">
+                                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Ausbildung : formation + salaire</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-300">
+                                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Salaires parmi les plus élevés d'Europe</span>
+                                </div>
+                            </div>
+
+                            <!-- Stats -->
+                            <div class="grid grid-cols-3 gap-3 p-3 bg-black/30 backdrop-blur-md rounded-xl border border-white/10 mb-4">
                                 <div class="text-center">
-                                    <div class="text-lg font-bold text-white">97%</div>
+                                    <div class="text-xl font-bold text-yellow-400">20+</div>
+                                    <div class="text-xs text-white/50">Universités</div>
+                                </div>
+                                <div class="text-center border-x border-white/10">
+                                    <div class="text-xl font-bold text-white">97%</div>
                                     <div class="text-xs text-white/50">Réussite</div>
                                 </div>
-                                <a href="#contact" class="px-4 py-2 bg-gradient-to-r from-gray-700 to-yellow-500 rounded-lg text-white text-sm font-semibold hover:shadow-lg hover:shadow-yellow-500/30 transition-all">
-                                    Explorer
-                                </a>
+                                <div class="text-center">
+                                    <div class="text-xl font-bold text-green-400">150+</div>
+                                    <div class="text-xs text-white/50">Étudiants</div>
+                                </div>
                             </div>
+
+                            <!-- CTA Button -->
+                            <a href="#contact" class="group/btn relative flex items-center justify-center gap-2 w-full px-5 py-3 overflow-hidden rounded-xl font-bold text-white transition-all duration-300">
+                                <div class="absolute inset-0 bg-gradient-to-r from-gray-700 to-yellow-500"></div>
+                                <div class="absolute inset-0 bg-gradient-to-r from-gray-600 to-yellow-400 opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
+                                <span class="relative z-10 text-sm">Découvrir l'Allemagne</span>
+                                <svg class="relative z-10 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
