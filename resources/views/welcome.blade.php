@@ -703,136 +703,108 @@
             </div>
 
             <!-- Features Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-                <!-- Feature 1 - Enhanced -->
-                <div class="group relative bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary-200 overflow-hidden card-hover">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+                <!-- Feature 1 -->
+                <div class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-primary-300/50 overflow-hidden text-center sm:text-left">
+                    <!-- Gradient background on hover -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-primary-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <!-- Decorative circle -->
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-primary-500/10 to-primary-600/5 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
                     <div class="relative">
-                        <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="w-14 h-14 mx-auto sm:mx-0 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-primary-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-base font-display font-bold text-dark mb-2 group-hover:text-primary-600 transition-colors">Expertise prouvée</h3>
-                        <p class="text-gray leading-relaxed text-sm mb-3">
-                            Plus de <strong class="text-primary-600">10 ans d'expérience</strong> et <strong class="text-primary-600">500+ étudiants</strong> accompagnés avec succès vers leurs destinations de rêve.
+                        <h3 class="text-lg font-display font-bold text-dark mb-3 group-hover:text-primary-600 transition-colors">Expertise prouvée</h3>
+                        <p class="text-gray-600 leading-relaxed text-sm">
+                            Plus de <span class="text-primary-600 font-semibold">10 ans d'expérience</span> et <span class="text-primary-600 font-semibold">500+ étudiants</span> accompagnés avec succès.
                         </p>
-                        <div class="flex items-center text-primary-600 font-semibold group-hover:translate-x-2 transition-transform">
-                            <span class="text-sm">En savoir plus</span>
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Feature 2 - Enhanced -->
-                <div class="group relative bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-accent-200 overflow-hidden card-hover">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <!-- Feature 2 -->
+                <div class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-accent-300/50 overflow-hidden text-center sm:text-left">
+                    <div class="absolute inset-0 bg-gradient-to-br from-accent-50 via-white to-accent-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-accent-500/10 to-accent-600/5 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
                     <div class="relative">
-                        <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="w-14 h-14 mx-auto sm:mx-0 bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-accent-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-base font-display font-bold text-dark mb-2 group-hover:text-accent-600 transition-colors">Services complets</h3>
-                        <p class="text-gray leading-relaxed text-sm mb-3">
-                            Études, travail, business : nous vous accompagnons dans <strong class="text-accent-600">tous vos projets</strong> à l'international avec des solutions adaptées.
+                        <h3 class="text-lg font-display font-bold text-dark mb-3 group-hover:text-accent-600 transition-colors">Services complets</h3>
+                        <p class="text-gray-600 leading-relaxed text-sm">
+                            Études, travail, business : <span class="text-accent-600 font-semibold">tous vos projets</span> à l'international avec des solutions adaptées.
                         </p>
-                        <div class="flex items-center text-accent-600 font-semibold group-hover:translate-x-2 transition-transform">
-                            <span class="text-sm">Découvrir nos services</span>
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Feature 3 - Enhanced -->
-                <div class="group relative bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary-200 overflow-hidden card-hover">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <!-- Feature 3 -->
+                <div class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-primary-300/50 overflow-hidden text-center sm:text-left">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-primary-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-primary-500/10 to-primary-600/5 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
                     <div class="relative">
-                        <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="w-14 h-14 mx-auto sm:mx-0 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-primary-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-base font-display font-bold text-dark mb-2 group-hover:text-primary-600 transition-colors">Accompagnement 360°</h3>
-                        <p class="text-gray leading-relaxed text-sm mb-3">
-                            De la sélection du programme jusqu'à votre installation : nous sommes <strong class="text-primary-600">à vos côtés</strong> à chaque étape.
+                        <h3 class="text-lg font-display font-bold text-dark mb-3 group-hover:text-primary-600 transition-colors">Accompagnement 360°</h3>
+                        <p class="text-gray-600 leading-relaxed text-sm">
+                            De la sélection jusqu'à l'installation : <span class="text-primary-600 font-semibold">à vos côtés</span> à chaque étape du parcours.
                         </p>
-                        <div class="flex items-center text-primary-600 font-semibold group-hover:translate-x-2 transition-transform">
-                            <span class="text-sm">Notre processus</span>
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Feature 4 - Enhanced -->
-                <div class="group relative bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-accent-200 overflow-hidden card-hover">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <!-- Feature 4 -->
+                <div class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-accent-300/50 overflow-hidden text-center sm:text-left">
+                    <div class="absolute inset-0 bg-gradient-to-br from-accent-50 via-white to-accent-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-accent-500/10 to-accent-600/5 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
                     <div class="relative">
-                        <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="w-14 h-14 mx-auto sm:mx-0 bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-accent-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-base font-display font-bold text-dark mb-2 group-hover:text-accent-600 transition-colors">Réseau international</h3>
-                        <p class="text-gray leading-relaxed text-sm mb-3">
-                            Des contacts établis avec <strong class="text-accent-600">universités, entreprises et partenaires</strong> en Chine, Espagne et Allemagne.
+                        <h3 class="text-lg font-display font-bold text-dark mb-3 group-hover:text-accent-600 transition-colors">Réseau international</h3>
+                        <p class="text-gray-600 leading-relaxed text-sm">
+                            Contacts établis avec <span class="text-accent-600 font-semibold">universités et partenaires</span> en Chine, Espagne et Allemagne.
                         </p>
-                        <div class="flex items-center text-accent-600 font-semibold group-hover:translate-x-2 transition-transform">
-                            <span class="text-sm">Voir nos partenaires</span>
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Feature 5 - Enhanced -->
-                <div class="group relative bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary-200 overflow-hidden card-hover">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <!-- Feature 5 -->
+                <div class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-primary-300/50 overflow-hidden text-center sm:text-left">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-primary-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-primary-500/10 to-primary-600/5 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
                     <div class="relative">
-                        <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="w-14 h-14 mx-auto sm:mx-0 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-primary-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-base font-display font-bold text-dark mb-2 group-hover:text-primary-600 transition-colors">Processus rapide</h3>
-                        <p class="text-gray leading-relaxed text-sm mb-3">
-                            <strong class="text-primary-600">Délais optimisés</strong> pour vos admissions et visas. Commencez votre aventure plus rapidement.
+                        <h3 class="text-lg font-display font-bold text-dark mb-3 group-hover:text-primary-600 transition-colors">Processus rapide</h3>
+                        <p class="text-gray-600 leading-relaxed text-sm">
+                            <span class="text-primary-600 font-semibold">Délais optimisés</span> pour vos admissions et visas. Démarrez votre aventure rapidement.
                         </p>
-                        <div class="flex items-center text-primary-600 font-semibold group-hover:translate-x-2 transition-transform">
-                            <span class="text-sm">Nos délais</span>
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Feature 6 - Enhanced -->
-                <div class="group relative bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-accent-200 overflow-hidden card-hover">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-100 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <!-- Feature 6 -->
+                <div class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-accent-300/50 overflow-hidden text-center sm:text-left">
+                    <div class="absolute inset-0 bg-gradient-to-br from-accent-50 via-white to-accent-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-accent-500/10 to-accent-600/5 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
                     <div class="relative">
-                        <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="w-14 h-14 mx-auto sm:mx-0 bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-accent-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-base font-display font-bold text-dark mb-2 group-hover:text-accent-600 transition-colors">Suivi post-arrivée</h3>
-                        <p class="text-gray leading-relaxed text-sm mb-3">
-                            Notre <strong class="text-accent-600">assistance continue</strong> même après votre arrivée : logement, installation, intégration sociale.
+                        <h3 class="text-lg font-display font-bold text-dark mb-3 group-hover:text-accent-600 transition-colors">Suivi post-arrivée</h3>
+                        <p class="text-gray-600 leading-relaxed text-sm">
+                            <span class="text-accent-600 font-semibold">Assistance continue</span> après votre arrivée : logement, installation, intégration.
                         </p>
-                        <div class="flex items-center text-accent-600 font-semibold group-hover:translate-x-2 transition-transform">
-                            <span class="text-sm">Nos services</span>
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
                     </div>
                 </div>
             </div>
