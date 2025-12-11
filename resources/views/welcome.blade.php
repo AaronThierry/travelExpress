@@ -1653,9 +1653,9 @@
                         </button>
 
                         <!-- Cards -->
-                        <div class="flex justify-center items-center gap-6 py-8 px-16 min-h-[450px]">
+                        <div class="flex justify-center items-center gap-6 py-8 px-16 min-h-[420px]">
                             <template x-for="(testimonial, index) in testimonials" :key="testimonial.id">
-                                <div class="testimonial-card-premium absolute w-full max-w-lg bg-white rounded-3xl p-8 shadow-2xl border border-slate-100"
+                                <div class="testimonial-card-premium absolute w-full max-w-lg h-[380px] bg-white rounded-3xl p-8 shadow-2xl border border-slate-100 flex flex-col"
                                      :class="{
                                          'active': index === currentIndex,
                                          'side': index !== currentIndex,
@@ -1665,8 +1665,8 @@
                                      x-show="index === currentIndex || Math.abs(index - currentIndex) <= 1 || (index === 0 && currentIndex === testimonials.length - 1) || (index === testimonials.length - 1 && currentIndex === 0)">
 
                                     <!-- Quote Icon -->
-                                    <div class="absolute -top-4 -left-4 w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl flex items-center justify-center shadow-lg transform -rotate-6">
-                                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <div class="absolute -top-4 -left-4 w-14 h-14 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl flex items-center justify-center shadow-lg transform -rotate-6">
+                                        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
                                         </svg>
                                     </div>
@@ -1680,51 +1680,53 @@
                                     </div>
 
                                     <!-- Content -->
-                                    <div class="pt-8">
+                                    <div class="pt-6 flex flex-col flex-1">
                                         <!-- Stars -->
-                                        <div class="flex gap-1 mb-6">
+                                        <div class="flex gap-1 mb-4">
                                             <template x-for="star in (testimonial.rating || 5)" :key="'star-'+star">
-                                                <svg class="w-6 h-6 text-amber-400 star-animate" :style="'animation-delay: ' + (star * 0.1) + 's'" fill="currentColor" viewBox="0 0 20 20">
+                                                <svg class="w-5 h-5 text-amber-400 star-animate" :style="'animation-delay: ' + (star * 0.1) + 's'" fill="currentColor" viewBox="0 0 20 20">
                                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                                 </svg>
                                             </template>
                                         </div>
 
-                                        <!-- Testimonial Text -->
-                                        <p class="text-slate-700 text-lg leading-relaxed mb-8 italic font-medium" x-text="'« ' + testimonial.content + ' »'"></p>
+                                        <!-- Testimonial Text - Fixed height with line clamp -->
+                                        <div class="flex-1 min-h-[100px] max-h-[120px] overflow-hidden">
+                                            <p class="text-slate-700 text-base leading-relaxed italic font-medium line-clamp-4" x-text="'« ' + testimonial.content + ' »'"></p>
+                                        </div>
 
-                                        <!-- Author -->
-                                        <div class="flex items-center gap-4 pt-6 border-t border-slate-100">
+                                        <!-- Author - Always at bottom -->
+                                        <div class="flex items-center gap-4 pt-5 border-t border-slate-100 mt-auto">
                                             <!-- Avatar -->
-                                            <div class="relative">
+                                            <div class="relative flex-shrink-0">
                                                 <template x-if="testimonial.user && testimonial.user.profile_photo">
                                                     <img :src="'/storage/' + testimonial.user.profile_photo"
                                                          :alt="testimonial.name"
-                                                         class="w-16 h-16 rounded-full object-cover ring-4 ring-white shadow-xl">
+                                                         class="w-14 h-14 rounded-full object-cover ring-4 ring-white shadow-xl">
                                                 </template>
                                                 <template x-if="!testimonial.user || !testimonial.user.profile_photo">
-                                                    <div class="w-16 h-16 rounded-full bg-gradient-to-br flex items-center justify-center text-white text-xl font-bold ring-4 ring-white shadow-xl"
+                                                    <div class="w-14 h-14 rounded-full bg-gradient-to-br flex items-center justify-center text-white text-lg font-bold ring-4 ring-white shadow-xl"
                                                          :class="getColor(index)">
                                                         <span x-text="getInitials(testimonial.name)"></span>
                                                     </div>
                                                 </template>
                                                 <!-- Country Flag -->
-                                                <div class="absolute -bottom-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-white">
-                                                    <span class="text-lg" x-text="getFlag(testimonial.country)"></span>
+                                                <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-white">
+                                                    <span class="text-sm" x-text="getFlag(testimonial.country)"></span>
                                                 </div>
                                             </div>
 
                                             <!-- Info -->
-                                            <div class="flex-1">
-                                                <h4 class="font-display font-bold text-slate-900 text-lg" x-text="testimonial.name"></h4>
-                                                <p class="text-slate-500 font-medium" x-text="testimonial.program || 'Étudiant'"></p>
+                                            <div class="flex-1 min-w-0">
+                                                <h4 class="font-display font-bold text-slate-900 text-base truncate" x-text="testimonial.name"></h4>
+                                                <p class="text-slate-500 text-sm font-medium truncate" x-text="testimonial.program || 'Étudiant'"></p>
                                             </div>
 
                                             <!-- Destination Badge -->
-                                            <div class="px-4 py-2 bg-gradient-to-r from-primary-50 to-accent-50 rounded-xl border border-primary-100">
-                                                <div class="flex items-center gap-2">
-                                                    <span class="text-2xl" x-text="getFlag(testimonial.destination)"></span>
-                                                    <span class="text-sm font-bold text-primary-700" x-text="getCountryName(testimonial.destination)"></span>
+                                            <div class="flex-shrink-0 px-3 py-1.5 bg-gradient-to-r from-primary-50 to-accent-50 rounded-lg border border-primary-100">
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="text-xl" x-text="getFlag(testimonial.destination)"></span>
+                                                    <span class="text-xs font-bold text-primary-700" x-text="getCountryName(testimonial.destination)"></span>
                                                 </div>
                                             </div>
                                         </div>
