@@ -1820,42 +1820,97 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="py-16 bg-white">
-        <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
-            <div class="text-center mb-10 fade-in-up">
-                <h2 class="text-2xl md:text-3xl font-display font-bold text-dark mb-3 tracking-apple-tight">
-                    Questions fréquentes
+    <!-- FAQ Section - Modern Premium Design -->
+    <section id="faq" class="py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
+        <!-- Background decorations -->
+        <div class="absolute top-0 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-accent-500/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 border border-primary-100 rounded-full mb-6">
+                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="text-primary-700 text-sm font-bold">Centre d'aide</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-extrabold text-slate-900 mb-4 tracking-tight">
+                    Questions <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">fréquentes</span>
                 </h2>
-                <p class="text-base text-gray">
-                    Tout ce que vous devez savoir sur nos services et les études à l'étranger
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                    Trouvez rapidement les réponses à vos questions sur nos services d'accompagnement international
                 </p>
             </div>
 
-            <div class=" space-y-4">
-                <template x-for="faq in faqs" :key="faq.id">
-                    <div class="card overflow-hidden">
+            <!-- FAQ Items -->
+            <div class="space-y-4">
+                <template x-for="(faq, index) in faqs" :key="faq.id">
+                    <div class="group"
+                         :class="faq.open ? 'bg-white shadow-xl shadow-slate-200/50 rounded-2xl' : 'bg-white/60 hover:bg-white rounded-2xl hover:shadow-lg transition-all duration-300'">
                         <button @click="faq.open = !faq.open"
-                                class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors">
-                            <span class="font-display font-bold text-dark text-lg pr-8" x-text="faq.question"></span>
-                            <svg class="w-6 h-6 text-primary-600 flex-shrink-0 transform transition-transform duration-300"
-                                 :class="{ 'rotate-180': faq.open }"
-                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
+                                class="w-full flex items-center gap-4 p-6 text-left">
+                            <!-- Number badge -->
+                            <div class="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm transition-all duration-300"
+                                 :class="faq.open ? 'bg-gradient-to-br from-primary-500 to-accent-500 text-white shadow-lg' : 'bg-slate-100 text-slate-500 group-hover:bg-primary-100 group-hover:text-primary-600'">
+                                <span x-text="'0' + (index + 1)"></span>
+                            </div>
+
+                            <!-- Question -->
+                            <span class="flex-1 font-display font-bold text-lg transition-colors duration-300"
+                                  :class="faq.open ? 'text-slate-900' : 'text-slate-700 group-hover:text-slate-900'"
+                                  x-text="faq.question"></span>
+
+                            <!-- Toggle icon -->
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
+                                 :class="faq.open ? 'bg-primary-100 rotate-180' : 'bg-slate-100 group-hover:bg-primary-50'">
+                                <svg class="w-5 h-5 transition-colors duration-300"
+                                     :class="faq.open ? 'text-primary-600' : 'text-slate-400 group-hover:text-primary-500'"
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </div>
                         </button>
+
+                        <!-- Answer -->
                         <div x-show="faq.open"
                              x-transition:enter="transition ease-out duration-300"
-                             x-transition:enter-start="opacity-0 transform -translate-y-2"
-                             x-transition:enter-end="opacity-100 transform translate-y-0"
+                             x-transition:enter-start="opacity-0 -translate-y-2"
+                             x-transition:enter-end="opacity-100 translate-y-0"
                              x-transition:leave="transition ease-in duration-200"
-                             x-transition:leave-start="opacity-100 transform translate-y-0"
-                             x-transition:leave-end="opacity-0 transform -translate-y-2"
-                             class="px-6 pb-6 text-gray leading-apple"
-                             x-text="faq.answer">
+                             x-transition:leave-start="opacity-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 -translate-y-2"
+                             class="px-6 pb-6">
+                            <div class="pl-14 pr-4">
+                                <div class="h-px bg-gradient-to-r from-primary-200 via-accent-200 to-transparent mb-4"></div>
+                                <p class="text-slate-600 leading-relaxed text-[15px]" x-text="faq.answer"></p>
+                            </div>
                         </div>
                     </div>
                 </template>
+            </div>
+
+            <!-- CTA Footer -->
+            <div class="mt-16 text-center">
+                <div class="inline-flex flex-col sm:flex-row items-center gap-4 p-6 bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-white font-bold">Vous avez d'autres questions ?</p>
+                            <p class="text-slate-400 text-sm">Notre équipe est là pour vous aider</p>
+                        </div>
+                    </div>
+                    <a href="#contact" class="group inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 text-sm font-bold rounded-xl hover:bg-slate-100 transition-all duration-300">
+                        <span>Contactez-nous</span>
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
