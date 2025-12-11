@@ -1696,7 +1696,11 @@
 
                                         <!-- Testimonial Text - Fixed height with line clamp -->
                                         <div class="flex-1 min-h-[100px] max-h-[120px] overflow-hidden">
-                                            <p class="text-slate-700 text-base leading-relaxed italic font-medium line-clamp-4" x-text="'« ' + testimonial.content + ' »'"></p>
+                                            <p class="text-slate-600 text-[15px] leading-[1.7] font-normal line-clamp-4">
+                                                <span class="text-primary-500 font-serif text-xl">"</span>
+                                                <span x-text="testimonial.content"></span>
+                                                <span class="text-primary-500 font-serif text-xl">"</span>
+                                            </p>
                                         </div>
 
                                         <!-- Author - Always at bottom -->
@@ -1779,17 +1783,13 @@
                 </template>
             </div>
 
-            <!-- CTA Section -->
-            <div class="text-center mt-16">
-                <p class="text-slate-500 mb-6 text-lg font-medium">Vous aussi, partagez votre expérience</p>
+            <!-- CTA Section - Minimal Pro -->
+            <div class="text-center mt-12">
                 <button @click="testimonialModalOpen = true"
-                        class="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600 text-white font-bold rounded-2xl shadow-xl shadow-primary-500/30 hover:shadow-2xl hover:shadow-primary-500/40 hover:scale-105 transition-all duration-300">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                    </svg>
-                    <span class="text-lg">Laisser un témoignage</span>
-                    <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        class="group inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold text-sm transition-all duration-300">
+                    <span class="uppercase tracking-widest">Partager mon expérience</span>
+                    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                     </svg>
                 </button>
             </div>
