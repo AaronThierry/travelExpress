@@ -183,7 +183,7 @@
             </div>
         </div>
         <div class="overflow-x-auto">
-            <table class="w-full min-w-[600px]">
+            <table class="w-full">
                 <thead class="bg-slate-50 border-b border-slate-200">
                     <tr>
                         <th class="px-3 sm:px-6 py-3 sm:py-4 text-left text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Utilisateur</th>
