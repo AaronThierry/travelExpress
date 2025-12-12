@@ -1915,181 +1915,279 @@
         </div>
     </section>
 
-    <!-- Contact/Application Form Section -->
-    <section id="contact" class="py-16 bg-gradient-to-br from-gray-light via-white to-primary-50">
-        <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
-            <div class="text-center mb-10 fade-in-up">
-                <h2 class="text-2xl md:text-3xl font-display font-bold text-dark mb-3 tracking-apple-tight">
-                    Concrétisez votre projet international
+    <!-- Contact Section - Premium Design -->
+    <section id="contact" class="py-24 bg-gradient-to-b from-white via-slate-50 to-white relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute -top-40 -right-40 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-accent-500/5 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-100 rounded-full mb-6">
+                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                    </svg>
+                    <span class="text-primary-700 text-sm font-bold">Démarrez votre projet</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-extrabold text-slate-900 mb-4 tracking-tight">
+                    Prêt à changer <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">votre vie</span> ?
                 </h2>
-                <p class="text-base text-gray">
-                    Études, travail ou business ? Parlez-nous de votre projet et recevez un accompagnement personnalisé
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                    Remplissez ce formulaire et recevez une consultation gratuite sous 24h
                 </p>
             </div>
 
-            <div class="card p-5 md:p-8">
-                <!-- Success Message -->
-                <div id="contact-success" class="hidden bg-green-50 border border-green-200 rounded-xl p-6 text-center">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-green-800 mb-2">Demande envoyée avec succès!</h3>
-                    <p class="text-green-700">Merci pour votre demande. Notre équipe vous contactera très bientôt via WhatsApp ou email.</p>
-                </div>
-
-                <!-- Contact Form -->
-                <form id="contact-form" class="space-y-4">
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="contact-name" class="block text-xs font-medium text-dark mb-1">Nom complet *</label>
-                            <input type="text" id="contact-name" name="name" required
-                                   class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
-                        </div>
-                        <div>
-                            <label for="contact-email" class="block text-xs font-medium text-dark mb-1">Email *</label>
-                            <input type="email" id="contact-email" name="email" required
-                                   class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
-                        </div>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="contact-phone" class="block text-xs font-medium text-dark mb-1">Téléphone / WhatsApp *</label>
-                            <div class="flex gap-2">
-                                <select id="contact-phone-code" name="phone_code" required
-                                        class="w-28 px-2 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
-                                    <option value="+221">🇸🇳 +221</option>
-                                    <option value="+237">🇨🇲 +237</option>
-                                    <option value="+225">🇨🇮 +225</option>
-                                    <option value="+223">🇲🇱 +223</option>
-                                    <option value="+224">🇬🇳 +224</option>
-                                    <option value="+229">🇧🇯 +229</option>
-                                    <option value="+228">🇹🇬 +228</option>
-                                    <option value="+226">🇧🇫 +226</option>
-                                    <option value="+227">🇳🇪 +227</option>
-                                    <option value="+242">🇨🇬 +242</option>
-                                    <option value="+243">🇨🇩 +243</option>
-                                    <option value="+241">🇬🇦 +241</option>
-                                    <option value="+212">🇲🇦 +212</option>
-                                    <option value="+213">🇩🇿 +213</option>
-                                    <option value="+216">🇹🇳 +216</option>
-                                    <option value="+33">🇫🇷 +33</option>
-                                    <option value="+32">🇧🇪 +32</option>
-                                    <option value="+41">🇨🇭 +41</option>
-                                    <option value="+1">🇺🇸 +1</option>
-                                    <option value="+86">🇨🇳 +86</option>
-                                    <option value="+34">🇪🇸 +34</option>
-                                    <option value="+49">🇩🇪 +49</option>
-                                </select>
-                                <input type="tel" id="contact-phone" name="phone" required placeholder="77 123 45 67"
-                                       class="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
+            <div class="grid lg:grid-cols-5 gap-8 lg:gap-12">
+                <!-- Left Side - Info Cards -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Why Us Card -->
+                    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 text-white">
+                        <h3 class="text-2xl font-display font-bold mb-6">Pourquoi nous choisir ?</h3>
+                        <div class="space-y-5">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Taux de réussite de 98%</h4>
+                                    <p class="text-slate-400 text-sm">Visa obtenu pour la quasi-totalité de nos clients</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Réponse sous 24h</h4>
+                                    <p class="text-slate-400 text-sm">Notre équipe vous contacte rapidement</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">+500 étudiants accompagnés</h4>
+                                    <p class="text-slate-400 text-sm">Une communauté qui grandit chaque jour</p>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <label for="contact-country" class="block text-xs font-medium text-dark mb-1">Pays de résidence</label>
-                            <input type="text" id="contact-country" name="country"
-                                   class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
+                    </div>
+
+                    <!-- Contact Methods -->
+                    <div class="bg-white rounded-2xl p-6 shadow-lg shadow-slate-200/50 border border-slate-100">
+                        <h4 class="font-display font-bold text-slate-900 mb-4">Contactez-nous directement</h4>
+                        <div class="space-y-3">
+                            <a href="https://wa.me/221771234567" target="_blank" class="flex items-center gap-3 p-3 bg-green-50 hover:bg-green-100 rounded-xl transition-colors group">
+                                <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-bold text-slate-900 text-sm">WhatsApp</p>
+                                    <p class="text-slate-500 text-xs">+221 77 123 45 67</p>
+                                </div>
+                                <svg class="w-5 h-5 text-slate-400 group-hover:text-green-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                            <a href="mailto:contact@travelexpress.com" class="flex items-center gap-3 p-3 bg-primary-50 hover:bg-primary-100 rounded-xl transition-colors group">
+                                <div class="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-bold text-slate-900 text-sm">Email</p>
+                                    <p class="text-slate-500 text-xs">contact@travelexpress.com</p>
+                                </div>
+                                <svg class="w-5 h-5 text-slate-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
-
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="contact-destination" class="block text-xs font-medium text-dark mb-1">Destination souhaitée *</label>
-                            <select id="contact-destination" name="destination" required
-                                    class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
-                                <option value="">Sélectionnez...</option>
-                                <option value="china">🇨🇳 Chine</option>
-                                <option value="spain">🇪🇸 Espagne</option>
-                                <option value="germany">🇩🇪 Allemagne</option>
-                                <option value="other">Autre / Je ne sais pas encore</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="contact-project-type" class="block text-xs font-medium text-dark mb-1">Type de projet *</label>
-                            <select id="contact-project-type" name="project_type" required
-                                    class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
-                                <option value="">Sélectionnez...</option>
-                                <option value="etudes">Études (Université, Formation)</option>
-                                <option value="travail">Travail (Emploi, Contrat)</option>
-                                <option value="business">Business (Import-Export, Partenariat)</option>
-                                <option value="autre">Autre / Plusieurs projets</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label for="contact-details" class="block text-xs font-medium text-dark mb-1">Précisez votre projet *</label>
-                        <input type="text" id="contact-details" name="project_details" required
-                               placeholder="Ex: Master en informatique, Recherche d'emploi en ingénierie, Import de produits électroniques..."
-                               class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all">
-                    </div>
-
-                    <div>
-                        <label for="contact-message" class="block text-xs font-medium text-dark mb-1">Parlez-nous de votre projet</label>
-                        <textarea id="contact-message" name="message" rows="5"
-                                  placeholder="Décrivez brièvement votre parcours, vos objectifs et vos motivations..."
-                                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all"></textarea>
-                    </div>
-
-                    <div class="flex items-start">
-                        <input type="checkbox" id="contact-consent" name="consent" required
-                               class="mt-1 w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-600">
-                        <label for="contact-consent" class="ml-3 text-sm text-gray">
-                            J'accepte que mes informations soient utilisées pour me contacter concernant mon projet. *
-                        </label>
-                    </div>
-
-                    <!-- Error Message -->
-                    <div id="contact-error" class="hidden bg-red-50 border border-red-200 rounded-lg p-3 text-red-700 text-sm"></div>
-
-                    <button type="submit" id="contact-submit" class="btn-primary w-full text-center text-sm">
-                        <span id="submit-text">Envoyer ma demande</span>
-                        <svg id="submit-icon" class="inline-block w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                        </svg>
-                        <svg id="submit-loading" class="hidden animate-spin inline-block w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </button>
-
-                    <p class="text-center text-sm text-gray">
-                        Réponse sous 24 heures • Consultation personnalisée gratuite
-                    </p>
-                </form>
-            </div>
-
-            <!-- Contact Info -->
-            <div class="grid md:grid-cols-3 gap-6 mt-10 ">
-                <div class="text-center">
-                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                    </div>
-                    <h4 class="font-display font-bold text-dark mb-2">Email</h4>
-                    <p class="text-gray">contact@travelexpress.com</p>
                 </div>
-                <div class="text-center">
-                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                        </svg>
+
+                <!-- Right Side - Form -->
+                <div class="lg:col-span-3">
+                    <div class="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100">
+                        <!-- Success Message -->
+                        <div id="contact-success" class="hidden">
+                            <div class="text-center py-12">
+                                <div class="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-green-500/30">
+                                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-display font-bold text-slate-900 mb-2">Demande envoyée !</h3>
+                                <p class="text-slate-600 mb-6">Notre équipe vous contactera sous 24h via WhatsApp ou email.</p>
+                                <div class="inline-flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 rounded-full text-sm font-medium">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span>Réponse garantie sous 24h</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form -->
+                        <form id="contact-form" class="space-y-6">
+                            <!-- Step indicator -->
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-xs font-bold text-primary-600 uppercase tracking-wider">Formulaire de contact</span>
+                                <div class="flex-1 h-px bg-slate-200"></div>
+                            </div>
+
+                            <!-- Row 1: Name & Email -->
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <label for="contact-name" class="block text-sm font-semibold text-slate-700">
+                                        Nom complet <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" id="contact-name" name="name" required placeholder="Votre nom"
+                                           class="w-full px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 placeholder-slate-400">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="contact-email" class="block text-sm font-semibold text-slate-700">
+                                        Email <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="email" id="contact-email" name="email" required placeholder="votre@email.com"
+                                           class="w-full px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 placeholder-slate-400">
+                                </div>
+                            </div>
+
+                            <!-- Row 2: Phone -->
+                            <div class="space-y-2">
+                                <label for="contact-phone" class="block text-sm font-semibold text-slate-700">
+                                    WhatsApp / Téléphone <span class="text-red-500">*</span>
+                                </label>
+                                <div class="flex gap-2">
+                                    <select id="contact-phone-code" name="phone_code" required
+                                            class="w-32 px-3 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 text-sm">
+                                        <option value="+221">🇸🇳 +221</option>
+                                        <option value="+237">🇨🇲 +237</option>
+                                        <option value="+225">🇨🇮 +225</option>
+                                        <option value="+223">🇲🇱 +223</option>
+                                        <option value="+224">🇬🇳 +224</option>
+                                        <option value="+229">🇧🇯 +229</option>
+                                        <option value="+228">🇹🇬 +228</option>
+                                        <option value="+226">🇧🇫 +226</option>
+                                        <option value="+227">🇳🇪 +227</option>
+                                        <option value="+242">🇨🇬 +242</option>
+                                        <option value="+243">🇨🇩 +243</option>
+                                        <option value="+241">🇬🇦 +241</option>
+                                        <option value="+212">🇲🇦 +212</option>
+                                        <option value="+213">🇩🇿 +213</option>
+                                        <option value="+216">🇹🇳 +216</option>
+                                        <option value="+33">🇫🇷 +33</option>
+                                        <option value="+49">🇩🇪 +49</option>
+                                        <option value="+34">🇪🇸 +34</option>
+                                        <option value="+86">🇨🇳 +86</option>
+                                    </select>
+                                    <input type="tel" id="contact-phone" name="phone" required placeholder="77 123 45 67"
+                                           class="flex-1 px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 placeholder-slate-400">
+                                </div>
+                            </div>
+
+                            <!-- Row 3: Destination & Project Type -->
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <label for="contact-destination" class="block text-sm font-semibold text-slate-700">
+                                        Destination <span class="text-red-500">*</span>
+                                    </label>
+                                    <select id="contact-destination" name="destination" required
+                                            class="w-full px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900">
+                                        <option value="">Choisir un pays...</option>
+                                        <option value="china">🇨🇳 Chine</option>
+                                        <option value="germany">🇩🇪 Allemagne</option>
+                                        <option value="spain">🇪🇸 Espagne</option>
+                                        <option value="other">🌍 Autre pays</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="contact-project-type" class="block text-sm font-semibold text-slate-700">
+                                        Type de projet <span class="text-red-500">*</span>
+                                    </label>
+                                    <select id="contact-project-type" name="project_type" required
+                                            class="w-full px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900">
+                                        <option value="">Choisir...</option>
+                                        <option value="etudes">📚 Études</option>
+                                        <option value="travail">💼 Travail</option>
+                                        <option value="business">🏢 Business</option>
+                                        <option value="autre">📋 Autre</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Row 4: Message -->
+                            <div class="space-y-2">
+                                <label for="contact-message" class="block text-sm font-semibold text-slate-700">
+                                    Votre projet en quelques mots
+                                </label>
+                                <textarea id="contact-message" name="message" rows="4"
+                                          placeholder="Décrivez brièvement votre projet, votre niveau d'études, vos objectifs..."
+                                          class="w-full px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 placeholder-slate-400 resize-none"></textarea>
+                            </div>
+
+                            <!-- Consent -->
+                            <div class="flex items-start gap-3">
+                                <input type="checkbox" id="contact-consent" name="consent" required
+                                       class="mt-1 w-5 h-5 text-primary-600 bg-slate-50 border-0 rounded focus:ring-primary-500">
+                                <label for="contact-consent" class="text-sm text-slate-600 leading-relaxed">
+                                    J'accepte d'être contacté(e) par Travel Express concernant mon projet. <span class="text-red-500">*</span>
+                                </label>
+                            </div>
+
+                            <!-- Error Message -->
+                            <div id="contact-error" class="hidden bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-sm"></div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" id="contact-submit"
+                                    class="w-full py-4 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-bold rounded-xl shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2">
+                                <span id="submit-text">Envoyer ma demande</span>
+                                <svg id="submit-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                                <svg id="submit-loading" class="hidden animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </button>
+
+                            <!-- Trust badges -->
+                            <div class="flex items-center justify-center gap-6 pt-4">
+                                <div class="flex items-center gap-2 text-slate-500 text-xs">
+                                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Données sécurisées</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-slate-500 text-xs">
+                                    <svg class="w-4 h-4 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span>Réponse sous 24h</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-slate-500 text-xs">
+                                    <svg class="w-4 h-4 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                    <span>Consultation gratuite</span>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <h4 class="font-display font-bold text-dark mb-2">Téléphone</h4>
-                    <p class="text-gray">+221 77 123 45 67</p>
-                </div>
-                <div class="text-center">
-                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                    </div>
-                    <h4 class="font-display font-bold text-dark mb-2">Adresse</h4>
-                    <p class="text-gray">Dakar, Sénégal</p>
                 </div>
             </div>
         </div>
