@@ -37,6 +37,87 @@
             background: white;
             border: none;
         }
+
+        /* Professional Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-reveal-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .scroll-reveal-left.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-reveal-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .scroll-reveal-right.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-reveal-scale {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .scroll-reveal-scale.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .scroll-reveal-fade {
+            opacity: 0;
+            transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .scroll-reveal-fade.revealed {
+            opacity: 1;
+        }
+
+        /* Staggered animations for children */
+        .scroll-reveal-stagger > * {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .scroll-reveal-stagger.revealed > *:nth-child(1) { transition-delay: 0.1s; }
+        .scroll-reveal-stagger.revealed > *:nth-child(2) { transition-delay: 0.2s; }
+        .scroll-reveal-stagger.revealed > *:nth-child(3) { transition-delay: 0.3s; }
+        .scroll-reveal-stagger.revealed > *:nth-child(4) { transition-delay: 0.4s; }
+        .scroll-reveal-stagger.revealed > *:nth-child(5) { transition-delay: 0.5s; }
+        .scroll-reveal-stagger.revealed > *:nth-child(6) { transition-delay: 0.6s; }
+
+        .scroll-reveal-stagger.revealed > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hide avatar ring animation on mobile */
+        @media (max-width: 1023px) {
+            .avatar-ring::before {
+                display: none !important;
+                animation: none !important;
+            }
+        }
     </style>
 </head>
 <body class="font-sans text-dark antialiased bg-white overflow-x-hidden w-full max-w-none m-0 p-0" x-data="{
@@ -708,7 +789,7 @@
 
         <div class="relative w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24">
             <!-- Section Header -->
-            <div class="text-center mb-12 fade-in-up">
+            <div class="text-center mb-12 scroll-reveal">
                 <div class="inline-flex items-center space-x-2 bg-primary-100 px-3 py-1.5 rounded-full mb-4">
                     <svg class="w-4 h-4 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
@@ -724,7 +805,7 @@
             </div>
 
             <!-- Features Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 scroll-reveal-stagger">
                 <!-- Feature 1 -->
                 <div class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-primary-300/50 overflow-hidden text-center sm:text-left">
                     <!-- Gradient background on hover -->
@@ -867,7 +948,7 @@
         <div class="w-full px-4 sm:px-6 lg:px-8 relative z-10">
 
             <!-- Section Header with Glow Effect -->
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 scroll-reveal">
                 <div class="inline-flex items-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-xl rounded-full mb-8 border border-white/10 shadow-lg shadow-purple-500/10">
                     <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                     <span class="text-sm font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Explorez le monde avec nous</span>
@@ -1354,7 +1435,7 @@
     <section id="processus" class="py-20 bg-white">
         <div class="w-full px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
             <!-- Section Header -->
-            <div class="text-center mb-14">
+            <div class="text-center mb-14 scroll-reveal">
                 <h2 class="text-3xl md:text-4xl font-display font-extrabold text-dark mb-4 tracking-tight">
                     Notre accompagnement en <span class="text-primary-600">4 étapes</span>
                 </h2>
@@ -1364,11 +1445,11 @@
             </div>
 
             <!-- Timeline -->
-            <div class="relative">
+            <div class="relative scroll-reveal-scale">
                 <!-- Connection Line - Desktop -->
                 <div class="hidden md:block absolute top-14 left-[10%] right-[10%] h-1 bg-gradient-to-r from-primary-400 via-purple-500 via-orange-400 to-green-500 rounded-full"></div>
 
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 scroll-reveal-stagger">
 
                     <!-- Step 1 - Blue -->
                     <div class="text-center group">
@@ -1613,7 +1694,7 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header Premium -->
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 scroll-reveal">
                 <div class="inline-flex items-center gap-3 px-5 py-2.5 bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-100 rounded-full mb-8">
                     <div class="relative">
                         <span class="w-2.5 h-2.5 bg-green-500 rounded-full animate-ping absolute"></span>
@@ -1630,7 +1711,7 @@
             </div>
 
             <!-- Stats Premium -->
-            <div class="grid grid-cols-3 gap-4 md:gap-8 mb-16 max-w-3xl mx-auto">
+            <div class="grid grid-cols-3 gap-4 md:gap-8 mb-16 max-w-3xl mx-auto scroll-reveal-stagger">
                 <div class="text-center p-6 bg-white rounded-2xl shadow-lg shadow-primary-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                     <div class="text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent">98%</div>
                     <div class="text-slate-500 text-sm font-semibold mt-2 uppercase tracking-wider">Satisfaction</div>
@@ -1849,7 +1930,7 @@
 
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <!-- Header -->
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 scroll-reveal">
                 <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 border border-primary-100 rounded-full mb-6">
                     <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -1865,7 +1946,7 @@
             </div>
 
             <!-- FAQ Items -->
-            <div class="space-y-4">
+            <div class="space-y-4 scroll-reveal-scale">
                 <template x-for="(faq, index) in faqs" :key="faq.id">
                     <div class="group"
                          :class="faq.open ? 'bg-white shadow-xl shadow-slate-200/50 rounded-2xl' : 'bg-white/60 hover:bg-white rounded-2xl hover:shadow-lg transition-all duration-300'">
@@ -1946,7 +2027,7 @@
 
         <div class="w-full max-w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 relative z-10 overflow-hidden">
             <!-- Header -->
-            <div class="text-center mb-8 sm:mb-10">
+            <div class="text-center mb-8 sm:mb-10 scroll-reveal">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-100 rounded-full mb-4">
                     <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
@@ -1961,7 +2042,7 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8 items-stretch max-w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8 items-stretch max-w-full scroll-reveal-scale">
                 <!-- Left Side - Info Cards -->
                 <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 order-2 lg:order-1">
                     <!-- Card 1 - Nos Services -->
@@ -2390,7 +2471,7 @@
 
         <div class="w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 relative z-10">
             <!-- En-tête de section -->
-            <div class="text-center mb-12">
+            <div class="text-center mb-12 scroll-reveal">
                 <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 rounded-full mb-4">
                     <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -2407,7 +2488,7 @@
             </div>
 
             <!-- Carte pleine largeur -->
-            <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden">
+            <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden scroll-reveal-scale">
                 <!-- Carte Leaflet -->
                 <div id="map-travel-express" class="w-full h-[450px] lg:h-[500px] rounded-3xl z-0"></div>
 
@@ -2978,6 +3059,72 @@
                 }
             `;
             document.head.appendChild(style);
+        });
+    </script>
+
+    <!-- Scroll Reveal Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Intersection Observer for scroll reveal animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -80px 0px',
+                threshold: 0.1
+            };
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        // Optional: stop observing after reveal for performance
+                        // revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all scroll-reveal elements
+            const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale, .scroll-reveal-fade, .scroll-reveal-stagger');
+            revealElements.forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // Add scroll-reveal classes to sections dynamically
+            const sections = document.querySelectorAll('section[id]');
+            sections.forEach((section, index) => {
+                // Add reveal class to section headers
+                const header = section.querySelector('.text-center.mb-12, .text-center.mb-16, .text-center.mb-8');
+                if (header) {
+                    header.classList.add('scroll-reveal');
+                    revealObserver.observe(header);
+                }
+
+                // Add stagger animation to grids
+                const grids = section.querySelectorAll('.grid');
+                grids.forEach(grid => {
+                    grid.classList.add('scroll-reveal-stagger');
+                    revealObserver.observe(grid);
+                });
+            });
+
+            // Smooth scroll behavior enhancement
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        const headerHeight = 100;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
     </script>
 </body>
