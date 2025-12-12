@@ -1961,11 +1961,11 @@
                 </p>
             </div>
 
-            <div class="grid lg:grid-cols-5 gap-6 lg:gap-10 items-stretch">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8 items-stretch">
                 <!-- Left Side - Info Cards -->
-                <div class="lg:col-span-2 flex flex-col gap-5">
+                <div class="md:col-span-2 lg:col-span-2 flex flex-col gap-4 md:gap-5 order-2 md:order-1">
                     <!-- Card 1 - Nos Services -->
-                    <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-6 text-white flex-1 flex flex-col relative overflow-hidden">
+                    <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-4 sm:p-6 text-white flex-1 flex flex-col relative overflow-hidden">
                         <!-- Decorative -->
                         <div class="absolute top-0 right-0 w-32 h-32 bg-primary-500/10 rounded-full blur-3xl"></div>
 
@@ -2044,7 +2044,7 @@
                     </div>
 
                     <!-- Card 2 - Contact Direct -->
-                    <div class="bg-white rounded-2xl p-5 shadow-lg shadow-slate-200/50 border border-slate-100 flex-1 flex flex-col">
+                    <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-lg shadow-slate-200/50 border border-slate-100 flex-1 flex flex-col">
                         <!-- Header -->
                         <div class="flex items-center gap-3 mb-4">
                             <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-md shadow-green-500/20">
@@ -2108,8 +2108,8 @@
                 </div>
 
                 <!-- Right Side - Form -->
-                <div class="lg:col-span-3 flex">
-                    <div class="bg-white rounded-2xl p-6 shadow-lg shadow-slate-200/50 border border-slate-100 flex-1">
+                <div class="md:col-span-2 lg:col-span-3 flex order-1 md:order-2">
+                    <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-lg shadow-slate-200/50 border border-slate-100 flex-1">
                         <!-- Success Message -->
                         <div id="contact-success" class="hidden">
                             <div class="text-center py-12">
@@ -2239,7 +2239,7 @@
                                     <!-- Bouton sélecteur avec drapeau -->
                                     <div class="relative">
                                         <button type="button" @click="open = !open"
-                                                class="flex items-center gap-2 w-[140px] px-3 py-3 bg-slate-50 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 text-sm font-medium hover:bg-slate-100">
+                                                class="flex items-center gap-1.5 sm:gap-2 w-[110px] sm:w-[140px] px-2 sm:px-3 py-3 bg-slate-50 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 text-sm font-medium hover:bg-slate-100">
                                             <img :src="'https://flagcdn.com/24x18/' + selectedIso + '.png'"
                                                  :alt="selectedCountry"
                                                  class="w-6 h-[18px] object-cover rounded shadow-sm border border-slate-200"
@@ -2367,21 +2367,21 @@
                             </button>
 
                             <!-- Trust badges -->
-                            <div class="flex items-center justify-center gap-6 pt-4">
-                                <div class="flex items-center gap-2 text-slate-500 text-xs">
-                                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 pt-4">
+                                <div class="flex items-center gap-1.5 sm:gap-2 text-slate-500 text-[11px] sm:text-xs">
+                                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                     </svg>
                                     <span>Données sécurisées</span>
                                 </div>
-                                <div class="flex items-center gap-2 text-slate-500 text-xs">
-                                    <svg class="w-4 h-4 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="flex items-center gap-1.5 sm:gap-2 text-slate-500 text-[11px] sm:text-xs">
+                                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
-                                    <span>Réponse sous 24h</span>
+                                    <span>Réponse 24h</span>
                                 </div>
-                                <div class="flex items-center gap-2 text-slate-500 text-xs">
-                                    <svg class="w-4 h-4 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="flex items-center gap-1.5 sm:gap-2 text-slate-500 text-[11px] sm:text-xs">
+                                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                     </svg>
                                     <span>Consultation gratuite</span>
