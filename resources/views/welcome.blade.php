@@ -1915,7 +1915,7 @@
         </div>
     </section>
 
-    <!-- Contact Section - Premium Design -->
+    <!-- Contact Section - Full Width Premium Design -->
     <section id="contact" class="py-16 lg:py-20 bg-gradient-to-b from-white via-slate-50/50 to-white relative overflow-hidden">
         <!-- Background Elements -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -1923,7 +1923,7 @@
             <div class="absolute -bottom-32 -left-32 w-72 h-72 bg-accent-500/5 rounded-full blur-3xl"></div>
         </div>
 
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 relative z-10">
             <!-- Header -->
             <div class="text-center mb-10">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-100 rounded-full mb-4">
@@ -1940,93 +1940,107 @@
                 </p>
             </div>
 
-            <div class="grid lg:grid-cols-5 gap-6 lg:gap-8 items-stretch">
+            <div class="grid lg:grid-cols-5 gap-6 lg:gap-10 items-stretch">
                 <!-- Left Side - Info Cards -->
                 <div class="lg:col-span-2 flex flex-col gap-5">
-                    <!-- Why Us Card - Premium Dark -->
+                    <!-- Card 1 - Nos Services -->
                     <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-6 text-white flex-1 flex flex-col relative overflow-hidden">
-                        <!-- Decorative elements -->
-                        <div class="absolute top-0 right-0 w-24 h-24 bg-primary-500/10 rounded-full blur-2xl"></div>
-                        <div class="absolute bottom-0 left-0 w-20 h-20 bg-accent-500/10 rounded-full blur-2xl"></div>
+                        <!-- Decorative -->
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-primary-500/10 rounded-full blur-3xl"></div>
 
                         <!-- Header -->
-                        <div class="relative mb-4">
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/10 rounded-full text-[10px] font-semibold tracking-wide text-primary-300 mb-3">
-                                <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
-                                DISPONIBLE 7J/7
-                            </span>
-                            <h3 class="text-xl font-display font-bold tracking-tight leading-tight">Votre réussite,<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">notre priorité</span></h3>
-                        </div>
-
-                        <!-- Stats Grid -->
-                        <div class="grid grid-cols-2 gap-3 mb-4 relative">
-                            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                                <div class="text-2xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">98%</div>
-                                <p class="text-slate-400 text-[10px] font-medium mt-0.5">Taux de réussite visa</p>
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
                             </div>
-                            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                                <div class="text-2xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-blue-400">500+</div>
-                                <p class="text-slate-400 text-[10px] font-medium mt-0.5">Étudiants accompagnés</p>
+                            <div>
+                                <h3 class="text-lg font-display font-bold">Nos Services</h3>
+                                <p class="text-slate-400 text-xs">Solutions complètes pour votre projet</p>
                             </div>
                         </div>
 
-                        <!-- Features List -->
-                        <div class="space-y-2 relative flex-1">
-                            <div class="flex items-center gap-2.5 p-2.5 bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors">
-                                <div class="w-7 h-7 bg-gradient-to-br from-primary-500 to-primary-600 rounded-md flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        <!-- Services List -->
+                        <div class="space-y-3 flex-1">
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <svg class="w-3.5 h-3.5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-xs text-white">Universités partenaires</p>
-                                    <p class="text-slate-500 text-[10px]">Chine, Espagne, Allemagne</p>
+                                    <p class="font-semibold text-sm text-white">Études à l'étranger</p>
+                                    <p class="text-slate-400 text-xs">Chine, Espagne, Allemagne et plus</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-2.5 p-2.5 bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors">
-                                <div class="w-7 h-7 bg-gradient-to-br from-accent-500 to-accent-600 rounded-md flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <svg class="w-3.5 h-3.5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-xs text-white">Accompagnement complet</p>
-                                    <p class="text-slate-500 text-[10px]">Du dossier jusqu'à l'arrivée</p>
+                                    <p class="font-semibold text-sm text-white">Accompagnement visa</p>
+                                    <p class="text-slate-400 text-xs">98% de taux de réussite</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-2.5 p-2.5 bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors">
-                                <div class="w-7 h-7 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-md flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <svg class="w-3.5 h-3.5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-xs text-white">Consultation gratuite</p>
-                                    <p class="text-slate-500 text-[10px]">Premier rendez-vous offert</p>
+                                    <p class="font-semibold text-sm text-white">Voyages d'affaires</p>
+                                    <p class="text-slate-400 text-xs">Import-export Chine/Dubaï</p>
                                 </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <svg class="w-3.5 h-3.5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-sm text-white">Billets & Hébergement</p>
+                                    <p class="text-slate-400 text-xs">Organisation complète du voyage</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="grid grid-cols-2 gap-3 mt-5 pt-5 border-t border-white/10">
+                            <div class="text-center">
+                                <div class="text-2xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">500+</div>
+                                <p class="text-slate-500 text-[10px] font-medium">Clients satisfaits</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-blue-400">5 ans</div>
+                                <p class="text-slate-500 text-[10px] font-medium">D'expérience</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Contact Methods Card - Premium White -->
+                    <!-- Card 2 - Contact Direct -->
                     <div class="bg-white rounded-2xl p-5 shadow-lg shadow-slate-200/50 border border-slate-100 flex-1 flex flex-col">
                         <!-- Header -->
-                        <div class="flex items-center justify-between mb-4">
-                            <div>
-                                <h4 class="font-display font-bold text-slate-900 text-base">Contact direct</h4>
-                                <p class="text-slate-500 text-[10px] mt-0.5">Réponse garantie sous 24h</p>
-                            </div>
-                            <div class="w-9 h-9 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg flex items-center justify-center shadow-md shadow-green-500/20">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-md shadow-green-500/20">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                                 </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold text-slate-900">Contactez-nous</h4>
+                                <p class="text-slate-500 text-xs">Réponse sous 24h garantie</p>
                             </div>
                         </div>
 
-                        <!-- Contact Buttons -->
-                        <div class="space-y-2.5 flex-1">
-                            <a href="https://wa.me/22665604592" target="_blank" class="flex items-center gap-3 p-3 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 rounded-xl transition-all group border border-green-100">
-                                <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow-md shadow-green-500/25 group-hover:scale-105 transition-transform">
+                        <!-- Contact Options -->
+                        <div class="space-y-3 flex-1">
+                            <a href="https://wa.me/22665604592" target="_blank" class="flex items-center gap-3 p-3.5 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 rounded-xl transition-all group border border-green-100">
+                                <div class="w-11 h-11 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-md shadow-green-500/25 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                                     </svg>
@@ -2035,13 +2049,13 @@
                                     <p class="font-bold text-slate-900 text-sm">WhatsApp</p>
                                     <p class="text-green-600 font-semibold text-xs">+226 65 60 45 92</p>
                                 </div>
-                                <svg class="w-4 h-4 text-green-500 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 text-green-500 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                 </svg>
                             </a>
 
-                            <a href="mailto:armel.bakoua@travel-express.bf" class="flex items-center gap-3 p-3 bg-gradient-to-r from-primary-50 to-blue-50 hover:from-primary-100 hover:to-blue-100 rounded-xl transition-all group border border-primary-100">
-                                <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center shadow-md shadow-primary-500/25 group-hover:scale-105 transition-transform">
+                            <a href="mailto:armel.bakoua@travel-express.bf" class="flex items-center gap-3 p-3.5 bg-gradient-to-r from-primary-50 to-blue-50 hover:from-primary-100 hover:to-blue-100 rounded-xl transition-all group border border-primary-100">
+                                <div class="w-11 h-11 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-md shadow-primary-500/25 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                                     </svg>
@@ -2050,25 +2064,23 @@
                                     <p class="font-bold text-slate-900 text-sm">Email</p>
                                     <p class="text-primary-600 font-semibold text-xs truncate">armel.bakoua@travel-express.bf</p>
                                 </div>
-                                <svg class="w-4 h-4 text-primary-500 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 text-primary-500 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                 </svg>
                             </a>
                         </div>
 
-                        <!-- Location Info -->
-                        <div class="mt-3 pt-3 border-t border-slate-100">
-                            <div class="flex items-center gap-2.5">
-                                <div class="w-7 h-7 bg-slate-100 rounded-md flex items-center justify-center">
-                                    <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-slate-900 text-xs">Ouagadougou, Burkina Faso</p>
-                                    <p class="text-slate-500 text-[10px]">Lun - Ven: 9h - 18h | Sam: 10h - 14h</p>
-                                </div>
+                        <!-- Location -->
+                        <div class="mt-4 pt-4 border-t border-slate-100 flex items-center gap-3">
+                            <div class="w-9 h-9 bg-slate-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-slate-900 text-sm">Ouagadougou, Burkina Faso</p>
+                                <p class="text-slate-500 text-xs">Lun - Ven: 9h - 18h | Sam: 10h - 14h</p>
                             </div>
                         </div>
                     </div>
