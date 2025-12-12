@@ -247,11 +247,11 @@
             const countryEl = document.getElementById('users-by-country');
             if (data.users_by_country.length === 0) {
                 countryEl.innerHTML = `
-                    <div class="text-center py-8">
-                        <svg class="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="text-center py-6 sm:py-8">
+                        <svg class="w-10 h-10 sm:w-12 sm:h-12 text-slate-300 mx-auto mb-2 sm:mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        <p class="text-slate-500 text-sm">Aucune donnée géographique disponible</p>
+                        <p class="text-slate-500 text-xs sm:text-sm">Aucune donnée géographique disponible</p>
                     </div>
                 `;
             } else {
@@ -259,17 +259,17 @@
                 const colors = ['bg-indigo-500', 'bg-emerald-500', 'bg-amber-500', 'bg-rose-500', 'bg-violet-500'];
                 countryEl.innerHTML = data.users_by_country.map((country, index) => `
                     <div class="group">
-                        <div class="flex items-center justify-between mb-2">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg ${colors[index % colors.length]} bg-opacity-20 flex items-center justify-center">
-                                    <span class="text-lg">${getCountryFlag(country.country)}</span>
+                        <div class="flex items-center justify-between mb-1.5 sm:mb-2">
+                            <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                                <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-lg ${colors[index % colors.length]} bg-opacity-20 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-sm sm:text-lg">${getCountryFlag(country.country)}</span>
                                 </div>
-                                <span class="text-sm font-medium text-slate-700">${country.country || 'Non spécifié'}</span>
+                                <span class="text-xs sm:text-sm font-medium text-slate-700 truncate">${country.country || 'Non spécifié'}</span>
                             </div>
-                            <span class="text-sm font-bold text-slate-900">${country.total}</span>
+                            <span class="text-xs sm:text-sm font-bold text-slate-900 flex-shrink-0 ml-2">${country.total}</span>
                         </div>
-                        <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                            <div class="${colors[index % colors.length]} h-2 rounded-full transition-all duration-500" style="width: ${(country.total / maxTotal) * 100}%"></div>
+                        <div class="w-full bg-slate-100 rounded-full h-1.5 sm:h-2 overflow-hidden">
+                            <div class="${colors[index % colors.length]} h-1.5 sm:h-2 rounded-full transition-all duration-500" style="width: ${(country.total / maxTotal) * 100}%"></div>
                         </div>
                     </div>
                 `).join('');
@@ -279,33 +279,40 @@
             const testimonialsEl = document.getElementById('recent-testimonials');
             if (data.recent_testimonials.length === 0) {
                 testimonialsEl.innerHTML = `
-                    <div class="text-center py-8">
-                        <svg class="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="text-center py-6 sm:py-8">
+                        <svg class="w-10 h-10 sm:w-12 sm:h-12 text-slate-300 mx-auto mb-2 sm:mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                         </svg>
-                        <p class="text-slate-500 text-sm">Aucun témoignage récent</p>
+                        <p class="text-slate-500 text-xs sm:text-sm">Aucun témoignage récent</p>
                     </div>
                 `;
             } else {
                 testimonialsEl.innerHTML = data.recent_testimonials.map(t => `
-                    <div class="p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
-                        <div class="flex items-start justify-between gap-4">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-2 mb-2">
-                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                                        <span class="text-white text-xs font-bold">${t.user_name.charAt(0).toUpperCase()}</span>
+                    <div class="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 mb-1.5 sm:mb-2">
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                                        <span class="text-white text-[10px] sm:text-xs font-bold">${t.user_name.charAt(0).toUpperCase()}</span>
                                     </div>
-                                    <p class="text-sm font-semibold text-slate-900">${t.user_name}</p>
+                                    <p class="text-xs sm:text-sm font-semibold text-slate-900 truncate">${t.user_name}</p>
+                                    <div class="flex items-center gap-0.5 sm:hidden ml-auto flex-shrink-0">
+                                        ${Array(5).fill(0).map((_, i) => `
+                                            <svg class="w-3 h-3 ${i < t.rating ? 'text-amber-400' : 'text-slate-200'}" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                            </svg>
+                                        `).join('')}
+                                    </div>
                                 </div>
-                                <p class="text-sm text-slate-600 line-clamp-2">${t.content}</p>
-                                <div class="flex items-center gap-3 mt-3">
-                                    <span class="text-xs px-2 py-1 rounded-full font-medium ${t.is_approved ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}">
+                                <p class="text-xs sm:text-sm text-slate-600 line-clamp-2">${t.content}</p>
+                                <div class="flex items-center gap-2 sm:gap-3 mt-2 sm:mt-3">
+                                    <span class="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full font-medium ${t.is_approved ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}">
                                         ${t.is_approved ? '✓ Approuvé' : '⏳ En attente'}
                                     </span>
-                                    <span class="text-xs text-slate-400">${t.created_at}</span>
+                                    <span class="text-[10px] sm:text-xs text-slate-400">${t.created_at}</span>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-0.5">
+                            <div class="hidden sm:flex items-center gap-0.5 flex-shrink-0">
                                 ${Array(5).fill(0).map((_, i) => `
                                     <svg class="w-4 h-4 ${i < t.rating ? 'text-amber-400' : 'text-slate-200'}" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
@@ -322,42 +329,42 @@
             if (data.recent_users.length === 0) {
                 usersEl.innerHTML = `
                     <tr>
-                        <td colspan="5" class="px-6 py-12 text-center">
-                            <svg class="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <td colspan="5" class="px-3 sm:px-6 py-8 sm:py-12 text-center">
+                            <svg class="w-10 h-10 sm:w-12 sm:h-12 text-slate-300 mx-auto mb-2 sm:mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             </svg>
-                            <p class="text-slate-500 text-sm">Aucun nouvel utilisateur cette semaine</p>
+                            <p class="text-slate-500 text-xs sm:text-sm">Aucun nouvel utilisateur cette semaine</p>
                         </td>
                     </tr>
                 `;
             } else {
                 usersEl.innerHTML = data.recent_users.map(user => `
                     <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
-                                    <span class="text-white font-bold text-sm">${user.name.charAt(0).toUpperCase()}</span>
+                        <td class="px-3 sm:px-6 py-3 sm:py-4">
+                            <div class="flex items-center gap-2 sm:gap-3">
+                                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md flex-shrink-0">
+                                    <span class="text-white font-bold text-xs sm:text-sm">${user.name.charAt(0).toUpperCase()}</span>
                                 </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-900">${user.name}</p>
-                                    <p class="text-xs text-slate-500">ID: ${user.id}</p>
+                                <div class="min-w-0">
+                                    <p class="text-xs sm:text-sm font-semibold text-slate-900 truncate">${user.name}</p>
+                                    <p class="text-[10px] sm:text-xs text-slate-500">ID: ${user.id}</p>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-4">
-                            <p class="text-sm text-slate-600">${user.email}</p>
+                        <td class="px-3 sm:px-6 py-3 sm:py-4 hidden sm:table-cell">
+                            <p class="text-xs sm:text-sm text-slate-600 truncate max-w-[150px] lg:max-w-none">${user.email}</p>
                         </td>
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center gap-1.5 text-sm text-slate-600">
-                                <span>${getCountryFlag(user.country)}</span>
-                                ${user.country || '-'}
+                        <td class="px-3 sm:px-6 py-3 sm:py-4">
+                            <span class="inline-flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-slate-600">
+                                <span class="text-sm sm:text-base">${getCountryFlag(user.country)}</span>
+                                <span class="hidden sm:inline">${user.country || '-'}</span>
                             </span>
                         </td>
-                        <td class="px-6 py-4">
-                            <p class="text-sm text-slate-600">${new Date(user.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                        <td class="px-3 sm:px-6 py-3 sm:py-4 hidden md:table-cell">
+                            <p class="text-xs sm:text-sm text-slate-600">${new Date(user.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                         </td>
-                        <td class="px-6 py-4">
-                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700">Actif</span>
+                        <td class="px-3 sm:px-6 py-3 sm:py-4">
+                            <span class="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700">Actif</span>
                         </td>
                     </tr>
                 `).join('');
@@ -368,13 +375,13 @@
         } catch (error) {
             console.error('Error:', error);
             loadingEl.innerHTML = `
-                <div class="bg-red-50 border border-red-200 rounded-2xl p-8 text-center max-w-md mx-auto">
-                    <svg class="w-12 h-12 text-red-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="bg-red-50 border border-red-200 rounded-xl sm:rounded-2xl p-4 sm:p-8 text-center max-w-md mx-auto">
+                    <svg class="w-10 h-10 sm:w-12 sm:h-12 text-red-400 mx-auto mb-3 sm:mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    <h3 class="text-lg font-bold text-red-800 mb-2">Erreur de chargement</h3>
-                    <p class="text-red-600 text-sm mb-4">Impossible de récupérer les statistiques</p>
-                    <button onclick="loadDashboardStats()" class="px-4 py-2 bg-red-600 text-white rounded-lg font-semibold text-sm hover:bg-red-700 transition-colors">
+                    <h3 class="text-base sm:text-lg font-bold text-red-800 mb-1.5 sm:mb-2">Erreur de chargement</h3>
+                    <p class="text-red-600 text-xs sm:text-sm mb-3 sm:mb-4">Impossible de récupérer les statistiques</p>
+                    <button onclick="loadDashboardStats()" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-red-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-red-700 transition-colors">
                         Réessayer
                     </button>
                 </div>
