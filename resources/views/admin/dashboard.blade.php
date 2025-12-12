@@ -33,20 +33,20 @@
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 min-[400px]:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
         <!-- Total Users -->
         <div class="stat-card group">
-            <div class="flex items-start justify-between gap-2">
-                <div class="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-start justify-between gap-1 sm:gap-2">
+                <div class="w-8 h-8 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg sm:rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
+                    <svg class="w-4 h-4 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                     </svg>
                 </div>
                 <span id="users-growth" class="text-[10px] sm:text-xs lg:text-sm font-semibold px-1.5 sm:px-2 lg:px-3 py-0.5 sm:py-1 rounded-full hidden sm:inline-block"></span>
             </div>
-            <div class="mt-3 sm:mt-4">
-                <p class="text-slate-500 text-[11px] sm:text-xs lg:text-sm font-medium">Utilisateurs</p>
-                <p id="total-users" class="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-0.5 sm:mt-1">0</p>
+            <div class="mt-2 sm:mt-4">
+                <p class="text-slate-500 text-[10px] sm:text-xs lg:text-sm font-medium">Utilisateurs</p>
+                <p id="total-users" class="text-lg sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-0.5 sm:mt-1">0</p>
             </div>
             <div class="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-slate-100 hidden sm:block">
                 <p id="new-users" class="text-xs sm:text-sm text-slate-500 flex items-center gap-1">
@@ -60,9 +60,9 @@
 
         <!-- Total Testimonials -->
         <div class="stat-card group">
-            <div class="flex items-start justify-between gap-2">
-                <div class="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-start justify-between gap-1 sm:gap-2">
+                <div class="w-8 h-8 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg sm:rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
+                    <svg class="w-4 h-4 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                     </svg>
                 </div>
@@ -73,9 +73,9 @@
                     <span id="avg-rating" class="text-[10px] sm:text-xs lg:text-sm font-semibold text-amber-700">0</span>
                 </div>
             </div>
-            <div class="mt-3 sm:mt-4">
-                <p class="text-slate-500 text-[11px] sm:text-xs lg:text-sm font-medium">Témoignages</p>
-                <p id="total-testimonials" class="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-0.5 sm:mt-1">0</p>
+            <div class="mt-2 sm:mt-4">
+                <p class="text-slate-500 text-[10px] sm:text-xs lg:text-sm font-medium">Témoignages</p>
+                <p id="total-testimonials" class="text-lg sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-0.5 sm:mt-1">0</p>
             </div>
             <div class="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-slate-100 hidden sm:block">
                 <p id="approved-testimonials" class="text-xs sm:text-sm text-emerald-600 font-medium truncate"></p>
@@ -84,16 +84,16 @@
 
         <!-- Pending Testimonials -->
         <div class="stat-card group">
-            <div class="flex items-start justify-between">
-                <div class="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-start justify-between gap-1 sm:gap-2">
+                <div class="w-8 h-8 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-amber-500 to-orange-500 rounded-lg sm:rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
+                    <svg class="w-4 h-4 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </div>
             </div>
-            <div class="mt-3 sm:mt-4">
-                <p class="text-slate-500 text-[11px] sm:text-xs lg:text-sm font-medium">En attente</p>
-                <p id="pending-testimonials" class="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-0.5 sm:mt-1">0</p>
+            <div class="mt-2 sm:mt-4">
+                <p class="text-slate-500 text-[10px] sm:text-xs lg:text-sm font-medium">En attente</p>
+                <p id="pending-testimonials" class="text-lg sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-0.5 sm:mt-1">0</p>
             </div>
             <div class="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-slate-100 hidden sm:block">
                 <a href="/admin/testimonials" class="text-[11px] sm:text-xs lg:text-sm text-indigo-600 hover:text-indigo-700 font-semibold inline-flex items-center gap-1 group/link">
@@ -107,16 +107,16 @@
 
         <!-- This Month -->
         <div class="stat-card group">
-            <div class="flex items-start justify-between">
-                <div class="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg shadow-violet-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-start justify-between gap-1 sm:gap-2">
+                <div class="w-8 h-8 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-violet-500 to-purple-600 rounded-lg sm:rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg shadow-violet-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
+                    <svg class="w-4 h-4 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
                 </div>
             </div>
-            <div class="mt-3 sm:mt-4">
-                <p class="text-slate-500 text-[11px] sm:text-xs lg:text-sm font-medium">Ce mois</p>
-                <p id="new-testimonials-month" class="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-0.5 sm:mt-1">0</p>
+            <div class="mt-2 sm:mt-4">
+                <p class="text-slate-500 text-[10px] sm:text-xs lg:text-sm font-medium">Ce mois</p>
+                <p id="new-testimonials-month" class="text-lg sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-0.5 sm:mt-1">0</p>
             </div>
             <div class="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-slate-100 hidden sm:block">
                 <p class="text-[11px] sm:text-xs lg:text-sm text-slate-500 truncate">Nouveaux témoignages</p>

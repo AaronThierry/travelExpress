@@ -53,8 +53,8 @@
 
         .stat-card {
             background: white;
-            border-radius: 1rem;
-            padding: 1rem;
+            border-radius: 0.75rem;
+            padding: 0.75rem;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             border: 1px solid #e2e8f0;
@@ -62,6 +62,7 @@
 
         @media (min-width: 640px) {
             .stat-card {
+                border-radius: 1rem;
                 padding: 1.5rem;
             }
         }
