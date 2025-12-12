@@ -2139,63 +2139,141 @@
                                 <label for="contact-phone" class="block text-sm font-semibold text-slate-700">
                                     WhatsApp / Téléphone <span class="text-red-500">*</span>
                                 </label>
-                                <div class="flex gap-2">
-                                    <!-- Simple select with country codes -->
-                                    <select id="contact-phone-code" name="phone_code"
-                                            class="w-32 px-3 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 text-sm font-medium appearance-none cursor-pointer"
-                                            style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%236b7280%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 0.5rem center; background-size: 1.2em;">
-                                        <option value="+226" selected>🇧🇫 +226</option>
-                                        <option value="+27">🇿🇦 +27</option>
-                                        <option value="+213">🇩🇿 +213</option>
-                                        <option value="+49">🇩🇪 +49</option>
-                                        <option value="+32">🇧🇪 +32</option>
-                                        <option value="+229">🇧🇯 +229</option>
-                                        <option value="+55">🇧🇷 +55</option>
-                                        <option value="+257">🇧🇮 +257</option>
-                                        <option value="+237">🇨🇲 +237</option>
-                                        <option value="+1">🇺🇸 +1</option>
-                                        <option value="+236">🇨🇫 +236</option>
-                                        <option value="+86">🇨🇳 +86</option>
-                                        <option value="+242">🇨🇬 +242</option>
-                                        <option value="+243">🇨🇩 +243</option>
-                                        <option value="+225">🇨🇮 +225</option>
-                                        <option value="+20">🇪🇬 +20</option>
-                                        <option value="+971">🇦🇪 +971</option>
-                                        <option value="+34">🇪🇸 +34</option>
-                                        <option value="+251">🇪🇹 +251</option>
-                                        <option value="+33">🇫🇷 +33</option>
-                                        <option value="+241">🇬🇦 +241</option>
-                                        <option value="+220">🇬🇲 +220</option>
-                                        <option value="+233">🇬🇭 +233</option>
-                                        <option value="+224">🇬🇳 +224</option>
-                                        <option value="+245">🇬🇼 +245</option>
-                                        <option value="+91">🇮🇳 +91</option>
-                                        <option value="+39">🇮🇹 +39</option>
-                                        <option value="+81">🇯🇵 +81</option>
-                                        <option value="+254">🇰🇪 +254</option>
-                                        <option value="+961">🇱🇧 +961</option>
-                                        <option value="+261">🇲🇬 +261</option>
-                                        <option value="+223">🇲🇱 +223</option>
-                                        <option value="+212">🇲🇦 +212</option>
-                                        <option value="+230">🇲🇺 +230</option>
-                                        <option value="+222">🇲🇷 +222</option>
-                                        <option value="+227">🇳🇪 +227</option>
-                                        <option value="+234">🇳🇬 +234</option>
-                                        <option value="+256">🇺🇬 +256</option>
-                                        <option value="+31">🇳🇱 +31</option>
-                                        <option value="+351">🇵🇹 +351</option>
-                                        <option value="+250">🇷🇼 +250</option>
-                                        <option value="+221">🇸🇳 +221</option>
-                                        <option value="+232">🇸🇱 +232</option>
-                                        <option value="+41">🇨🇭 +41</option>
-                                        <option value="+235">🇹🇩 +235</option>
-                                        <option value="+228">🇹🇬 +228</option>
-                                        <option value="+216">🇹🇳 +216</option>
-                                        <option value="+90">🇹🇷 +90</option>
-                                        <option value="+44">🇬🇧 +44</option>
-                                        <option value="+260">🇿🇲 +260</option>
-                                        <option value="+263">🇿🇼 +263</option>
-                                    </select>
+                                <div class="flex gap-2" x-data="{
+                                    open: false,
+                                    search: '',
+                                    selectedCode: '+226',
+                                    selectedIso: 'bf',
+                                    selectedCountry: 'Burkina Faso',
+                                    countries: [
+                                        { code: '+27', country: 'Afrique du Sud', iso: 'za' },
+                                        { code: '+213', country: 'Algérie', iso: 'dz' },
+                                        { code: '+49', country: 'Allemagne', iso: 'de' },
+                                        { code: '+32', country: 'Belgique', iso: 'be' },
+                                        { code: '+229', country: 'Bénin', iso: 'bj' },
+                                        { code: '+55', country: 'Brésil', iso: 'br' },
+                                        { code: '+226', country: 'Burkina Faso', iso: 'bf' },
+                                        { code: '+257', country: 'Burundi', iso: 'bi' },
+                                        { code: '+237', country: 'Cameroun', iso: 'cm' },
+                                        { code: '+1', country: 'Canada/USA', iso: 'us' },
+                                        { code: '+236', country: 'Centrafrique', iso: 'cf' },
+                                        { code: '+86', country: 'Chine', iso: 'cn' },
+                                        { code: '+242', country: 'Congo', iso: 'cg' },
+                                        { code: '+243', country: 'RD Congo', iso: 'cd' },
+                                        { code: '+225', country: 'Côte d\'Ivoire', iso: 'ci' },
+                                        { code: '+20', country: 'Égypte', iso: 'eg' },
+                                        { code: '+971', country: 'Émirats', iso: 'ae' },
+                                        { code: '+34', country: 'Espagne', iso: 'es' },
+                                        { code: '+251', country: 'Éthiopie', iso: 'et' },
+                                        { code: '+33', country: 'France', iso: 'fr' },
+                                        { code: '+241', country: 'Gabon', iso: 'ga' },
+                                        { code: '+220', country: 'Gambie', iso: 'gm' },
+                                        { code: '+233', country: 'Ghana', iso: 'gh' },
+                                        { code: '+224', country: 'Guinée', iso: 'gn' },
+                                        { code: '+245', country: 'Guinée-Bissau', iso: 'gw' },
+                                        { code: '+91', country: 'Inde', iso: 'in' },
+                                        { code: '+39', country: 'Italie', iso: 'it' },
+                                        { code: '+81', country: 'Japon', iso: 'jp' },
+                                        { code: '+254', country: 'Kenya', iso: 'ke' },
+                                        { code: '+961', country: 'Liban', iso: 'lb' },
+                                        { code: '+261', country: 'Madagascar', iso: 'mg' },
+                                        { code: '+223', country: 'Mali', iso: 'ml' },
+                                        { code: '+212', country: 'Maroc', iso: 'ma' },
+                                        { code: '+230', country: 'Maurice', iso: 'mu' },
+                                        { code: '+222', country: 'Mauritanie', iso: 'mr' },
+                                        { code: '+227', country: 'Niger', iso: 'ne' },
+                                        { code: '+234', country: 'Nigéria', iso: 'ng' },
+                                        { code: '+256', country: 'Ouganda', iso: 'ug' },
+                                        { code: '+31', country: 'Pays-Bas', iso: 'nl' },
+                                        { code: '+351', country: 'Portugal', iso: 'pt' },
+                                        { code: '+44', country: 'Royaume-Uni', iso: 'gb' },
+                                        { code: '+250', country: 'Rwanda', iso: 'rw' },
+                                        { code: '+221', country: 'Sénégal', iso: 'sn' },
+                                        { code: '+232', country: 'Sierra Leone', iso: 'sl' },
+                                        { code: '+41', country: 'Suisse', iso: 'ch' },
+                                        { code: '+235', country: 'Tchad', iso: 'td' },
+                                        { code: '+228', country: 'Togo', iso: 'tg' },
+                                        { code: '+216', country: 'Tunisie', iso: 'tn' },
+                                        { code: '+90', country: 'Turquie', iso: 'tr' },
+                                        { code: '+260', country: 'Zambie', iso: 'zm' },
+                                        { code: '+263', country: 'Zimbabwe', iso: 'zw' }
+                                    ],
+                                    get filteredCountries() {
+                                        if (!this.search) return this.countries;
+                                        const s = this.search.toLowerCase();
+                                        return this.countries.filter(c => c.country.toLowerCase().includes(s) || c.code.includes(s));
+                                    },
+                                    selectCountry(c) {
+                                        this.selectedCode = c.code;
+                                        this.selectedIso = c.iso;
+                                        this.selectedCountry = c.country;
+                                        this.open = false;
+                                        this.search = '';
+                                        document.getElementById('contact-phone-code').value = c.code;
+                                    }
+                                }">
+                                    <!-- Hidden input pour le formulaire -->
+                                    <input type="hidden" id="contact-phone-code" name="phone_code" x-bind:value="selectedCode">
+
+                                    <!-- Bouton sélecteur avec drapeau -->
+                                    <div class="relative">
+                                        <button type="button" @click="open = !open"
+                                                class="flex items-center gap-2 w-[140px] px-3 py-3 bg-slate-50 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 text-sm font-medium hover:bg-slate-100">
+                                            <img :src="'https://flagcdn.com/24x18/' + selectedIso + '.png'"
+                                                 :alt="selectedCountry"
+                                                 class="w-6 h-[18px] object-cover rounded shadow-sm border border-slate-200"
+                                                 onerror="this.style.display='none'">
+                                            <span class="font-semibold" x-text="selectedCode"></span>
+                                            <svg class="w-4 h-4 ml-auto text-slate-400 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                            </svg>
+                                        </button>
+
+                                        <!-- Dropdown -->
+                                        <div x-show="open" @click.away="open = false"
+                                             x-transition:enter="transition ease-out duration-150"
+                                             x-transition:enter-start="opacity-0 scale-95"
+                                             x-transition:enter-end="opacity-100 scale-100"
+                                             x-transition:leave="transition ease-in duration-100"
+                                             x-transition:leave-start="opacity-100 scale-100"
+                                             x-transition:leave-end="opacity-0 scale-95"
+                                             class="absolute z-50 left-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden"
+                                             style="display: none;">
+
+                                            <!-- Recherche -->
+                                            <div class="p-2 border-b border-slate-100">
+                                                <div class="relative">
+                                                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                                    </svg>
+                                                    <input type="text" x-model="search" placeholder="Rechercher..."
+                                                           class="w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+                                                           @click.stop>
+                                                </div>
+                                            </div>
+
+                                            <!-- Liste des pays -->
+                                            <div class="max-h-56 overflow-y-auto">
+                                                <template x-for="c in filteredCountries" :key="c.iso">
+                                                    <button type="button" @click="selectCountry(c)"
+                                                            class="flex items-center gap-3 w-full px-3 py-2.5 hover:bg-primary-50 transition-colors text-left"
+                                                            :class="{ 'bg-primary-50 border-l-2 border-primary-500': selectedIso === c.iso }">
+                                                        <img :src="'https://flagcdn.com/24x18/' + c.iso + '.png'"
+                                                             :alt="c.country"
+                                                             class="w-6 h-[18px] object-cover rounded shadow-sm border border-slate-200">
+                                                        <span class="flex-1 text-sm text-slate-700" x-text="c.country"></span>
+                                                        <span class="text-sm font-semibold text-slate-500" x-text="c.code"></span>
+                                                        <svg x-show="selectedIso === c.iso" class="w-4 h-4 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                                        </svg>
+                                                    </button>
+                                                </template>
+                                                <div x-show="filteredCountries.length === 0" class="px-3 py-4 text-sm text-slate-500 text-center">
+                                                    Aucun pays trouvé
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <input type="tel" id="contact-phone" name="phone" required placeholder="65 60 45 92"
                                            class="flex-1 px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 placeholder-slate-400">
