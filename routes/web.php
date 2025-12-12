@@ -60,3 +60,8 @@ Route::get('/admin/testimonials', function () {
 Route::get('/admin/contact-requests', function () {
     return view('admin.contact-requests');
 })->name('admin.contact-requests');
+
+// Bourse page
+Route::get('/bourse', function () {
+    return view('bourse');
+})->name('bourse');
