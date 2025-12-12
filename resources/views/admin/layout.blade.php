@@ -118,13 +118,23 @@
             visibility: visible;
         }
 
-        .sidebar-mobile {
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
+        /* Sidebar hidden on mobile by default */
+        @media (max-width: 1023px) {
+            .sidebar-mobile {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar-mobile.active {
+                transform: translateX(0);
+            }
         }
 
-        .sidebar-mobile.active {
-            transform: translateX(0);
+        /* Sidebar visible on desktop */
+        @media (min-width: 1024px) {
+            .sidebar-mobile {
+                transform: translateX(0);
+            }
         }
     </style>
 </head>
