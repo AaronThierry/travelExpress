@@ -2402,20 +2402,30 @@
                 <!-- Carte Google Maps -->
                 <div class="lg:col-span-2">
                     <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden group">
-                        <!-- Conteneur iframe -->
+                        <!-- Conteneur iframe avec marqueur Travel Express -->
                         <div class="relative rounded-3xl overflow-hidden">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3897.4844!2d-1.5197!3d12.3686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xe2ebe90e3c7e6db%3A0x0!2sOuagadougou%2C%20Burkina%20Faso!5e0!3m2!1sfr!2sbf!4v1702400000000!5m2!1sfr!2sbf"
+                                src="https://maps.google.com/maps?q=12.3545,-1.5115&t=&z=17&ie=UTF8&iwloc=&output=embed"
                                 class="w-full h-[400px] lg:h-[450px]"
                                 style="border:0; border-radius: 24px;"
                                 allowfullscreen=""
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade">
                             </iframe>
+                            <!-- Marqueur personnalisé superposé -->
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-full pointer-events-none z-10">
+                                <div class="relative">
+                                    <div class="bg-primary-600 text-white px-3 py-1.5 rounded-lg shadow-lg text-sm font-semibold whitespace-nowrap mb-1">
+                                        Travel Express
+                                    </div>
+                                    <div class="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-primary-600 mx-auto"></div>
+                                    <div class="w-4 h-4 bg-primary-600 rounded-full mx-auto mt-1 shadow-lg animate-pulse"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Badge "Voir sur Google Maps" -->
-                        <a href="https://www.google.com/maps/search/Travel+Express+Ouagadougou+Burkina+Faso"
+                        <a href="https://www.google.com/maps/search/?api=1&query=12.3545,-1.5115"
                            target="_blank"
                            class="absolute bottom-4 right-4 inline-flex items-center gap-2 px-4 py-2 bg-white/95 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-sm font-medium text-slate-700 hover:text-primary-600">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
