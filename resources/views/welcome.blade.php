@@ -2118,34 +2118,34 @@
                         </div>
 
                         <!-- Form -->
-                        <form id="contact-form" class="space-y-6">
+                        <form id="contact-form" class="space-y-4 sm:space-y-5">
                             <!-- Step indicator -->
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-xs font-bold text-primary-600 uppercase tracking-wider">Formulaire de contact</span>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-[10px] sm:text-xs font-bold text-primary-600 uppercase tracking-wider">Formulaire de contact</span>
                                 <div class="flex-1 h-px bg-slate-200"></div>
                             </div>
 
                             <!-- Row 1: Name & Email -->
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <div class="space-y-2">
-                                    <label for="contact-name" class="block text-sm font-semibold text-slate-700">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                                <div class="space-y-1.5">
+                                    <label for="contact-name" class="block text-xs sm:text-sm font-semibold text-slate-700">
                                         Nom complet <span class="text-red-500">*</span>
                                     </label>
                                     <input type="text" id="contact-name" name="name" required placeholder="Votre nom"
-                                           class="w-full px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 placeholder-slate-400">
+                                           class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-0 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900 placeholder-slate-400">
                                 </div>
-                                <div class="space-y-2">
-                                    <label for="contact-email" class="block text-sm font-semibold text-slate-700">
+                                <div class="space-y-1.5">
+                                    <label for="contact-email" class="block text-xs sm:text-sm font-semibold text-slate-700">
                                         Email <span class="text-red-500">*</span>
                                     </label>
                                     <input type="email" id="contact-email" name="email" required placeholder="votre@email.com"
-                                           class="w-full px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 placeholder-slate-400">
+                                           class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-0 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900 placeholder-slate-400">
                                 </div>
                             </div>
 
                             <!-- Row 2: Phone -->
-                            <div class="space-y-2">
-                                <label for="contact-phone" class="block text-sm font-semibold text-slate-700">
+                            <div class="space-y-1.5">
+                                <label for="contact-phone" class="block text-xs sm:text-sm font-semibold text-slate-700">
                                     WhatsApp / Téléphone <span class="text-red-500">*</span>
                                 </label>
                                 <div class="flex gap-2" x-data="{
@@ -2227,7 +2227,7 @@
                                     <!-- Bouton sélecteur avec drapeau -->
                                     <div class="relative">
                                         <button type="button" @click="open = !open"
-                                                class="flex items-center gap-1.5 sm:gap-2 w-[110px] sm:w-[140px] px-2 sm:px-3 py-3 bg-slate-50 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 text-sm font-medium hover:bg-slate-100">
+                                                class="flex items-center gap-1.5 sm:gap-2 w-[100px] sm:w-[130px] px-2 sm:px-3 py-2.5 sm:py-3 bg-slate-50 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 text-xs sm:text-sm font-medium hover:bg-slate-100">
                                             <img :src="'https://flagcdn.com/24x18/' + selectedIso + '.png'"
                                                  :alt="selectedCountry"
                                                  class="w-6 h-[18px] object-cover rounded shadow-sm border border-slate-200"
@@ -2285,18 +2285,18 @@
                                     </div>
 
                                     <input type="tel" id="contact-phone" name="phone" required placeholder="65 60 45 92"
-                                           class="flex-1 px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 placeholder-slate-400">
+                                           class="flex-1 min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-0 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900 placeholder-slate-400">
                                 </div>
                             </div>
 
                             <!-- Row 3: Destination & Project Type -->
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <div class="space-y-2">
-                                    <label for="contact-destination" class="block text-sm font-semibold text-slate-700">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                                <div class="space-y-1.5">
+                                    <label for="contact-destination" class="block text-xs sm:text-sm font-semibold text-slate-700">
                                         Destination <span class="text-red-500">*</span>
                                     </label>
                                     <select id="contact-destination" name="destination" required
-                                            class="w-full px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900">
+                                            class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-0 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900">
                                         <option value="">Choisir un pays...</option>
                                         <option value="china">🇨🇳 Chine</option>
                                         <option value="germany">🇩🇪 Allemagne</option>
@@ -2304,12 +2304,12 @@
                                         <option value="other">🌍 Autre pays</option>
                                     </select>
                                 </div>
-                                <div class="space-y-2">
-                                    <label for="contact-project-type" class="block text-sm font-semibold text-slate-700">
+                                <div class="space-y-1.5">
+                                    <label for="contact-project-type" class="block text-xs sm:text-sm font-semibold text-slate-700">
                                         Type de projet <span class="text-red-500">*</span>
                                     </label>
                                     <select id="contact-project-type" name="project_type" required
-                                            class="w-full px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900">
+                                            class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-0 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900">
                                         <option value="">Choisir...</option>
                                         <option value="etudes">📚 Études</option>
                                         <option value="travail">💼 Travail</option>
@@ -2320,35 +2320,35 @@
                             </div>
 
                             <!-- Row 4: Message -->
-                            <div class="space-y-2">
-                                <label for="contact-message" class="block text-sm font-semibold text-slate-700">
+                            <div class="space-y-1.5">
+                                <label for="contact-message" class="block text-xs sm:text-sm font-semibold text-slate-700">
                                     Votre projet en quelques mots
                                 </label>
-                                <textarea id="contact-message" name="message" rows="4"
-                                          placeholder="Décrivez brièvement votre projet, votre niveau d'études, vos objectifs..."
-                                          class="w-full px-4 py-3 bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 placeholder-slate-400 resize-none"></textarea>
+                                <textarea id="contact-message" name="message" rows="3"
+                                          placeholder="Décrivez brièvement votre projet..."
+                                          class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-0 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900 placeholder-slate-400 resize-none"></textarea>
                             </div>
 
                             <!-- Consent -->
-                            <div class="flex items-start gap-3">
+                            <div class="flex items-start gap-2 sm:gap-3">
                                 <input type="checkbox" id="contact-consent" name="consent" required
-                                       class="mt-1 w-5 h-5 text-primary-600 bg-slate-50 border-0 rounded focus:ring-primary-500">
-                                <label for="contact-consent" class="text-sm text-slate-600 leading-relaxed">
-                                    J'accepte d'être contacté(e) par Travel Express concernant mon projet. <span class="text-red-500">*</span>
+                                       class="mt-0.5 w-4 h-4 sm:w-5 sm:h-5 text-primary-600 bg-slate-50 border-0 rounded focus:ring-primary-500 flex-shrink-0">
+                                <label for="contact-consent" class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                    J'accepte d'être contacté(e) par Travel Express. <span class="text-red-500">*</span>
                                 </label>
                             </div>
 
                             <!-- Error Message -->
-                            <div id="contact-error" class="hidden bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-sm"></div>
+                            <div id="contact-error" class="hidden bg-red-50 border border-red-200 rounded-lg sm:rounded-xl p-3 sm:p-4 text-red-700 text-xs sm:text-sm"></div>
 
                             <!-- Submit Button -->
                             <button type="submit" id="contact-submit"
-                                    class="w-full py-4 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-bold rounded-xl shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2">
+                                    class="w-full py-3 sm:py-4 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-bold text-sm sm:text-base rounded-lg sm:rounded-xl shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2">
                                 <span id="submit-text">Envoyer ma demande</span>
-                                <svg id="submit-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg id="submit-icon" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                                 </svg>
-                                <svg id="submit-loading" class="hidden animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                                <svg id="submit-loading" class="hidden animate-spin w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
