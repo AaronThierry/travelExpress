@@ -1940,11 +1940,11 @@
                 </p>
             </div>
 
-            <div class="grid lg:grid-cols-5 gap-8 lg:gap-12">
+            <div class="grid lg:grid-cols-5 gap-8 lg:gap-12 items-stretch">
                 <!-- Left Side - Info Cards -->
-                <div class="lg:col-span-2 space-y-6">
+                <div class="lg:col-span-2 flex flex-col gap-6">
                     <!-- Why Us Card -->
-                    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 text-white">
+                    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 text-white flex-1 flex flex-col">
                         <h3 class="text-2xl font-display font-bold mb-6">Pourquoi nous choisir ?</h3>
                         <div class="space-y-5">
                             <div class="flex items-start gap-4">
@@ -1984,7 +1984,7 @@
                     </div>
 
                     <!-- Contact Methods -->
-                    <div class="bg-white rounded-2xl p-6 shadow-lg shadow-slate-200/50 border border-slate-100">
+                    <div class="bg-white rounded-2xl p-6 shadow-lg shadow-slate-200/50 border border-slate-100 flex-1 flex flex-col">
                         <h4 class="font-display font-bold text-slate-900 mb-4">Contactez-nous directement</h4>
                         <div class="space-y-3">
                             <a href="https://wa.me/22665604592" target="_blank" class="flex items-center gap-3 p-3 bg-green-50 hover:bg-green-100 rounded-xl transition-colors group">
@@ -2020,8 +2020,8 @@
                 </div>
 
                 <!-- Right Side - Form -->
-                <div class="lg:col-span-3">
-                    <div class="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100">
+                <div class="lg:col-span-3 flex">
+                    <div class="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex-1">
                         <!-- Success Message -->
                         <div id="contact-success" class="hidden">
                             <div class="text-center py-12">
