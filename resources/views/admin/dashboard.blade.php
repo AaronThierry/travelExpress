@@ -15,90 +15,90 @@
 </div>
 
 <!-- Dashboard Content -->
-<div id="dashboard-content" class="hidden space-y-8">
+<div id="dashboard-content" class="hidden space-y-4 sm:space-y-6 lg:space-y-8">
 
     <!-- Welcome Banner -->
-    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 p-8 text-white">
-        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl"></div>
+    <div class="relative overflow-hidden rounded-xl lg:rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 p-4 sm:p-6 lg:p-8 text-white">
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-48 lg:w-64 h-48 lg:h-64 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-32 lg:w-48 h-32 lg:h-48 bg-purple-500/20 rounded-full blur-3xl"></div>
         <div class="relative z-10">
-            <h2 class="text-2xl font-bold mb-2">Bienvenue sur votre Dashboard</h2>
-            <p class="text-indigo-100 max-w-xl">Gérez votre plateforme Travel Express, suivez les inscriptions et modérez les témoignages de vos utilisateurs.</p>
+            <h2 class="text-lg sm:text-xl lg:text-2xl font-bold mb-1 sm:mb-2">Bienvenue sur votre Dashboard</h2>
+            <p class="text-indigo-100 text-sm sm:text-base max-w-xl">Gérez votre plateforme Travel Express et modérez les témoignages.</p>
         </div>
-        <div class="absolute bottom-6 right-8 hidden lg:block">
-            <svg class="w-32 h-32 text-white/10" fill="currentColor" viewBox="0 0 24 24">
+        <div class="absolute bottom-4 right-4 lg:bottom-6 lg:right-8 hidden md:block">
+            <svg class="w-20 lg:w-32 h-20 lg:h-32 text-white/10" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
         </div>
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
         <!-- Total Users -->
         <div class="stat-card group">
-            <div class="flex items-start justify-between">
-                <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-start justify-between gap-2">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                     </svg>
                 </div>
-                <span id="users-growth" class="text-sm font-semibold px-3 py-1 rounded-full"></span>
+                <span id="users-growth" class="text-[10px] sm:text-xs lg:text-sm font-semibold px-1.5 sm:px-2 lg:px-3 py-0.5 sm:py-1 rounded-full hidden sm:inline-block"></span>
             </div>
-            <div class="mt-4">
-                <p class="text-slate-500 text-sm font-medium">Total Utilisateurs</p>
-                <p id="total-users" class="text-3xl font-bold text-slate-900 mt-1">0</p>
+            <div class="mt-3 sm:mt-4">
+                <p class="text-slate-500 text-[11px] sm:text-xs lg:text-sm font-medium">Utilisateurs</p>
+                <p id="total-users" class="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-0.5 sm:mt-1">0</p>
             </div>
-            <div class="mt-3 pt-3 border-t border-slate-100">
-                <p id="new-users" class="text-sm text-slate-500 flex items-center gap-1">
-                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-slate-100 hidden sm:block">
+                <p id="new-users" class="text-xs sm:text-sm text-slate-500 flex items-center gap-1">
+                    <svg class="w-3 h-3 sm:w-4 sm:h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                     </svg>
-                    <span></span>
+                    <span class="truncate"></span>
                 </p>
             </div>
         </div>
 
         <!-- Total Testimonials -->
         <div class="stat-card group">
-            <div class="flex items-start justify-between">
-                <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
-                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-start justify-between gap-2">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                     </svg>
                 </div>
-                <div class="flex items-center gap-1 bg-amber-50 px-2 py-1 rounded-lg">
-                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                <div class="hidden sm:flex items-center gap-1 bg-amber-50 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-lg">
+                    <svg class="w-3 h-3 sm:w-4 sm:h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                     </svg>
-                    <span id="avg-rating" class="text-sm font-semibold text-amber-700">0</span>
+                    <span id="avg-rating" class="text-[10px] sm:text-xs lg:text-sm font-semibold text-amber-700">0</span>
                 </div>
             </div>
-            <div class="mt-4">
-                <p class="text-slate-500 text-sm font-medium">Témoignages</p>
-                <p id="total-testimonials" class="text-3xl font-bold text-slate-900 mt-1">0</p>
+            <div class="mt-3 sm:mt-4">
+                <p class="text-slate-500 text-[11px] sm:text-xs lg:text-sm font-medium">Témoignages</p>
+                <p id="total-testimonials" class="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-0.5 sm:mt-1">0</p>
             </div>
-            <div class="mt-3 pt-3 border-t border-slate-100">
-                <p id="approved-testimonials" class="text-sm text-emerald-600 font-medium"></p>
+            <div class="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-slate-100 hidden sm:block">
+                <p id="approved-testimonials" class="text-xs sm:text-sm text-emerald-600 font-medium truncate"></p>
             </div>
         </div>
 
         <!-- Pending Testimonials -->
         <div class="stat-card group">
             <div class="flex items-start justify-between">
-                <div class="w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform">
-                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </div>
             </div>
-            <div class="mt-4">
-                <p class="text-slate-500 text-sm font-medium">En attente de validation</p>
-                <p id="pending-testimonials" class="text-3xl font-bold text-slate-900 mt-1">0</p>
+            <div class="mt-3 sm:mt-4">
+                <p class="text-slate-500 text-[11px] sm:text-xs lg:text-sm font-medium">En attente</p>
+                <p id="pending-testimonials" class="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-0.5 sm:mt-1">0</p>
             </div>
-            <div class="mt-3 pt-3 border-t border-slate-100">
-                <a href="/admin/testimonials" class="text-sm text-indigo-600 hover:text-indigo-700 font-semibold inline-flex items-center gap-1 group/link">
-                    Gérer maintenant
-                    <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-slate-100 hidden sm:block">
+                <a href="/admin/testimonials" class="text-[11px] sm:text-xs lg:text-sm text-indigo-600 hover:text-indigo-700 font-semibold inline-flex items-center gap-1 group/link">
+                    <span class="truncate">Gérer</span>
+                    <svg class="w-3 h-3 sm:w-4 sm:h-4 group-hover/link:translate-x-1 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                     </svg>
                 </a>
@@ -108,87 +108,89 @@
         <!-- This Month -->
         <div class="stat-card group">
             <div class="flex items-start justify-between">
-                <div class="w-14 h-14 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg shadow-violet-500/30 group-hover:scale-110 transition-transform">
-                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg shadow-violet-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
                 </div>
             </div>
-            <div class="mt-4">
-                <p class="text-slate-500 text-sm font-medium">Activité ce mois</p>
-                <p id="new-testimonials-month" class="text-3xl font-bold text-slate-900 mt-1">0</p>
+            <div class="mt-3 sm:mt-4">
+                <p class="text-slate-500 text-[11px] sm:text-xs lg:text-sm font-medium">Ce mois</p>
+                <p id="new-testimonials-month" class="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-0.5 sm:mt-1">0</p>
             </div>
-            <div class="mt-3 pt-3 border-t border-slate-100">
-                <p class="text-sm text-slate-500">Nouveaux témoignages</p>
+            <div class="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-slate-100 hidden sm:block">
+                <p class="text-[11px] sm:text-xs lg:text-sm text-slate-500 truncate">Nouveaux témoignages</p>
             </div>
         </div>
     </div>
 
     <!-- Charts and Lists -->
-    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <!-- Users by Country -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-            <div class="flex items-center justify-between mb-6">
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900">Répartition géographique</h3>
-                    <p class="text-sm text-slate-500">Utilisateurs par pays d'origine</p>
+        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-6">
+            <div class="flex items-center justify-between mb-4 sm:mb-6">
+                <div class="min-w-0">
+                    <h3 class="text-sm sm:text-base lg:text-lg font-bold text-slate-900">Répartition géographique</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 hidden sm:block">Utilisateurs par pays</p>
                 </div>
-                <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center">
-                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 bg-slate-100 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </div>
             </div>
-            <div id="users-by-country" class="space-y-4">
+            <div id="users-by-country" class="space-y-3 sm:space-y-4">
                 <!-- Will be populated dynamically -->
             </div>
         </div>
 
         <!-- Recent Testimonials -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-            <div class="flex items-center justify-between mb-6">
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900">Témoignages récents</h3>
-                    <p class="text-sm text-slate-500">Derniers avis reçus</p>
+        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-6">
+            <div class="flex items-center justify-between mb-4 sm:mb-6">
+                <div class="min-w-0">
+                    <h3 class="text-sm sm:text-base lg:text-lg font-bold text-slate-900">Témoignages récents</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 hidden sm:block">Derniers avis reçus</p>
                 </div>
-                <a href="/admin/testimonials" class="text-sm text-indigo-600 hover:text-indigo-700 font-semibold inline-flex items-center gap-1 group">
-                    Voir tout
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="/admin/testimonials" class="text-xs sm:text-sm text-indigo-600 hover:text-indigo-700 font-semibold inline-flex items-center gap-1 group flex-shrink-0">
+                    <span class="hidden sm:inline">Voir tout</span>
+                    <span class="sm:hidden">Tout</span>
+                    <svg class="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                     </svg>
                 </a>
             </div>
-            <div id="recent-testimonials" class="space-y-4">
+            <div id="recent-testimonials" class="space-y-3 sm:space-y-4">
                 <!-- Will be populated dynamically -->
             </div>
         </div>
     </div>
 
     <!-- Recent Users Table -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="p-6 border-b border-slate-200">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900">Nouveaux utilisateurs</h3>
-                    <p class="text-sm text-slate-500">Inscriptions des 7 derniers jours</p>
+    <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-4 sm:p-6 border-b border-slate-200">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="min-w-0">
+                    <h3 class="text-sm sm:text-base lg:text-lg font-bold text-slate-900">Nouveaux utilisateurs</h3>
+                    <p class="text-xs sm:text-sm text-slate-500">Inscriptions récentes</p>
                 </div>
-                <a href="/admin/users" class="px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg font-semibold text-sm hover:bg-indigo-100 transition-colors inline-flex items-center gap-2">
+                <a href="/admin/users" class="px-3 sm:px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg font-semibold text-xs sm:text-sm hover:bg-indigo-100 transition-colors inline-flex items-center gap-2 justify-center sm:justify-start flex-shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
-                    Gérer les utilisateurs
+                    <span class="hidden sm:inline">Gérer les utilisateurs</span>
+                    <span class="sm:hidden">Gérer</span>
                 </a>
             </div>
         </div>
         <div class="overflow-x-auto">
-            <table class="w-full">
+            <table class="w-full min-w-[600px]">
                 <thead class="bg-slate-50 border-b border-slate-200">
                     <tr>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Utilisateur</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Email</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Pays</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Date d'inscription</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Statut</th>
+                        <th class="px-3 sm:px-6 py-3 sm:py-4 text-left text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Utilisateur</th>
+                        <th class="px-3 sm:px-6 py-3 sm:py-4 text-left text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:table-cell">Email</th>
+                        <th class="px-3 sm:px-6 py-3 sm:py-4 text-left text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Pays</th>
+                        <th class="px-3 sm:px-6 py-3 sm:py-4 text-left text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider hidden md:table-cell">Date</th>
+                        <th class="px-3 sm:px-6 py-3 sm:py-4 text-left text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Statut</th>
                     </tr>
                 </thead>
                 <tbody id="recent-users" class="divide-y divide-slate-100">
