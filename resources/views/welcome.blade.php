@@ -2944,7 +2944,7 @@
                         </div>
                         <div>
                             <h3 style="font-weight: 700; font-size: 16px; color: #1e293b; margin: 0;">Travel Express</h3>
-                            <p style="font-size: 12px; color: #64748b; margin: 2px 0 0 0; line-height: 1.4;">Rue 30.200, Sanyiri<br>Ouagadougou, Burkina Faso</p>
+                            <p style="font-size: 12px; color: #64748b; margin: 2px 0 0 0; line-height: 1.4;">8GX6+C57, Rue 30.200, Sanyiri<br>Ouagadougou, Burkina Faso</p>
                         </div>
                     </div>
                     <div style="display: flex; gap: 8px;">
