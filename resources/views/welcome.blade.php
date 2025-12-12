@@ -13,9 +13,30 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <!-- Leaflet CSS (OpenStreetMap) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
     <style>
         .font-display { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; }
         .font-sans { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; }
+
+        /* Custom Leaflet Popup */
+        .leaflet-popup-content-wrapper {
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            padding: 0;
+        }
+        .leaflet-popup-content {
+            margin: 0;
+            min-width: 200px;
+        }
+        .leaflet-popup-tip {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .custom-popup .leaflet-popup-content-wrapper {
+            background: white;
+            border: none;
+        }
     </style>
 </head>
 <body class="font-sans text-dark antialiased bg-white overflow-x-hidden w-full max-w-none m-0 p-0" x-data="{
@@ -2399,40 +2420,23 @@
 
             <!-- Conteneur carte + infos -->
             <div class="grid lg:grid-cols-3 gap-8 items-stretch">
-                <!-- Carte Google Maps -->
+                <!-- Carte OpenStreetMap avec Leaflet -->
                 <div class="lg:col-span-2">
-                    <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden group">
-                        <!-- Conteneur iframe avec marqueur Travel Express -->
-                        <div class="relative rounded-3xl overflow-hidden">
-                            <iframe
-                                src="https://maps.google.com/maps?q=12.3545,-1.5115&t=&z=17&ie=UTF8&iwloc=&output=embed"
-                                class="w-full h-[400px] lg:h-[450px]"
-                                style="border:0; border-radius: 24px;"
-                                allowfullscreen=""
-                                loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
-                            <!-- Marqueur personnalisé superposé -->
-                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-full pointer-events-none z-10">
-                                <div class="relative">
-                                    <div class="bg-primary-600 text-white px-3 py-1.5 rounded-lg shadow-lg text-sm font-semibold whitespace-nowrap mb-1">
-                                        Travel Express
-                                    </div>
-                                    <div class="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-primary-600 mx-auto"></div>
-                                    <div class="w-4 h-4 bg-primary-600 rounded-full mx-auto mt-1 shadow-lg animate-pulse"></div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden">
+                        <!-- Carte Leaflet -->
+                        <div id="map-travel-express" class="w-full h-[400px] lg:h-[450px] rounded-3xl z-0"></div>
 
-                        <!-- Badge "Voir sur Google Maps" -->
-                        <a href="https://www.google.com/maps/search/?api=1&query=12.3545,-1.5115"
-                           target="_blank"
-                           class="absolute bottom-4 right-4 inline-flex items-center gap-2 px-4 py-2 bg-white/95 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-sm font-medium text-slate-700 hover:text-primary-600">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                            </svg>
-                            Voir sur Google Maps
-                        </a>
+                        <!-- Boutons d'action -->
+                        <div class="absolute bottom-4 right-4 flex gap-2 z-[1000]">
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=12.3545,-1.5115&travelmode=driving"
+                               target="_blank"
+                               class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-full shadow-lg hover:bg-primary-700 hover:shadow-xl hover:scale-105 transition-all duration-300 text-sm font-semibold">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                                </svg>
+                                Itinéraire
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -2969,6 +2973,106 @@
                 submitIcon.classList.remove('hidden');
                 submitLoading.classList.add('hidden');
             }
+        });
+    </script>
+
+    <!-- Leaflet JS (OpenStreetMap) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Coordonnées Travel Express Ouagadougou
+            const lat = 12.3545;
+            const lng = -1.5115;
+
+            // Initialisation de la carte
+            const map = L.map('map-travel-express', {
+                scrollWheelZoom: false
+            }).setView([lat, lng], 16);
+
+            // Tuiles OpenStreetMap avec style clair
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            // Icône personnalisée pour le marqueur
+            const customIcon = L.divIcon({
+                className: 'custom-marker',
+                html: `
+                    <div style="position: relative;">
+                        <div style="background: linear-gradient(135deg, #0071e3, #0077ED); width: 50px; height: 50px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,113,227,0.4);">
+                            <svg style="transform: rotate(45deg); width: 24px; height: 24px; color: white;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                        </div>
+                        <div style="position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px; background: #0071e3; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                    </div>
+                `,
+                iconSize: [50, 60],
+                iconAnchor: [25, 60],
+                popupAnchor: [0, -55]
+            });
+
+            // Ajout du marqueur
+            const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+
+            // Contenu du popup
+            const popupContent = `
+                <div style="padding: 16px; font-family: 'Poppins', sans-serif;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #0071e3, #0077ED); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                            <svg style="width: 24px; height: 24px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 style="font-weight: 700; font-size: 16px; color: #1e293b; margin: 0;">Travel Express</h3>
+                            <p style="font-size: 13px; color: #64748b; margin: 2px 0 0 0;">Ouagadougou, Burkina Faso</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving"
+                           target="_blank"
+                           style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 16px; background: linear-gradient(135deg, #0071e3, #0077ED); color: white; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s;">
+                            <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                            </svg>
+                            Itinéraire
+                        </a>
+                        <a href="https://wa.me/22665604592"
+                           target="_blank"
+                           style="display: flex; align-items: center; justify-content: center; padding: 10px 14px; background: #25D366; color: white; border-radius: 10px; text-decoration: none; transition: all 0.2s;">
+                            <svg style="width: 18px; height: 18px;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            // Bind popup au marqueur
+            marker.bindPopup(popupContent, {
+                maxWidth: 300,
+                className: 'custom-popup'
+            });
+
+            // Ouvrir le popup par défaut
+            marker.openPopup();
+
+            // Activer le scroll zoom au clic sur la carte
+            map.on('click', function() {
+                map.scrollWheelZoom.enable();
+            });
+
+            // Style pour l'animation pulse
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+                    50% { transform: translateX(-50%) scale(1.5); opacity: 0.5; }
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>
