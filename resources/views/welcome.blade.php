@@ -2428,7 +2428,7 @@
 
                         <!-- Boutons d'action -->
                         <div class="absolute bottom-4 right-4 flex gap-2 z-[1000]">
-                            <a href="https://www.google.com/maps/dir/?api=1&destination=12.3545,-1.5115&travelmode=driving"
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=12.371875,-1.519375&travelmode=driving"
                                target="_blank"
                                class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-full shadow-lg hover:bg-primary-700 hover:shadow-xl hover:scale-105 transition-all duration-300 text-sm font-semibold">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2454,8 +2454,8 @@
                             <div>
                                 <h3 class="font-bold text-slate-900 mb-1">Notre adresse</h3>
                                 <p class="text-slate-600 text-sm leading-relaxed">
-                                    Ouagadougou<br>
-                                    Burkina Faso
+                                    Rue 30.200, Sanyiri<br>
+                                    Ouagadougou, Burkina Faso
                                 </p>
                             </div>
                         </div>
@@ -2980,9 +2980,9 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Coordonnées Travel Express Ouagadougou
-            const lat = 12.3545;
-            const lng = -1.5115;
+            // Coordonnées Travel Express Ouagadougou (8GX6+C57, rue 30.200, Sanyiri)
+            const lat = 12.371875;
+            const lng = -1.519375;
 
             // Initialisation de la carte
             const map = L.map('map-travel-express', {
@@ -3027,7 +3027,7 @@
                         </div>
                         <div>
                             <h3 style="font-weight: 700; font-size: 16px; color: #1e293b; margin: 0;">Travel Express</h3>
-                            <p style="font-size: 13px; color: #64748b; margin: 2px 0 0 0;">Ouagadougou, Burkina Faso</p>
+                            <p style="font-size: 12px; color: #64748b; margin: 2px 0 0 0; line-height: 1.4;">Rue 30.200, Sanyiri<br>Ouagadougou, Burkina Faso</p>
                         </div>
                     </div>
                     <div style="display: flex; gap: 8px;">
