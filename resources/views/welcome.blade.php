@@ -1944,9 +1944,9 @@
             <div class="absolute -bottom-32 -left-32 w-72 h-72 bg-accent-500/5 rounded-full blur-3xl"></div>
         </div>
 
-        <div class="w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 relative z-10">
+        <div class="w-full max-w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 relative z-10 overflow-hidden">
             <!-- Header -->
-            <div class="text-center mb-10">
+            <div class="text-center mb-8 sm:mb-10">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-100 rounded-full mb-4">
                     <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
@@ -1961,7 +1961,7 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 items-stretch">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8 items-stretch max-w-full">
                 <!-- Left Side - Info Cards -->
                 <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 order-2 lg:order-1">
                     <!-- Card 1 - Nos Services -->
@@ -2096,8 +2096,8 @@
                 </div>
 
                 <!-- Right Side - Form -->
-                <div class="lg:col-span-3 flex order-1 lg:order-2">
-                    <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-lg shadow-slate-200/50 border border-slate-100 flex-1">
+                <div class="lg:col-span-3 flex order-1 lg:order-2 min-w-0">
+                    <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-lg shadow-slate-200/50 border border-slate-100 flex-1 overflow-hidden min-w-0 w-full">
                         <!-- Success Message -->
                         <div id="contact-success" class="hidden">
                             <div class="text-center py-12">
