@@ -2425,7 +2425,7 @@
 
                 <!-- Bouton Itinéraire -->
                 <div class="absolute bottom-4 right-4 flex gap-2 z-[1000]">
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=12.371875,-1.519375&travelmode=driving"
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=12.3486396,-1.4898461&travelmode=driving"
                        target="_blank"
                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white rounded-full shadow-lg hover:bg-primary-700 hover:shadow-xl hover:scale-105 transition-all duration-300 text-sm font-semibold">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2898,8 +2898,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Coordonnées Travel Express Ouagadougou (8GX6+C57, rue 30.200, Sanyiri)
-            const lat = 12.371875;
-            const lng = -1.519375;
+            const lat = 12.3486396;
+            const lng = -1.4898461;
 
             // Initialisation de la carte
             const map = L.map('map-travel-express', {
