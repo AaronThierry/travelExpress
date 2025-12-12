@@ -541,7 +541,7 @@
         </div>
 
         <!-- Content -->
-        <div class="relative z-20 w-full px-6 lg:px-12 xl:px-16 2xl:px-24 py-12">
+        <div class="relative z-20 w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-8 sm:py-12">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <!-- Left Column - Text Content -->
                 <div class="text-left space-y-8 fade-in-up">
@@ -651,7 +651,7 @@
 
         <!-- Slider Controls & Indicators -->
         <div class="absolute bottom-8 left-0 right-0 z-20">
-            <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
+            <div class="w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24">
                 <div class="flex items-center justify-between">
                     <!-- Slider Dots -->
                     <div class="flex items-center space-x-3">
@@ -706,7 +706,7 @@
             <div class="absolute bottom-20 -right-20 w-96 h-96 bg-accent-200/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
         </div>
 
-        <div class="relative w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
+        <div class="relative w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24">
             <!-- Section Header -->
             <div class="text-center mb-12 fade-in-up">
                 <div class="inline-flex items-center space-x-2 bg-primary-100 px-3 py-1.5 rounded-full mb-4">
@@ -1678,9 +1678,9 @@
                         </button>
 
                         <!-- Cards -->
-                        <div class="flex justify-center items-center gap-6 py-8 px-16 min-h-[420px]">
+                        <div class="flex justify-center items-center gap-4 sm:gap-6 py-6 sm:py-8 px-4 sm:px-8 lg:px-16 min-h-[380px] sm:min-h-[420px]">
                             <template x-for="(testimonial, index) in testimonials" :key="testimonial.id">
-                                <div class="testimonial-card-premium absolute w-full max-w-lg h-[380px] bg-white rounded-3xl p-8 shadow-2xl border border-slate-100 flex flex-col"
+                                <div class="testimonial-card-premium absolute w-full max-w-[calc(100%-2rem)] sm:max-w-lg h-[340px] sm:h-[380px] bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-slate-100 flex flex-col"
                                      :class="{
                                          'active': index === currentIndex,
                                          'side': index !== currentIndex,
@@ -2427,8 +2427,8 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-12">
-        <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
+    <footer class="bg-dark text-white py-8 sm:py-12">
+        <div class="w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24">
             <div class="grid md:grid-cols-4 gap-6 mb-8">
                 <!-- Company Info -->
                 <div>
