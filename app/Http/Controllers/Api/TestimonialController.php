@@ -30,7 +30,7 @@ class TestimonialController extends Controller
                         'name' => $testimonial->user->name,
                         'country' => $testimonial->user->country,
                         'position' => $testimonial->user->position,
-                        'profile_photo' => $testimonial->user->profile_photo,
+                        'avatar' => $testimonial->user->avatar,
                     ] : null,
                     'created_at' => $testimonial->created_at,
                 ];

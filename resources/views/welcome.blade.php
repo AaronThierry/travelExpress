@@ -124,6 +124,14 @@
     mobileMenuOpen: false,
     activeCountry: 'china',
     testimonialModalOpen: false,
+    openTestimonialModal() {
+        const token = localStorage.getItem('auth_token');
+        if (!token) {
+            window.location.href = '/login?redirect=testimonial';
+            return;
+        }
+        this.testimonialModalOpen = true;
+    },
     faqs: [
         { id: 1, open: false, question: 'Quels types de projets accompagnez-vous ?', answer: 'Nous accompagnons trois types de projets : les études (universités, formations professionnelles), le travail (recherche d\'emploi, contrats de travail) et les affaires (import-export, création d\'entreprise, partenariats commerciaux) en Chine, Espagne et Allemagne.' },
         { id: 2, open: false, question: 'Combien de temps prend le processus complet ?', answer: 'Le délai varie selon votre projet. Pour les études : 3 à 6 mois. Pour un contrat de travail : 2 à 4 mois. Pour un projet business : 1 à 3 mois selon la complexité. Nous recommandons de nous contacter le plus tôt possible.' },
@@ -1774,12 +1782,12 @@
                                     <div class="flex items-start gap-4 mb-4">
                                         <!-- Avatar -->
                                         <div class="relative flex-shrink-0">
-                                            <template x-if="testimonial.user && testimonial.user.profile_photo">
-                                                <img :src="'/storage/' + testimonial.user.profile_photo"
+                                            <template x-if="testimonial.user && testimonial.user.avatar">
+                                                <img :src="'/storage/' + testimonial.user.avatar"
                                                      :alt="testimonial.name"
                                                      class="w-16 h-16 rounded-2xl object-cover ring-2 ring-primary-100 shadow-lg">
                                             </template>
-                                            <template x-if="!testimonial.user || !testimonial.user.profile_photo">
+                                            <template x-if="!testimonial.user || !testimonial.user.avatar">
                                                 <div class="w-16 h-16 rounded-2xl bg-gradient-to-br flex items-center justify-center text-white text-xl font-bold ring-2 ring-primary-100 shadow-lg"
                                                      :class="getColor(index)">
                                                     <span x-text="getInitials(testimonial.name)"></span>
@@ -1942,7 +1950,7 @@
                         </p>
 
                         <!-- Button - Same style as "Commencer maintenant" -->
-                        <button @click="testimonialModalOpen = true"
+                        <button @click="openTestimonialModal()"
                                 class="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-600 text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 tracking-wide">
                             <span>Partager mon expérience</span>
                             <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2744,47 +2752,115 @@
              x-transition:leave="transition ease-in duration-200"
              x-transition:leave-start="opacity-100 scale-100"
              x-transition:leave-end="opacity-0 scale-95"
-             class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden">
+             class="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden max-h-[90vh] overflow-y-auto">
 
             <!-- Header du modal -->
-            <div class="bg-gradient-to-r from-primary-600 to-accent-500 px-6 py-5">
+            <div class="bg-gradient-to-r from-primary-600 via-primary-700 to-accent-500 px-6 py-5 sticky top-0 z-10">
                 <div class="flex items-center justify-between">
-                    <h3 class="text-xl font-bold text-white">Partagez votre expérience</h3>
-                    <button @click="testimonialModalOpen = false" class="text-white/80 hover:text-white transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Partagez votre expérience</h3>
+                            <p class="text-white/70 text-xs mt-0.5">Votre témoignage inspirera d'autres voyageurs</p>
+                        </div>
+                    </div>
+                    <button @click="testimonialModalOpen = false" class="text-white/80 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-lg">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
-                <p class="text-white/80 text-sm mt-1">Votre témoignage aidera d'autres étudiants à se lancer</p>
             </div>
 
             <!-- Formulaire -->
             <form x-data="{
-                name: '',
-                country: '',
+                user: null,
                 destination: '',
                 message: '',
                 rating: 5,
                 submitting: false,
                 success: false,
                 error: '',
+                avatarPreview: null,
+                avatarFile: null,
+                loading: true,
+                countryNames: {
+                    'Sénégal': '🇸🇳', 'Côte d\'Ivoire': '🇨🇮', 'Mali': '🇲🇱', 'Cameroun': '🇨🇲',
+                    'Burkina Faso': '🇧🇫', 'Guinée': '🇬🇳', 'Togo': '🇹🇬', 'Bénin': '🇧🇯',
+                    'Niger': '🇳🇪', 'Gabon': '🇬🇦', 'Congo': '🇨🇬', 'RD Congo': '🇨🇩',
+                    'Maroc': '🇲🇦', 'Tunisie': '🇹🇳', 'Algérie': '🇩🇿', 'Chine': '🇨🇳',
+                    'Espagne': '🇪🇸', 'Allemagne': '🇩🇪', 'France': '🇫🇷'
+                },
+                getFlag(country) {
+                    return this.countryNames[country] || '🌍';
+                },
+                async init() {
+                    const token = localStorage.getItem('auth_token');
+                    if (token) {
+                        try {
+                            const response = await fetch('/api/user', {
+                                headers: {
+                                    'Authorization': 'Bearer ' + token,
+                                    'Accept': 'application/json'
+                                }
+                            });
+                            if (response.ok) {
+                                const data = await response.json();
+                                this.user = data.data || data;
+                                if (this.user.avatar) {
+                                    this.avatarPreview = '/storage/' + this.user.avatar;
+                                }
+                            }
+                        } catch (e) {
+                            console.error('Erreur chargement utilisateur:', e);
+                        }
+                    }
+                    this.loading = false;
+                },
+                handleAvatarChange(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.avatarFile = file;
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.avatarPreview = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                },
                 async submitTestimonial() {
                     this.submitting = true;
                     this.error = '';
 
                     try {
                         const token = localStorage.getItem('auth_token');
+
+                        // Upload avatar si nouveau
+                        if (this.avatarFile) {
+                            const formData = new FormData();
+                            formData.append('avatar', this.avatarFile);
+                            await fetch('/api/profile/avatar', {
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': 'Bearer ' + token,
+                                    'Accept': 'application/json'
+                                },
+                                body: formData
+                            });
+                        }
+
                         const response = await fetch('/api/testimonials', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                                 'Accept': 'application/json',
-                                'Authorization': token ? 'Bearer ' + token : ''
+                                'Authorization': 'Bearer ' + token
                             },
                             body: JSON.stringify({
-                                name: this.name,
-                                country: this.country,
                                 destination: this.destination,
                                 content: this.message,
                                 rating: this.rating
@@ -2798,12 +2874,11 @@
                             setTimeout(() => {
                                 testimonialModalOpen = false;
                                 this.success = false;
-                                this.name = '';
-                                this.country = '';
                                 this.destination = '';
                                 this.message = '';
                                 this.rating = 5;
-                            }, 2000);
+                                this.avatarFile = null;
+                            }, 2500);
                         } else {
                             this.error = data.message || 'Une erreur est survenue';
                         }
@@ -2813,107 +2888,195 @@
                         this.submitting = false;
                     }
                 }
-            }" @submit.prevent="submitTestimonial" class="p-6 space-y-5">
+            }" x-init="init()" @submit.prevent="submitTestimonial" class="p-6 space-y-5">
+
+                <!-- Chargement -->
+                <div x-show="loading" class="flex items-center justify-center py-12">
+                    <svg class="animate-spin w-8 h-8 text-primary-600" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </div>
 
                 <!-- Message de succès -->
-                <div x-show="success" class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl flex items-center gap-3">
-                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span>Merci ! Votre témoignage a été envoyé avec succès.</span>
+                <div x-show="success" x-transition class="bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200 text-emerald-700 px-5 py-4 rounded-xl flex items-center gap-4">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-semibold">Merci pour votre témoignage !</p>
+                        <p class="text-sm text-emerald-600">Il sera visible après validation par notre équipe.</p>
+                    </div>
                 </div>
 
                 <!-- Message d'erreur -->
-                <div x-show="error" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-3">
-                    <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div x-show="error" x-transition class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-3">
+                    <svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     <span x-text="error"></span>
                 </div>
 
-                <template x-if="!success">
+                <template x-if="!loading && !success">
                     <div class="space-y-5">
-                        <!-- Nom -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Votre nom</label>
-                            <input type="text" x-model="name" required
-                                   class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
-                                   placeholder="Ex: Fatou Diallo">
-                        </div>
-
-                        <!-- Pays d'origine -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Votre pays d'origine</label>
-                            <select x-model="country" required
-                                    class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
-                                <option value="">Sélectionnez votre pays</option>
-                                <option value="SN">Sénégal</option>
-                                <option value="CI">Côte d'Ivoire</option>
-                                <option value="ML">Mali</option>
-                                <option value="CM">Cameroun</option>
-                                <option value="BF">Burkina Faso</option>
-                                <option value="GN">Guinée</option>
-                                <option value="TG">Togo</option>
-                                <option value="BJ">Bénin</option>
-                                <option value="NE">Niger</option>
-                                <option value="GA">Gabon</option>
-                                <option value="CG">Congo</option>
-                                <option value="CD">RD Congo</option>
-                                <option value="MA">Maroc</option>
-                                <option value="TN">Tunisie</option>
-                                <option value="DZ">Algérie</option>
-                                <option value="other">Autre</option>
-                            </select>
-                        </div>
-
-                        <!-- Destination -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Pays de destination</label>
-                            <select x-model="destination" required
-                                    class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
-                                <option value="">Sélectionnez la destination</option>
-                                <option value="CN">Chine</option>
-                                <option value="ES">Espagne</option>
-                                <option value="DE">Allemagne</option>
-                            </select>
-                        </div>
-
-                        <!-- Note -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Votre note</label>
-                            <div class="flex items-center gap-2">
-                                <template x-for="star in 5" :key="star">
-                                    <button type="button" @click="rating = star" class="focus:outline-none transition-transform hover:scale-110">
-                                        <svg class="w-8 h-8" :class="star <= rating ? 'text-yellow-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        <!-- Profil utilisateur avec photo -->
+                        <div class="bg-gradient-to-br from-slate-50 to-gray-50 rounded-2xl p-5 border border-slate-100">
+                            <div class="flex items-start gap-4">
+                                <!-- Avatar avec upload -->
+                                <div class="relative group">
+                                    <div class="w-20 h-20 rounded-2xl overflow-hidden ring-4 ring-white shadow-lg">
+                                        <template x-if="avatarPreview">
+                                            <img :src="avatarPreview" class="w-full h-full object-cover">
+                                        </template>
+                                        <template x-if="!avatarPreview">
+                                            <div class="w-full h-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
+                                                <span class="text-white text-2xl font-bold" x-text="user?.name?.charAt(0)?.toUpperCase() || '?'"></span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <label class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-2xl">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                         </svg>
-                                    </button>
-                                </template>
-                                <span class="ml-2 text-gray-500 text-sm" x-text="rating + '/5'"></span>
+                                        <input type="file" class="hidden" accept="image/*" @change="handleAvatarChange($event)">
+                                    </label>
+                                    <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center ring-2 ring-white">
+                                        <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <!-- Infos utilisateur -->
+                                <div class="flex-1">
+                                    <h4 class="text-lg font-bold text-gray-900" x-text="user?.name || 'Utilisateur'"></h4>
+                                    <p class="text-sm text-primary-600 font-medium" x-text="user?.position || 'Voyageur'"></p>
+                                    <div class="flex items-center gap-2 mt-2">
+                                        <span class="text-lg" x-text="getFlag(user?.country)"></span>
+                                        <span class="text-sm text-gray-600" x-text="user?.country || 'Pays non spécifié'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-3 flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Survolez la photo pour la modifier
+                            </p>
+                        </div>
+
+                        <!-- Trajet stylisé -->
+                        <div class="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-2xl p-5 border border-indigo-100">
+                            <label class="block text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                Votre trajet
+                            </label>
+                            <div class="flex items-center gap-3">
+                                <!-- Départ -->
+                                <div class="flex-1 bg-white rounded-xl p-3 border border-slate-200 shadow-sm">
+                                    <p class="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Départ</p>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xl" x-text="getFlag(user?.country)"></span>
+                                        <span class="text-sm font-medium text-gray-700" x-text="user?.country || 'Votre pays'"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Flèche avec avion -->
+                                <div class="flex flex-col items-center">
+                                    <div class="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
+                                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <!-- Destination -->
+                                <div class="flex-1">
+                                    <div class="bg-white rounded-xl p-3 border-2 border-dashed border-indigo-300 shadow-sm">
+                                        <p class="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Destination</p>
+                                        <select x-model="destination" required
+                                                class="w-full text-sm font-medium text-gray-700 bg-transparent border-none focus:ring-0 p-0 cursor-pointer">
+                                            <option value="">Choisir...</option>
+                                            <option value="Chine">🇨🇳 Chine</option>
+                                            <option value="Espagne">🇪🇸 Espagne</option>
+                                            <option value="Allemagne">🇩🇪 Allemagne</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Note avec étoiles -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                Votre évaluation
+                            </label>
+                            <div class="flex items-center gap-3 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl p-4 border border-amber-100">
+                                <div class="flex items-center gap-1">
+                                    <template x-for="star in 5" :key="star">
+                                        <button type="button" @click="rating = star"
+                                                class="focus:outline-none transition-all duration-200 hover:scale-125"
+                                                :class="star <= rating ? 'drop-shadow-lg' : ''">
+                                            <svg class="w-9 h-9 transition-colors"
+                                                 :class="star <= rating ? 'text-amber-400' : 'text-gray-200'"
+                                                 fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                            </svg>
+                                        </button>
+                                    </template>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-lg font-bold text-amber-600" x-text="rating + '/5'"></p>
+                                    <p class="text-xs text-amber-500"
+                                       x-text="rating === 5 ? 'Excellent !' : rating === 4 ? 'Très bien' : rating === 3 ? 'Bien' : rating === 2 ? 'Moyen' : 'À améliorer'"></p>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Message -->
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Votre témoignage</label>
-                            <textarea x-model="message" required rows="4"
-                                      class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all resize-none"
-                                      placeholder="Partagez votre expérience avec Travel Express..."></textarea>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                </svg>
+                                Votre témoignage
+                            </label>
+                            <div class="relative">
+                                <textarea x-model="message" required rows="4" minlength="20" maxlength="500"
+                                          class="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all resize-none"
+                                          placeholder="Racontez votre expérience avec Travel Express... Comment s'est passé votre voyage ? Qu'avez-vous apprécié ?"></textarea>
+                                <div class="absolute bottom-3 right-3 text-xs text-gray-400">
+                                    <span x-text="message.length"></span>/500
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1">Minimum 20 caractères</p>
                         </div>
 
                         <!-- Boutons -->
-                        <div class="flex gap-3 pt-2">
+                        <div class="flex gap-3 pt-3">
                             <button type="button" @click="testimonialModalOpen = false"
-                                    class="flex-1 px-4 py-2 border border-gray-200 text-gray-700 font-medium rounded-lg text-sm hover:bg-gray-50 transition-all">
+                                    class="flex-1 px-5 py-3 border border-gray-200 text-gray-700 font-medium rounded-xl text-sm hover:bg-gray-50 transition-all">
                                 Annuler
                             </button>
-                            <button type="submit" :disabled="submitting"
-                                    class="flex-1 px-4 py-2 bg-gradient-to-r from-primary-600 to-accent-500 text-white font-medium rounded-lg text-sm hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                            <button type="submit" :disabled="submitting || message.length < 20 || !destination"
+                                    class="flex-1 px-5 py-3 bg-gradient-to-r from-primary-600 to-accent-500 text-white font-semibold rounded-xl text-sm hover:shadow-lg hover:shadow-primary-500/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none flex items-center justify-center gap-2">
                                 <svg x-show="submitting" class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
-                                <span x-text="submitting ? 'Envoi...' : 'Envoyer'"></span>
+                                <svg x-show="!submitting" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                </svg>
+                                <span x-text="submitting ? 'Envoi en cours...' : 'Publier mon témoignage'"></span>
                             </button>
                         </div>
                     </div>
