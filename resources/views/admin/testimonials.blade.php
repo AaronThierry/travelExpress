@@ -5,6 +5,52 @@
 @section('page-description', 'Gérez et validez les témoignages des utilisateurs')
 
 @section('content')
+<!-- Modal de confirmation -->
+<div id="confirm-modal" class="fixed inset-0 z-50 hidden">
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeConfirmModal()"></div>
+
+    <!-- Modal content -->
+    <div class="absolute inset-0 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all">
+            <!-- Icon -->
+            <div class="pt-6 pb-4 text-center">
+                <div id="confirm-icon" class="mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                    <!-- Icon will be inserted here -->
+                </div>
+                <h3 id="confirm-title" class="text-xl font-bold text-gray-900 mb-2"></h3>
+                <p id="confirm-message" class="text-gray-600 text-sm px-6"></p>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-3 p-5 border-t border-gray-100 bg-gray-50 rounded-b-2xl">
+                <button onclick="closeConfirmModal()" class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-100 transition-colors">
+                    Annuler
+                </button>
+                <button id="confirm-button" onclick="executeConfirmAction()" class="flex-1 px-4 py-3 text-white font-semibold rounded-xl transition-colors">
+                    Confirmer
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast notification -->
+<div id="toast" class="fixed top-4 right-4 z-50 transform translate-x-full transition-transform duration-300">
+    <div class="bg-white rounded-xl shadow-2xl border border-gray-200 p-4 flex items-center gap-3 min-w-[300px]">
+        <div id="toast-icon" class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"></div>
+        <div class="flex-1">
+            <p id="toast-title" class="font-semibold text-gray-900 text-sm"></p>
+            <p id="toast-message" class="text-gray-600 text-xs"></p>
+        </div>
+        <button onclick="hideToast()" class="text-gray-400 hover:text-gray-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+
 <!-- Tabs -->
 <div class="mb-4 sm:mb-6">
     <div class="border-b border-gray-200">
@@ -60,6 +106,122 @@
 @section('scripts')
 <script>
     let currentTab = 'all';
+    let pendingAction = null;
+    let pendingId = null;
+
+    // Confirmation modal functions
+    function showConfirmModal(type, id) {
+        pendingAction = type;
+        pendingId = id;
+
+        const modal = document.getElementById('confirm-modal');
+        const iconEl = document.getElementById('confirm-icon');
+        const titleEl = document.getElementById('confirm-title');
+        const messageEl = document.getElementById('confirm-message');
+        const buttonEl = document.getElementById('confirm-button');
+
+        if (type === 'approve') {
+            iconEl.className = 'mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 bg-green-100';
+            iconEl.innerHTML = '<svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+            titleEl.textContent = 'Approuver ce témoignage ?';
+            messageEl.textContent = 'Ce témoignage sera visible publiquement sur le site.';
+            buttonEl.className = 'flex-1 px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-colors';
+            buttonEl.textContent = 'Approuver';
+        } else if (type === 'reject') {
+            iconEl.className = 'mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 bg-red-100';
+            iconEl.innerHTML = '<svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>';
+            titleEl.textContent = 'Rejeter ce témoignage ?';
+            messageEl.textContent = 'Ce témoignage sera définitivement supprimé. Cette action est irréversible.';
+            buttonEl.className = 'flex-1 px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-colors';
+            buttonEl.textContent = 'Rejeter et supprimer';
+        } else if (type === 'unapprove') {
+            iconEl.className = 'mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 bg-amber-100';
+            iconEl.innerHTML = '<svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>';
+            titleEl.textContent = 'Désapprouver ce témoignage ?';
+            messageEl.textContent = 'Ce témoignage ne sera plus visible publiquement sur le site.';
+            buttonEl.className = 'flex-1 px-4 py-3 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-xl transition-colors';
+            buttonEl.textContent = 'Désapprouver';
+        }
+
+        modal.classList.remove('hidden');
+    }
+
+    function closeConfirmModal() {
+        document.getElementById('confirm-modal').classList.add('hidden');
+        pendingAction = null;
+        pendingId = null;
+    }
+
+    async function executeConfirmAction() {
+        if (!pendingAction || !pendingId) return;
+
+        closeConfirmModal();
+
+        const action = pendingAction;
+        const id = pendingId;
+
+        try {
+            let endpoint = '';
+            if (action === 'approve') endpoint = `/api/admin/testimonials/${id}/approve`;
+            else if (action === 'reject') endpoint = `/api/admin/testimonials/${id}/reject`;
+            else if (action === 'unapprove') endpoint = `/api/admin/testimonials/${id}/unapprove`;
+
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Une erreur est survenue');
+            }
+
+            // Show success toast
+            if (action === 'approve') {
+                showToast('success', 'Témoignage approuvé', 'Le témoignage est maintenant visible sur le site.');
+            } else if (action === 'reject') {
+                showToast('success', 'Témoignage rejeté', 'Le témoignage a été supprimé définitivement.');
+            } else if (action === 'unapprove') {
+                showToast('success', 'Témoignage désapprouvé', 'Le témoignage n\'est plus visible sur le site.');
+            }
+
+            loadTestimonials();
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('error', 'Erreur', error.message);
+        }
+    }
+
+    // Toast functions
+    function showToast(type, title, message) {
+        const toast = document.getElementById('toast');
+        const iconEl = document.getElementById('toast-icon');
+        const titleEl = document.getElementById('toast-title');
+        const messageEl = document.getElementById('toast-message');
+
+        if (type === 'success') {
+            iconEl.className = 'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-green-100';
+            iconEl.innerHTML = '<svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+        } else {
+            iconEl.className = 'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-red-100';
+            iconEl.innerHTML = '<svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+        }
+
+        titleEl.textContent = title;
+        messageEl.textContent = message;
+
+        toast.classList.remove('translate-x-full');
+
+        setTimeout(() => {
+            hideToast();
+        }, 4000);
+    }
+
+    function hideToast() {
+        document.getElementById('toast').classList.add('translate-x-full');
+    }
 
     // Switch tabs
     function switchTab(tab) {
@@ -181,14 +343,14 @@
 
                     <div class="flex sm:flex-col gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100">
                         ${!t.is_approved ? `
-                            <button onclick="approveTestimonial(${t.id})" class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-xs sm:text-sm font-medium">
+                            <button onclick="showConfirmModal('approve', ${t.id})" class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-xs sm:text-sm font-medium">
                                 Approuver
                             </button>
-                            <button onclick="rejectTestimonial(${t.id})" class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm font-medium">
+                            <button onclick="showConfirmModal('reject', ${t.id})" class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm font-medium">
                                 Rejeter
                             </button>
                         ` : `
-                            <button onclick="unapproveTestimonial(${t.id})" class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors text-xs sm:text-sm font-medium">
+                            <button onclick="showConfirmModal('unapprove', ${t.id})" class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors text-xs sm:text-sm font-medium">
                                 Désapprouver
                             </button>
                         `}
@@ -196,78 +358,6 @@
                 </div>
             </div>
         `).join('');
-    }
-
-    // Approve testimonial
-    async function approveTestimonial(id) {
-        if (!confirm('Voulez-vous approuver ce témoignage ?')) return;
-
-        try {
-            const response = await fetch(`/api/admin/testimonials/${id}/approve`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Erreur lors de l\'approbation');
-            }
-
-            loadTestimonials();
-        } catch (error) {
-            console.error('Error:', error);
-            showError(error.message);
-        }
-    }
-
-    // Reject testimonial
-    async function rejectTestimonial(id) {
-        if (!confirm('Voulez-vous rejeter et supprimer ce témoignage ? Cette action est irréversible.')) return;
-
-        try {
-            const response = await fetch(`/api/admin/testimonials/${id}/reject`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Erreur lors du rejet');
-            }
-
-            loadTestimonials();
-        } catch (error) {
-            console.error('Error:', error);
-            showError(error.message);
-        }
-    }
-
-    // Unapprove testimonial
-    async function unapproveTestimonial(id) {
-        if (!confirm('Voulez-vous désapprouver ce témoignage ?')) return;
-
-        try {
-            const response = await fetch(`/api/admin/testimonials/${id}/unapprove`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Erreur lors de la désapprobation');
-            }
-
-            loadTestimonials();
-        } catch (error) {
-            console.error('Error:', error);
-            showError(error.message);
-        }
     }
 
     // Show error
