@@ -124,6 +124,18 @@
     mobileMenuOpen: false,
     activeCountry: 'china',
     testimonialModalOpen: false,
+    init() {
+        // Check if we should open testimonial modal (after login redirect)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('openTestimonial') === 'true') {
+            // Clean URL without reloading
+            window.history.replaceState({}, document.title, window.location.pathname);
+            // Open modal after a short delay to ensure page is loaded
+            setTimeout(() => {
+                this.testimonialModalOpen = true;
+            }, 500);
+        }
+    },
     openTestimonialModal() {
         const token = localStorage.getItem('auth_token');
         if (!token) {
@@ -140,7 +152,7 @@
         { id: 5, open: false, question: 'Aidez-vous pour le logement et l\'installation ?', answer: 'Oui ! Notre accompagnement inclut la recherche de logement, l\'accueil à l\'aéroport, les démarches administratives et toute l\'aide nécessaire pour votre installation réussie dans votre pays de destination.' },
         { id: 6, open: false, question: 'Proposez-vous un accompagnement pour le business en Chine ?', answer: 'Absolument ! Nous accompagnons les entrepreneurs dans leurs projets d\'import-export, la recherche de fournisseurs, la création de partenariats commerciaux et l\'installation d\'activités en Chine. Notre réseau local facilite vos démarches.' }
     ]
-}">
+}" x-init="init()">
 
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-2xl border-b border-black/[0.08] shadow-sm transition-all duration-300"

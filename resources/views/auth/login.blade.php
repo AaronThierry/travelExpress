@@ -276,8 +276,16 @@
                         </div>
                     `;
 
-                    // Redirect based on admin status
-                    const redirectUrl = data.data.user.is_admin ? '/admin/dashboard' : '/';
+                    // Check for redirect parameter
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const redirectParam = urlParams.get('redirect');
+
+                    let redirectUrl = '/';
+                    if (redirectParam === 'testimonial') {
+                        // Redirect to home with testimonial modal open
+                        redirectUrl = '/?openTestimonial=true';
+                    }
+
                     setTimeout(() => window.location.href = redirectUrl, 1200);
                 } else {
                     if (data.errors) {
