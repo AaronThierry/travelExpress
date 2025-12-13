@@ -1759,9 +1759,9 @@
                         </button>
 
                         <!-- Cards -->
-                        <div class="flex justify-center items-center gap-4 sm:gap-6 py-6 sm:py-8 px-4 sm:px-8 lg:px-16 min-h-[380px] sm:min-h-[420px]">
+                        <div class="flex justify-center items-center gap-4 sm:gap-6 py-6 sm:py-8 px-4 sm:px-8 lg:px-16 min-h-[420px] sm:min-h-[480px]">
                             <template x-for="(testimonial, index) in testimonials" :key="testimonial.id">
-                                <div class="testimonial-card-premium absolute w-full max-w-[calc(100%-2rem)] sm:max-w-lg h-[340px] sm:h-[380px] bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-slate-100 flex flex-col"
+                                <div class="testimonial-card-premium absolute w-full max-w-[calc(100%-2rem)] sm:max-w-xl h-[400px] sm:h-[440px] bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-8 shadow-2xl border border-slate-100 flex flex-col"
                                      :class="{
                                          'active': index === currentIndex,
                                          'side': index !== currentIndex,
@@ -1770,91 +1770,114 @@
                                      :style="index === currentIndex ? 'position: relative;' : 'position: absolute;'"
                                      x-show="index === currentIndex || Math.abs(index - currentIndex) <= 1 || (index === 0 && currentIndex === testimonials.length - 1) || (index === testimonials.length - 1 && currentIndex === 0)">
 
-                                    <!-- Quote Icon -->
-                                    <div class="absolute -top-4 -left-4 w-14 h-14 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl flex items-center justify-center shadow-lg transform -rotate-6">
-                                        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                                        </svg>
-                                    </div>
-
-                                    <!-- Verified Badge -->
-                                    <div class="absolute top-6 right-6 flex items-center gap-1.5 px-3 py-1.5 bg-green-50 rounded-full">
-                                        <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                        </svg>
-                                        <span class="text-xs font-bold text-green-700">Vérifié</span>
-                                    </div>
-
-                                    <!-- Content -->
-                                    <div class="pt-6 flex flex-col flex-1">
-                                        <!-- Stars -->
-                                        <div class="flex gap-1 mb-4">
-                                            <template x-for="star in (testimonial.rating || 5)" :key="'star-'+star">
-                                                <svg class="w-5 h-5 text-amber-400 star-animate" :style="'animation-delay: ' + (star * 0.1) + 's'" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                                                </svg>
+                                    <!-- Header: Photo + Infos + Note -->
+                                    <div class="flex items-start gap-4 mb-4">
+                                        <!-- Avatar -->
+                                        <div class="relative flex-shrink-0">
+                                            <template x-if="testimonial.user && testimonial.user.profile_photo">
+                                                <img :src="'/storage/' + testimonial.user.profile_photo"
+                                                     :alt="testimonial.name"
+                                                     class="w-16 h-16 rounded-2xl object-cover ring-2 ring-primary-100 shadow-lg">
+                                            </template>
+                                            <template x-if="!testimonial.user || !testimonial.user.profile_photo">
+                                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br flex items-center justify-center text-white text-xl font-bold ring-2 ring-primary-100 shadow-lg"
+                                                     :class="getColor(index)">
+                                                    <span x-text="getInitials(testimonial.name)"></span>
+                                                </div>
                                             </template>
                                         </div>
 
-                                        <!-- Testimonial Text - Fixed height with line clamp -->
-                                        <div class="flex-1 min-h-[100px] max-h-[120px] overflow-hidden">
-                                            <p class="text-slate-600 text-[15px] leading-[1.7] font-normal line-clamp-4">
-                                                <span class="text-primary-500 font-serif text-xl">"</span>
-                                                <span x-text="testimonial.content"></span>
-                                                <span class="text-primary-500 font-serif text-xl">"</span>
-                                            </p>
+                                        <!-- Infos -->
+                                        <div class="flex-1 min-w-0">
+                                            <h4 class="font-display font-bold text-slate-900 text-lg truncate" x-text="testimonial.name"></h4>
+                                            <p class="text-slate-500 text-sm font-medium truncate" x-text="testimonial.program || 'Étudiant'"></p>
+                                            <!-- Stars -->
+                                            <div class="flex gap-0.5 mt-1.5">
+                                                <template x-for="star in 5" :key="'star-'+star">
+                                                    <svg class="w-4 h-4" :class="star <= (testimonial.rating || 5) ? 'text-amber-400' : 'text-slate-200'" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                                    </svg>
+                                                </template>
+                                            </div>
                                         </div>
 
-                                        <!-- Author - Always at bottom -->
-                                        <div class="flex items-center gap-4 pt-5 border-t border-slate-100 mt-auto">
-                                            <!-- Avatar -->
-                                            <div class="relative flex-shrink-0">
-                                                <template x-if="testimonial.user && testimonial.user.profile_photo">
-                                                    <img :src="'/storage/' + testimonial.user.profile_photo"
-                                                         :alt="testimonial.name"
-                                                         class="w-14 h-14 rounded-full object-cover ring-4 ring-white shadow-xl">
-                                                </template>
-                                                <template x-if="!testimonial.user || !testimonial.user.profile_photo">
-                                                    <div class="w-14 h-14 rounded-full bg-gradient-to-br flex items-center justify-center text-white text-lg font-bold ring-4 ring-white shadow-xl"
-                                                         :class="getColor(index)">
-                                                        <span x-text="getInitials(testimonial.name)"></span>
-                                                    </div>
-                                                </template>
-                                                <!-- Country Flag PNG -->
-                                                <div class="absolute -bottom-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-white overflow-hidden">
+                                        <!-- Badge Vérifié -->
+                                        <div class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-green-50 rounded-full border border-green-100">
+                                            <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span class="text-xs font-bold text-green-700">Vérifié</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Trajet stylé -->
+                                    <div class="relative mb-4 py-3 px-4 bg-gradient-to-r from-slate-50 via-primary-50/30 to-slate-50 rounded-xl border border-slate-100">
+                                        <div class="flex items-center justify-between">
+                                            <!-- Départ -->
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-10 h-10 rounded-xl bg-white shadow-sm border border-slate-200 flex items-center justify-center overflow-hidden">
                                                     <img :src="getFlagUrl(testimonial.country)"
                                                          :alt="getCountryName(testimonial.country)"
-                                                         class="w-5 h-4 object-cover rounded-sm"
-                                                         onerror="this.style.display='none'">
+                                                         class="w-7 h-5 object-cover"
+                                                         onerror="this.parentElement.innerHTML='🌍'">
+                                                </div>
+                                                <div>
+                                                    <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wide">Départ</p>
+                                                    <p class="text-sm font-bold text-slate-700" x-text="getCountryName(testimonial.country) || 'Non spécifié'"></p>
                                                 </div>
                                             </div>
 
-                                            <!-- Info -->
-                                            <div class="flex-1 min-w-0">
-                                                <h4 class="font-display font-bold text-slate-900 text-base truncate" x-text="testimonial.name"></h4>
-                                                <p class="text-slate-500 text-sm font-medium truncate" x-text="testimonial.program || 'student'"></p>
+                                            <!-- Ligne de trajet avec avion -->
+                                            <div class="flex-1 mx-4 relative">
+                                                <div class="h-0.5 bg-gradient-to-r from-slate-300 via-primary-400 to-primary-500 rounded-full"></div>
+                                                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center border-2 border-primary-200">
+                                                    <svg class="w-4 h-4 text-primary-500" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                                                    </svg>
+                                                </div>
+                                                <!-- Points sur la ligne -->
+                                                <div class="absolute top-1/2 left-0 -translate-y-1/2 w-2 h-2 bg-slate-400 rounded-full"></div>
+                                                <div class="absolute top-1/2 right-0 -translate-y-1/2 w-2 h-2 bg-primary-500 rounded-full"></div>
                                             </div>
 
-                                            <!-- Trajet: Départ → Destination -->
-                                            <div class="flex-shrink-0 px-3 py-2 bg-gradient-to-r from-slate-50 to-primary-50 rounded-xl border border-slate-200">
-                                                <div class="flex items-center gap-2">
-                                                    <!-- Départ (pays de l'utilisateur) -->
-                                                    <img :src="getFlagUrl(testimonial.country)"
-                                                         :alt="getCountryName(testimonial.country)"
-                                                         class="w-6 h-4 object-cover rounded shadow-sm"
-                                                         onerror="this.style.display='none'">
-                                                    <!-- Flèche -->
-                                                    <svg class="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                                    </svg>
-                                                    <!-- Destination -->
+                                            <!-- Destination -->
+                                            <div class="flex items-center gap-2">
+                                                <div>
+                                                    <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wide text-right">Destination</p>
+                                                    <p class="text-sm font-bold text-primary-600" x-text="getCountryName(testimonial.destination) || 'Non spécifié'"></p>
+                                                </div>
+                                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-md flex items-center justify-center overflow-hidden">
                                                     <img :src="getFlagUrl(testimonial.destination)"
                                                          :alt="getCountryName(testimonial.destination)"
-                                                         class="w-6 h-4 object-cover rounded shadow-sm"
-                                                         onerror="this.style.display='none'">
-                                                    <span class="text-xs font-bold text-primary-700" x-text="getCountryName(testimonial.destination)"></span>
+                                                         class="w-7 h-5 object-cover"
+                                                         onerror="this.parentElement.innerHTML='<span class=\'text-white text-lg\'>🎯</span>'">
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Témoignage -->
+                                    <div class="flex-1 min-h-[80px] max-h-[100px] overflow-hidden mb-4">
+                                        <p class="text-slate-600 text-[15px] leading-relaxed line-clamp-3">
+                                            <span class="text-primary-400 font-serif text-2xl leading-none">"</span>
+                                            <span x-text="testimonial.content"></span>
+                                            <span class="text-primary-400 font-serif text-2xl leading-none">"</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Footer -->
+                                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 mt-auto">
+                                        <div class="flex items-center gap-2 text-slate-400 text-xs">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            </svg>
+                                            <span x-text="new Date(testimonial.created_at).toLocaleDateString('fr-FR', {day: 'numeric', month: 'short', year: 'numeric'})"></span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5 px-3 py-1.5 bg-primary-50 rounded-full">
+                                            <svg class="w-4 h-4 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span class="text-xs font-semibold text-primary-600">Expérience vécue</span>
                                         </div>
                                     </div>
                                 </div>
