@@ -54,6 +54,9 @@ class DashboardController extends Controller
                     'rating' => $testimonial->rating,
                     'is_approved' => $testimonial->is_approved,
                     'user_name' => $testimonial->user->name,
+                    'user_avatar' => $testimonial->user->avatar,
+                    'user_country' => $testimonial->user->country,
+                    'destination' => $testimonial->destination,
                     'created_at' => $testimonial->created_at->format('d M Y H:i'),
                 ];
             });
