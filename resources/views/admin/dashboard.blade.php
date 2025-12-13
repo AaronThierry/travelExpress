@@ -16,9 +16,9 @@
     <!-- Stats Cards -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Utilisateurs -->
-        <div class="bg-white rounded-xl p-5 border border-slate-200 hover:shadow-md transition-shadow">
+        <div class="elegant-card stat-card accent-blue p-5">
             <div class="flex items-center justify-between mb-3">
-                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                <div class="icon-container w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                     <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
@@ -31,9 +31,9 @@
         </div>
 
         <!-- Témoignages -->
-        <div class="bg-white rounded-xl p-5 border border-slate-200 hover:shadow-md transition-shadow">
+        <div class="elegant-card stat-card accent-green p-5">
             <div class="flex items-center justify-between mb-3">
-                <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+                <div class="icon-container w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
                     <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                     </svg>
@@ -51,9 +51,9 @@
         </div>
 
         <!-- En attente -->
-        <div class="bg-white rounded-xl p-5 border border-slate-200 hover:shadow-md transition-shadow">
+        <div class="elegant-card stat-card accent-amber p-5">
             <div class="flex items-center justify-between mb-3">
-                <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                <div class="icon-container w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
                     <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
@@ -70,9 +70,9 @@
         </div>
 
         <!-- Ce mois -->
-        <div class="bg-white rounded-xl p-5 border border-slate-200 hover:shadow-md transition-shadow">
+        <div class="elegant-card stat-card accent-violet p-5">
             <div class="flex items-center justify-between mb-3">
-                <div class="w-10 h-10 bg-violet-100 rounded-lg flex items-center justify-center">
+                <div class="icon-container w-10 h-10 bg-violet-100 rounded-lg flex items-center justify-center">
                     <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
@@ -87,8 +87,8 @@
     <!-- Main Content Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Répartition géographique -->
-        <div class="lg:col-span-2 bg-white rounded-xl border border-slate-200">
-            <div class="p-5 border-b border-slate-100">
+        <div class="lg:col-span-2 elegant-card">
+            <div class="section-header p-5 border-b border-slate-100">
                 <h3 class="font-semibold text-slate-900">Répartition géographique</h3>
                 <p class="text-sm text-slate-500">Utilisateurs par pays</p>
             </div>
@@ -98,15 +98,15 @@
         </div>
 
         <!-- Activité récente -->
-        <div class="bg-white rounded-xl border border-slate-200">
-            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <div class="elegant-card">
+            <div class="section-header p-5 border-b border-slate-100 flex items-center justify-between">
                 <h3 class="font-semibold text-slate-900">Activité récente</h3>
                 <span class="flex items-center gap-1.5 text-xs text-emerald-600">
                     <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
                     En direct
                 </span>
             </div>
-            <div id="activity-feed" class="divide-y divide-slate-100 max-h-80 overflow-y-auto">
+            <div id="activity-feed" class="divide-y divide-slate-100 max-h-80 overflow-y-auto elegant-scroll">
                 <!-- Chargé dynamiquement -->
             </div>
         </div>
@@ -115,23 +115,23 @@
     <!-- Listes récentes -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Derniers témoignages -->
-        <div class="bg-white rounded-xl border border-slate-200">
-            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <div class="elegant-card">
+            <div class="section-header p-5 border-b border-slate-100 flex items-center justify-between">
                 <h3 class="font-semibold text-slate-900">Derniers témoignages</h3>
-                <a href="/admin/testimonials" class="text-sm text-indigo-600 hover:text-indigo-700 font-medium">Tout voir</a>
+                <a href="/admin/testimonials" class="text-sm text-indigo-600 hover:text-indigo-700 font-medium transition-colors">Tout voir</a>
             </div>
-            <div id="recent-testimonials" class="divide-y divide-slate-100">
+            <div id="recent-testimonials" class="divide-y divide-slate-100 elegant-scroll">
                 <!-- Chargé dynamiquement -->
             </div>
         </div>
 
         <!-- Nouveaux utilisateurs -->
-        <div class="bg-white rounded-xl border border-slate-200">
-            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <div class="elegant-card">
+            <div class="section-header p-5 border-b border-slate-100 flex items-center justify-between">
                 <h3 class="font-semibold text-slate-900">Nouveaux utilisateurs</h3>
-                <a href="/admin/users" class="text-sm text-indigo-600 hover:text-indigo-700 font-medium">Tout voir</a>
+                <a href="/admin/users" class="text-sm text-indigo-600 hover:text-indigo-700 font-medium transition-colors">Tout voir</a>
             </div>
-            <div id="recent-users" class="divide-y divide-slate-100">
+            <div id="recent-users" class="divide-y divide-slate-100 elegant-scroll">
                 <!-- Chargé dynamiquement -->
             </div>
         </div>

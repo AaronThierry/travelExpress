@@ -11,30 +11,142 @@
     <style>
         * { font-family: 'Inter', system-ui, sans-serif; }
 
+        /* Sidebar élégant */
         .sidebar {
-            background: #0f172a;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
         }
 
+        /* Navigation élégante */
         .nav-link {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             padding: 0.75rem 1rem;
             color: #94a3b8;
-            border-radius: 0.5rem;
+            border-radius: 0.625rem;
             margin: 0.25rem 0;
             font-size: 0.875rem;
-            transition: all 0.2s;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            position: relative;
         }
 
         .nav-link:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: #f1f5f9;
+            background: rgba(255, 255, 255, 0.06);
+            color: #e2e8f0;
         }
 
         .nav-link.active {
-            background: rgba(99, 102, 241, 0.15);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
             color: white;
+        }
+
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 25%;
+            height: 50%;
+            width: 3px;
+            background: linear-gradient(180deg, #818cf8, #6366f1);
+            border-radius: 0 3px 3px 0;
+        }
+
+        /* Header glass effect */
+        .header-glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Cards élégantes */
+        .elegant-card {
+            background: white;
+            border-radius: 1rem;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .elegant-card:hover {
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Stats card avec accent */
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color, #6366f1), var(--accent-end, #818cf8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card.accent-blue { --accent-color: #3b82f6; --accent-end: #60a5fa; }
+        .stat-card.accent-green { --accent-color: #10b981; --accent-end: #34d399; }
+        .stat-card.accent-amber { --accent-color: #f59e0b; --accent-end: #fbbf24; }
+        .stat-card.accent-violet { --accent-color: #8b5cf6; --accent-end: #a78bfa; }
+
+        /* Icon containers */
+        .icon-container {
+            position: relative;
+        }
+
+        .icon-container::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 12px;
+            background: inherit;
+            opacity: 0.3;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        /* Section headers */
+        .section-header {
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 1.25rem;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1, transparent);
+        }
+
+        /* Scrollbar élégant */
+        .elegant-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .elegant-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .elegant-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 2px;
+        }
+
+        .elegant-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
 
         @media (max-width: 1023px) {
@@ -140,7 +252,7 @@
         <!-- Main Content -->
         <main class="flex-1 lg:ml-64">
             <!-- Header -->
-            <header class="bg-white border-b border-slate-200 sticky top-0 z-20">
+            <header class="header-glass border-b border-slate-200/80 sticky top-0 z-20">
                 <div class="px-4 sm:px-6 py-4">
                     <div class="flex items-center justify-between gap-4">
                         <div class="flex items-center gap-4">
