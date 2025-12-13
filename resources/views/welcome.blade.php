@@ -1767,21 +1767,21 @@
                 <template x-if="!loading && testimonials.length > 0">
                     <div>
                         <!-- Navigation Arrows -->
-                        <button @click="prev()" class="absolute left-0 md:left-4 top-1/2 -translate-y-1/2 z-30 w-14 h-14 bg-white/90 backdrop-blur-sm rounded-full shadow-xl flex items-center justify-center text-slate-600 hover:text-primary-600 hover:bg-white hover:scale-110 transition-all duration-300 border border-slate-200">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <button @click="prev()" class="absolute -left-1 sm:left-0 md:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-14 sm:h-14 bg-white/90 backdrop-blur-sm rounded-full shadow-xl flex items-center justify-center text-slate-600 hover:text-primary-600 hover:bg-white hover:scale-110 transition-all duration-300 border border-slate-200">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
                             </svg>
                         </button>
-                        <button @click="next()" class="absolute right-0 md:right-4 top-1/2 -translate-y-1/2 z-30 w-14 h-14 bg-white/90 backdrop-blur-sm rounded-full shadow-xl flex items-center justify-center text-slate-600 hover:text-primary-600 hover:bg-white hover:scale-110 transition-all duration-300 border border-slate-200">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <button @click="next()" class="absolute -right-1 sm:right-0 md:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-14 sm:h-14 bg-white/90 backdrop-blur-sm rounded-full shadow-xl flex items-center justify-center text-slate-600 hover:text-primary-600 hover:bg-white hover:scale-110 transition-all duration-300 border border-slate-200">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
                             </svg>
                         </button>
 
                         <!-- Cards -->
-                        <div class="flex justify-center items-center gap-4 sm:gap-6 py-6 sm:py-8 px-4 sm:px-8 lg:px-16 min-h-[420px] sm:min-h-[480px]">
+                        <div class="flex justify-center items-center gap-2 sm:gap-6 py-4 sm:py-8 px-2 sm:px-8 lg:px-16 min-h-[380px] sm:min-h-[480px]">
                             <template x-for="(testimonial, index) in testimonials" :key="testimonial.id">
-                                <div class="testimonial-card-premium absolute w-full max-w-[calc(100%-2rem)] sm:max-w-xl h-[400px] sm:h-[440px] bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-8 shadow-2xl border border-slate-100 flex flex-col"
+                                <div class="testimonial-card-premium absolute w-[calc(100%-1rem)] sm:w-full max-w-[calc(100%-1rem)] sm:max-w-xl h-[360px] sm:h-[440px] bg-white rounded-xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-slate-100 flex flex-col"
                                      :class="{
                                          'active': index === currentIndex,
                                          'side': index !== currentIndex,
@@ -1791,16 +1791,16 @@
                                      x-show="index === currentIndex || Math.abs(index - currentIndex) <= 1 || (index === 0 && currentIndex === testimonials.length - 1) || (index === testimonials.length - 1 && currentIndex === 0)">
 
                                     <!-- Header: Photo + Infos + Note -->
-                                    <div class="flex items-start gap-4 mb-4">
+                                    <div class="flex items-start gap-2.5 sm:gap-4 mb-3 sm:mb-4">
                                         <!-- Avatar -->
                                         <div class="relative flex-shrink-0">
                                             <template x-if="testimonial.user && testimonial.user.avatar">
                                                 <img :src="'/storage/' + testimonial.user.avatar"
                                                      :alt="testimonial.name"
-                                                     class="w-16 h-16 rounded-2xl object-cover ring-2 ring-primary-100 shadow-lg">
+                                                     class="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl object-cover ring-2 ring-primary-100 shadow-lg">
                                             </template>
                                             <template x-if="!testimonial.user || !testimonial.user.avatar">
-                                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br flex items-center justify-center text-white text-xl font-bold ring-2 ring-primary-100 shadow-lg"
+                                                <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br flex items-center justify-center text-white text-base sm:text-xl font-bold ring-2 ring-primary-100 shadow-lg"
                                                      :class="getColor(index)">
                                                     <span x-text="getInitials(testimonial.name)"></span>
                                                 </div>
@@ -1809,12 +1809,12 @@
 
                                         <!-- Infos -->
                                         <div class="flex-1 min-w-0">
-                                            <h4 class="font-display font-bold text-slate-900 text-lg truncate" x-text="testimonial.name"></h4>
-                                            <p class="text-slate-500 text-sm font-medium truncate" x-text="testimonial.program || 'Étudiant'"></p>
+                                            <h4 class="font-display font-bold text-slate-900 text-base sm:text-lg truncate" x-text="testimonial.name"></h4>
+                                            <p class="text-slate-500 text-xs sm:text-sm font-medium truncate" x-text="testimonial.program || 'Étudiant'"></p>
                                             <!-- Stars -->
-                                            <div class="flex gap-0.5 mt-1.5">
+                                            <div class="flex gap-0.5 mt-1 sm:mt-1.5">
                                                 <template x-for="star in 5" :key="'star-'+star">
-                                                    <svg class="w-4 h-4" :class="star <= (testimonial.rating || 5) ? 'text-amber-400' : 'text-slate-200'" fill="currentColor" viewBox="0 0 20 20">
+                                                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" :class="star <= (testimonial.rating || 5) ? 'text-amber-400' : 'text-slate-200'" fill="currentColor" viewBox="0 0 20 20">
                                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                                     </svg>
                                                 </template>
@@ -1822,82 +1822,82 @@
                                         </div>
 
                                         <!-- Badge Vérifié -->
-                                        <div class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-green-50 rounded-full border border-green-100">
-                                            <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <div class="flex-shrink-0 flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-green-50 rounded-full border border-green-100">
+                                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                             </svg>
-                                            <span class="text-xs font-bold text-green-700">Vérifié</span>
+                                            <span class="text-[10px] sm:text-xs font-bold text-green-700">Vérifié</span>
                                         </div>
                                     </div>
 
-                                    <!-- Trajet stylé -->
-                                    <div class="relative mb-4 py-3 px-4 bg-gradient-to-r from-slate-50 via-primary-50/30 to-slate-50 rounded-xl border border-slate-100">
-                                        <div class="flex items-center justify-between">
+                                    <!-- Trajet stylé - Responsive -->
+                                    <div class="relative mb-4 py-3 sm:py-4 px-3 sm:px-4 bg-gradient-to-r from-slate-50 via-primary-50/30 to-slate-50 rounded-xl border border-slate-100">
+                                        <div class="flex items-center justify-between gap-2 sm:gap-4">
                                             <!-- Départ -->
-                                            <div class="flex items-center gap-2">
-                                                <div class="w-10 h-10 rounded-xl bg-white shadow-sm border border-slate-200 flex items-center justify-center overflow-hidden">
+                                            <div class="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
+                                                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-white shadow-sm border border-slate-200 flex items-center justify-center overflow-hidden flex-shrink-0">
                                                     <img :src="getFlagUrl(testimonial.country)"
                                                          :alt="getCountryName(testimonial.country)"
-                                                         class="w-7 h-5 object-cover"
+                                                         class="w-6 h-4 sm:w-8 sm:h-6 object-cover rounded-sm"
                                                          onerror="this.parentElement.innerHTML='🌍'">
                                                 </div>
-                                                <div>
-                                                    <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wide">Départ</p>
-                                                    <p class="text-sm font-bold text-slate-700" x-text="getCountryName(testimonial.country) || 'Non spécifié'"></p>
+                                                <div class="min-w-0">
+                                                    <p class="text-[9px] sm:text-[10px] text-slate-400 font-medium uppercase tracking-wide">Départ</p>
+                                                    <p class="text-xs sm:text-sm font-bold text-slate-700 truncate" x-text="getCountryName(testimonial.country) || 'Non spécifié'"></p>
                                                 </div>
                                             </div>
 
                                             <!-- Ligne de trajet avec avion -->
-                                            <div class="flex-1 mx-4 relative">
+                                            <div class="flex-shrink-0 w-12 sm:w-20 md:w-24 relative mx-1 sm:mx-2">
                                                 <div class="h-0.5 bg-gradient-to-r from-slate-300 via-primary-400 to-primary-500 rounded-full"></div>
-                                                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center border-2 border-primary-200">
-                                                    <svg class="w-4 h-4 text-primary-500" fill="currentColor" viewBox="0 0 24 24">
+                                                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 bg-white rounded-full shadow-md flex items-center justify-center border-2 border-primary-200">
+                                                    <svg class="w-3 h-3 sm:w-4 sm:h-4 text-primary-500" fill="currentColor" viewBox="0 0 24 24">
                                                         <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
                                                     </svg>
                                                 </div>
                                                 <!-- Points sur la ligne -->
-                                                <div class="absolute top-1/2 left-0 -translate-y-1/2 w-2 h-2 bg-slate-400 rounded-full"></div>
-                                                <div class="absolute top-1/2 right-0 -translate-y-1/2 w-2 h-2 bg-primary-500 rounded-full"></div>
+                                                <div class="absolute top-1/2 left-0 -translate-y-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full"></div>
+                                                <div class="absolute top-1/2 right-0 -translate-y-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary-500 rounded-full"></div>
                                             </div>
 
                                             <!-- Destination -->
-                                            <div class="flex items-center gap-2">
-                                                <div>
-                                                    <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wide text-right">Destination</p>
-                                                    <p class="text-sm font-bold text-primary-600" x-text="getCountryName(testimonial.destination) || 'Non spécifié'"></p>
+                                            <div class="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1 justify-end">
+                                                <div class="min-w-0 text-right">
+                                                    <p class="text-[9px] sm:text-[10px] text-slate-400 font-medium uppercase tracking-wide">Destination</p>
+                                                    <p class="text-xs sm:text-sm font-bold text-primary-600 truncate" x-text="getCountryName(testimonial.destination) || 'Non spécifié'"></p>
                                                 </div>
-                                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-md flex items-center justify-center overflow-hidden">
+                                                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-md flex items-center justify-center overflow-hidden flex-shrink-0">
                                                     <img :src="getFlagUrl(testimonial.destination)"
                                                          :alt="getCountryName(testimonial.destination)"
-                                                         class="w-7 h-5 object-cover"
-                                                         onerror="this.parentElement.innerHTML='<span class=\'text-white text-lg\'>🎯</span>'">
+                                                         class="w-6 h-4 sm:w-8 sm:h-6 object-cover rounded-sm"
+                                                         onerror="this.parentElement.innerHTML='<span class=\'text-white text-base sm:text-lg\'>🎯</span>'">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Témoignage -->
-                                    <div class="flex-1 min-h-[80px] max-h-[100px] overflow-hidden mb-4">
-                                        <p class="text-slate-600 text-[15px] leading-relaxed line-clamp-3">
-                                            <span class="text-primary-400 font-serif text-2xl leading-none">"</span>
+                                    <div class="flex-1 min-h-[60px] sm:min-h-[80px] max-h-[80px] sm:max-h-[100px] overflow-hidden mb-3 sm:mb-4">
+                                        <p class="text-slate-600 text-[13px] sm:text-[15px] leading-relaxed line-clamp-3">
+                                            <span class="text-primary-400 font-serif text-xl sm:text-2xl leading-none">"</span>
                                             <span x-text="testimonial.content"></span>
-                                            <span class="text-primary-400 font-serif text-2xl leading-none">"</span>
+                                            <span class="text-primary-400 font-serif text-xl sm:text-2xl leading-none">"</span>
                                         </p>
                                     </div>
 
                                     <!-- Footer -->
-                                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 mt-auto">
-                                        <div class="flex items-center gap-2 text-slate-400 text-xs">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="flex items-center justify-between pt-3 sm:pt-4 border-t border-slate-100 mt-auto gap-2">
+                                        <div class="flex items-center gap-1.5 sm:gap-2 text-slate-400 text-[10px] sm:text-xs">
+                                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                             </svg>
                                             <span x-text="new Date(testimonial.created_at).toLocaleDateString('fr-FR', {day: 'numeric', month: 'short', year: 'numeric'})"></span>
                                         </div>
-                                        <div class="flex items-center gap-1.5 px-3 py-1.5 bg-primary-50 rounded-full">
-                                            <svg class="w-4 h-4 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <div class="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-primary-50 rounded-full flex-shrink-0">
+                                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
                                             </svg>
-                                            <span class="text-xs font-semibold text-primary-600">Expérience vécue</span>
+                                            <span class="text-[10px] sm:text-xs font-semibold text-primary-600 whitespace-nowrap">Expérience vécue</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1905,11 +1905,11 @@
                         </div>
 
                         <!-- Pagination Dots -->
-                        <div class="flex justify-center items-center gap-3 mt-8">
+                        <div class="flex justify-center items-center gap-2 sm:gap-3 mt-4 sm:mt-8">
                             <template x-for="(testimonial, index) in testimonials" :key="'dot-'+testimonial.id">
                                 <button @click="goTo(index)"
-                                        class="relative w-3 h-3 rounded-full transition-all duration-300"
-                                        :class="index === currentIndex ? 'bg-primary-600 w-10' : 'bg-slate-300 hover:bg-slate-400'">
+                                        class="relative w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300"
+                                        :class="index === currentIndex ? 'bg-primary-600 w-8 sm:w-10' : 'bg-slate-300 hover:bg-slate-400'">
                                     <template x-if="index === currentIndex && !isPaused">
                                         <div class="absolute inset-0 bg-primary-400 rounded-full progress-bar"></div>
                                     </template>
@@ -1918,8 +1918,8 @@
                         </div>
 
                         <!-- Auto-play indicator -->
-                        <div class="flex justify-center mt-4">
-                            <span class="text-sm text-slate-400 font-medium" x-text="isPaused ? '⏸ En pause' : '▶ Lecture auto'"></span>
+                        <div class="flex justify-center mt-3 sm:mt-4">
+                            <span class="text-xs sm:text-sm text-slate-400 font-medium" x-text="isPaused ? '⏸ En pause' : '▶ Lecture auto'"></span>
                         </div>
                     </div>
                 </template>
