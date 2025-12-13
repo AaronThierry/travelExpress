@@ -3066,18 +3066,21 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize Intersection Observer for scroll reveal animations
+            // Animations repeat every time element enters viewport
             const observerOptions = {
                 root: null,
-                rootMargin: '0px 0px -80px 0px',
-                threshold: 0.1
+                rootMargin: '0px 0px -50px 0px',
+                threshold: 0.15
             };
 
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        // Add revealed class when entering viewport
                         entry.target.classList.add('revealed');
-                        // Optional: stop observing after reveal for performance
-                        // revealObserver.unobserve(entry.target);
+                    } else {
+                        // Remove revealed class when leaving viewport for repeat animation
+                        entry.target.classList.remove('revealed');
                     }
                 });
             }, observerOptions);
@@ -3093,16 +3096,18 @@
             sections.forEach((section, index) => {
                 // Add reveal class to section headers
                 const header = section.querySelector('.text-center.mb-12, .text-center.mb-16, .text-center.mb-8');
-                if (header) {
+                if (header && !header.classList.contains('scroll-reveal')) {
                     header.classList.add('scroll-reveal');
                     revealObserver.observe(header);
                 }
 
-                // Add stagger animation to grids
+                // Add stagger animation to grids (only if not already added)
                 const grids = section.querySelectorAll('.grid');
                 grids.forEach(grid => {
-                    grid.classList.add('scroll-reveal-stagger');
-                    revealObserver.observe(grid);
+                    if (!grid.classList.contains('scroll-reveal-stagger')) {
+                        grid.classList.add('scroll-reveal-stagger');
+                        revealObserver.observe(grid);
+                    }
                 });
             });
 
