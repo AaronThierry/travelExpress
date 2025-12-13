@@ -144,14 +144,28 @@
         }
         this.testimonialModalOpen = true;
     },
+    faqCategories: [
+        { id: 'all', name: 'Toutes', icon: 'grid' },
+        { id: 'general', name: 'Général', icon: 'info' },
+        { id: 'studies', name: 'Études', icon: 'academic' },
+        { id: 'process', name: 'Processus', icon: 'clock' },
+        { id: 'services', name: 'Services', icon: 'briefcase' }
+    ],
+    activeFaqCategory: 'all',
     faqs: [
-        { id: 1, open: false, question: 'Quels types de projets accompagnez-vous ?', answer: 'Nous accompagnons trois types de projets : les études (universités, formations professionnelles), le travail (recherche d\'emploi, contrats de travail) et les affaires (import-export, création d\'entreprise, partenariats commerciaux) en Chine, Espagne et Allemagne.' },
-        { id: 2, open: false, question: 'Combien de temps prend le processus complet ?', answer: 'Le délai varie selon votre projet. Pour les études : 3 à 6 mois. Pour un contrat de travail : 2 à 4 mois. Pour un projet business : 1 à 3 mois selon la complexité. Nous recommandons de nous contacter le plus tôt possible.' },
-        { id: 3, open: false, question: 'Dois-je parler la langue du pays de destination ?', answer: 'Pas nécessairement. Pour les études, de nombreux programmes sont en anglais. Pour le travail et le business, cela dépend du secteur. Nous pouvons vous orienter vers des formations linguistiques adaptées.' },
-        { id: 4, open: false, question: 'Quel est le coût de vos services ?', answer: 'Nos tarifs sont adaptés à chaque projet. Nous proposons différentes formules selon vos besoins : accompagnement études, accompagnement professionnel, accompagnement business. Contactez-nous pour un devis personnalisé gratuit.' },
-        { id: 5, open: false, question: 'Aidez-vous pour le logement et l\'installation ?', answer: 'Oui ! Notre accompagnement inclut la recherche de logement, l\'accueil à l\'aéroport, les démarches administratives et toute l\'aide nécessaire pour votre installation réussie dans votre pays de destination.' },
-        { id: 6, open: false, question: 'Proposez-vous un accompagnement pour le business en Chine ?', answer: 'Absolument ! Nous accompagnons les entrepreneurs dans leurs projets d\'import-export, la recherche de fournisseurs, la création de partenariats commerciaux et l\'installation d\'activités en Chine. Notre réseau local facilite vos démarches.' }
-    ]
+        { id: 1, category: 'general', open: false, icon: 'globe', question: 'Quels types de projets accompagnez-vous ?', answer: 'Nous accompagnons trois types de projets : les études (universités, formations professionnelles), le travail (recherche d\'emploi, contrats de travail) et les affaires (import-export, création d\'entreprise, partenariats commerciaux) en Chine, Espagne et Allemagne.' },
+        { id: 2, category: 'process', open: false, icon: 'calendar', question: 'Combien de temps prend le processus complet ?', answer: 'Le délai varie selon votre projet. Pour les études : 3 à 6 mois. Pour un contrat de travail : 2 à 4 mois. Pour un projet business : 1 à 3 mois selon la complexité. Nous recommandons de nous contacter le plus tôt possible.' },
+        { id: 3, category: 'studies', open: false, icon: 'language', question: 'Dois-je parler la langue du pays de destination ?', answer: 'Pas nécessairement. Pour les études, de nombreux programmes sont en anglais. Pour le travail et le business, cela dépend du secteur. Nous pouvons vous orienter vers des formations linguistiques adaptées.' },
+        { id: 4, category: 'general', open: false, icon: 'currency', question: 'Quel est le coût de vos services ?', answer: 'Nos tarifs sont adaptés à chaque projet. Nous proposons différentes formules selon vos besoins : accompagnement études, accompagnement professionnel, accompagnement business. Contactez-nous pour un devis personnalisé gratuit.' },
+        { id: 5, category: 'services', open: false, icon: 'home', question: 'Aidez-vous pour le logement et l\'installation ?', answer: 'Oui ! Notre accompagnement inclut la recherche de logement, l\'accueil à l\'aéroport, les démarches administratives et toute l\'aide nécessaire pour votre installation réussie dans votre pays de destination.' },
+        { id: 6, category: 'services', open: false, icon: 'building', question: 'Proposez-vous un accompagnement pour le business en Chine ?', answer: 'Absolument ! Nous accompagnons les entrepreneurs dans leurs projets d\'import-export, la recherche de fournisseurs, la création de partenariats commerciaux et l\'installation d\'activités en Chine. Notre réseau local facilite vos démarches.' },
+        { id: 7, category: 'studies', open: false, icon: 'scholarship', question: 'Proposez-vous des bourses d\'études ?', answer: 'Oui, nous avons accès à plusieurs programmes de bourses partielles et complètes dans nos universités partenaires. Nous évaluons votre profil pour identifier les opportunités les plus adaptées et vous accompagnons dans vos candidatures.' },
+        { id: 8, category: 'process', open: false, icon: 'document', question: 'Quels documents sont nécessaires pour commencer ?', answer: 'Les documents de base incluent : passeport valide, diplômes et relevés de notes, CV, lettre de motivation. Selon votre projet, d\'autres documents peuvent être requis. Nous vous fournissons une checklist personnalisée dès le début.' }
+    ],
+    get filteredFaqs() {
+        if (this.activeFaqCategory === 'all') return this.faqs;
+        return this.faqs.filter(faq => faq.category === this.activeFaqCategory);
+    }
 }" x-init="init()">
 
     <!-- Header -->
@@ -2002,96 +2016,245 @@
         </div>
     </section>
 
-    <!-- FAQ Section - Modern Premium Design -->
-    <section id="faq" class="py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
+    <!-- FAQ Section - Professional Premium Design -->
+    <section id="faq" class="py-16 sm:py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
         <!-- Background decorations -->
-        <div class="absolute top-0 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-        <div class="absolute bottom-0 right-0 w-96 h-96 bg-accent-500/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+        <div class="absolute top-0 left-0 w-72 sm:w-96 h-72 sm:h-96 bg-primary-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-72 sm:w-96 h-72 sm:h-96 bg-accent-500/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-primary-500/3 to-accent-500/3 rounded-full blur-3xl"></div>
 
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <!-- Header -->
-            <div class="text-center mb-16 scroll-reveal">
-                <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 border border-primary-100 rounded-full mb-6">
-                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    <span class="text-primary-700 text-sm font-bold">Centre d'aide</span>
+            <div class="text-center mb-10 sm:mb-16 scroll-reveal">
+                <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-100 rounded-full mb-4 sm:mb-6">
+                    <div class="w-6 h-6 sm:w-7 sm:h-7 bg-gradient-to-br from-primary-500 to-accent-500 rounded-lg flex items-center justify-center">
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-primary-700 text-xs sm:text-sm font-bold">Centre d'aide</span>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-display font-extrabold text-slate-900 mb-4 tracking-tight">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-slate-900 mb-3 sm:mb-4 tracking-tight">
                     Questions <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">fréquentes</span>
                 </h2>
-                <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed px-4">
                     Trouvez rapidement les réponses à vos questions sur nos services d'accompagnement international
                 </p>
             </div>
 
-            <!-- FAQ Items -->
-            <div class="space-y-4 scroll-reveal-scale">
-                <template x-for="(faq, index) in faqs" :key="faq.id">
-                    <div class="group"
-                         :class="faq.open ? 'bg-white shadow-xl shadow-slate-200/50 rounded-2xl' : 'bg-white/60 hover:bg-white rounded-2xl hover:shadow-lg transition-all duration-300'">
-                        <button @click="faq.open = !faq.open"
-                                class="w-full flex items-center gap-4 p-6 text-left">
-                            <!-- Number badge -->
-                            <div class="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm transition-all duration-300"
-                                 :class="faq.open ? 'bg-gradient-to-br from-primary-500 to-accent-500 text-white shadow-lg' : 'bg-slate-100 text-slate-500 group-hover:bg-primary-100 group-hover:text-primary-600'">
-                                <span x-text="'0' + (index + 1)"></span>
-                            </div>
-
-                            <!-- Question -->
-                            <span class="flex-1 font-display font-bold text-lg transition-colors duration-300"
-                                  :class="faq.open ? 'text-slate-900' : 'text-slate-700 group-hover:text-slate-900'"
-                                  x-text="faq.question"></span>
-
-                            <!-- Toggle icon -->
-                            <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
-                                 :class="faq.open ? 'bg-primary-100 rotate-180' : 'bg-slate-100 group-hover:bg-primary-50'">
-                                <svg class="w-5 h-5 transition-colors duration-300"
-                                     :class="faq.open ? 'text-primary-600' : 'text-slate-400 group-hover:text-primary-500'"
-                                     fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            <!-- Category Filter Tabs -->
+            <div class="flex justify-center mb-8 sm:mb-12 scroll-reveal">
+                <div class="inline-flex flex-wrap justify-center gap-2 sm:gap-3 p-1.5 sm:p-2 bg-white rounded-xl sm:rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-100">
+                    <template x-for="cat in faqCategories" :key="cat.id">
+                        <button @click="activeFaqCategory = cat.id"
+                                class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300"
+                                :class="activeFaqCategory === cat.id
+                                    ? 'bg-gradient-to-r from-primary-600 to-accent-600 text-white shadow-lg shadow-primary-500/25'
+                                    : 'text-slate-600 hover:bg-slate-50 hover:text-primary-600'">
+                            <!-- Category Icons -->
+                            <template x-if="cat.icon === 'grid'">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
                                 </svg>
-                            </div>
+                            </template>
+                            <template x-if="cat.icon === 'info'">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </template>
+                            <template x-if="cat.icon === 'academic'">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
+                                </svg>
+                            </template>
+                            <template x-if="cat.icon === 'clock'">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </template>
+                            <template x-if="cat.icon === 'briefcase'">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </template>
+                            <span x-text="cat.name" class="hidden sm:inline"></span>
                         </button>
+                    </template>
+                </div>
+            </div>
 
-                        <!-- Answer -->
-                        <div x-show="faq.open"
-                             x-transition:enter="transition ease-out duration-300"
-                             x-transition:enter-start="opacity-0 -translate-y-2"
-                             x-transition:enter-end="opacity-100 translate-y-0"
-                             x-transition:leave="transition ease-in duration-200"
-                             x-transition:leave-start="opacity-100 translate-y-0"
-                             x-transition:leave-end="opacity-0 -translate-y-2"
-                             class="px-6 pb-6">
-                            <div class="pl-14 pr-4">
-                                <div class="h-px bg-gradient-to-r from-primary-200 via-accent-200 to-transparent mb-4"></div>
-                                <p class="text-slate-600 leading-relaxed text-[15px]" x-text="faq.answer"></p>
+            <!-- FAQ Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 scroll-reveal-scale">
+                <template x-for="(faq, index) in filteredFaqs" :key="faq.id">
+                    <div class="group relative"
+                         :class="faq.open ? 'lg:col-span-2' : ''">
+                        <div class="h-full bg-white rounded-xl sm:rounded-2xl border border-slate-100 overflow-hidden transition-all duration-500"
+                             :class="faq.open ? 'shadow-2xl shadow-primary-500/10 ring-2 ring-primary-100' : 'shadow-lg shadow-slate-200/50 hover:shadow-xl hover:border-primary-100'">
+
+                            <button @click="faq.open = !faq.open"
+                                    class="w-full flex items-start gap-3 sm:gap-4 p-4 sm:p-6 text-left">
+                                <!-- Icon based on FAQ type -->
+                                <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300"
+                                     :class="faq.open
+                                        ? 'bg-gradient-to-br from-primary-500 to-accent-500 shadow-lg shadow-primary-500/30'
+                                        : 'bg-gradient-to-br from-slate-100 to-slate-50 group-hover:from-primary-100 group-hover:to-accent-50'">
+                                    <!-- Globe icon -->
+                                    <template x-if="faq.icon === 'globe'">
+                                        <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300" :class="faq.open ? 'text-white' : 'text-slate-500 group-hover:text-primary-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </template>
+                                    <!-- Calendar icon -->
+                                    <template x-if="faq.icon === 'calendar'">
+                                        <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300" :class="faq.open ? 'text-white' : 'text-slate-500 group-hover:text-primary-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                        </svg>
+                                    </template>
+                                    <!-- Language icon -->
+                                    <template x-if="faq.icon === 'language'">
+                                        <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300" :class="faq.open ? 'text-white' : 'text-slate-500 group-hover:text-primary-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                                        </svg>
+                                    </template>
+                                    <!-- Currency icon -->
+                                    <template x-if="faq.icon === 'currency'">
+                                        <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300" :class="faq.open ? 'text-white' : 'text-slate-500 group-hover:text-primary-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </template>
+                                    <!-- Home icon -->
+                                    <template x-if="faq.icon === 'home'">
+                                        <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300" :class="faq.open ? 'text-white' : 'text-slate-500 group-hover:text-primary-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                                        </svg>
+                                    </template>
+                                    <!-- Building icon -->
+                                    <template x-if="faq.icon === 'building'">
+                                        <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300" :class="faq.open ? 'text-white' : 'text-slate-500 group-hover:text-primary-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                        </svg>
+                                    </template>
+                                    <!-- Scholarship icon -->
+                                    <template x-if="faq.icon === 'scholarship'">
+                                        <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300" :class="faq.open ? 'text-white' : 'text-slate-500 group-hover:text-primary-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                        </svg>
+                                    </template>
+                                    <!-- Document icon -->
+                                    <template x-if="faq.icon === 'document'">
+                                        <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300" :class="faq.open ? 'text-white' : 'text-slate-500 group-hover:text-primary-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                        </svg>
+                                    </template>
+                                </div>
+
+                                <!-- Question text -->
+                                <div class="flex-1 min-w-0 pt-1">
+                                    <h3 class="font-display font-bold text-sm sm:text-base lg:text-lg transition-colors duration-300 pr-8"
+                                        :class="faq.open ? 'text-primary-700' : 'text-slate-800 group-hover:text-primary-600'"
+                                        x-text="faq.question"></h3>
+
+                                    <!-- Category badge -->
+                                    <div class="mt-2 flex items-center gap-2">
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-slate-100 text-slate-600"
+                                              x-text="faqCategories.find(c => c.id === faq.category)?.name || faq.category"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Toggle icon -->
+                                <div class="absolute right-4 sm:right-6 top-4 sm:top-6 flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300"
+                                     :class="faq.open ? 'bg-primary-100 rotate-180' : 'bg-slate-100 group-hover:bg-primary-50'">
+                                    <svg class="w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300"
+                                         :class="faq.open ? 'text-primary-600' : 'text-slate-400 group-hover:text-primary-500'"
+                                         fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </div>
+                            </button>
+
+                            <!-- Answer -->
+                            <div x-show="faq.open"
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0 max-h-0"
+                                 x-transition:enter-end="opacity-100 max-h-96"
+                                 x-transition:leave="transition ease-in duration-200"
+                                 x-transition:leave-start="opacity-100 max-h-96"
+                                 x-transition:leave-end="opacity-0 max-h-0"
+                                 class="overflow-hidden">
+                                <div class="px-4 sm:px-6 pb-4 sm:pb-6">
+                                    <div class="ml-0 sm:ml-16 pt-2 sm:pt-0">
+                                        <div class="h-px bg-gradient-to-r from-primary-200 via-accent-200 to-transparent mb-4"></div>
+                                        <p class="text-slate-600 leading-relaxed text-sm sm:text-[15px]" x-text="faq.answer"></p>
+
+                                        <!-- Action button -->
+                                        <div class="mt-4 flex items-center gap-3">
+                                            <a href="#contact" class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors">
+                                                <span>En savoir plus</span>
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </template>
             </div>
 
-            <!-- CTA Footer -->
-            <div class="mt-16 text-center">
-                <div class="inline-flex flex-col sm:flex-row items-center gap-4 p-6 bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                            </svg>
+            <!-- Stats Bar -->
+            <div class="mt-12 sm:mt-16 scroll-reveal">
+                <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 relative overflow-hidden">
+                    <!-- Decorative elements -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-accent-500/10 rounded-full blur-2xl"></div>
+
+                    <div class="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                        <!-- Stat 1 -->
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl lg:text-4xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">500+</div>
+                            <p class="text-slate-400 text-xs sm:text-sm font-medium mt-1">Clients accompagnés</p>
                         </div>
-                        <div class="text-left">
-                            <p class="text-white font-bold">Vous avez d'autres questions ?</p>
-                            <p class="text-slate-400 text-sm">Notre équipe est là pour vous aider</p>
+                        <!-- Stat 2 -->
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl lg:text-4xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">98%</div>
+                            <p class="text-slate-400 text-xs sm:text-sm font-medium mt-1">Taux de satisfaction</p>
+                        </div>
+                        <!-- Stat 3 -->
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl lg:text-4xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">24h</div>
+                            <p class="text-slate-400 text-xs sm:text-sm font-medium mt-1">Temps de réponse</p>
+                        </div>
+                        <!-- Stat 4 -->
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl lg:text-4xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">5+</div>
+                            <p class="text-slate-400 text-xs sm:text-sm font-medium mt-1">Années d'expérience</p>
                         </div>
                     </div>
-                    <a href="#contact" class="group inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 text-sm font-bold rounded-xl hover:bg-slate-100 transition-all duration-300">
-                        <span>Contactez-nous</span>
-                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
+
+                    <!-- CTA -->
+                    <div class="relative z-10 mt-8 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center gap-3 text-center sm:text-left">
+                            <div class="hidden sm:flex w-12 h-12 bg-white/10 rounded-xl items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-white font-bold text-sm sm:text-base">Vous avez d'autres questions ?</p>
+                                <p class="text-slate-400 text-xs sm:text-sm">Notre équipe est disponible pour vous aider</p>
+                            </div>
+                        </div>
+                        <a href="#contact" class="group inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-sm font-bold rounded-xl hover:shadow-lg hover:shadow-primary-500/25 transition-all duration-300">
+                            <span>Contactez-nous</span>
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
