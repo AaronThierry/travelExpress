@@ -1588,6 +1588,21 @@
                     'NE': 'Niger', 'GA': 'Gabon', 'CG': 'Congo', 'CD': 'RD Congo',
                     'MA': 'Maroc', 'TN': 'Tunisie', 'DZ': 'Algérie'
                 },
+                // Mapping noms de pays vers codes ISO
+                countryToCode: {
+                    'chine': 'cn', 'china': 'cn', 'allemagne': 'de', 'germany': 'de',
+                    'espagne': 'es', 'spain': 'es', 'france': 'fr',
+                    'sénégal': 'sn', 'senegal': 'sn', 'côte d\'ivoire': 'ci', 'ivory coast': 'ci',
+                    'mali': 'ml', 'cameroun': 'cm', 'cameroon': 'cm',
+                    'burkina faso': 'bf', 'burkina': 'bf', 'guinée': 'gn', 'guinea': 'gn',
+                    'togo': 'tg', 'bénin': 'bj', 'benin': 'bj',
+                    'niger': 'ne', 'gabon': 'ga', 'congo': 'cg', 'rd congo': 'cd', 'rdc': 'cd',
+                    'maroc': 'ma', 'morocco': 'ma', 'tunisie': 'tn', 'tunisia': 'tn',
+                    'algérie': 'dz', 'algeria': 'dz', 'canada': 'ca', 'usa': 'us',
+                    'états-unis': 'us', 'belgique': 'be', 'belgium': 'be', 'suisse': 'ch',
+                    'russie': 'ru', 'russia': 'ru', 'japon': 'jp', 'japan': 'jp',
+                    'turquie': 'tr', 'turkey': 'tr', 'inde': 'in', 'india': 'in'
+                },
                 init() {
                     this.loadTestimonials();
                 },
@@ -1633,10 +1648,22 @@
                 },
                 getFlagUrl(code) {
                     if (!code) return 'https://flagcdn.com/w40/xx.png';
-                    return `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
+                    // Si c'est déjà un code ISO (2 lettres), l'utiliser directement
+                    let isoCode = code.toLowerCase();
+                    if (isoCode.length > 2) {
+                        // Chercher dans le mapping des noms de pays
+                        isoCode = this.countryToCode[isoCode] || isoCode;
+                    }
+                    return `https://flagcdn.com/w40/${isoCode}.png`;
                 },
                 getCountryName(code) {
-                    return this.countryNames[code] || code || '';
+                    if (!code) return '';
+                    // D'abord chercher dans countryNames par code ISO
+                    if (this.countryNames[code.toUpperCase()]) {
+                        return this.countryNames[code.toUpperCase()];
+                    }
+                    // Sinon, capitaliser le nom du pays
+                    return code.charAt(0).toUpperCase() + code.slice(1).toLowerCase();
                 },
                 getVisibleCards() {
                     if (this.testimonials.length === 0) return [];
