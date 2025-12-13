@@ -1711,21 +1711,21 @@
             </div>
 
             <!-- Stats Premium -->
-            <div class="grid grid-cols-3 gap-4 md:gap-8 mb-16 max-w-3xl mx-auto scroll-reveal-stagger">
-                <div class="text-center p-6 bg-white rounded-2xl shadow-lg shadow-primary-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent">98%</div>
-                    <div class="text-slate-500 text-sm font-semibold mt-2 uppercase tracking-wider">Satisfaction</div>
+            <div class="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8 mb-10 sm:mb-16 max-w-3xl mx-auto scroll-reveal-stagger">
+                <div class="text-center p-3 sm:p-4 md:p-6 bg-white rounded-xl sm:rounded-2xl shadow-lg shadow-primary-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent">98%</div>
+                    <div class="text-slate-500 text-[10px] sm:text-xs md:text-sm font-semibold mt-1 sm:mt-2 uppercase tracking-wider">Satisfaction</div>
                 </div>
-                <div class="text-center p-6 bg-white rounded-2xl shadow-lg shadow-amber-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="flex items-baseline justify-center gap-1">
-                        <span class="text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">4.9</span>
-                        <span class="text-xl text-amber-500">/5</span>
+                <div class="text-center p-3 sm:p-4 md:p-6 bg-white rounded-xl sm:rounded-2xl shadow-lg shadow-amber-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex items-baseline justify-center gap-0.5 sm:gap-1">
+                        <span class="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">4.9</span>
+                        <span class="text-base sm:text-lg md:text-xl text-amber-500">/5</span>
                     </div>
-                    <div class="text-slate-500 text-sm font-semibold mt-2 uppercase tracking-wider">Note</div>
+                    <div class="text-slate-500 text-[10px] sm:text-xs md:text-sm font-semibold mt-1 sm:mt-2 uppercase tracking-wider">Note</div>
                 </div>
-                <div class="text-center p-6 bg-white rounded-2xl shadow-lg shadow-emerald-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">50+</div>
-                    <div class="text-slate-500 text-sm font-semibold mt-2 uppercase tracking-wider">Universités</div>
+                <div class="text-center p-3 sm:p-4 md:p-6 bg-white rounded-xl sm:rounded-2xl shadow-lg shadow-emerald-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">50+</div>
+                    <div class="text-slate-500 text-[10px] sm:text-xs md:text-sm font-semibold mt-1 sm:mt-2 uppercase tracking-wider">Universités</div>
                 </div>
             </div>
 
