@@ -1832,15 +1832,25 @@
                                             <!-- Info -->
                                             <div class="flex-1 min-w-0">
                                                 <h4 class="font-display font-bold text-slate-900 text-base truncate" x-text="testimonial.name"></h4>
-                                                <p class="text-slate-500 text-sm font-medium truncate" x-text="testimonial.program || 'Étudiant'"></p>
+                                                <p class="text-slate-500 text-sm font-medium truncate" x-text="testimonial.program || 'student'"></p>
                                             </div>
 
-                                            <!-- Destination Badge with PNG Flag -->
-                                            <div class="flex-shrink-0 px-3 py-2 bg-gradient-to-r from-primary-50 to-accent-50 rounded-xl border border-primary-100">
+                                            <!-- Trajet: Départ → Destination -->
+                                            <div class="flex-shrink-0 px-3 py-2 bg-gradient-to-r from-slate-50 to-primary-50 rounded-xl border border-slate-200">
                                                 <div class="flex items-center gap-2">
+                                                    <!-- Départ (pays de l'utilisateur) -->
+                                                    <img :src="getFlagUrl(testimonial.country)"
+                                                         :alt="getCountryName(testimonial.country)"
+                                                         class="w-6 h-4 object-cover rounded shadow-sm"
+                                                         onerror="this.style.display='none'">
+                                                    <!-- Flèche -->
+                                                    <svg class="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                                    </svg>
+                                                    <!-- Destination -->
                                                     <img :src="getFlagUrl(testimonial.destination)"
                                                          :alt="getCountryName(testimonial.destination)"
-                                                         class="w-7 h-5 object-cover rounded shadow-sm"
+                                                         class="w-6 h-4 object-cover rounded shadow-sm"
                                                          onerror="this.style.display='none'">
                                                     <span class="text-xs font-bold text-primary-700" x-text="getCountryName(testimonial.destination)"></span>
                                                 </div>
@@ -2435,6 +2445,7 @@
                                 </svg>
                             </button>
 
+                            
                             <!-- Trust badges -->
                             <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 pt-4">
                                 <div class="flex items-center gap-1.5 sm:gap-2 text-slate-500 text-[11px] sm:text-xs">
