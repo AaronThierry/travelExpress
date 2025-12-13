@@ -59,40 +59,78 @@
             -webkit-backdrop-filter: blur(10px);
         }
 
-        /* Cards élégantes */
+        /* Cards élégantes - Style premium */
         .elegant-card {
-            background: white;
-            border-radius: 1rem;
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 1.25rem;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow:
+                0 1px 2px rgba(0, 0, 0, 0.02),
+                0 4px 12px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .elegant-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.03) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
         .elegant-card:hover {
-            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
+            box-shadow:
+                0 4px 6px rgba(0, 0, 0, 0.02),
+                0 12px 40px rgba(99, 102, 241, 0.08),
+                0 0 0 1px rgba(99, 102, 241, 0.1);
+            transform: translateY(-4px);
         }
 
-        /* Stats card avec accent */
+        .elegant-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Stats card avec accent coloré */
         .stat-card {
             position: relative;
             overflow: hidden;
         }
 
-        .stat-card::before {
+        .stat-card::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
+            height: 4px;
             background: linear-gradient(90deg, var(--accent-color, #6366f1), var(--accent-end, #818cf8));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .stat-card:hover::before {
-            opacity: 1;
+        .stat-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Decorative glow effect */
+        .stat-card .glow {
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, var(--accent-color, #6366f1) 0%, transparent 70%);
+            opacity: 0.04;
+            border-radius: 50%;
+            transition: opacity 0.4s ease;
+        }
+
+        .stat-card:hover .glow {
+            opacity: 0.08;
         }
 
         .stat-card.accent-blue { --accent-color: #3b82f6; --accent-end: #60a5fa; }
@@ -100,20 +138,38 @@
         .stat-card.accent-amber { --accent-color: #f59e0b; --accent-end: #fbbf24; }
         .stat-card.accent-violet { --accent-color: #8b5cf6; --accent-end: #a78bfa; }
 
-        /* Icon containers */
+        /* Icon containers avec effet moderne */
         .icon-container {
             position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover .icon-container {
+            transform: scale(1.1);
         }
 
         .icon-container::after {
             content: '';
             position: absolute;
-            inset: -4px;
-            border-radius: 12px;
+            inset: -6px;
+            border-radius: 14px;
             background: inherit;
-            opacity: 0.3;
-            filter: blur(8px);
+            opacity: 0.25;
+            filter: blur(10px);
             z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover .icon-container::after {
+            opacity: 0.4;
+        }
+
+        /* Stat value animation */
+        .stat-value {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         /* Section headers */

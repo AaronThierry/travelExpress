@@ -17,53 +17,56 @@
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Utilisateurs -->
         <div class="elegant-card stat-card accent-blue p-5">
-            <div class="flex items-center justify-between mb-3">
-                <div class="icon-container w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div class="glow"></div>
+            <div class="flex items-center justify-between mb-3 relative z-10">
+                <div class="icon-container w-11 h-11 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl flex items-center justify-center shadow-sm">
                     <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                 </div>
-                <span id="users-growth" class="text-xs font-medium px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 hidden">+0%</span>
+                <span id="users-growth" class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 hidden">+0%</span>
             </div>
-            <p class="text-2xl font-bold text-slate-900" id="total-users">0</p>
-            <p class="text-sm text-slate-500 mt-1">Utilisateurs</p>
-            <p class="text-xs text-slate-400 mt-2" id="new-users-text">+0 ce mois</p>
+            <p class="text-3xl font-bold stat-value relative z-10" id="total-users">0</p>
+            <p class="text-sm text-slate-500 mt-1 font-medium relative z-10">Utilisateurs</p>
+            <p class="text-xs text-blue-500 mt-2 font-medium relative z-10" id="new-users-text">+0 ce mois</p>
         </div>
 
         <!-- Témoignages -->
         <div class="elegant-card stat-card accent-green p-5">
-            <div class="flex items-center justify-between mb-3">
-                <div class="icon-container w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+            <div class="glow"></div>
+            <div class="flex items-center justify-between mb-3 relative z-10">
+                <div class="icon-container w-11 h-11 bg-gradient-to-br from-emerald-100 to-emerald-50 rounded-xl flex items-center justify-center shadow-sm">
                     <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                     </svg>
                 </div>
-                <div class="flex items-center gap-1 text-amber-500">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <div class="flex items-center gap-1.5 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+                    <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                     </svg>
-                    <span id="avg-rating" class="text-xs font-semibold">0</span>
+                    <span id="avg-rating" class="text-xs font-semibold text-amber-600">0</span>
                 </div>
             </div>
-            <p class="text-2xl font-bold text-slate-900" id="total-testimonials">0</p>
-            <p class="text-sm text-slate-500 mt-1">Témoignages</p>
-            <p class="text-xs text-emerald-600 mt-2" id="approved-text">0 approuvés</p>
+            <p class="text-3xl font-bold stat-value relative z-10" id="total-testimonials">0</p>
+            <p class="text-sm text-slate-500 mt-1 font-medium relative z-10">Témoignages</p>
+            <p class="text-xs text-emerald-500 mt-2 font-medium relative z-10" id="approved-text">0 approuvés</p>
         </div>
 
         <!-- En attente -->
         <div class="elegant-card stat-card accent-amber p-5">
-            <div class="flex items-center justify-between mb-3">
-                <div class="icon-container w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+            <div class="glow"></div>
+            <div class="flex items-center justify-between mb-3 relative z-10">
+                <div class="icon-container w-11 h-11 bg-gradient-to-br from-amber-100 to-amber-50 rounded-xl flex items-center justify-center shadow-sm">
                     <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </div>
             </div>
-            <p class="text-2xl font-bold text-slate-900" id="pending-testimonials">0</p>
-            <p class="text-sm text-slate-500 mt-1">En attente</p>
-            <a href="/admin/testimonials" class="text-xs text-indigo-600 hover:text-indigo-700 font-medium mt-2 inline-flex items-center gap-1">
+            <p class="text-3xl font-bold stat-value relative z-10" id="pending-testimonials">0</p>
+            <p class="text-sm text-slate-500 mt-1 font-medium relative z-10">En attente</p>
+            <a href="/admin/testimonials" class="relative z-10 text-xs text-indigo-600 hover:text-indigo-700 font-medium mt-2 inline-flex items-center gap-1 group">
                 Modérer
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-3 h-3 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
             </a>
@@ -71,16 +74,17 @@
 
         <!-- Ce mois -->
         <div class="elegant-card stat-card accent-violet p-5">
-            <div class="flex items-center justify-between mb-3">
-                <div class="icon-container w-10 h-10 bg-violet-100 rounded-lg flex items-center justify-center">
+            <div class="glow"></div>
+            <div class="flex items-center justify-between mb-3 relative z-10">
+                <div class="icon-container w-11 h-11 bg-gradient-to-br from-violet-100 to-violet-50 rounded-xl flex items-center justify-center shadow-sm">
                     <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
                 </div>
             </div>
-            <p class="text-2xl font-bold text-slate-900" id="new-testimonials-month">0</p>
-            <p class="text-sm text-slate-500 mt-1">Ce mois-ci</p>
-            <p class="text-xs text-slate-400 mt-2">Nouveaux témoignages</p>
+            <p class="text-3xl font-bold stat-value relative z-10" id="new-testimonials-month">0</p>
+            <p class="text-sm text-slate-500 mt-1 font-medium relative z-10">Ce mois-ci</p>
+            <p class="text-xs text-violet-500 mt-2 font-medium relative z-10">Nouveaux témoignages</p>
         </div>
     </div>
 
