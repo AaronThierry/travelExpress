@@ -217,12 +217,12 @@
             </div>
         </div>
 
-        <!-- Main Navigation - Single Line Layout -->
-        <div class="w-full px-4 sm:px-6 lg:px-8">
-            <nav class="flex items-center justify-between h-[70px] sm:h-[80px]">
+        <!-- Main Navigation - Full Width -->
+        <div class="w-full px-2 sm:px-4">
+            <nav class="flex items-center justify-between h-[70px] sm:h-[85px]">
                 <!-- Logo -->
                 <a href="#" class="flex items-center group relative flex-shrink-0">
-                    <img src="/images/logo/logo_travel.png" alt="Travel Express" class="h-12 sm:h-14 w-auto transition-transform duration-300 group-hover:scale-105">
+                    <img src="/images/logo/logo_travel.png" alt="Travel Express" class="h-14 sm:h-[70px] w-auto transition-transform duration-300 group-hover:scale-105">
                 </a>
 
                 <!-- Center Navigation + Actions (All in One Line) -->
