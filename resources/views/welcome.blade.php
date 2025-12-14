@@ -498,27 +498,27 @@
                 </template>
 
                 <!-- Action Buttons -->
-                <div class="pt-4 space-y-3">
+                <div class="pt-4 space-y-2.5">
                     <!-- Login button (if not logged in) -->
                     <template x-if="!mobileUser">
-                        <a href="/login" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-5 py-3 border-2 border-primary-600 text-primary-600 font-semibold rounded-xl hover:bg-primary-50 transition-all">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <a href="/login" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-4 py-2.5 border-2 border-primary-600 text-primary-600 font-medium text-sm rounded-xl hover:bg-primary-50 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
                             <span>Connexion</span>
                         </a>
                     </template>
 
-                    <a href="/bourse" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-5 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <a href="/bourse" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-4 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium text-sm rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                         </svg>
                         <span>Ma Bourse</span>
                     </a>
 
-                    <a href="#contact" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-5 py-3 bg-gradient-to-r from-accent-600 to-accent-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all">
+                    <a href="#contact" @click="mobileMenuOpen = false" class="flex items-center justify-center space-x-2 w-full px-4 py-2.5 bg-gradient-to-r from-accent-600 to-accent-500 text-white font-medium text-sm rounded-xl hover:shadow-lg transition-all">
                         <span>Postuler</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
                     </a>
