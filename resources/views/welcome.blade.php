@@ -218,15 +218,15 @@
         </div>
 
         <!-- Main Navigation - Full Width -->
-        <div class="w-full px-2 sm:px-4">
+        <div class="w-full">
             <nav class="flex items-center justify-between h-[70px] sm:h-[85px]">
                 <!-- Logo -->
-                <a href="#" class="flex items-center group relative flex-shrink-0">
+                <a href="#" class="flex items-center group relative flex-shrink-0 pl-1">
                     <img src="/images/logo/logo_travel.png" alt="Travel Express" class="h-14 sm:h-[70px] w-auto transition-transform duration-300 group-hover:scale-105">
                 </a>
 
                 <!-- Center Navigation + Actions (All in One Line) -->
-                <div class="hidden xl:flex items-center justify-end flex-1 space-x-2">
+                <div class="hidden xl:flex items-center justify-end flex-1 space-x-2 pr-2">
                     <!-- Navigation Links -->
                     <a href="#programmes" class="relative px-3 py-2 text-sm font-semibold text-gray-600 hover:text-dark transition-all duration-300 group">
                         <span class="relative z-10">Programmes</span>
@@ -378,7 +378,7 @@
                 </div>
 
                 <!-- Enhanced Mobile Menu Button -->
-                <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2.5 text-dark hover:bg-gray-100 rounded-xl transition-colors">
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2.5 mr-1 text-dark hover:bg-gray-100 rounded-xl transition-colors">
                     <div class="burger-icon" :class="{ 'burger-open': mobileMenuOpen }">
                         <div class="burger-line"></div>
                         <div class="burger-line"></div>
