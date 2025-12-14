@@ -3677,5 +3677,49 @@
             });
         });
     </script>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top"
+            onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+            class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-2xl shadow-lg shadow-primary-500/30 flex items-center justify-center opacity-0 invisible translate-y-4 transition-all duration-300 hover:from-primary-600 hover:to-primary-700 hover:shadow-xl hover:shadow-primary-500/40 hover:-translate-y-1 hover:scale-105 group">
+        <!-- Arrow Icon -->
+        <svg class="w-6 h-6 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+        <!-- Pulse Ring -->
+        <span class="absolute inset-0 rounded-2xl bg-primary-400 animate-ping opacity-20"></span>
+        <!-- Glow Effect -->
+        <span class="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-400 to-primary-600 blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-300"></span>
+    </button>
+
+    <script>
+        // Scroll to Top Button Visibility
+        (function() {
+            const scrollBtn = document.getElementById('scroll-to-top');
+            let lastScrollY = 0;
+            let ticking = false;
+
+            function updateButton() {
+                const scrollY = window.scrollY;
+
+                if (scrollY > 400) {
+                    scrollBtn.classList.remove('opacity-0', 'invisible', 'translate-y-4');
+                    scrollBtn.classList.add('opacity-100', 'visible', 'translate-y-0');
+                } else {
+                    scrollBtn.classList.add('opacity-0', 'invisible', 'translate-y-4');
+                    scrollBtn.classList.remove('opacity-100', 'visible', 'translate-y-0');
+                }
+
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateButton);
+                    ticking = true;
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
