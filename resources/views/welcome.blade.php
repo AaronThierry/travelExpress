@@ -2789,17 +2789,17 @@
             <div class="w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-12 sm:py-16">
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12">
                     <!-- Company Info -->
-                    <div class="col-span-2 lg:col-span-2">
-                        <div class="flex items-center space-x-3 mb-6">
+                    <div class="col-span-2 lg:col-span-2 text-center md:text-left">
+                        <div class="flex items-center justify-center md:justify-start space-x-3 mb-6">
                             <!-- Logo -->
                             <img src="/images/logo/logo_travel.png" alt="Travel Express" class="h-24 sm:h-28 w-auto">
                         </div>
-                        <p class="text-gray-400 leading-relaxed mb-6 max-w-sm">
+                        <p class="text-gray-400 leading-relaxed mb-6 max-w-sm mx-auto md:mx-0">
                             Votre partenaire de confiance pour réaliser vos rêves d'études et de business à l'international. Accompagnement personnalisé et expertise reconnue.
                         </p>
 
                         <!-- Social Links -->
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center md:justify-start gap-3">
                             <a href="#" class="group w-11 h-11 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-primary-500 hover:border-primary-500 transition-all duration-300">
                                 <svg class="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
