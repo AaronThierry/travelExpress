@@ -2792,7 +2792,7 @@
                     <div class="col-span-2 lg:col-span-2">
                         <div class="flex items-center space-x-3 mb-6">
                             <!-- Logo -->
-                            <img src="/images/logo/logo_travel.png" alt="Travel Express" class="h-14 w-auto">
+                            <img src="/images/logo/logo_travel.png" alt="Travel Express" class="h-24 sm:h-28 w-auto">
                         </div>
                         <p class="text-gray-400 leading-relaxed mb-6 max-w-sm">
                             Votre partenaire de confiance pour réaliser vos rêves d'études et de business à l'international. Accompagnement personnalisé et expertise reconnue.
