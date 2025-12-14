@@ -220,20 +220,9 @@
         <!-- Main Navigation - Single Line Layout -->
         <div class="w-full px-4 sm:px-6 lg:px-8">
             <nav class="flex items-center justify-between h-[70px] sm:h-[80px]">
-                <!-- Logo - Compact & Modern -->
-                <a href="#" class="flex items-center space-x-3 group relative flex-shrink-0">
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-br from-primary-600 via-accent-500 to-accent-600 rounded-xl blur-lg opacity-20 group-hover:opacity-40 transition-all duration-500"></div>
-                        <div class="relative w-12 h-12 bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg shadow-primary-600/20">
-                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-xl font-display font-extrabold text-dark leading-none group-hover:text-primary-600 transition-colors duration-300">Travel Express</span>
-                        <span class="text-[9px] font-sans font-bold text-primary-600 tracking-widest uppercase leading-none mt-0.5 opacity-80">Study Abroad</span>
-                    </div>
+                <!-- Logo -->
+                <a href="#" class="flex items-center group relative flex-shrink-0">
+                    <img src="/images/logo/logo_travel.png" alt="Travel Express" class="h-12 sm:h-14 w-auto transition-transform duration-300 group-hover:scale-105">
                 </a>
 
                 <!-- Center Navigation + Actions (All in One Line) -->
@@ -2802,17 +2791,8 @@
                     <!-- Company Info -->
                     <div class="col-span-2 lg:col-span-2">
                         <div class="flex items-center space-x-3 mb-6">
-                            <!-- Logo placeholder - remplacer par votre logo -->
-                            <div class="w-12 h-12 bg-gradient-to-br from-primary-400 via-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg shadow-primary-500/30">
-                                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <!-- Ou utilisez une image: <img src="/images/logo/logo.png" alt="Travel Express" class="h-12"> -->
-                            <div>
-                                <span class="text-xl font-display font-bold text-white">Travel Express</span>
-                                <p class="text-xs text-primary-400 font-medium">Burkina Faso</p>
-                            </div>
+                            <!-- Logo -->
+                            <img src="/images/logo/logo_travel.png" alt="Travel Express" class="h-14 w-auto">
                         </div>
                         <p class="text-gray-400 leading-relaxed mb-6 max-w-sm">
                             Votre partenaire de confiance pour réaliser vos rêves d'études et de business à l'international. Accompagnement personnalisé et expertise reconnue.
