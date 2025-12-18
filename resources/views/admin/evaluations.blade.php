@@ -872,9 +872,17 @@
         container.style.top = '0';
         document.body.appendChild(container);
 
+        // Get the actual content element
+        const pdfContent = container.querySelector('#pdf-content');
+        if (!pdfContent) {
+            showToast('error', 'Erreur', 'Impossible de générer le contenu PDF');
+            document.body.removeChild(container);
+            return;
+        }
+
         // Wait for fonts to load
         await document.fonts.ready;
-        await new Promise(resolve => setTimeout(resolve, 300));
+        await new Promise(resolve => setTimeout(resolve, 500));
 
         // PDF options
         const opt = {
@@ -885,7 +893,8 @@
                 scale: 2,
                 useCORS: true,
                 letterRendering: true,
-                logging: false
+                logging: false,
+                allowTaint: true
             },
             jsPDF: {
                 unit: 'mm',
@@ -895,7 +904,7 @@
         };
 
         try {
-            await html2pdf().set(opt).from(container.firstChild).save();
+            await html2pdf().set(opt).from(pdfContent).save();
             showToast('success', 'PDF téléchargé', 'Document créé avec succès');
         } catch (err) {
             console.error('PDF Error:', err);
