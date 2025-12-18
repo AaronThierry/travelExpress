@@ -671,7 +671,7 @@
         return date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     }
 
-    // Export PDF Function - Elegant pdfmake Design
+    // Export PDF Function - Premium Design
     async function exportPDF(id) {
         if (!window.pdfMake) {
             showToast('error', 'Erreur', 'La bibliothèque PDF n\'est pas encore chargée. Réessayez.');
@@ -695,15 +695,27 @@
 
         showToast('success', 'Génération PDF', 'Création du document en cours...');
 
-        // Colors
-        const emerald = '#10B981';
-        const emeraldDark = '#059669';
-        const dark = '#111827';
-        const gray = '#6B7280';
-        const lightGray = '#9CA3AF';
-        const bgLight = '#F9FAFB';
+        // Premium color palette
+        const colors = {
+            primary: '#047857',      // Emerald 700
+            primaryLight: '#10B981', // Emerald 500
+            primaryBg: '#ECFDF5',    // Emerald 50
+            gold: '#D97706',         // Amber 600
+            goldLight: '#FEF3C7',    // Amber 100
+            dark: '#1F2937',         // Gray 800
+            text: '#374151',         // Gray 700
+            muted: '#6B7280',        // Gray 500
+            light: '#9CA3AF',        // Gray 400
+            border: '#E5E7EB',       // Gray 200
+            bg: '#F9FAFB',           // Gray 50
+            white: '#FFFFFF',
+            success: '#059669',
+            successBg: '#D1FAE5',
+            warning: '#D97706',
+            warningBg: '#FEF3C7'
+        };
 
-        // Prepare ratings data
+        // Prepare data
         const ratingsData = [
             { label: 'Accompagnement', value: e.rating_accompagnement },
             { label: 'Communication', value: e.rating_communication },
@@ -711,373 +723,334 @@
             { label: 'Qualité/Prix', value: e.rating_rapport_qualite_prix }
         ].filter(r => r.value);
 
-        // Stars for rating
-        const starsText = '★'.repeat(e.rating) + '☆'.repeat(5 - e.rating);
-
-        // Source clean
         const srcClean = getDiscoverySourceLabel(e.discovery_source).replace(/[^\w\s\-àâäéèêëïîôùûüçÀÂÄÉÈÊËÏÎÔÙÛÜÇ\']/g, '').trim();
+        let story = e.project_story || '';
+        if (story.length > 600) story = story.substring(0, 597) + '...';
 
-        // Truncate story
-        let story = e.project_story || 'Aucun témoignage fourni.';
-        if (story.length > 800) story = story.substring(0, 797) + '...';
-
-        // Build document definition
+        // Premium document definition
         const docDefinition = {
             pageSize: 'A4',
             pageMargins: [0, 0, 0, 0],
-            defaultStyle: {
-                font: 'Roboto'
-            },
             content: [
-                // Top accent bar
+                // === HEADER BAND ===
                 {
                     canvas: [
-                        { type: 'rect', x: 0, y: 0, w: 595, h: 8, color: emerald }
+                        { type: 'rect', x: 0, y: 0, w: 595, h: 100, color: colors.primary }
                     ]
                 },
-
-                // Header section
+                // Logo text on header
                 {
-                    margin: [40, 25, 40, 0],
-                    columns: [
+                    text: 'TRAVEL EXPRESS',
+                    fontSize: 28,
+                    bold: true,
+                    color: colors.white,
+                    margin: [45, -85, 0, 0],
+                    characterSpacing: 2
+                },
+                {
+                    text: 'Excellence • Accompagnement • Réussite',
+                    fontSize: 10,
+                    color: '#A7F3D0',
+                    margin: [45, 2, 0, 0],
+                    italics: true
+                },
+                // Document badge
+                {
+                    absolutePosition: { x: 420, y: 25 },
+                    stack: [
                         {
-                            width: '*',
-                            stack: [
-                                { text: 'TRAVEL EXPRESS', style: 'logo' },
-                                { text: 'Votre partenaire pour les études à l\'étranger', style: 'tagline', margin: [0, 2, 0, 0] }
+                            canvas: [
+                                { type: 'rect', x: 0, y: 0, w: 130, h: 55, r: 6, color: 'rgba(255,255,255,0.15)' }
                             ]
                         },
                         {
-                            width: 'auto',
-                            alignment: 'right',
-                            stack: [
-                                { text: 'FICHE D\'ÉVALUATION', style: 'docType' },
-                                { text: `#${String(e.id).padStart(4, '0')}`, style: 'docNumber' }
-                            ]
+                            text: 'FICHE D\'ÉVALUATION',
+                            fontSize: 8,
+                            color: '#A7F3D0',
+                            margin: [15, -45, 0, 0],
+                            characterSpacing: 1
+                        },
+                        {
+                            text: `N° ${String(e.id).padStart(4, '0')}`,
+                            fontSize: 22,
+                            bold: true,
+                            color: colors.white,
+                            margin: [15, 3, 0, 0]
                         }
                     ]
                 },
 
-                // Separator line
+                // === MAIN CONTENT CARD ===
                 {
-                    margin: [40, 15, 40, 20],
-                    canvas: [
-                        { type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 2, lineColor: emerald }
-                    ]
-                },
-
-                // Main info section with rating card
-                {
-                    margin: [40, 0, 40, 0],
-                    columns: [
-                        {
-                            width: '*',
-                            stack: [
-                                // Name with decorative element
-                                {
-                                    columns: [
-                                        {
-                                            width: 50,
-                                            stack: [
-                                                {
-                                                    canvas: [
-                                                        { type: 'rect', x: 0, y: 0, w: 45, h: 45, r: 8, color: emerald }
-                                                    ]
-                                                },
-                                                {
-                                                    text: `${(e.first_name?.charAt(0) || '?')}${(e.last_name?.charAt(0) || '?')}`,
-                                                    style: 'initials',
-                                                    relativePosition: { x: 0, y: -35 }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            width: '*',
-                                            margin: [10, 0, 0, 0],
-                                            stack: [
-                                                { text: `${e.first_name} ${e.last_name}`, style: 'name' },
-                                                { text: e.email || '', style: 'email' },
-                                                e.phone ? { text: e.phone, style: 'phone' } : {}
-                                            ]
-                                        }
-                                    ]
-                                },
-
-                                // Info grid
-                                {
-                                    margin: [0, 20, 0, 0],
-                                    layout: 'noBorders',
-                                    table: {
-                                        widths: ['50%', '50%'],
-                                        body: [
-                                            [
-                                                { stack: [{ text: 'UNIVERSITÉ', style: 'label' }, { text: e.university || '—', style: 'value' }] },
-                                                { stack: [{ text: 'PAYS D\'ÉTUDES', style: 'label' }, { text: e.country_of_study || '—', style: 'value' }] }
-                                            ],
-                                            [
-                                                { stack: [{ text: 'NIVEAU', style: 'label' }, { text: getStudyLevelLabel(e.study_level), style: 'value' }], margin: [0, 8, 0, 0] },
-                                                { stack: [{ text: 'FILIÈRE', style: 'label' }, { text: e.field_of_study || '—', style: 'value' }], margin: [0, 8, 0, 0] }
-                                            ],
-                                            [
-                                                { stack: [{ text: 'SERVICE UTILISÉ', style: 'label' }, { text: getServiceLabel(e.service_used), style: 'value' }], margin: [0, 8, 0, 0] },
-                                                { stack: [{ text: 'SOURCE', style: 'label' }, { text: srcClean, style: 'value' }], margin: [0, 8, 0, 0] }
-                                            ]
-                                        ]
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            width: 120,
-                            margin: [15, 0, 0, 0],
-                            stack: [
-                                {
-                                    layout: 'noBorders',
-                                    table: {
-                                        widths: ['*'],
-                                        body: [[
+                    margin: [35, 20, 35, 0],
+                    layout: {
+                        hLineWidth: () => 0,
+                        vLineWidth: () => 0,
+                        paddingLeft: () => 0,
+                        paddingRight: () => 0,
+                        paddingTop: () => 0,
+                        paddingBottom: () => 0
+                    },
+                    table: {
+                        widths: ['*'],
+                        body: [[
+                            {
+                                stack: [
+                                    // Person info row
+                                    {
+                                        margin: [25, 20, 25, 0],
+                                        columns: [
+                                            // Avatar + Name
                                             {
-                                                fillColor: '#ECFDF5',
-                                                stack: [
-                                                    { text: 'NOTE GLOBALE', style: 'ratingLabel', margin: [0, 15, 0, 5] },
-                                                    { text: `${e.rating}`, style: 'ratingBig' },
-                                                    { text: '/5', style: 'ratingSmall', margin: [0, -5, 0, 5] },
-                                                    { text: starsText, style: 'stars' },
+                                                width: '*',
+                                                columns: [
                                                     {
-                                                        margin: [10, 10, 10, 15],
+                                                        width: 55,
+                                                        stack: [
+                                                            {
+                                                                canvas: [
+                                                                    { type: 'ellipse', x: 25, y: 25, r1: 25, r2: 25, color: colors.primary }
+                                                                ]
+                                                            },
+                                                            {
+                                                                text: `${(e.first_name?.charAt(0) || '').toUpperCase()}${(e.last_name?.charAt(0) || '').toUpperCase()}`,
+                                                                fontSize: 20,
+                                                                bold: true,
+                                                                color: colors.white,
+                                                                alignment: 'center',
+                                                                margin: [0, -38, 0, 0]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        width: '*',
+                                                        margin: [12, 5, 0, 0],
+                                                        stack: [
+                                                            { text: `${e.first_name} ${e.last_name}`, fontSize: 18, bold: true, color: colors.dark },
+                                                            { text: e.email || '', fontSize: 10, color: colors.muted, margin: [0, 3, 0, 0] },
+                                                            e.phone ? { text: e.phone, fontSize: 9, color: colors.light, margin: [0, 2, 0, 0] } : {}
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            // Rating box
+                                            {
+                                                width: 100,
+                                                stack: [
+                                                    {
+                                                        canvas: [
+                                                            { type: 'rect', x: 0, y: 0, w: 100, h: 80, r: 10, color: colors.primaryBg }
+                                                        ]
+                                                    },
+                                                    { text: 'NOTE', fontSize: 8, color: colors.primary, alignment: 'center', margin: [0, -70, 0, 0], bold: true },
+                                                    { text: `${e.rating}`, fontSize: 36, bold: true, color: colors.primary, alignment: 'center', margin: [0, -2, 0, 0] },
+                                                    { text: '/ 5', fontSize: 12, color: colors.primaryLight, alignment: 'center', margin: [0, -5, 0, 0] },
+                                                    {
+                                                        text: e.would_recommend ? '✓ Recommandé' : '✗ Non recommandé',
+                                                        fontSize: 7,
+                                                        bold: true,
+                                                        color: e.would_recommend ? colors.success : '#DC2626',
+                                                        alignment: 'center',
+                                                        margin: [0, 5, 0, 0]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+
+                                    // Separator
+                                    {
+                                        margin: [25, 18, 25, 18],
+                                        canvas: [
+                                            { type: 'line', x1: 0, y1: 0, x2: 475, y2: 0, lineWidth: 1, lineColor: colors.border }
+                                        ]
+                                    },
+
+                                    // Info grid (2 columns x 3 rows)
+                                    {
+                                        margin: [25, 0, 25, 0],
+                                        columns: [
+                                            {
+                                                width: '50%',
+                                                stack: [
+                                                    { text: 'UNIVERSITÉ', fontSize: 7, color: colors.light, characterSpacing: 0.5 },
+                                                    { text: e.university || '—', fontSize: 11, color: colors.dark, margin: [0, 2, 0, 12] },
+                                                    { text: 'NIVEAU D\'ÉTUDES', fontSize: 7, color: colors.light, characterSpacing: 0.5 },
+                                                    { text: getStudyLevelLabel(e.study_level), fontSize: 11, color: colors.dark, margin: [0, 2, 0, 12] },
+                                                    { text: 'SERVICE UTILISÉ', fontSize: 7, color: colors.light, characterSpacing: 0.5 },
+                                                    { text: getServiceLabel(e.service_used), fontSize: 11, color: colors.dark, margin: [0, 2, 0, 0] }
+                                                ]
+                                            },
+                                            {
+                                                width: '50%',
+                                                stack: [
+                                                    { text: 'PAYS D\'ÉTUDES', fontSize: 7, color: colors.light, characterSpacing: 0.5 },
+                                                    { text: e.country_of_study || '—', fontSize: 11, color: colors.dark, margin: [0, 2, 0, 12] },
+                                                    { text: 'FILIÈRE', fontSize: 7, color: colors.light, characterSpacing: 0.5 },
+                                                    { text: e.field_of_study || '—', fontSize: 11, color: colors.dark, margin: [0, 2, 0, 12] },
+                                                    { text: 'SOURCE', fontSize: 7, color: colors.light, characterSpacing: 0.5 },
+                                                    { text: srcClean, fontSize: 11, color: colors.dark, margin: [0, 2, 0, 0] }
+                                                ]
+                                            }
+                                        ]
+                                    },
+
+                                    // Ratings bars (if available)
+                                    ratingsData.length > 0 ? {
+                                        margin: [25, 20, 25, 0],
+                                        layout: 'noBorders',
+                                        table: {
+                                            widths: ratingsData.map(() => '*'),
+                                            body: [[
+                                                ...ratingsData.map(r => ({
+                                                    stack: [
+                                                        { text: r.label, fontSize: 8, color: colors.muted, alignment: 'center' },
+                                                        {
+                                                            margin: [5, 6, 5, 4],
+                                                            canvas: [
+                                                                { type: 'rect', x: 0, y: 0, w: 90, h: 8, r: 4, color: colors.border },
+                                                                { type: 'rect', x: 0, y: 0, w: 90 * (r.value/5), h: 8, r: 4, color: colors.primaryLight }
+                                                            ]
+                                                        },
+                                                        { text: `${r.value}/5`, fontSize: 11, bold: true, color: colors.dark, alignment: 'center' }
+                                                    ],
+                                                    fillColor: colors.bg,
+                                                    margin: [0, 8, 0, 8]
+                                                }))
+                                            ]]
+                                        }
+                                    } : {},
+
+                                    // Testimonial section
+                                    story ? {
+                                        margin: [25, 20, 25, 0],
+                                        stack: [
+                                            {
+                                                columns: [
+                                                    {
+                                                        width: 25,
+                                                        text: '«',
+                                                        fontSize: 40,
+                                                        color: colors.primaryLight,
+                                                        margin: [0, -10, 0, 0]
+                                                    },
+                                                    {
+                                                        width: '*',
+                                                        stack: [
+                                                            { text: 'TÉMOIGNAGE', fontSize: 9, bold: true, color: colors.primary, characterSpacing: 1, margin: [0, 0, 0, 8] },
+                                                            { text: story, fontSize: 10, color: colors.text, lineHeight: 1.5, italics: true }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    } : {},
+
+                                    // Comment (if exists)
+                                    e.comment ? {
+                                        margin: [25, 15, 25, 0],
+                                        layout: 'noBorders',
+                                        table: {
+                                            widths: [4, '*'],
+                                            body: [[
+                                                { text: '', fillColor: colors.gold },
+                                                {
+                                                    fillColor: colors.goldLight,
+                                                    stack: [
+                                                        { text: 'COMMENTAIRE ADDITIONNEL', fontSize: 8, bold: true, color: colors.gold, margin: [12, 10, 12, 5], characterSpacing: 0.5 },
+                                                        { text: e.comment.length > 200 ? e.comment.substring(0, 197) + '...' : e.comment, fontSize: 9, color: '#92400E', margin: [12, 0, 12, 10], italics: true }
+                                                    ]
+                                                }
+                                            ]]
+                                        }
+                                    } : {},
+
+                                    // Signature & Status row
+                                    {
+                                        margin: [25, 20, 25, 20],
+                                        columns: [
+                                            // Signature
+                                            {
+                                                width: '*',
+                                                stack: [
+                                                    { text: 'SIGNATURE', fontSize: 8, color: colors.light, characterSpacing: 0.5, margin: [0, 0, 0, 8] },
+                                                    {
+                                                        canvas: [
+                                                            { type: 'rect', x: 0, y: 0, w: 280, h: 60, lineWidth: 1, lineColor: colors.border, dash: { length: 4, space: 2 } }
+                                                        ]
+                                                    },
+                                                    e.signature ? {
+                                                        image: e.signature,
+                                                        width: 140,
+                                                        height: 45,
+                                                        margin: [10, -55, 0, 0]
+                                                    } : {
+                                                        text: 'Document non signé',
+                                                        fontSize: 9,
+                                                        color: colors.light,
+                                                        italics: true,
+                                                        margin: [0, -40, 0, 0],
+                                                        alignment: 'center'
+                                                    },
+                                                    e.signed_at ? { text: `Signé le ${formatDate(e.signed_at)}`, fontSize: 8, color: colors.light, margin: [0, e.signature ? 5 : 25, 0, 0] } : {}
+                                                ]
+                                            },
+                                            // Verification status
+                                            {
+                                                width: 120,
+                                                margin: [20, 0, 0, 0],
+                                                stack: [
+                                                    { text: 'STATUT', fontSize: 8, color: colors.light, characterSpacing: 0.5, margin: [0, 0, 0, 8] },
+                                                    {
+                                                        layout: 'noBorders',
                                                         table: {
                                                             widths: ['*'],
                                                             body: [[
                                                                 {
-                                                                    text: e.would_recommend ? '✓ Recommande' : '✗ Ne recommande pas',
-                                                                    style: e.would_recommend ? 'badgeGreen' : 'badgeRed',
-                                                                    alignment: 'center'
+                                                                    fillColor: e.is_verified ? colors.successBg : colors.warningBg,
+                                                                    stack: [
+                                                                        { text: e.is_verified ? '✓' : '◷', fontSize: 24, color: e.is_verified ? colors.success : colors.warning, alignment: 'center', margin: [0, 12, 0, 4] },
+                                                                        { text: e.is_verified ? 'VÉRIFIÉ' : 'EN ATTENTE', fontSize: 10, bold: true, color: e.is_verified ? colors.success : colors.warning, alignment: 'center', margin: [0, 0, 0, 8] },
+                                                                        e.is_verified && e.verified_at ? { text: formatDate(e.verified_at), fontSize: 8, color: colors.success, alignment: 'center', margin: [0, 0, 0, 10] } : { text: '', margin: [0, 0, 0, 10] }
+                                                                    ]
                                                                 }
                                                             ]]
-                                                        },
-                                                        layout: 'noBorders'
+                                                        }
                                                     }
-                                                ],
-                                                alignment: 'center'
+                                                ]
                                             }
-                                        ]]
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-
-                // Detailed ratings bar
-                ratingsData.length > 0 ? {
-                    margin: [40, 20, 40, 0],
-                    layout: 'noBorders',
-                    table: {
-                        widths: ratingsData.map(() => '*'),
-                        body: [
-                            ratingsData.map(r => ({
-                                fillColor: bgLight,
-                                stack: [
-                                    { text: r.label, style: 'ratingItemLabel', margin: [0, 10, 0, 5] },
-                                    {
-                                        margin: [10, 0, 10, 5],
-                                        canvas: [
-                                            { type: 'rect', x: 0, y: 0, w: 80, h: 6, r: 3, color: '#E5E7EB' },
-                                            { type: 'rect', x: 0, y: 0, w: 80 * (r.value/5), h: 6, r: 3, color: emerald }
                                         ]
-                                    },
-                                    { text: `${r.value}/5`, style: 'ratingItemValue', margin: [0, 0, 0, 10] }
+                                    }
                                 ],
-                                alignment: 'center'
-                            }))
-                        ]
-                    }
-                } : {},
-
-                // Testimonial section
-                {
-                    margin: [40, 25, 40, 0],
-                    stack: [
-                        {
-                            columns: [
-                                { text: '❝', style: 'quoteIcon', width: 30 },
-                                { text: 'TÉMOIGNAGE', style: 'sectionTitle', margin: [0, 8, 0, 0] }
-                            ]
-                        },
-                        {
-                            margin: [0, 5, 0, 0],
-                            canvas: [
-                                { type: 'line', x1: 0, y1: 0, x2: 60, y2: 0, lineWidth: 2, lineColor: emerald }
-                            ]
-                        },
-                        { text: story, style: 'testimonial', margin: [0, 10, 0, 0] }
-                    ]
-                },
-
-                // Comment section (if exists)
-                e.comment ? {
-                    margin: [40, 20, 40, 0],
-                    layout: 'noBorders',
-                    table: {
-                        widths: [4, '*'],
-                        body: [[
-                            { text: '', fillColor: '#EAB308' },
-                            {
-                                fillColor: '#FEFCE8',
-                                stack: [
-                                    { text: 'COMMENTAIRE', style: 'commentLabel', margin: [10, 10, 10, 5] },
-                                    { text: e.comment.length > 250 ? e.comment.substring(0, 247) + '...' : e.comment, style: 'comment', margin: [10, 0, 10, 10] }
-                                ]
+                                fillColor: colors.white
                             }
                         ]]
                     }
-                } : {},
-
-                // Signature & Verification row
-                {
-                    margin: [40, 25, 40, 0],
-                    columns: [
-                        {
-                            width: '*',
-                            stack: [
-                                {
-                                    layout: {
-                                        hLineWidth: () => 1,
-                                        vLineWidth: () => 1,
-                                        hLineColor: () => '#D1D5DB',
-                                        vLineColor: () => '#D1D5DB',
-                                        hLineStyle: () => ({ dash: { length: 3 } }),
-                                        vLineStyle: () => ({ dash: { length: 3 } })
-                                    },
-                                    table: {
-                                        widths: ['*'],
-                                        heights: [70],
-                                        body: [[
-                                            {
-                                                fillColor: bgLight,
-                                                stack: [
-                                                    { text: 'SIGNATURE', style: 'sigLabel', margin: [10, 8, 0, 0] },
-                                                    e.signature ? {
-                                                        image: e.signature,
-                                                        width: 150,
-                                                        height: 40,
-                                                        margin: [10, 5, 0, 0]
-                                                    } : { text: 'Non signée', style: 'noSig', margin: [0, 15, 0, 0] },
-                                                    e.signed_at ? { text: `Signé le ${formatDate(e.signed_at)}`, style: 'sigDate', margin: [10, 5, 0, 0] } : {}
-                                                ]
-                                            }
-                                        ]]
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            width: 100,
-                            margin: [15, 0, 0, 0],
-                            stack: [
-                                e.is_verified ? {
-                                    layout: 'noBorders',
-                                    table: {
-                                        widths: ['*'],
-                                        body: [[
-                                            {
-                                                fillColor: '#DCFCE7',
-                                                stack: [
-                                                    { text: '✓', style: 'verifyIcon', color: '#22C55E', margin: [0, 10, 0, 0] },
-                                                    { text: 'VÉRIFIÉ', style: 'verifyText', color: '#166534' },
-                                                    e.verified_at ? { text: formatDate(e.verified_at), style: 'verifyDate', color: '#15803D', margin: [0, 0, 0, 10] } : { text: '', margin: [0, 0, 0, 10] }
-                                                ],
-                                                alignment: 'center'
-                                            }
-                                        ]]
-                                    }
-                                } : {
-                                    layout: 'noBorders',
-                                    table: {
-                                        widths: ['*'],
-                                        body: [[
-                                            {
-                                                fillColor: '#FEF3C7',
-                                                stack: [
-                                                    { text: '⏳', style: 'verifyIcon', margin: [0, 10, 0, 0] },
-                                                    { text: 'EN ATTENTE', style: 'verifyText', color: '#92400E' },
-                                                    { text: '', margin: [0, 0, 0, 10] }
-                                                ],
-                                                alignment: 'center'
-                                            }
-                                        ]]
-                                    }
-                                }
-                            ]
-                        }
-                    ]
                 },
 
-                // Footer info
+                // Footer reference
                 {
-                    margin: [40, 20, 40, 0],
+                    margin: [45, 15, 45, 0],
                     columns: [
-                        { text: `Évaluation du ${formatDate(e.created_at)}  •  Réf: EVAL-${String(e.id).padStart(4, '0')}`, style: 'footerInfo' },
-                        e.is_featured ? {
-                            width: 'auto',
-                            text: '★ EN VEDETTE',
-                            style: 'featuredBadge'
-                        } : {}
+                        { text: `Document généré le ${formatDate(e.created_at)} • Référence: EVAL-${String(e.id).padStart(4, '0')}`, fontSize: 8, color: colors.light },
+                        e.is_featured ? { text: '★ EN VEDETTE', fontSize: 8, bold: true, color: colors.gold, alignment: 'right' } : {}
                     ]
                 }
             ],
 
-            // Footer bar (absolute positioned)
+            // Footer band
             footer: {
-                margin: [0, 0, 0, 0],
                 stack: [
+                    { canvas: [{ type: 'rect', x: 0, y: 0, w: 595, h: 30, color: colors.primary }] },
                     {
-                        canvas: [
-                            { type: 'rect', x: 0, y: 0, w: 595, h: 25, color: emerald }
-                        ]
-                    },
-                    {
-                        text: 'Travel Express SARL  •  Burkina Faso  •  www.travelexpress.bf  •  contact@travelexpress.bf',
-                        style: 'footerBar',
-                        relativePosition: { x: 0, y: -18 }
+                        columns: [
+                            { text: 'Travel Express SARL', fontSize: 9, bold: true, color: colors.white },
+                            { text: 'Burkina Faso', fontSize: 9, color: '#A7F3D0', alignment: 'center' },
+                            { text: 'contact@travelexpress.bf', fontSize: 9, color: colors.white, alignment: 'right' }
+                        ],
+                        margin: [45, -22, 45, 0]
                     }
                 ]
-            },
-
-            // Styles
-            styles: {
-                logo: { fontSize: 22, bold: true, color: emeraldDark },
-                tagline: { fontSize: 9, color: gray, italics: true },
-                docType: { fontSize: 9, color: lightGray, characterSpacing: 1 },
-                docNumber: { fontSize: 18, bold: true, color: dark },
-                initials: { fontSize: 18, bold: true, color: '#FFFFFF', alignment: 'center' },
-                name: { fontSize: 20, bold: true, color: dark },
-                email: { fontSize: 11, color: gray },
-                phone: { fontSize: 10, color: lightGray },
-                label: { fontSize: 8, color: lightGray, characterSpacing: 0.5 },
-                value: { fontSize: 11, bold: true, color: dark },
-                ratingLabel: { fontSize: 8, bold: true, color: emeraldDark, characterSpacing: 0.5 },
-                ratingBig: { fontSize: 42, bold: true, color: emeraldDark },
-                ratingSmall: { fontSize: 14, color: emerald },
-                stars: { fontSize: 14, color: '#FBBF24' },
-                badgeGreen: { fontSize: 8, bold: true, color: '#166534', fillColor: '#DCFCE7', margin: [8, 4, 8, 4] },
-                badgeRed: { fontSize: 8, bold: true, color: '#991B1B', fillColor: '#FEE2E2', margin: [8, 4, 8, 4] },
-                ratingItemLabel: { fontSize: 8, color: gray },
-                ratingItemValue: { fontSize: 12, bold: true, color: dark },
-                sectionTitle: { fontSize: 11, bold: true, color: emeraldDark, characterSpacing: 1 },
-                quoteIcon: { fontSize: 36, color: '#E5E7EB' },
-                testimonial: { fontSize: 10, color: dark, lineHeight: 1.5 },
-                commentLabel: { fontSize: 9, bold: true, color: '#A16207', characterSpacing: 0.5 },
-                comment: { fontSize: 9, color: '#713F12', italics: true, lineHeight: 1.4 },
-                sigLabel: { fontSize: 8, color: lightGray, characterSpacing: 0.5 },
-                noSig: { fontSize: 10, color: '#D1D5DB', alignment: 'center' },
-                sigDate: { fontSize: 8, color: lightGray },
-                verifyIcon: { fontSize: 22, alignment: 'center' },
-                verifyText: { fontSize: 10, bold: true, alignment: 'center' },
-                verifyDate: { fontSize: 8, alignment: 'center' },
-                footerInfo: { fontSize: 9, color: lightGray },
-                featuredBadge: { fontSize: 8, bold: true, color: '#FFFFFF', fillColor: '#F59E0B', margin: [8, 3, 8, 3] },
-                footerBar: { fontSize: 9, color: '#FFFFFF', alignment: 'center' }
             }
         };
 
