@@ -4,62 +4,75 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Evaluation;
-use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class EvaluationPdfController extends Controller
 {
     /**
-     * Generate PDF for an evaluation using Puppeteer.
+     * Generate PDF for an evaluation using DomPDF.
      */
     public function generate($id)
     {
         $evaluation = Evaluation::findOrFail($id);
 
-        // Prepare evaluation data for the Node script
-        $evaluationData = $evaluation->toArray();
-
-        // If signature exists and is a file path, convert to full URL or base64
-        if ($evaluation->signature) {
-            if (Storage::disk('public')->exists($evaluation->signature)) {
-                $signatureContent = Storage::disk('public')->get($evaluation->signature);
-                $mimeType = Storage::disk('public')->mimeType($evaluation->signature);
-                $evaluationData['signature'] = 'data:' . $mimeType . ';base64,' . base64_encode($signatureContent);
-            } elseif (str_starts_with($evaluation->signature, 'data:')) {
-                // Already a data URL
-                $evaluationData['signature'] = $evaluation->signature;
-            }
-        }
-
-        // Convert to JSON for the Node script
-        $jsonData = json_encode($evaluationData, JSON_UNESCAPED_UNICODE);
-
-        // Path to the Node script
-        $scriptPath = base_path('scripts/generate-evaluation-pdf.js');
-
-        // Run the Node script
-        $process = new Process(['node', $scriptPath, $jsonData]);
-        $process->setTimeout(60);
+        // Prepare evaluation data
+        $data = [
+            'evaluation' => $evaluation,
+            'signature' => $this->getSignatureData($evaluation),
+            'generatedAt' => now()->format('d/m/Y à H:i'),
+        ];
 
         try {
-            $process->mustRun();
-            $base64Pdf = trim($process->getOutput());
+            $pdf = Pdf::loadView('pdf.evaluation', $data)
+                ->setPaper('a4', 'portrait')
+                ->setOptions([
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'defaultFont' => 'sans-serif',
+                    'dpi' => 150,
+                ]);
+
+            $base64Pdf = base64_encode($pdf->output());
+            $filename = 'evaluation_' . str_pad($evaluation->id, 4, '0', STR_PAD_LEFT) . '_' . $evaluation->first_name . '_' . $evaluation->last_name . '.pdf';
 
             return response()->json([
                 'success' => true,
                 'data' => [
                     'pdf' => $base64Pdf,
-                    'filename' => 'evaluation_' . str_pad($evaluation->id, 4, '0', STR_PAD_LEFT) . '.pdf'
+                    'filename' => $filename
                 ]
             ]);
-        } catch (ProcessFailedException $exception) {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Erreur lors de la génération du PDF',
-                'error' => $exception->getMessage()
+                'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    /**
+     * Get signature as base64 data URL.
+     */
+    private function getSignatureData(Evaluation $evaluation): ?string
+    {
+        if (!$evaluation->signature) {
+            return null;
+        }
+
+        // Already a data URL
+        if (str_starts_with($evaluation->signature, 'data:')) {
+            return $evaluation->signature;
+        }
+
+        // File path - convert to base64
+        if (Storage::disk('public')->exists($evaluation->signature)) {
+            $content = Storage::disk('public')->get($evaluation->signature);
+            $mimeType = Storage::disk('public')->mimeType($evaluation->signature);
+            return 'data:' . $mimeType . ';base64,' . base64_encode($content);
+        }
+
+        return null;
     }
 }
