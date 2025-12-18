@@ -164,8 +164,9 @@
 @endsection
 
 @section('scripts')
-<!-- html2pdf.js - Modern HTML to PDF conversion -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<!-- pdfmake for elegant PDF generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 <script>
     let currentTab = 'all';
     let pendingAction = null;
@@ -670,9 +671,9 @@
         return date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     }
 
-    // Export PDF Function - Modern HTML2PDF with Montserrat
+    // Export PDF Function - Elegant pdfmake Design
     async function exportPDF(id) {
-        if (!window.html2pdf) {
+        if (!window.pdfMake) {
             showToast('error', 'Erreur', 'La bibliothèque PDF n\'est pas encore chargée. Réessayez.');
             return;
         }
@@ -694,224 +695,396 @@
 
         showToast('success', 'Génération PDF', 'Création du document en cours...');
 
-        // Build ratings HTML
+        // Colors
+        const emerald = '#10B981';
+        const emeraldDark = '#059669';
+        const dark = '#111827';
+        const gray = '#6B7280';
+        const lightGray = '#9CA3AF';
+        const bgLight = '#F9FAFB';
+
+        // Prepare ratings data
         const ratingsData = [
-            ['Accompagnement', e.rating_accompagnement],
-            ['Communication', e.rating_communication],
-            ['Délais', e.rating_delais],
-            ['Qualité/Prix', e.rating_rapport_qualite_prix]
-        ].filter(r => r[1]);
+            { label: 'Accompagnement', value: e.rating_accompagnement },
+            { label: 'Communication', value: e.rating_communication },
+            { label: 'Délais', value: e.rating_delais },
+            { label: 'Qualité/Prix', value: e.rating_rapport_qualite_prix }
+        ].filter(r => r.value);
 
-        const ratingsHTML = ratingsData.map(([label, val]) => `
-            <div style="text-align: center; flex: 1;">
-                <div style="font-size: 9px; color: #6b7280; margin-bottom: 6px;">${label}</div>
-                <div style="background: #e5e7eb; border-radius: 10px; height: 6px; margin: 0 10px;">
-                    <div style="background: linear-gradient(90deg, #10b981, #059669); height: 6px; border-radius: 10px; width: ${(val/5)*100}%;"></div>
-                </div>
-                <div style="font-size: 14px; font-weight: 700; color: #111827; margin-top: 6px;">${val}/5</div>
-            </div>
-        `).join('');
+        // Stars for rating
+        const starsText = '★'.repeat(e.rating) + '☆'.repeat(5 - e.rating);
 
-        // Generate stars
-        const stars = Array(5).fill(0).map((_, i) =>
-            `<span style="color: ${i < e.rating ? '#fbbf24' : '#d1d5db'}; font-size: 16px;">★</span>`
-        ).join('');
-
-        // Truncate story
-        let story = e.project_story || '';
-        if (story.length > 500) story = story.substring(0, 497) + '...';
-
-        // Source label clean
+        // Source clean
         const srcClean = getDiscoverySourceLabel(e.discovery_source).replace(/[^\w\s\-àâäéèêëïîôùûüçÀÂÄÉÈÊËÏÎÔÙÛÜÇ\']/g, '').trim();
 
-        // Create the HTML template
-        const htmlContent = `
-        <div id="pdf-content" style="font-family: 'Montserrat', sans-serif; width: 210mm; min-height: 297mm; padding: 0; margin: 0; background: #fff; color: #111827; position: relative; box-sizing: border-box;">
-            <!-- Google Font -->
-            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+        // Truncate story
+        let story = e.project_story || 'Aucun témoignage fourni.';
+        if (story.length > 800) story = story.substring(0, 797) + '...';
 
-            <!-- Top accent bar -->
-            <div style="height: 5px; background: linear-gradient(90deg, #10b981, #059669);"></div>
-
-            <!-- Header -->
-            <div style="padding: 20px 28px 16px; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #e5e7eb;">
-                <div>
-                    <img src="/images/logo/logo_travel.png" alt="Travel Express" style="height: 45px; margin-bottom: 4px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div style="display: none; font-size: 22px; font-weight: 700; color: #059669;">TRAVEL <span style="color: #111827;">EXPRESS</span></div>
-                </div>
-                <div style="text-align: right;">
-                    <div style="font-size: 10px; color: #9ca3af; letter-spacing: 1px; text-transform: uppercase;">Fiche d'Évaluation</div>
-                    <div style="font-size: 20px; font-weight: 700; color: #111827; margin-top: 2px;">#${String(e.id).padStart(4, '0')}</div>
-                </div>
-            </div>
-
-            <!-- Main Info Section -->
-            <div style="padding: 24px 28px; display: flex; gap: 24px;">
-                <!-- Left: Personal Info -->
-                <div style="flex: 1;">
-                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
-                        <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 20px;">
-                            ${(e.first_name?.charAt(0) || '?')}${(e.last_name?.charAt(0) || '?')}
-                        </div>
-                        <div>
-                            <div style="font-size: 22px; font-weight: 700; color: #111827;">${e.first_name} ${e.last_name}</div>
-                            <div style="font-size: 12px; color: #6b7280;">${e.email}</div>
-                            ${e.phone ? `<div style="font-size: 11px; color: #9ca3af;">${e.phone}</div>` : ''}
-                        </div>
-                    </div>
-
-                    <!-- Info Grid -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                        <div>
-                            <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Université</div>
-                            <div style="font-size: 12px; font-weight: 600; color: #111827;">${e.university || '—'}</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Pays d'études</div>
-                            <div style="font-size: 12px; font-weight: 600; color: #111827;">${e.country_of_study || '—'}</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Niveau</div>
-                            <div style="font-size: 12px; font-weight: 600; color: #111827;">${getStudyLevelLabel(e.study_level)}</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Filière</div>
-                            <div style="font-size: 12px; font-weight: 600; color: #111827;">${e.field_of_study || '—'}</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Service</div>
-                            <div style="font-size: 12px; font-weight: 600; color: #111827;">${getServiceLabel(e.service_used)}</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Source</div>
-                            <div style="font-size: 12px; font-weight: 600; color: #111827;">${srcClean}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right: Rating Card -->
-                <div style="width: 140px; background: linear-gradient(135deg, #f0fdf4, #ecfdf5); border-radius: 16px; padding: 20px; text-align: center; border: 1px solid #d1fae5;">
-                    <div style="font-size: 9px; color: #059669; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 8px;">Note Globale</div>
-                    <div style="font-size: 48px; font-weight: 700; color: #059669; line-height: 1;">${e.rating}</div>
-                    <div style="font-size: 14px; color: #10b981; margin-top: -4px;">/5</div>
-                    <div style="margin-top: 8px;">${stars}</div>
-                    <div style="margin-top: 12px; padding: 6px 12px; border-radius: 20px; font-size: 9px; font-weight: 600; ${e.would_recommend ? 'background: #dcfce7; color: #166534;' : 'background: #fee2e2; color: #991b1b;'}">
-                        ${e.would_recommend ? '✓ Recommande' : '✗ Ne recommande pas'}
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ratings Bar -->
-            ${ratingsData.length > 0 ? `
-            <div style="margin: 0 28px 20px; padding: 16px; background: #f9fafb; border-radius: 12px; display: flex; gap: 8px;">
-                ${ratingsHTML}
-            </div>
-            ` : ''}
-
-            <!-- Testimonial Section -->
-            <div style="margin: 0 28px 20px; padding: 20px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; position: relative;">
-                <div style="position: absolute; top: 12px; left: 16px; font-size: 48px; color: #e5e7eb; font-family: Georgia, serif; line-height: 1;">"</div>
-                <div style="font-size: 10px; color: #059669; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 12px; padding-left: 28px;">Témoignage</div>
-                <div style="font-size: 11px; color: #374151; line-height: 1.6; padding-left: 28px;">${story}</div>
-            </div>
-
-            <!-- Comment if exists -->
-            ${e.comment ? `
-            <div style="margin: 0 28px 20px; padding: 16px; background: #fefce8; border-radius: 12px; border-left: 4px solid #eab308;">
-                <div style="font-size: 10px; color: #a16207; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 8px;">Commentaire</div>
-                <div style="font-size: 11px; color: #713f12; line-height: 1.5; font-style: italic;">${e.comment.length > 200 ? e.comment.substring(0, 197) + '...' : e.comment}</div>
-            </div>
-            ` : ''}
-
-            <!-- Signature & Verification Row -->
-            <div style="margin: 0 28px; display: flex; gap: 20px; align-items: flex-start;">
-                <!-- Signature -->
-                <div style="flex: 1; padding: 16px; background: #f9fafb; border-radius: 12px; border: 1px dashed #d1d5db;">
-                    <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Signature</div>
-                    ${e.signature ? `<img src="${e.signature}" style="max-height: 50px; max-width: 100%;">` : '<div style="color: #d1d5db; font-size: 11px;">Non signée</div>'}
-                    ${e.signed_at ? `<div style="font-size: 9px; color: #9ca3af; margin-top: 6px;">Signé le ${formatDate(e.signed_at)}</div>` : ''}
-                </div>
-
-                <!-- Verification Status -->
-                <div style="width: 140px; text-align: center;">
-                    ${e.is_verified ? `
-                    <div style="padding: 12px; background: #dcfce7; border-radius: 12px; border: 2px solid #22c55e;">
-                        <div style="font-size: 24px; color: #22c55e;">✓</div>
-                        <div style="font-size: 11px; font-weight: 700; color: #166534;">VÉRIFIÉ</div>
-                        ${e.verified_at ? `<div style="font-size: 9px; color: #15803d; margin-top: 4px;">${formatDate(e.verified_at)}</div>` : ''}
-                    </div>
-                    ` : `
-                    <div style="padding: 12px; background: #fef3c7; border-radius: 12px; border: 2px solid #f59e0b;">
-                        <div style="font-size: 24px; color: #f59e0b;">⏳</div>
-                        <div style="font-size: 11px; font-weight: 700; color: #92400e;">EN ATTENTE</div>
-                    </div>
-                    `}
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <div style="position: absolute; bottom: 0; left: 0; right: 0;">
-                <div style="padding: 12px 28px; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
-                    <div style="font-size: 9px; color: #9ca3af;">
-                        Évaluation du ${formatDate(e.created_at)} • Réf: EVAL-${String(e.id).padStart(4, '0')}
-                    </div>
-                    ${e.is_featured ? `<div style="padding: 4px 10px; background: linear-gradient(90deg, #fbbf24, #f59e0b); border-radius: 12px; font-size: 9px; font-weight: 600; color: white;">★ EN VEDETTE</div>` : ''}
-                </div>
-                <div style="padding: 10px 28px; background: linear-gradient(90deg, #10b981, #059669); color: white; font-size: 10px; text-align: center;">
-                    Travel Express SARL • Burkina Faso • www.travelexpress.bf • contact@travelexpress.bf
-                </div>
-            </div>
-        </div>
-        `;
-
-        // Create temporary container
-        const container = document.createElement('div');
-        container.innerHTML = htmlContent;
-        container.style.position = 'absolute';
-        container.style.left = '-9999px';
-        container.style.top = '0';
-        document.body.appendChild(container);
-
-        // Get the actual content element
-        const pdfContent = container.querySelector('#pdf-content');
-        if (!pdfContent) {
-            showToast('error', 'Erreur', 'Impossible de générer le contenu PDF');
-            document.body.removeChild(container);
-            return;
-        }
-
-        // Wait for fonts to load
-        await document.fonts.ready;
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        // PDF options
-        const opt = {
-            margin: 0,
-            filename: `TravelExpress_Evaluation_${e.first_name}_${e.last_name}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: {
-                scale: 2,
-                useCORS: true,
-                letterRendering: true,
-                logging: false,
-                allowTaint: true
+        // Build document definition
+        const docDefinition = {
+            pageSize: 'A4',
+            pageMargins: [0, 0, 0, 0],
+            defaultStyle: {
+                font: 'Roboto'
             },
-            jsPDF: {
-                unit: 'mm',
-                format: 'a4',
-                orientation: 'portrait'
+            content: [
+                // Top accent bar
+                {
+                    canvas: [
+                        { type: 'rect', x: 0, y: 0, w: 595, h: 8, color: emerald }
+                    ]
+                },
+
+                // Header section
+                {
+                    margin: [40, 25, 40, 0],
+                    columns: [
+                        {
+                            width: '*',
+                            stack: [
+                                { text: 'TRAVEL EXPRESS', style: 'logo' },
+                                { text: 'Votre partenaire pour les études à l\'étranger', style: 'tagline', margin: [0, 2, 0, 0] }
+                            ]
+                        },
+                        {
+                            width: 'auto',
+                            alignment: 'right',
+                            stack: [
+                                { text: 'FICHE D\'ÉVALUATION', style: 'docType' },
+                                { text: `#${String(e.id).padStart(4, '0')}`, style: 'docNumber' }
+                            ]
+                        }
+                    ]
+                },
+
+                // Separator line
+                {
+                    margin: [40, 15, 40, 20],
+                    canvas: [
+                        { type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 2, lineColor: emerald }
+                    ]
+                },
+
+                // Main info section with rating card
+                {
+                    margin: [40, 0, 40, 0],
+                    columns: [
+                        {
+                            width: '*',
+                            stack: [
+                                // Name with decorative element
+                                {
+                                    columns: [
+                                        {
+                                            width: 50,
+                                            stack: [
+                                                {
+                                                    canvas: [
+                                                        { type: 'rect', x: 0, y: 0, w: 45, h: 45, r: 8, color: emerald }
+                                                    ]
+                                                },
+                                                {
+                                                    text: `${(e.first_name?.charAt(0) || '?')}${(e.last_name?.charAt(0) || '?')}`,
+                                                    style: 'initials',
+                                                    relativePosition: { x: 0, y: -35 }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            width: '*',
+                                            margin: [10, 0, 0, 0],
+                                            stack: [
+                                                { text: `${e.first_name} ${e.last_name}`, style: 'name' },
+                                                { text: e.email || '', style: 'email' },
+                                                e.phone ? { text: e.phone, style: 'phone' } : {}
+                                            ]
+                                        }
+                                    ]
+                                },
+
+                                // Info grid
+                                {
+                                    margin: [0, 20, 0, 0],
+                                    layout: 'noBorders',
+                                    table: {
+                                        widths: ['50%', '50%'],
+                                        body: [
+                                            [
+                                                { stack: [{ text: 'UNIVERSITÉ', style: 'label' }, { text: e.university || '—', style: 'value' }] },
+                                                { stack: [{ text: 'PAYS D\'ÉTUDES', style: 'label' }, { text: e.country_of_study || '—', style: 'value' }] }
+                                            ],
+                                            [
+                                                { stack: [{ text: 'NIVEAU', style: 'label' }, { text: getStudyLevelLabel(e.study_level), style: 'value' }], margin: [0, 8, 0, 0] },
+                                                { stack: [{ text: 'FILIÈRE', style: 'label' }, { text: e.field_of_study || '—', style: 'value' }], margin: [0, 8, 0, 0] }
+                                            ],
+                                            [
+                                                { stack: [{ text: 'SERVICE UTILISÉ', style: 'label' }, { text: getServiceLabel(e.service_used), style: 'value' }], margin: [0, 8, 0, 0] },
+                                                { stack: [{ text: 'SOURCE', style: 'label' }, { text: srcClean, style: 'value' }], margin: [0, 8, 0, 0] }
+                                            ]
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            width: 120,
+                            margin: [15, 0, 0, 0],
+                            stack: [
+                                {
+                                    layout: 'noBorders',
+                                    table: {
+                                        widths: ['*'],
+                                        body: [[
+                                            {
+                                                fillColor: '#ECFDF5',
+                                                stack: [
+                                                    { text: 'NOTE GLOBALE', style: 'ratingLabel', margin: [0, 15, 0, 5] },
+                                                    { text: `${e.rating}`, style: 'ratingBig' },
+                                                    { text: '/5', style: 'ratingSmall', margin: [0, -5, 0, 5] },
+                                                    { text: starsText, style: 'stars' },
+                                                    {
+                                                        margin: [10, 10, 10, 15],
+                                                        table: {
+                                                            widths: ['*'],
+                                                            body: [[
+                                                                {
+                                                                    text: e.would_recommend ? '✓ Recommande' : '✗ Ne recommande pas',
+                                                                    style: e.would_recommend ? 'badgeGreen' : 'badgeRed',
+                                                                    alignment: 'center'
+                                                                }
+                                                            ]]
+                                                        },
+                                                        layout: 'noBorders'
+                                                    }
+                                                ],
+                                                alignment: 'center'
+                                            }
+                                        ]]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+
+                // Detailed ratings bar
+                ratingsData.length > 0 ? {
+                    margin: [40, 20, 40, 0],
+                    layout: 'noBorders',
+                    table: {
+                        widths: ratingsData.map(() => '*'),
+                        body: [
+                            ratingsData.map(r => ({
+                                fillColor: bgLight,
+                                stack: [
+                                    { text: r.label, style: 'ratingItemLabel', margin: [0, 10, 0, 5] },
+                                    {
+                                        margin: [10, 0, 10, 5],
+                                        canvas: [
+                                            { type: 'rect', x: 0, y: 0, w: 80, h: 6, r: 3, color: '#E5E7EB' },
+                                            { type: 'rect', x: 0, y: 0, w: 80 * (r.value/5), h: 6, r: 3, color: emerald }
+                                        ]
+                                    },
+                                    { text: `${r.value}/5`, style: 'ratingItemValue', margin: [0, 0, 0, 10] }
+                                ],
+                                alignment: 'center'
+                            }))
+                        ]
+                    }
+                } : {},
+
+                // Testimonial section
+                {
+                    margin: [40, 25, 40, 0],
+                    stack: [
+                        {
+                            columns: [
+                                { text: '❝', style: 'quoteIcon', width: 30 },
+                                { text: 'TÉMOIGNAGE', style: 'sectionTitle', margin: [0, 8, 0, 0] }
+                            ]
+                        },
+                        {
+                            margin: [0, 5, 0, 0],
+                            canvas: [
+                                { type: 'line', x1: 0, y1: 0, x2: 60, y2: 0, lineWidth: 2, lineColor: emerald }
+                            ]
+                        },
+                        { text: story, style: 'testimonial', margin: [0, 10, 0, 0] }
+                    ]
+                },
+
+                // Comment section (if exists)
+                e.comment ? {
+                    margin: [40, 20, 40, 0],
+                    layout: 'noBorders',
+                    table: {
+                        widths: [4, '*'],
+                        body: [[
+                            { text: '', fillColor: '#EAB308' },
+                            {
+                                fillColor: '#FEFCE8',
+                                stack: [
+                                    { text: 'COMMENTAIRE', style: 'commentLabel', margin: [10, 10, 10, 5] },
+                                    { text: e.comment.length > 250 ? e.comment.substring(0, 247) + '...' : e.comment, style: 'comment', margin: [10, 0, 10, 10] }
+                                ]
+                            }
+                        ]]
+                    }
+                } : {},
+
+                // Signature & Verification row
+                {
+                    margin: [40, 25, 40, 0],
+                    columns: [
+                        {
+                            width: '*',
+                            stack: [
+                                {
+                                    layout: {
+                                        hLineWidth: () => 1,
+                                        vLineWidth: () => 1,
+                                        hLineColor: () => '#D1D5DB',
+                                        vLineColor: () => '#D1D5DB',
+                                        hLineStyle: () => ({ dash: { length: 3 } }),
+                                        vLineStyle: () => ({ dash: { length: 3 } })
+                                    },
+                                    table: {
+                                        widths: ['*'],
+                                        heights: [70],
+                                        body: [[
+                                            {
+                                                fillColor: bgLight,
+                                                stack: [
+                                                    { text: 'SIGNATURE', style: 'sigLabel', margin: [10, 8, 0, 0] },
+                                                    e.signature ? {
+                                                        image: e.signature,
+                                                        width: 150,
+                                                        height: 40,
+                                                        margin: [10, 5, 0, 0]
+                                                    } : { text: 'Non signée', style: 'noSig', margin: [0, 15, 0, 0] },
+                                                    e.signed_at ? { text: `Signé le ${formatDate(e.signed_at)}`, style: 'sigDate', margin: [10, 5, 0, 0] } : {}
+                                                ]
+                                            }
+                                        ]]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            width: 100,
+                            margin: [15, 0, 0, 0],
+                            stack: [
+                                e.is_verified ? {
+                                    layout: 'noBorders',
+                                    table: {
+                                        widths: ['*'],
+                                        body: [[
+                                            {
+                                                fillColor: '#DCFCE7',
+                                                stack: [
+                                                    { text: '✓', style: 'verifyIcon', color: '#22C55E', margin: [0, 10, 0, 0] },
+                                                    { text: 'VÉRIFIÉ', style: 'verifyText', color: '#166534' },
+                                                    e.verified_at ? { text: formatDate(e.verified_at), style: 'verifyDate', color: '#15803D', margin: [0, 0, 0, 10] } : { text: '', margin: [0, 0, 0, 10] }
+                                                ],
+                                                alignment: 'center'
+                                            }
+                                        ]]
+                                    }
+                                } : {
+                                    layout: 'noBorders',
+                                    table: {
+                                        widths: ['*'],
+                                        body: [[
+                                            {
+                                                fillColor: '#FEF3C7',
+                                                stack: [
+                                                    { text: '⏳', style: 'verifyIcon', margin: [0, 10, 0, 0] },
+                                                    { text: 'EN ATTENTE', style: 'verifyText', color: '#92400E' },
+                                                    { text: '', margin: [0, 0, 0, 10] }
+                                                ],
+                                                alignment: 'center'
+                                            }
+                                        ]]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+
+                // Footer info
+                {
+                    margin: [40, 20, 40, 0],
+                    columns: [
+                        { text: `Évaluation du ${formatDate(e.created_at)}  •  Réf: EVAL-${String(e.id).padStart(4, '0')}`, style: 'footerInfo' },
+                        e.is_featured ? {
+                            width: 'auto',
+                            text: '★ EN VEDETTE',
+                            style: 'featuredBadge'
+                        } : {}
+                    ]
+                }
+            ],
+
+            // Footer bar (absolute positioned)
+            footer: {
+                margin: [0, 0, 0, 0],
+                stack: [
+                    {
+                        canvas: [
+                            { type: 'rect', x: 0, y: 0, w: 595, h: 25, color: emerald }
+                        ]
+                    },
+                    {
+                        text: 'Travel Express SARL  •  Burkina Faso  •  www.travelexpress.bf  •  contact@travelexpress.bf',
+                        style: 'footerBar',
+                        relativePosition: { x: 0, y: -18 }
+                    }
+                ]
+            },
+
+            // Styles
+            styles: {
+                logo: { fontSize: 22, bold: true, color: emeraldDark },
+                tagline: { fontSize: 9, color: gray, italics: true },
+                docType: { fontSize: 9, color: lightGray, characterSpacing: 1 },
+                docNumber: { fontSize: 18, bold: true, color: dark },
+                initials: { fontSize: 18, bold: true, color: '#FFFFFF', alignment: 'center' },
+                name: { fontSize: 20, bold: true, color: dark },
+                email: { fontSize: 11, color: gray },
+                phone: { fontSize: 10, color: lightGray },
+                label: { fontSize: 8, color: lightGray, characterSpacing: 0.5 },
+                value: { fontSize: 11, bold: true, color: dark },
+                ratingLabel: { fontSize: 8, bold: true, color: emeraldDark, characterSpacing: 0.5 },
+                ratingBig: { fontSize: 42, bold: true, color: emeraldDark },
+                ratingSmall: { fontSize: 14, color: emerald },
+                stars: { fontSize: 14, color: '#FBBF24' },
+                badgeGreen: { fontSize: 8, bold: true, color: '#166534', fillColor: '#DCFCE7', margin: [8, 4, 8, 4] },
+                badgeRed: { fontSize: 8, bold: true, color: '#991B1B', fillColor: '#FEE2E2', margin: [8, 4, 8, 4] },
+                ratingItemLabel: { fontSize: 8, color: gray },
+                ratingItemValue: { fontSize: 12, bold: true, color: dark },
+                sectionTitle: { fontSize: 11, bold: true, color: emeraldDark, characterSpacing: 1 },
+                quoteIcon: { fontSize: 36, color: '#E5E7EB' },
+                testimonial: { fontSize: 10, color: dark, lineHeight: 1.5 },
+                commentLabel: { fontSize: 9, bold: true, color: '#A16207', characterSpacing: 0.5 },
+                comment: { fontSize: 9, color: '#713F12', italics: true, lineHeight: 1.4 },
+                sigLabel: { fontSize: 8, color: lightGray, characterSpacing: 0.5 },
+                noSig: { fontSize: 10, color: '#D1D5DB', alignment: 'center' },
+                sigDate: { fontSize: 8, color: lightGray },
+                verifyIcon: { fontSize: 22, alignment: 'center' },
+                verifyText: { fontSize: 10, bold: true, alignment: 'center' },
+                verifyDate: { fontSize: 8, alignment: 'center' },
+                footerInfo: { fontSize: 9, color: lightGray },
+                featuredBadge: { fontSize: 8, bold: true, color: '#FFFFFF', fillColor: '#F59E0B', margin: [8, 3, 8, 3] },
+                footerBar: { fontSize: 9, color: '#FFFFFF', alignment: 'center' }
             }
         };
 
-        try {
-            await html2pdf().set(opt).from(pdfContent).save();
-            showToast('success', 'PDF téléchargé', 'Document créé avec succès');
-        } catch (err) {
-            console.error('PDF Error:', err);
-            showToast('error', 'Erreur', 'Impossible de générer le PDF');
-        } finally {
-            document.body.removeChild(container);
-        }
+        // Generate and download
+        const fileName = `TravelExpress_Evaluation_${e.first_name}_${e.last_name}.pdf`;
+        pdfMake.createPdf(docDefinition).download(fileName);
+        showToast('success', 'PDF téléchargé', `${fileName} créé avec succès`);
     }
 
     // Initialize
