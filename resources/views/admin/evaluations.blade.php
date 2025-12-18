@@ -233,10 +233,12 @@
                 }
             });
 
-            if (!response.ok) throw new Error('Erreur lors du chargement');
+            if (!response.ok) {
+                throw new Error('Erreur ' + response.status);
+            }
 
             const result = await response.json();
-            const evaluations = result.data.data || result.data;
+            const evaluations = result.data?.data || result.data || [];
 
             loadingEl.classList.add('hidden');
 
@@ -248,9 +250,10 @@
                 renderEvaluations(evaluations);
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('LoadEvaluations Error:', error);
             loadingEl.classList.add('hidden');
-            showError(error.message);
+            errorEl.classList.remove('hidden');
+            document.getElementById('error-message').textContent = error.message || 'Une erreur est survenue';
         }
     }
 
@@ -267,19 +270,23 @@
     // Render evaluations
     function renderEvaluations(evaluations) {
         const listEl = document.getElementById('evaluations-list');
-        listEl.innerHTML = evaluations.map(e => `
+        listEl.innerHTML = evaluations.map(e => {
+            const firstName = e.first_name || '';
+            const lastName = e.last_name || '';
+            const initials = (firstName.charAt(0) || '?') + (lastName.charAt(0) || '?');
+            return `
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 hover:shadow-md transition-shadow">
                 <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                     <div class="flex-1 min-w-0">
                         <!-- Header -->
                         <div class="flex items-start gap-3 mb-3">
                             <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <span class="text-white font-bold text-lg">${e.first_name.charAt(0)}${e.last_name.charAt(0)}</span>
+                                <span class="text-white font-bold text-lg">${initials}</span>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h3 class="font-bold text-gray-900 text-base">${e.first_name} ${e.last_name}</h3>
-                                <p class="text-sm text-gray-600">${e.university}</p>
-                                <p class="text-xs text-gray-500">${e.email}</p>
+                                <h3 class="font-bold text-gray-900 text-base">${firstName} ${lastName}</h3>
+                                <p class="text-sm text-gray-600">${e.university || '-'}</p>
+                                <p class="text-xs text-gray-500">${e.email || '-'}</p>
                             </div>
                             <div class="flex flex-col items-end gap-1">
                                 <div class="flex gap-0.5">
@@ -342,7 +349,7 @@
                     </div>
                 </div>
             </div>
-        `).join('');
+        `}).join('');
     }
 
     // View detail
