@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\Admin\ContactRequestController as AdminContactRequestController;
 use App\Http\Controllers\Api\Admin\EvaluationController as AdminEvaluationController;
+use App\Http\Controllers\Api\Admin\EvaluationPdfController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -102,5 +103,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/evaluations/{id}/unverify', [AdminEvaluationController::class, 'unverify']);
         Route::post('/evaluations/{id}/toggle-featured', [AdminEvaluationController::class, 'toggleFeatured']);
         Route::delete('/evaluations/{id}', [AdminEvaluationController::class, 'destroy']);
+        Route::get('/evaluations/{id}/pdf', [EvaluationPdfController::class, 'generate']);
     });
 });
