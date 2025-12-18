@@ -909,11 +909,19 @@
 
         // Recommendation
         y += 5;
-        doc.setFillColor(e.would_recommend ? 209, 250, 229 : 254, 226, 226);
+        if (e.would_recommend) {
+            doc.setFillColor(209, 250, 229);
+        } else {
+            doc.setFillColor(254, 226, 226);
+        }
         doc.roundedRect(margin, y, pageWidth - 2 * margin, 12, 3, 3, 'F');
         doc.setFontSize(11);
         doc.setFont('helvetica', 'bold');
-        doc.setTextColor(e.would_recommend ? 6, 95, 70 : 153, 27, 27);
+        if (e.would_recommend) {
+            doc.setTextColor(6, 95, 70);
+        } else {
+            doc.setTextColor(153, 27, 27);
+        }
         doc.text(e.would_recommend ? 'Recommande Travel Express' : 'Ne recommande pas Travel Express', pageWidth/2, y + 8, { align: 'center' });
         y += 20;
 
