@@ -4061,9 +4061,9 @@
                                 </div>
                             </div>
                             <div class="relative">
-                                <canvas id="signature-canvas" width="500" height="150"
+                                <canvas id="signature-canvas"
                                         class="w-full border-2 border-dashed border-amber-300 rounded-xl bg-white cursor-crosshair touch-none"
-                                        style="max-height: 150px;"></canvas>
+                                        style="height: 150px;"></canvas>
                                 <button type="button" @click="clearSignature()"
                                         class="absolute top-2 right-2 p-2 bg-white/80 hover:bg-white text-gray-500 hover:text-red-500 rounded-lg transition-colors shadow-sm">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
