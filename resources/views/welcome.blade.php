@@ -124,6 +124,7 @@
     mobileMenuOpen: false,
     activeCountry: 'china',
     testimonialModalOpen: false,
+    evaluationModalOpen: false,
     init() {
         // Check if we should open testimonial modal (after login redirect)
         const urlParams = new URLSearchParams(window.location.search);
@@ -1993,14 +1994,23 @@
                             Vous avez vécu l'aventure internationale avec nous ? Partagez votre parcours et inspirez la prochaine génération d'étudiants.
                         </p>
 
-                        <!-- Button - Same style as "Commencer maintenant" -->
-                        <button @click="openTestimonialModal()"
-                                class="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-600 text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 tracking-wide">
-                            <span>Partager mon expérience</span>
-                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </button>
+                        <!-- Buttons -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                            <button @click="openTestimonialModal()"
+                                    class="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-600 text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 tracking-wide">
+                                <span>Partager mon expérience</span>
+                                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </button>
+                            <button @click="evaluationModalOpen = true"
+                                    class="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 tracking-wide">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span>Formulaire d'évaluation</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3431,6 +3441,572 @@
                         </div>
                     </div>
                 </template>
+            </form>
+        </div>
+    </div>
+
+    <!-- Evaluation Modal - Formulaire pour les anciens collaborateurs -->
+    <div x-show="evaluationModalOpen"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @click.self="evaluationModalOpen = false"
+         class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 pt-10 pb-10"
+         style="display: none;">
+        <div x-show="evaluationModalOpen"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+             x-transition:leave-end="opacity-0 translate-y-8 scale-95"
+             @click.stop
+             class="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Header with gradient -->
+            <div class="relative bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 px-6 py-6 text-white">
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.08\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+                <div class="relative flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Formulaire d'évaluation</h3>
+                            <p class="text-white/80 text-sm">Partagez votre expérience avec Travel Express</p>
+                        </div>
+                    </div>
+                    <button @click="evaluationModalOpen = false" class="text-white/80 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Form Content -->
+            <form id="evaluation-form" class="p-6 max-h-[70vh] overflow-y-auto" x-data="{
+                step: 1,
+                totalSteps: 4,
+                submitting: false,
+                success: false,
+                error: null,
+
+                // Form data
+                firstName: '',
+                lastName: '',
+                email: '',
+                phone: '',
+
+                university: '',
+                countryOfStudy: '',
+                studyLevel: '',
+                fieldOfStudy: '',
+                startYear: '',
+                serviceUsed: 'etudes',
+
+                projectStory: '',
+                discoverySource: '',
+                discoverySourceDetail: '',
+
+                rating: 5,
+                ratingAccompagnement: 5,
+                ratingCommunication: 5,
+                ratingDelais: 5,
+                ratingQualitePrix: 5,
+                wouldRecommend: true,
+                comment: '',
+
+                publicTestimonial: '',
+                allowPublicDisplay: false,
+                allowPhotoDisplay: false,
+
+                // Prefill from logged user
+                init() {
+                    const token = localStorage.getItem('auth_token');
+                    if (token) {
+                        fetch('/api/user', {
+                            headers: { 'Authorization': 'Bearer ' + token }
+                        })
+                        .then(r => r.json())
+                        .then(data => {
+                            if (data.name) {
+                                const parts = data.name.split(' ');
+                                this.firstName = parts[0] || '';
+                                this.lastName = parts.slice(1).join(' ') || '';
+                            }
+                            if (data.email) this.email = data.email;
+                            if (data.phone) this.phone = data.phone;
+                        })
+                        .catch(() => {});
+                    }
+                },
+
+                nextStep() {
+                    if (this.step < this.totalSteps) this.step++;
+                },
+                prevStep() {
+                    if (this.step > 1) this.step--;
+                },
+
+                async submitForm() {
+                    this.submitting = true;
+                    this.error = null;
+
+                    const formData = {
+                        first_name: this.firstName,
+                        last_name: this.lastName,
+                        email: this.email,
+                        phone: this.phone,
+                        university: this.university,
+                        country_of_study: this.countryOfStudy,
+                        study_level: this.studyLevel,
+                        field_of_study: this.fieldOfStudy,
+                        start_year: this.startYear || null,
+                        service_used: this.serviceUsed,
+                        project_story: this.projectStory,
+                        discovery_source: this.discoverySource,
+                        discovery_source_detail: this.discoverySourceDetail || null,
+                        rating: this.rating,
+                        rating_accompagnement: this.ratingAccompagnement,
+                        rating_communication: this.ratingCommunication,
+                        rating_delais: this.ratingDelais,
+                        rating_rapport_qualite_prix: this.ratingQualitePrix,
+                        would_recommend: this.wouldRecommend,
+                        comment: this.comment || null,
+                        public_testimonial: this.publicTestimonial || null,
+                        allow_public_display: this.allowPublicDisplay,
+                        allow_photo_display: this.allowPhotoDisplay
+                    };
+
+                    try {
+                        const token = localStorage.getItem('auth_token');
+                        const headers = {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        };
+                        if (token) headers['Authorization'] = 'Bearer ' + token;
+
+                        const response = await fetch('/api/evaluations', {
+                            method: 'POST',
+                            headers: headers,
+                            body: JSON.stringify(formData)
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            this.success = true;
+                        } else {
+                            this.error = result.message || 'Une erreur est survenue.';
+                        }
+                    } catch (e) {
+                        this.error = 'Erreur de connexion. Veuillez réessayer.';
+                    } finally {
+                        this.submitting = false;
+                    }
+                }
+            }">
+                <!-- Progress bar -->
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium text-gray-600">Étape <span x-text="step"></span> sur <span x-text="totalSteps"></span></span>
+                        <span class="text-sm text-gray-500" x-text="step === 1 ? 'Informations personnelles' : step === 2 ? 'Parcours académique' : step === 3 ? 'Votre expérience' : 'Évaluation'"></span>
+                    </div>
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-500 rounded-full" :style="'width: ' + (step / totalSteps * 100) + '%'"></div>
+                    </div>
+                </div>
+
+                <!-- Success Message -->
+                <div x-show="success" x-transition class="text-center py-12">
+                    <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-3">Merci pour votre évaluation !</h4>
+                    <p class="text-gray-600 mb-6">Votre retour est précieux et nous aide à améliorer nos services.</p>
+                    <button @click="evaluationModalOpen = false; success = false; step = 1;" class="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors">
+                        Fermer
+                    </button>
+                </div>
+
+                <!-- Error Message -->
+                <div x-show="error" x-transition class="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-3">
+                    <svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="text-red-700 text-sm" x-text="error"></span>
+                    <button @click="error = null" class="ml-auto text-red-500 hover:text-red-700">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+
+                <!-- Step 1: Informations personnelles -->
+                <div x-show="step === 1 && !success" x-transition>
+                    <div class="space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Prénom *</label>
+                                <input type="text" x-model="firstName" required placeholder="Votre prénom"
+                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Nom *</label>
+                                <input type="text" x-model="lastName" required placeholder="Votre nom"
+                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
+                            <input type="email" x-model="email" required placeholder="votre.email@exemple.com"
+                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Téléphone</label>
+                            <input type="tel" x-model="phone" placeholder="+226 70 00 00 00"
+                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Parcours académique -->
+                <div x-show="step === 2 && !success" x-transition>
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Université / École *</label>
+                            <input type="text" x-model="university" required placeholder="Nom de votre université ou école"
+                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Pays d'études *</label>
+                                <select x-model="countryOfStudy" required
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                                    <option value="">Sélectionner...</option>
+                                    <option value="Chine">Chine</option>
+                                    <option value="Espagne">Espagne</option>
+                                    <option value="Allemagne">Allemagne</option>
+                                    <option value="France">France</option>
+                                    <option value="Canada">Canada</option>
+                                    <option value="Belgique">Belgique</option>
+                                    <option value="Autre">Autre</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Niveau d'études *</label>
+                                <select x-model="studyLevel" required
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                                    <option value="">Sélectionner...</option>
+                                    <option value="licence_1">Licence 1</option>
+                                    <option value="licence_2">Licence 2</option>
+                                    <option value="licence_3">Licence 3</option>
+                                    <option value="master_1">Master 1</option>
+                                    <option value="master_2">Master 2</option>
+                                    <option value="doctorat">Doctorat</option>
+                                    <option value="formation_professionnelle">Formation professionnelle</option>
+                                    <option value="autre">Autre</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Filière *</label>
+                                <input type="text" x-model="fieldOfStudy" required placeholder="Ex: Informatique, Commerce..."
+                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Année de début</label>
+                                <select x-model="startYear"
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                                    <option value="">Sélectionner...</option>
+                                    <template x-for="year in Array.from({length: 10}, (_, i) => new Date().getFullYear() - i)" :key="year">
+                                        <option :value="year" x-text="year"></option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Type de service utilisé</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" x-model="serviceUsed" value="etudes" class="peer sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-2xl mb-1 block">🎓</span>
+                                        <span class="text-sm font-medium">Études</span>
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" x-model="serviceUsed" value="business" class="peer sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-2xl mb-1 block">💼</span>
+                                        <span class="text-sm font-medium">Business</span>
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" x-model="serviceUsed" value="visa_seul" class="peer sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-2xl mb-1 block">📄</span>
+                                        <span class="text-sm font-medium">Visa seul</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Expérience -->
+                <div x-show="step === 3 && !success" x-transition>
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Comment êtes-vous parvenu(e) à réaliser votre projet de voyage ? *</label>
+                            <textarea x-model="projectStory" required rows="4" placeholder="Racontez-nous votre parcours, les étapes clés, les défis surmontés..."
+                                      class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all resize-none"></textarea>
+                            <p class="text-xs text-gray-500 mt-1">Minimum 50 caractères - <span x-text="projectStory.length"></span>/50</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">Comment avez-vous connu Travel Express ? *</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="ambassadeur_la_bobolaise" class="peer sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-2xl mb-1 block">👩‍💼</span>
+                                        <span class="text-xs font-medium">La Bobolaise</span>
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="ambassadeur_ley_ley" class="peer sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-2xl mb-1 block">👨‍💼</span>
+                                        <span class="text-xs font-medium">Ley Ley</span>
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="ambassadeur_autre" class="peer sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-2xl mb-1 block">🤝</span>
+                                        <span class="text-xs font-medium">Autre ambassadeur</span>
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="facebook" class="peer sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-2xl mb-1 block">📘</span>
+                                        <span class="text-xs font-medium">Facebook</span>
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="tiktok" class="peer sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-2xl mb-1 block">🎵</span>
+                                        <span class="text-xs font-medium">TikTok</span>
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="instagram" class="peer sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-2xl mb-1 block">📸</span>
+                                        <span class="text-xs font-medium">Instagram</span>
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="youtube" class="peer sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-2xl mb-1 block">▶️</span>
+                                        <span class="text-xs font-medium">YouTube</span>
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="bouche_a_oreille" class="peer sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-2xl mb-1 block">🗣️</span>
+                                        <span class="text-xs font-medium">Bouche à oreille</span>
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="autre" class="peer sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-2xl mb-1 block">❓</span>
+                                        <span class="text-xs font-medium">Autre</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div x-show="discoverySource === 'ambassadeur_autre' || discoverySource === 'autre'" x-transition>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Précisez</label>
+                            <input type="text" x-model="discoverySourceDetail" placeholder="Nom de l'ambassadeur ou autre source..."
+                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Évaluation -->
+                <div x-show="step === 4 && !success" x-transition>
+                    <div class="space-y-6">
+                        <!-- Note globale -->
+                        <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-5">
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">Note globale à Travel Express *</label>
+                            <div class="flex items-center justify-center gap-2">
+                                <template x-for="star in 5" :key="star">
+                                    <button type="button" @click="rating = star" class="focus:outline-none transform hover:scale-110 transition-transform">
+                                        <svg class="w-10 h-10 transition-colors" :class="star <= rating ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        </svg>
+                                    </button>
+                                </template>
+                            </div>
+                            <p class="text-center text-sm text-gray-600 mt-2" x-text="rating === 5 ? 'Excellent !' : rating === 4 ? 'Très bien' : rating === 3 ? 'Bien' : rating === 2 ? 'Moyen' : 'À améliorer'"></p>
+                        </div>
+
+                        <!-- Notes détaillées -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <label class="block text-xs font-medium text-gray-600 mb-2">Accompagnement</label>
+                                <div class="flex gap-1">
+                                    <template x-for="star in 5" :key="'acc-'+star">
+                                        <button type="button" @click="ratingAccompagnement = star" class="focus:outline-none">
+                                            <svg class="w-6 h-6" :class="star <= ratingAccompagnement ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                            </svg>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <label class="block text-xs font-medium text-gray-600 mb-2">Communication</label>
+                                <div class="flex gap-1">
+                                    <template x-for="star in 5" :key="'com-'+star">
+                                        <button type="button" @click="ratingCommunication = star" class="focus:outline-none">
+                                            <svg class="w-6 h-6" :class="star <= ratingCommunication ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                            </svg>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <label class="block text-xs font-medium text-gray-600 mb-2">Respect des délais</label>
+                                <div class="flex gap-1">
+                                    <template x-for="star in 5" :key="'del-'+star">
+                                        <button type="button" @click="ratingDelais = star" class="focus:outline-none">
+                                            <svg class="w-6 h-6" :class="star <= ratingDelais ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                            </svg>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <label class="block text-xs font-medium text-gray-600 mb-2">Rapport qualité/prix</label>
+                                <div class="flex gap-1">
+                                    <template x-for="star in 5" :key="'qp-'+star">
+                                        <button type="button" @click="ratingQualitePrix = star" class="focus:outline-none">
+                                            <svg class="w-6 h-6" :class="star <= ratingQualitePrix ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                            </svg>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recommandation -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">Recommanderiez-vous Travel Express ?</label>
+                            <div class="flex gap-4">
+                                <label class="flex-1 cursor-pointer">
+                                    <input type="radio" x-model="wouldRecommend" :value="true" class="peer sr-only">
+                                    <div class="p-4 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-3xl mb-2 block">👍</span>
+                                        <span class="font-semibold text-gray-700">Oui, absolument !</span>
+                                    </div>
+                                </label>
+                                <label class="flex-1 cursor-pointer">
+                                    <input type="radio" x-model="wouldRecommend" :value="false" class="peer sr-only">
+                                    <div class="p-4 border-2 border-gray-200 rounded-xl text-center peer-checked:border-red-500 peer-checked:bg-red-50 transition-all">
+                                        <span class="text-3xl mb-2 block">👎</span>
+                                        <span class="font-semibold text-gray-700">Non</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Commentaire -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Laissez un commentaire à Travel Express</label>
+                            <textarea x-model="comment" rows="3" placeholder="Vos suggestions, remarques ou feedback..."
+                                      class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all resize-none"></textarea>
+                        </div>
+
+                        <!-- Témoignage public optionnel -->
+                        <div class="bg-blue-50 rounded-2xl p-5 border border-blue-100">
+                            <div class="flex items-start gap-3 mb-4">
+                                <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Témoignage public (optionnel)</h4>
+                                    <p class="text-sm text-gray-600">Votre témoignage pourra être affiché sur notre site pour inspirer d'autres personnes.</p>
+                                </div>
+                            </div>
+                            <textarea x-model="publicTestimonial" rows="3" placeholder="Écrivez un témoignage qui pourrait aider d'autres personnes..."
+                                      class="w-full px-4 py-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none bg-white"></textarea>
+                            <div class="mt-3 space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" x-model="allowPublicDisplay" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    <span class="text-sm text-gray-700">J'autorise l'affichage de mon témoignage sur le site</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" x-model="allowPhotoDisplay" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    <span class="text-sm text-gray-700">J'autorise l'affichage de ma photo</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation buttons -->
+                <div x-show="!success" class="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
+                    <button type="button" @click="prevStep()" x-show="step > 1"
+                            class="px-5 py-2.5 text-gray-600 hover:text-gray-900 font-medium rounded-xl hover:bg-gray-100 transition-all flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                        Précédent
+                    </button>
+                    <div x-show="step === 1"></div>
+
+                    <button type="button" @click="nextStep()" x-show="step < totalSteps"
+                            :disabled="(step === 1 && (!firstName || !lastName || !email)) || (step === 2 && (!university || !countryOfStudy || !studyLevel || !fieldOfStudy)) || (step === 3 && (!projectStory || projectStory.length < 50 || !discoverySource))"
+                            class="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+                        Suivant
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+
+                    <button type="button" @click="submitForm()" x-show="step === totalSteps" :disabled="submitting"
+                            class="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 flex items-center gap-2">
+                        <svg x-show="submitting" class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <svg x-show="!submitting" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span x-text="submitting ? 'Envoi...' : 'Envoyer mon évaluation'"></span>
+                    </button>
+                </div>
             </form>
         </div>
     </div>

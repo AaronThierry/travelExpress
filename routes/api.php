@@ -4,10 +4,12 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\TestimonialController;
 use App\Http\Controllers\Api\ContactRequestController;
+use App\Http\Controllers\Api\EvaluationController;
 use App\Http\Controllers\Api\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\Admin\ContactRequestController as AdminContactRequestController;
+use App\Http\Controllers\Api\Admin\EvaluationController as AdminEvaluationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +39,11 @@ Route::get('/testimonials', [TestimonialController::class, 'index']);
 // Contact requests - public can submit
 Route::post('/contact-requests', [ContactRequestController::class, 'store']);
 
+// Evaluations - public routes
+Route::get('/evaluations', [EvaluationController::class, 'index']);
+Route::get('/evaluations/stats', [EvaluationController::class, 'stats']);
+Route::post('/evaluations', [EvaluationController::class, 'store']);
+
 // Protected routes (authentication required)
 Route::middleware('auth:sanctum')->group(function () {
     // Auth routes
@@ -55,6 +62,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // Testimonials - protected routes
     Route::post('/testimonials', [TestimonialController::class, 'store']);
     Route::get('/testimonials/my', [TestimonialController::class, 'myTestimonials']);
+
+    // Evaluations - protected routes
+    Route::get('/evaluations/my', [EvaluationController::class, 'myEvaluation']);
 
     // Admin routes (authentication + admin role required)
     Route::middleware('admin')->prefix('admin')->group(function () {
@@ -82,5 +92,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/contact-requests/{id}/assign', [AdminContactRequestController::class, 'assign']);
         Route::post('/contact-requests/{id}/contacted', [AdminContactRequestController::class, 'markContacted']);
         Route::delete('/contact-requests/{id}', [AdminContactRequestController::class, 'destroy']);
+
+        // Evaluations management
+        Route::get('/evaluations', [AdminEvaluationController::class, 'index']);
+        Route::get('/evaluations/stats', [AdminEvaluationController::class, 'stats']);
+        Route::get('/evaluations/pending', [AdminEvaluationController::class, 'pending']);
+        Route::get('/evaluations/{id}', [AdminEvaluationController::class, 'show']);
+        Route::post('/evaluations/{id}/verify', [AdminEvaluationController::class, 'verify']);
+        Route::post('/evaluations/{id}/unverify', [AdminEvaluationController::class, 'unverify']);
+        Route::post('/evaluations/{id}/toggle-featured', [AdminEvaluationController::class, 'toggleFeatured']);
+        Route::delete('/evaluations/{id}', [AdminEvaluationController::class, 'destroy']);
     });
 });
