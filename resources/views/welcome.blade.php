@@ -3522,15 +3522,13 @@
                 wouldRecommend: true,
                 comment: '',
 
-                publicTestimonial: '',
-                allowPublicDisplay: false,
-                allowPhotoDisplay: false,
-
                 // Signature
                 signatureData: '',
                 signatureCanvas: null,
                 signatureCtx: null,
                 isDrawing: false,
+                lastX: 0,
+                lastY: 0,
 
                 // Prefill from logged user
                 init() {
@@ -3564,10 +3562,25 @@
 
                     this.signatureCanvas = canvas;
                     this.signatureCtx = canvas.getContext('2d');
+
+                    // Set canvas resolution to match display size for sharp rendering
+                    const rect = canvas.getBoundingClientRect();
+                    const dpr = window.devicePixelRatio || 1;
+                    canvas.width = rect.width * dpr;
+                    canvas.height = rect.height * dpr;
+                    this.signatureCtx.scale(dpr, dpr);
+
+                    // Signature style settings
                     this.signatureCtx.strokeStyle = '#1e3a5f';
-                    this.signatureCtx.lineWidth = 2;
+                    this.signatureCtx.lineWidth = 2.5;
                     this.signatureCtx.lineCap = 'round';
                     this.signatureCtx.lineJoin = 'round';
+                    this.signatureCtx.imageSmoothingEnabled = true;
+                    this.signatureCtx.imageSmoothingQuality = 'high';
+
+                    // Store last position for smooth drawing
+                    this.lastX = 0;
+                    this.lastY = 0;
 
                     // Mouse events
                     canvas.addEventListener('mousedown', (e) => this.startDrawing(e));
@@ -3581,18 +3594,42 @@
                     canvas.addEventListener('touchend', () => this.stopDrawing());
                 },
 
+                getCanvasCoords(e) {
+                    const rect = this.signatureCanvas.getBoundingClientRect();
+                    return {
+                        x: e.clientX - rect.left,
+                        y: e.clientY - rect.top
+                    };
+                },
+
                 startDrawing(e) {
                     this.isDrawing = true;
-                    const rect = this.signatureCanvas.getBoundingClientRect();
+                    const coords = this.getCanvasCoords(e);
+                    this.lastX = coords.x;
+                    this.lastY = coords.y;
                     this.signatureCtx.beginPath();
-                    this.signatureCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+                    this.signatureCtx.moveTo(coords.x, coords.y);
+                    // Draw a small dot at start point
+                    this.signatureCtx.lineTo(coords.x + 0.1, coords.y + 0.1);
+                    this.signatureCtx.stroke();
                 },
 
                 draw(e) {
                     if (!this.isDrawing) return;
-                    const rect = this.signatureCanvas.getBoundingClientRect();
-                    this.signatureCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+                    const coords = this.getCanvasCoords(e);
+
+                    // Use quadratic curve for smoother lines
+                    this.signatureCtx.beginPath();
+                    this.signatureCtx.moveTo(this.lastX, this.lastY);
+
+                    // Calculate midpoint for smooth curve
+                    const midX = (this.lastX + coords.x) / 2;
+                    const midY = (this.lastY + coords.y) / 2;
+                    this.signatureCtx.quadraticCurveTo(this.lastX, this.lastY, midX, midY);
                     this.signatureCtx.stroke();
+
+                    this.lastX = coords.x;
+                    this.lastY = coords.y;
                 },
 
                 stopDrawing() {
@@ -3645,9 +3682,6 @@
                         rating_rapport_qualite_prix: this.ratingQualitePrix,
                         would_recommend: this.wouldRecommend,
                         comment: this.comment || null,
-                        public_testimonial: this.publicTestimonial || null,
-                        allow_public_display: this.allowPublicDisplay,
-                        allow_photo_display: this.allowPhotoDisplay,
                         signature: this.signatureData
                     };
 
@@ -4011,33 +4045,6 @@
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Laissez un commentaire à Travel Express</label>
                             <textarea x-model="comment" rows="3" placeholder="Vos suggestions, remarques ou feedback..."
                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all resize-none"></textarea>
-                        </div>
-
-                        <!-- Témoignage public optionnel -->
-                        <div class="bg-blue-50 rounded-2xl p-5 border border-blue-100">
-                            <div class="flex items-start gap-3 mb-4">
-                                <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900">Témoignage public (optionnel)</h4>
-                                    <p class="text-sm text-gray-600">Votre témoignage pourra être affiché sur notre site pour inspirer d'autres personnes.</p>
-                                </div>
-                            </div>
-                            <textarea x-model="publicTestimonial" rows="3" placeholder="Écrivez un témoignage qui pourrait aider d'autres personnes..."
-                                      class="w-full px-4 py-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none bg-white"></textarea>
-                            <div class="mt-3 space-y-2">
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" x-model="allowPublicDisplay" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                    <span class="text-sm text-gray-700">J'autorise l'affichage de mon témoignage sur le site</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" x-model="allowPhotoDisplay" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                    <span class="text-sm text-gray-700">J'autorise l'affichage de ma photo</span>
-                                </label>
-                            </div>
                         </div>
 
                         <!-- Signature -->
