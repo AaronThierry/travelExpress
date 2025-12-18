@@ -164,10 +164,15 @@
 @endsection
 
 @section('scripts')
+<!-- jsPDF Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
+    const { jsPDF } = window.jspdf;
+
     let currentTab = 'all';
     let pendingAction = null;
     let pendingId = null;
+    let currentEvaluationData = null;
 
     // Load stats
     async function loadStats() {
@@ -354,6 +359,7 @@
             if (!response.ok) throw new Error('Erreur');
             const result = await response.json();
             const e = result.data;
+            currentEvaluationData = e; // Store for PDF export
 
             document.getElementById('detail-content').innerHTML = `
                 <div class="bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-5 text-white">
@@ -458,8 +464,8 @@
                             </svg>
                             Signature
                         </h3>
-                        <div class="bg-amber-50 rounded-xl p-4 border-2 border-dashed border-amber-200">
-                            <img src="${e.signature}" alt="Signature" class="max-h-24 mx-auto">
+                        <div class="bg-amber-50 rounded-xl p-6 border-2 border-dashed border-amber-200">
+                            <img src="${e.signature}" alt="Signature" class="max-h-32 w-auto mx-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
                         </div>
                         ${e.signed_at ? `<p class="text-xs text-gray-500 mt-2">Signé le ${formatDate(e.signed_at)}</p>` : ''}
                     </div>
@@ -474,6 +480,16 @@
                         <span class="px-3 py-1.5 rounded-full text-xs font-medium ${e.would_recommend ? 'bg-blue-100 text-blue-800' : 'bg-red-100 text-red-800'}">
                             ${e.would_recommend ? '👍 Recommande Travel Express' : '👎 Ne recommande pas'}
                         </span>
+                    </div>
+
+                    <!-- Export PDF Button -->
+                    <div class="pt-4 border-t border-gray-100">
+                        <button onclick="exportPDF(${e.id})" class="w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-xl hover:from-red-700 hover:to-red-800 transition-all flex items-center justify-center gap-2 shadow-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            Exporter en PDF
+                        </button>
                     </div>
                 </div>
             `;
@@ -641,6 +657,307 @@
         if (!dateStr) return '';
         const date = new Date(dateStr);
         return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+
+    function formatDateLong(dateStr) {
+        if (!dateStr) return '';
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    // Export PDF Function
+    async function exportPDF(id) {
+        // Use stored data or fetch if not available
+        let e = currentEvaluationData;
+        if (!e || e.id !== id) {
+            try {
+                const response = await fetch(`/api/admin/evaluations/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Accept': 'application/json'
+                    }
+                });
+                if (!response.ok) throw new Error('Erreur');
+                const result = await response.json();
+                e = result.data;
+            } catch (error) {
+                showToast('error', 'Erreur', 'Impossible de charger les données');
+                return;
+            }
+        }
+
+        showToast('success', 'Génération PDF', 'Création du document en cours...');
+
+        const doc = new jsPDF('p', 'mm', 'a4');
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const margin = 20;
+        let y = margin;
+
+        // Colors
+        const primaryColor = [5, 150, 105]; // emerald-600
+        const textDark = [31, 41, 55]; // gray-800
+        const textMuted = [107, 114, 128]; // gray-500
+
+        // Header with gradient effect
+        doc.setFillColor(5, 150, 105);
+        doc.rect(0, 0, pageWidth, 50, 'F');
+        doc.setFillColor(13, 148, 136); // teal-600
+        doc.rect(pageWidth/2, 0, pageWidth/2, 50, 'F');
+
+        // Logo/Title
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(24);
+        doc.setFont('helvetica', 'bold');
+        doc.text('TRAVEL EXPRESS', margin, 25);
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'normal');
+        doc.text("Fiche d'évaluation", margin, 35);
+
+        // Date
+        doc.setFontSize(10);
+        doc.text(`Document généré le ${formatDateLong(new Date().toISOString())}`, pageWidth - margin, 35, { align: 'right' });
+
+        y = 65;
+
+        // Section: Personal Info
+        doc.setTextColor(...textDark);
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Informations personnelles', margin, y);
+        y += 8;
+
+        doc.setDrawColor(5, 150, 105);
+        doc.setLineWidth(0.5);
+        doc.line(margin, y, pageWidth - margin, y);
+        y += 8;
+
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...textMuted);
+        doc.text('Nom complet:', margin, y);
+        doc.setTextColor(...textDark);
+        doc.setFont('helvetica', 'bold');
+        doc.text(`${e.first_name} ${e.last_name}`, 60, y);
+        y += 7;
+
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...textMuted);
+        doc.text('Email:', margin, y);
+        doc.setTextColor(...textDark);
+        doc.text(e.email, 60, y);
+        y += 7;
+
+        if (e.phone) {
+            doc.setTextColor(...textMuted);
+            doc.text('Téléphone:', margin, y);
+            doc.setTextColor(...textDark);
+            doc.text(e.phone, 60, y);
+            y += 7;
+        }
+
+        y += 5;
+
+        // Section: Academic Info
+        doc.setTextColor(...textDark);
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Parcours académique', margin, y);
+        y += 8;
+
+        doc.setDrawColor(5, 150, 105);
+        doc.line(margin, y, pageWidth - margin, y);
+        y += 8;
+
+        doc.setFontSize(11);
+        const academicInfo = [
+            ['Université', e.university],
+            ['Pays', e.country_of_study],
+            ['Niveau', getStudyLevelLabel(e.study_level)],
+            ['Filière', e.field_of_study],
+            ['Service utilisé', getServiceLabel(e.service_used)]
+        ];
+        if (e.start_year) academicInfo.push(['Année de début', e.start_year.toString()]);
+
+        academicInfo.forEach(([label, value]) => {
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(...textMuted);
+            doc.text(label + ':', margin, y);
+            doc.setTextColor(...textDark);
+            doc.text(value || '-', 60, y);
+            y += 7;
+        });
+
+        y += 5;
+
+        // Section: Project Story
+        doc.setTextColor(...textDark);
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Histoire du projet', margin, y);
+        y += 8;
+
+        doc.setDrawColor(5, 150, 105);
+        doc.line(margin, y, pageWidth - margin, y);
+        y += 8;
+
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...textDark);
+        const storyLines = doc.splitTextToSize(e.project_story, pageWidth - (2 * margin));
+        doc.text(storyLines, margin, y);
+        y += storyLines.length * 5 + 5;
+
+        // Section: Discovery Source
+        doc.setTextColor(...textDark);
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Source de découverte', margin, y);
+        y += 8;
+
+        doc.setDrawColor(5, 150, 105);
+        doc.line(margin, y, pageWidth - margin, y);
+        y += 8;
+
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'normal');
+        const sourceLabel = getDiscoverySourceLabel(e.discovery_source).replace(/[^\w\s\-àâäéèêëïîôùûüçÀÂÄÉÈÊËÏÎÔÙÛÜÇ]/g, '').trim();
+        doc.text(sourceLabel + (e.discovery_source_detail ? ` (${e.discovery_source_detail})` : ''), margin, y);
+        y += 10;
+
+        // Check if we need a new page
+        if (y > pageHeight - 100) {
+            doc.addPage();
+            y = margin;
+        }
+
+        // Section: Ratings
+        doc.setTextColor(...textDark);
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Évaluations', margin, y);
+        y += 8;
+
+        doc.setDrawColor(5, 150, 105);
+        doc.line(margin, y, pageWidth - margin, y);
+        y += 10;
+
+        // Rating boxes
+        const ratings = [
+            ['Note globale', e.rating],
+            ['Accompagnement', e.rating_accompagnement],
+            ['Communication', e.rating_communication],
+            ['Délais', e.rating_delais],
+            ['Qualité/Prix', e.rating_rapport_qualite_prix]
+        ].filter(r => r[1]);
+
+        const boxWidth = (pageWidth - 2 * margin - (ratings.length - 1) * 5) / ratings.length;
+        let boxX = margin;
+
+        ratings.forEach(([label, value]) => {
+            // Box background
+            doc.setFillColor(254, 243, 199); // amber-100
+            doc.roundedRect(boxX, y, boxWidth, 25, 3, 3, 'F');
+
+            // Label
+            doc.setFontSize(8);
+            doc.setTextColor(...textMuted);
+            doc.text(label, boxX + boxWidth/2, y + 8, { align: 'center' });
+
+            // Stars representation
+            doc.setFontSize(14);
+            doc.setTextColor(251, 191, 36); // amber-400
+            doc.setFont('helvetica', 'bold');
+            doc.text(`${value}/5`, boxX + boxWidth/2, y + 19, { align: 'center' });
+
+            boxX += boxWidth + 5;
+        });
+
+        y += 35;
+
+        // Comment
+        if (e.comment) {
+            doc.setTextColor(...textDark);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Commentaire', margin, y);
+            y += 8;
+
+            doc.setDrawColor(5, 150, 105);
+            doc.line(margin, y, pageWidth - margin, y);
+            y += 8;
+
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            const commentLines = doc.splitTextToSize(e.comment, pageWidth - (2 * margin));
+            doc.text(commentLines, margin, y);
+            y += commentLines.length * 5 + 5;
+        }
+
+        // Recommendation
+        y += 5;
+        doc.setFillColor(e.would_recommend ? 209, 250, 229 : 254, 226, 226);
+        doc.roundedRect(margin, y, pageWidth - 2 * margin, 12, 3, 3, 'F');
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(e.would_recommend ? 6, 95, 70 : 153, 27, 27);
+        doc.text(e.would_recommend ? 'Recommande Travel Express' : 'Ne recommande pas Travel Express', pageWidth/2, y + 8, { align: 'center' });
+        y += 20;
+
+        // Signature Section
+        if (e.signature) {
+            // Check if we need a new page
+            if (y > pageHeight - 70) {
+                doc.addPage();
+                y = margin;
+            }
+
+            doc.setTextColor(...textDark);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Signature', margin, y);
+            y += 8;
+
+            doc.setDrawColor(5, 150, 105);
+            doc.line(margin, y, pageWidth - margin, y);
+            y += 10;
+
+            // Signature box
+            doc.setFillColor(254, 243, 199); // amber-100
+            doc.setDrawColor(252, 211, 77); // amber-300
+            doc.setLineWidth(0.5);
+            doc.roundedRect(margin, y, pageWidth - 2 * margin, 40, 5, 5, 'FD');
+
+            // Add signature image
+            try {
+                doc.addImage(e.signature, 'PNG', margin + 10, y + 5, pageWidth - 2 * margin - 20, 30, undefined, 'FAST');
+            } catch (imgError) {
+                console.log('Could not add signature image:', imgError);
+            }
+
+            y += 45;
+
+            if (e.signed_at) {
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'italic');
+                doc.setTextColor(...textMuted);
+                doc.text(`Signé le ${formatDateLong(e.signed_at)}`, margin, y);
+            }
+        }
+
+        // Footer
+        doc.setFillColor(243, 244, 246);
+        doc.rect(0, pageHeight - 15, pageWidth, 15, 'F');
+        doc.setFontSize(8);
+        doc.setTextColor(...textMuted);
+        doc.text('Travel Express SARL - Burkina Faso', pageWidth/2, pageHeight - 7, { align: 'center' });
+        doc.text('www.travel-express.bf', pageWidth/2, pageHeight - 3, { align: 'center' });
+
+        // Save PDF
+        const fileName = `evaluation_${e.first_name}_${e.last_name}_${new Date().toISOString().split('T')[0]}.pdf`;
+        doc.save(fileName);
+
+        showToast('success', 'PDF téléchargé', `${fileName} a été créé avec succès`);
     }
 
     // Initialize

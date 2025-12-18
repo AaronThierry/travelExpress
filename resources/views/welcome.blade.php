@@ -3563,16 +3563,18 @@
                     this.signatureCanvas = canvas;
                     this.signatureCtx = canvas.getContext('2d');
 
-                    // Set canvas resolution to match display size for sharp rendering
+                    // Set canvas resolution for high quality signature
+                    // Use minimum 2x for good quality on all devices
                     const rect = canvas.getBoundingClientRect();
-                    const dpr = window.devicePixelRatio || 1;
+                    const dpr = Math.max(window.devicePixelRatio || 1, 2);
                     canvas.width = rect.width * dpr;
                     canvas.height = rect.height * dpr;
                     this.signatureCtx.scale(dpr, dpr);
+                    this.canvasDpr = dpr;
 
-                    // Signature style settings
+                    // Signature style settings - thicker line for better visibility
                     this.signatureCtx.strokeStyle = '#1e3a5f';
-                    this.signatureCtx.lineWidth = 2.5;
+                    this.signatureCtx.lineWidth = 3;
                     this.signatureCtx.lineCap = 'round';
                     this.signatureCtx.lineJoin = 'round';
                     this.signatureCtx.imageSmoothingEnabled = true;
