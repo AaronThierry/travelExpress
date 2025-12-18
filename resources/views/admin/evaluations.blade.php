@@ -670,7 +670,7 @@
         return date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     }
 
-    // Export PDF Function - Elegant World-Class Design
+    // Export PDF Function - Professional Minimalist Design
     async function exportPDF(id) {
         if (!window.jspdf) {
             showToast('error', 'Erreur', 'La bibliothèque PDF n\'est pas encore chargée. Réessayez dans quelques secondes.');
@@ -697,45 +697,34 @@
         showToast('success', 'Génération PDF', 'Création du document en cours...');
 
         const doc = new jsPDF('p', 'mm', 'a4');
-        const W = doc.internal.pageSize.getWidth(); // 210mm
-        const H = doc.internal.pageSize.getHeight(); // 297mm
-        const m = 12; // margin
+        const W = 210;
+        const H = 297;
+        const ml = 18; // margin left
+        const mr = 18; // margin right
+        const contentW = W - ml - mr;
 
-        // ═══════════════════════════════════════════════════════════════
-        // COLOR PALETTE - Luxury emerald & gold theme
-        // ═══════════════════════════════════════════════════════════════
-        const emerald = [5, 150, 105];
-        const emeraldDark = [4, 120, 87];
-        const gold = [180, 142, 73];
-        const goldLight = [212, 175, 55];
-        const charcoal = [38, 38, 38];
-        const slate = [100, 116, 139];
-        const cream = [254, 252, 247];
+        // Professional Color Palette
+        const primary = [16, 185, 129];      // Emerald
+        const primaryDark = [5, 150, 105];
+        const dark = [17, 24, 39];           // Near black
+        const gray = [75, 85, 99];
+        const lightGray = [156, 163, 175];
+        const bgLight = [249, 250, 251];
+        const white = [255, 255, 255];
 
-        // ═══════════════════════════════════════════════════════════════
-        // DECORATIVE BACKGROUND ELEMENTS
-        // ═══════════════════════════════════════════════════════════════
-        // Subtle corner accent - top right
-        doc.setFillColor(250, 250, 248);
+        // Clean white background
+        doc.setFillColor(...white);
         doc.rect(0, 0, W, H, 'F');
 
-        // Elegant gold corner accent
-        doc.setFillColor(...gold);
-        doc.triangle(W - 40, 0, W, 0, W, 40, 'F');
-        doc.setFillColor(...goldLight);
-        doc.triangle(W - 25, 0, W, 0, W, 25, 'F');
+        // ══════════════════════════════════════════════════════════════════════
+        // TOP HEADER BAR
+        // ══════════════════════════════════════════════════════════════════════
+        doc.setFillColor(...primary);
+        doc.rect(0, 0, W, 4, 'F');
 
-        // Bottom decorative line
-        doc.setDrawColor(...emerald);
-        doc.setLineWidth(0.3);
-        doc.line(m, H - 18, W - m, H - 18);
+        let y = 20;
 
-        // ═══════════════════════════════════════════════════════════════
-        // HEADER SECTION WITH LOGO
-        // ═══════════════════════════════════════════════════════════════
-        let y = 15;
-
-        // Try to load logo
+        // Logo attempt
         try {
             const logoImg = new Image();
             logoImg.crossOrigin = 'anonymous';
@@ -743,326 +732,268 @@
             await new Promise((resolve, reject) => {
                 logoImg.onload = resolve;
                 logoImg.onerror = reject;
-                setTimeout(reject, 2000);
+                setTimeout(reject, 1500);
             });
-            doc.addImage(logoImg, 'PNG', m, y - 5, 35, 18);
+            doc.addImage(logoImg, 'PNG', ml, y - 6, 40, 20);
         } catch (err) {
-            // Fallback: elegant text logo
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(16);
-            doc.setTextColor(...emerald);
-            doc.text('TRAVEL', m, y + 3);
-            doc.setTextColor(...gold);
-            doc.text('EXPRESS', m + 28, y + 3);
+            doc.setFontSize(20);
+            doc.setTextColor(...primaryDark);
+            doc.text('TRAVEL EXPRESS', ml, y + 4);
         }
 
-        // Document title - right aligned
+        // Document reference - right side
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(9);
-        doc.setTextColor(...slate);
-        doc.text('CERTIFICAT D\'ÉVALUATION', W - m, y, { align: 'right' });
+        doc.setTextColor(...lightGray);
+        doc.text('FICHE D\'ÉVALUATION', W - mr, y - 2, { align: 'right' });
 
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(11);
-        doc.setTextColor(...charcoal);
-        doc.text(`N° ${String(e.id).padStart(5, '0')}`, W - m, y + 6, { align: 'right' });
+        doc.setFontSize(12);
+        doc.setTextColor(...dark);
+        doc.text(`#${String(e.id).padStart(4, '0')}`, W - mr, y + 5, { align: 'right' });
 
-        // Horizontal separator with gold accent
-        y = 38;
-        doc.setDrawColor(...gold);
-        doc.setLineWidth(0.8);
-        doc.line(m, y, W - m, y);
-        doc.setDrawColor(...emerald);
-        doc.setLineWidth(0.3);
-        doc.line(m, y + 1.5, W - m, y + 1.5);
+        // Thin separator line
+        y = 42;
+        doc.setDrawColor(...primary);
+        doc.setLineWidth(0.6);
+        doc.line(ml, y, W - mr, y);
 
-        // ═══════════════════════════════════════════════════════════════
-        // MAIN CONTENT - TWO COLUMN LAYOUT
-        // ═══════════════════════════════════════════════════════════════
-        y = 46;
-        const colW = (W - 2 * m - 8) / 2;
-        const col1 = m;
-        const col2 = m + colW + 8;
+        // ══════════════════════════════════════════════════════════════════════
+        // MAIN TITLE SECTION
+        // ══════════════════════════════════════════════════════════════════════
+        y = 52;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(22);
+        doc.setTextColor(...dark);
+        doc.text(`${e.first_name} ${e.last_name}`, ml, y);
 
-        // Helper function: section title
-        const sectionTitle = (text, x, yPos) => {
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(8);
-            doc.setTextColor(...emerald);
-            doc.text(text.toUpperCase(), x, yPos);
-            doc.setDrawColor(...emeraldDark);
-            doc.setLineWidth(0.2);
-            doc.line(x, yPos + 1.5, x + 30, yPos + 1.5);
-            return yPos + 6;
-        };
+        y += 8;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(...gray);
+        doc.text(`${e.email}${e.phone ? '  •  ' + e.phone : ''}`, ml, y);
 
-        // Helper function: label/value pair
-        const labelValue = (label, value, x, yPos, maxW = 85) => {
+        // Big rating circle on the right
+        const circleX = W - mr - 18;
+        const circleY = 55;
+        doc.setFillColor(...primary);
+        doc.circle(circleX, circleY, 16, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(24);
+        doc.setTextColor(...white);
+        doc.text(`${e.rating}`, circleX, circleY + 3, { align: 'center' });
+        doc.setFontSize(8);
+        doc.setTextColor(220, 252, 231);
+        doc.text('/5', circleX + 9, circleY + 3);
+
+        // ══════════════════════════════════════════════════════════════════════
+        // TWO COLUMN INFO SECTION
+        // ══════════════════════════════════════════════════════════════════════
+        y = 75;
+        const col1X = ml;
+        const col2X = ml + contentW / 2 + 5;
+        const colWidth = contentW / 2 - 5;
+
+        // Helper: Draw info row
+        const infoRow = (label, value, x, yPos) => {
             doc.setFont('helvetica', 'normal');
-            doc.setFontSize(7.5);
-            doc.setTextColor(...slate);
-            doc.text(label, x, yPos);
-            doc.setFont('helvetica', 'bold');
             doc.setFontSize(8);
-            doc.setTextColor(...charcoal);
-            const truncated = value && value.length > 35 ? value.substring(0, 32) + '...' : (value || '-');
-            doc.text(truncated, x, yPos + 4);
-            return yPos + 10;
+            doc.setTextColor(...lightGray);
+            doc.text(label.toUpperCase(), x, yPos);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(10);
+            doc.setTextColor(...dark);
+            const val = value && value.length > 28 ? value.substring(0, 25) + '...' : (value || '—');
+            doc.text(val, x, yPos + 5);
+            return yPos + 14;
         };
 
-        // ─────────────── COLUMN 1 ───────────────
-        // Personal Info Box
-        doc.setFillColor(...cream);
-        doc.roundedRect(col1, y, colW, 42, 2, 2, 'F');
-        doc.setDrawColor(...emerald);
-        doc.setLineWidth(0.15);
-        doc.roundedRect(col1, y, colW, 42, 2, 2, 'S');
+        // Column 1 - Academic Info
+        let yCol1 = y;
+        yCol1 = infoRow('Université', e.university, col1X, yCol1);
+        yCol1 = infoRow('Pays d\'études', e.country_of_study, col1X, yCol1);
+        yCol1 = infoRow('Niveau d\'études', getStudyLevelLabel(e.study_level), col1X, yCol1);
+        yCol1 = infoRow('Filière', e.field_of_study, col1X, yCol1);
 
-        let yC1 = sectionTitle('Informations Personnelles', col1 + 4, y + 6);
-        yC1 = labelValue('Nom complet', `${e.first_name} ${e.last_name}`, col1 + 4, yC1);
-        yC1 = labelValue('Email', e.email, col1 + 4, yC1);
-        if (e.phone) labelValue('Téléphone', e.phone, col1 + 4, yC1);
+        // Column 2 - Service Info
+        let yCol2 = y;
+        yCol2 = infoRow('Service utilisé', getServiceLabel(e.service_used), col2X, yCol2);
+        const srcClean = getDiscoverySourceLabel(e.discovery_source).replace(/[^\w\s\-àâäéèêëïîôùûüçÀÂÄÉÈÊËÏÎÔÙÛÜÇ\']/g, '').trim();
+        yCol2 = infoRow('Source de découverte', srcClean, col2X, yCol2);
+        if (e.start_year) {
+            yCol2 = infoRow('Année de début', e.start_year.toString(), col2X, yCol2);
+        }
 
-        // Academic Info Box
-        let yAcad = y + 46;
-        doc.setFillColor(...cream);
-        doc.roundedRect(col1, yAcad, colW, 52, 2, 2, 'F');
-        doc.setDrawColor(...emerald);
-        doc.roundedRect(col1, yAcad, colW, 52, 2, 2, 'S');
-
-        let yC1b = sectionTitle('Parcours Académique', col1 + 4, yAcad + 6);
-        yC1b = labelValue('Université', e.university, col1 + 4, yC1b);
-        yC1b = labelValue('Pays d\'études', e.country_of_study, col1 + 4, yC1b);
-        yC1b = labelValue('Niveau', getStudyLevelLabel(e.study_level), col1 + 4, yC1b);
-        labelValue('Filière', e.field_of_study, col1 + 4, yC1b);
-
-        // ─────────────── COLUMN 2 ───────────────
-        // Ratings Box - Elegant circular design
-        doc.setFillColor(255, 255, 255);
-        doc.roundedRect(col2, y, colW, 42, 2, 2, 'F');
-        doc.setDrawColor(...gold);
-        doc.setLineWidth(0.3);
-        doc.roundedRect(col2, y, colW, 42, 2, 2, 'S');
-
-        let yC2 = sectionTitle('Évaluations', col2 + 4, y + 6);
-
-        // Main rating - large circle
-        const mainCircleX = col2 + 22;
-        const mainCircleY = y + 26;
-        doc.setFillColor(...emerald);
-        doc.circle(mainCircleX, mainCircleY, 12, 'F');
+        // Recommendation badge in column 2
+        yCol2 += 2;
+        if (e.would_recommend) {
+            doc.setFillColor(220, 252, 231);
+        } else {
+            doc.setFillColor(254, 226, 226);
+        }
+        doc.roundedRect(col2X, yCol2, 55, 10, 2, 2, 'F');
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(16);
-        doc.setTextColor(255, 255, 255);
-        doc.text(`${e.rating}`, mainCircleX, mainCircleY + 1, { align: 'center' });
-        doc.setFontSize(7);
-        doc.text('/5', mainCircleX + 6, mainCircleY + 1);
-        doc.setFontSize(6);
-        doc.setTextColor(...charcoal);
-        doc.text('NOTE GLOBALE', mainCircleX, mainCircleY + 16, { align: 'center' });
+        doc.setFontSize(8);
+        if (e.would_recommend) {
+            doc.setTextColor(22, 101, 52);
+            doc.text('Recommande Travel Express', col2X + 27.5, yCol2 + 6.5, { align: 'center' });
+        } else {
+            doc.setTextColor(153, 27, 27);
+            doc.text('Ne recommande pas', col2X + 27.5, yCol2 + 6.5, { align: 'center' });
+        }
 
-        // Sub-ratings on the right
-        const subRatings = [
+        // ══════════════════════════════════════════════════════════════════════
+        // RATINGS BAR SECTION
+        // ══════════════════════════════════════════════════════════════════════
+        y = 140;
+
+        // Light background for ratings
+        doc.setFillColor(...bgLight);
+        doc.roundedRect(ml, y, contentW, 28, 3, 3, 'F');
+
+        const ratings = [
             ['Accompagnement', e.rating_accompagnement],
             ['Communication', e.rating_communication],
             ['Délais', e.rating_delais],
             ['Qualité/Prix', e.rating_rapport_qualite_prix]
         ].filter(r => r[1]);
 
-        let subX = col2 + 50;
-        let subY = y + 14;
-        subRatings.forEach(([label, val], i) => {
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(6);
-            doc.setTextColor(...slate);
-            doc.text(label, subX, subY + (i * 8));
+        if (ratings.length > 0) {
+            const ratingW = contentW / ratings.length;
+            ratings.forEach(([label, val], i) => {
+                const rx = ml + (i * ratingW) + ratingW / 2;
 
-            // Mini rating bar
-            doc.setFillColor(230, 230, 230);
-            doc.roundedRect(subX + 28, subY + (i * 8) - 3, 20, 4, 1, 1, 'F');
-            doc.setFillColor(...goldLight);
-            doc.roundedRect(subX + 28, subY + (i * 8) - 3, (val / 5) * 20, 4, 1, 1, 'F');
+                // Label
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(7);
+                doc.setTextColor(...gray);
+                doc.text(label, rx, y + 8, { align: 'center' });
 
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(7);
-            doc.setTextColor(...charcoal);
-            doc.text(`${val}`, subX + 51, subY + (i * 8));
-        });
+                // Progress bar background
+                const barW = 30;
+                const barH = 4;
+                const barX = rx - barW / 2;
+                doc.setFillColor(229, 231, 235);
+                doc.roundedRect(barX, y + 12, barW, barH, 2, 2, 'F');
 
-        // Service & Source Box
-        let ySvc = y + 46;
-        doc.setFillColor(...cream);
-        doc.roundedRect(col2, ySvc, colW, 28, 2, 2, 'F');
-        doc.setDrawColor(...emerald);
-        doc.setLineWidth(0.15);
-        doc.roundedRect(col2, ySvc, colW, 28, 2, 2, 'S');
+                // Progress bar fill
+                doc.setFillColor(...primary);
+                doc.roundedRect(barX, y + 12, (val / 5) * barW, barH, 2, 2, 'F');
 
-        let yC2b = sectionTitle('Service & Découverte', col2 + 4, ySvc + 6);
-        yC2b = labelValue('Service utilisé', getServiceLabel(e.service_used), col2 + 4, yC2b);
-        const srcLabel = getDiscoverySourceLabel(e.discovery_source).replace(/[^\w\s\-àâäéèêëïîôùûüçÀÂÄÉÈÊËÏÎÔÙÛÜÇ]/g, '').trim();
-        labelValue('Source', srcLabel, col2 + 4, yC2b);
-
-        // Recommendation badge
-        let yRec = y + 78;
-        if (e.would_recommend) {
-            doc.setFillColor(220, 252, 231);
-            doc.setDrawColor(34, 197, 94);
-        } else {
-            doc.setFillColor(254, 226, 226);
-            doc.setDrawColor(239, 68, 68);
+                // Value
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(10);
+                doc.setTextColor(...dark);
+                doc.text(`${val}/5`, rx, y + 24, { align: 'center' });
+            });
         }
+
+        // ══════════════════════════════════════════════════════════════════════
+        // TESTIMONIAL SECTION
+        // ══════════════════════════════════════════════════════════════════════
+        y = 176;
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(...primaryDark);
+        doc.text('TÉMOIGNAGE', ml, y);
+
+        y += 6;
+        doc.setDrawColor(...primary);
         doc.setLineWidth(0.3);
-        doc.roundedRect(col2, yRec, colW, 12, 2, 2, 'FD');
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(7);
-        if (e.would_recommend) {
-            doc.setTextColor(22, 101, 52);
-            doc.text('✓ RECOMMANDE TRAVEL EXPRESS', col2 + colW/2, yRec + 7.5, { align: 'center' });
-        } else {
-            doc.setTextColor(153, 27, 27);
-            doc.text('✗ NE RECOMMANDE PAS', col2 + colW/2, yRec + 7.5, { align: 'center' });
-        }
+        doc.line(ml, y, ml + 25, y);
 
-        // ═══════════════════════════════════════════════════════════════
-        // PROJECT STORY SECTION - Full width
-        // ═══════════════════════════════════════════════════════════════
-        y = 152;
-        doc.setFillColor(255, 255, 255);
-        doc.roundedRect(m, y, W - 2 * m, 48, 2, 2, 'F');
-        doc.setDrawColor(...emerald);
-        doc.setLineWidth(0.15);
-        doc.roundedRect(m, y, W - 2 * m, 48, 2, 2, 'S');
-
-        // Quote icon
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(24);
-        doc.setTextColor(230, 230, 230);
-        doc.text('"', m + 4, y + 12);
-
-        let yStory = sectionTitle('Témoignage', m + 4, y + 6);
+        y += 6;
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8);
-        doc.setTextColor(...charcoal);
+        doc.setFontSize(9);
+        doc.setTextColor(...dark);
 
-        // Truncate story to fit in box (max ~400 chars)
         let storyText = e.project_story || '';
-        if (storyText.length > 400) {
-            storyText = storyText.substring(0, 397) + '...';
+        if (storyText.length > 450) {
+            storyText = storyText.substring(0, 447) + '...';
         }
-        const storyLines = doc.splitTextToSize(storyText, W - 2 * m - 12);
-        doc.text(storyLines.slice(0, 8), m + 6, yStory + 4);
+        const storyLines = doc.splitTextToSize(storyText, contentW);
+        doc.text(storyLines.slice(0, 7), ml, y);
+        y += Math.min(storyLines.length, 7) * 4.5 + 4;
 
-        // ═══════════════════════════════════════════════════════════════
-        // COMMENT SECTION (if exists)
-        // ═══════════════════════════════════════════════════════════════
-        let yComment = 204;
+        // ══════════════════════════════════════════════════════════════════════
+        // COMMENT (if exists) + SIGNATURE SIDE BY SIDE
+        // ══════════════════════════════════════════════════════════════════════
+        y = Math.max(y, 220);
+
         if (e.comment) {
-            doc.setFillColor(...cream);
-            doc.roundedRect(m, yComment, W - 2 * m - 55, 32, 2, 2, 'F');
-            doc.setDrawColor(...emerald);
-            doc.roundedRect(m, yComment, W - 2 * m - 55, 32, 2, 2, 'S');
+            // Comment section
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8);
+            doc.setTextColor(...primaryDark);
+            doc.text('COMMENTAIRE', ml, y);
 
-            let yC = sectionTitle('Commentaire Additionnel', m + 4, yComment + 6);
+            y += 5;
             doc.setFont('helvetica', 'italic');
-            doc.setFontSize(7.5);
-            doc.setTextColor(...charcoal);
-            let commentText = e.comment.length > 200 ? e.comment.substring(0, 197) + '...' : e.comment;
-            const commentLines = doc.splitTextToSize(commentText, W - 2 * m - 70);
-            doc.text(commentLines.slice(0, 5), m + 6, yC + 3);
+            doc.setFontSize(8);
+            doc.setTextColor(...gray);
+            let commentText = e.comment.length > 180 ? e.comment.substring(0, 177) + '...' : e.comment;
+            const commentLines = doc.splitTextToSize(commentText, contentW - 70);
+            doc.text(commentLines.slice(0, 3), ml, y);
         }
 
-        // ═══════════════════════════════════════════════════════════════
-        // SIGNATURE SECTION - Elegant box
-        // ═══════════════════════════════════════════════════════════════
-        const sigW = e.comment ? 50 : 70;
-        const sigX = e.comment ? W - m - sigW : m;
-        const sigY = e.comment ? yComment : 204;
-        const sigH = e.comment ? 32 : 38;
+        // Signature box - positioned at right
+        const sigBoxW = 55;
+        const sigBoxH = 30;
+        const sigBoxX = W - mr - sigBoxW;
+        const sigBoxY = y - 8;
 
-        doc.setFillColor(255, 253, 245);
-        doc.roundedRect(sigX, sigY, sigW, sigH, 2, 2, 'F');
-        doc.setDrawColor(...gold);
+        doc.setFillColor(...bgLight);
+        doc.roundedRect(sigBoxX, sigBoxY, sigBoxW, sigBoxH, 2, 2, 'F');
+        doc.setDrawColor(209, 213, 219);
         doc.setLineWidth(0.3);
-        doc.roundedRect(sigX, sigY, sigW, sigH, 2, 2, 'S');
+        doc.roundedRect(sigBoxX, sigBoxY, sigBoxW, sigBoxH, 2, 2, 'S');
 
-        let ySig = sectionTitle('Signature', sigX + 4, sigY + 6);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7);
+        doc.setTextColor(...lightGray);
+        doc.text('SIGNATURE', sigBoxX + 4, sigBoxY + 5);
 
         if (e.signature) {
             try {
-                const imgH = sigH - 14;
-                const imgW = sigW - 10;
-                doc.addImage(e.signature, 'PNG', sigX + 5, ySig, imgW, imgH, undefined, 'FAST');
-            } catch (err) {
-                doc.setFont('helvetica', 'italic');
-                doc.setFontSize(7);
-                doc.setTextColor(...slate);
-                doc.text('Signature numérique', sigX + sigW/2, sigY + sigH/2 + 5, { align: 'center' });
-            }
+                doc.addImage(e.signature, 'PNG', sigBoxX + 4, sigBoxY + 8, sigBoxW - 8, sigBoxH - 12, undefined, 'FAST');
+            } catch (err) {}
         }
 
-        // ═══════════════════════════════════════════════════════════════
-        // DATE & VERIFICATION BADGE
-        // ═══════════════════════════════════════════════════════════════
-        y = e.comment ? 240 : 246;
+        // ══════════════════════════════════════════════════════════════════════
+        // FOOTER SECTION
+        // ══════════════════════════════════════════════════════════════════════
 
-        // Date info
+        // Verification badge if verified
+        if (e.is_verified) {
+            const badgeY = H - 45;
+            doc.setFillColor(220, 252, 231);
+            doc.roundedRect(ml, badgeY, 50, 12, 2, 2, 'F');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8);
+            doc.setTextColor(22, 101, 52);
+            doc.text('VÉRIFIÉ', ml + 25, badgeY + 7.5, { align: 'center' });
+        }
+
+        // Dates
+        const dateY = H - 32;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(...lightGray);
+        doc.text(`Évaluation du ${formatDate(e.created_at)}`, ml, dateY);
+        if (e.signed_at) {
+            doc.text(`Signé le ${formatDate(e.signed_at)}`, ml, dateY + 5);
+        }
+
+        // Bottom bar
+        doc.setFillColor(...primary);
+        doc.rect(0, H - 12, W, 12, 'F');
+
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(7);
-        doc.setTextColor(...slate);
-        doc.text(`Évaluation soumise le ${formatDate(e.created_at)}`, m, y);
-        if (e.signed_at) {
-            doc.text(`Signé le ${formatDate(e.signed_at)}`, m, y + 5);
-        }
-
-        // Verification stamp
-        if (e.is_verified) {
-            const stampX = W - m - 35;
-            const stampY = y - 8;
-            doc.setDrawColor(...emerald);
-            doc.setLineWidth(0.8);
-            doc.circle(stampX + 15, stampY + 10, 12, 'S');
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(6);
-            doc.setTextColor(...emerald);
-            doc.text('VÉRIFIÉ', stampX + 15, stampY + 8, { align: 'center' });
-            doc.setFontSize(5);
-            doc.text('TRAVEL EXPRESS', stampX + 15, stampY + 12, { align: 'center' });
-            if (e.verified_at) {
-                doc.setFont('helvetica', 'normal');
-                doc.setFontSize(4);
-                doc.text(formatDate(e.verified_at), stampX + 15, stampY + 15, { align: 'center' });
-            }
-        }
-
-        // Featured badge
-        if (e.is_featured) {
-            doc.setFillColor(...goldLight);
-            doc.roundedRect(W - m - 25, y + 8, 25, 8, 1, 1, 'F');
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(5);
-            doc.setTextColor(255, 255, 255);
-            doc.text('★ EN VEDETTE', W - m - 12.5, y + 13.5, { align: 'center' });
-        }
-
-        // ═══════════════════════════════════════════════════════════════
-        // ELEGANT FOOTER
-        // ═══════════════════════════════════════════════════════════════
-        const footerY = H - 14;
-
-        // Decorative elements
-        doc.setFillColor(...emerald);
-        doc.rect(0, footerY, 3, 14, 'F');
-        doc.setFillColor(...gold);
-        doc.rect(3, footerY, 2, 14, 'F');
-
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(6);
-        doc.setTextColor(...slate);
-        doc.text('Travel Express SARL • Burkina Faso • contact@travelexpress.bf • www.travelexpress.bf', W/2, footerY + 5, { align: 'center' });
-
-        doc.setFontSize(5);
-        doc.setTextColor(180, 180, 180);
-        doc.text(`Document généré le ${new Date().toLocaleDateString('fr-FR')} • Réf: EVAL-${String(e.id).padStart(5, '0')}`, W/2, footerY + 10, { align: 'center' });
+        doc.setTextColor(...white);
+        doc.text('Travel Express SARL  •  Burkina Faso  •  www.travelexpress.bf  •  contact@travelexpress.bf', W / 2, H - 5, { align: 'center' });
 
         // Save PDF
         const fileName = `TravelExpress_Evaluation_${e.first_name}_${e.last_name}.pdf`;
