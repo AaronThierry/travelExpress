@@ -164,9 +164,8 @@
 @endsection
 
 @section('scripts')
-<!-- jsPDF Library with font support -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<!-- Montserrat font embedded as base64 will be loaded dynamically -->
+<!-- html2pdf.js - Modern HTML to PDF conversion -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
     let currentTab = 'all';
     let pendingAction = null;
@@ -671,14 +670,12 @@
         return date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     }
 
-    // Export PDF Function - Professional Minimalist Design
+    // Export PDF Function - Modern HTML2PDF with Montserrat
     async function exportPDF(id) {
-        if (!window.jspdf) {
-            showToast('error', 'Erreur', 'La bibliothèque PDF n\'est pas encore chargée. Réessayez dans quelques secondes.');
+        if (!window.html2pdf) {
+            showToast('error', 'Erreur', 'La bibliothèque PDF n\'est pas encore chargée. Réessayez.');
             return;
         }
-
-        const { jsPDF } = window.jspdf;
 
         let e = currentEvaluationData;
         if (!e || e.id !== id) {
@@ -697,312 +694,215 @@
 
         showToast('success', 'Génération PDF', 'Création du document en cours...');
 
-        const doc = new jsPDF('p', 'mm', 'a4');
-        const W = 210;
-        const H = 297;
-        const ml = 18;
-        const mr = 18;
-        const contentW = W - ml - mr;
-
-        // Use helvetica as it's clean and professional (similar to Montserrat)
-        const fontFamily = 'helvetica';
-
-        // Professional Color Palette
-        const primary = [16, 185, 129];
-        const primaryDark = [5, 150, 105];
-        const dark = [17, 24, 39];
-        const gray = [75, 85, 99];
-        const lightGray = [156, 163, 175];
-        const bgLight = [249, 250, 251];
-        const white = [255, 255, 255];
-
-        // Clean white background
-        doc.setFillColor(...white);
-        doc.rect(0, 0, W, H, 'F');
-
-        // ══════════════════════════════════════════════════════════════════════
-        // TOP HEADER BAR
-        // ══════════════════════════════════════════════════════════════════════
-        doc.setFillColor(...primary);
-        doc.rect(0, 0, W, 4, 'F');
-
-        let y = 20;
-
-        // Logo attempt
-        try {
-            const logoImg = new Image();
-            logoImg.crossOrigin = 'anonymous';
-            logoImg.src = '/images/logo/logo_travel.png';
-            await new Promise((resolve, reject) => {
-                logoImg.onload = resolve;
-                logoImg.onerror = reject;
-                setTimeout(reject, 1500);
-            });
-            doc.addImage(logoImg, 'PNG', ml, y - 6, 40, 20);
-        } catch (err) {
-            doc.setFont(fontFamily, 'bold');
-            doc.setFontSize(20);
-            doc.setTextColor(...primaryDark);
-            doc.text('TRAVEL EXPRESS', ml, y + 4);
-        }
-
-        // Document reference - right side
-        doc.setFont(fontFamily, 'normal');
-        doc.setFontSize(9);
-        doc.setTextColor(...lightGray);
-        doc.text('FICHE D\'ÉVALUATION', W - mr, y - 2, { align: 'right' });
-
-        doc.setFont(fontFamily, 'bold');
-        doc.setFontSize(12);
-        doc.setTextColor(...dark);
-        doc.text(`#${String(e.id).padStart(4, '0')}`, W - mr, y + 5, { align: 'right' });
-
-        // Thin separator line
-        y = 42;
-        doc.setDrawColor(...primary);
-        doc.setLineWidth(0.6);
-        doc.line(ml, y, W - mr, y);
-
-        // ══════════════════════════════════════════════════════════════════════
-        // MAIN TITLE SECTION
-        // ══════════════════════════════════════════════════════════════════════
-        y = 52;
-        doc.setFont(fontFamily, 'bold');
-        doc.setFontSize(22);
-        doc.setTextColor(...dark);
-        doc.text(`${e.first_name} ${e.last_name}`, ml, y);
-
-        y += 8;
-        doc.setFont(fontFamily, 'normal');
-        doc.setFontSize(10);
-        doc.setTextColor(...gray);
-        doc.text(`${e.email}${e.phone ? '  •  ' + e.phone : ''}`, ml, y);
-
-        // Big rating circle on the right
-        const circleX = W - mr - 18;
-        const circleY = 55;
-        doc.setFillColor(...primary);
-        doc.circle(circleX, circleY, 16, 'F');
-        doc.setFont(fontFamily, 'bold');
-        doc.setFontSize(24);
-        doc.setTextColor(...white);
-        doc.text(`${e.rating}`, circleX, circleY + 3, { align: 'center' });
-        doc.setFontSize(8);
-        doc.setTextColor(220, 252, 231);
-        doc.text('/5', circleX + 9, circleY + 3);
-
-        // ══════════════════════════════════════════════════════════════════════
-        // TWO COLUMN INFO SECTION
-        // ══════════════════════════════════════════════════════════════════════
-        y = 75;
-        const col1X = ml;
-        const col2X = ml + contentW / 2 + 5;
-
-        // Helper: Draw info row
-        const infoRow = (label, value, x, yPos) => {
-            doc.setFont(fontFamily, 'normal');
-            doc.setFontSize(8);
-            doc.setTextColor(...lightGray);
-            doc.text(label.toUpperCase(), x, yPos);
-            doc.setFont(fontFamily, 'bold');
-            doc.setFontSize(10);
-            doc.setTextColor(...dark);
-            const val = value && value.length > 28 ? value.substring(0, 25) + '...' : (value || '—');
-            doc.text(val, x, yPos + 5);
-            return yPos + 14;
-        };
-
-        // Column 1 - Academic Info
-        let yCol1 = y;
-        yCol1 = infoRow('Université', e.university, col1X, yCol1);
-        yCol1 = infoRow('Pays d\'études', e.country_of_study, col1X, yCol1);
-        yCol1 = infoRow('Niveau d\'études', getStudyLevelLabel(e.study_level), col1X, yCol1);
-        yCol1 = infoRow('Filière', e.field_of_study, col1X, yCol1);
-
-        // Column 2 - Service Info
-        let yCol2 = y;
-        yCol2 = infoRow('Service utilisé', getServiceLabel(e.service_used), col2X, yCol2);
-        const srcClean = getDiscoverySourceLabel(e.discovery_source).replace(/[^\w\s\-àâäéèêëïîôùûüçÀÂÄÉÈÊËÏÎÔÙÛÜÇ\']/g, '').trim();
-        yCol2 = infoRow('Source de découverte', srcClean, col2X, yCol2);
-        if (e.start_year) {
-            yCol2 = infoRow('Année de début', e.start_year.toString(), col2X, yCol2);
-        }
-
-        // Recommendation badge in column 2
-        yCol2 += 2;
-        if (e.would_recommend) {
-            doc.setFillColor(220, 252, 231);
-        } else {
-            doc.setFillColor(254, 226, 226);
-        }
-        doc.roundedRect(col2X, yCol2, 55, 10, 2, 2, 'F');
-        doc.setFont(fontFamily, 'bold');
-        doc.setFontSize(8);
-        if (e.would_recommend) {
-            doc.setTextColor(22, 101, 52);
-            doc.text('Recommande Travel Express', col2X + 27.5, yCol2 + 6.5, { align: 'center' });
-        } else {
-            doc.setTextColor(153, 27, 27);
-            doc.text('Ne recommande pas', col2X + 27.5, yCol2 + 6.5, { align: 'center' });
-        }
-
-        // ══════════════════════════════════════════════════════════════════════
-        // RATINGS BAR SECTION
-        // ══════════════════════════════════════════════════════════════════════
-        y = 140;
-
-        // Light background for ratings
-        doc.setFillColor(...bgLight);
-        doc.roundedRect(ml, y, contentW, 28, 3, 3, 'F');
-
-        const ratings = [
+        // Build ratings HTML
+        const ratingsData = [
             ['Accompagnement', e.rating_accompagnement],
             ['Communication', e.rating_communication],
             ['Délais', e.rating_delais],
             ['Qualité/Prix', e.rating_rapport_qualite_prix]
         ].filter(r => r[1]);
 
-        if (ratings.length > 0) {
-            const ratingW = contentW / ratings.length;
-            ratings.forEach(([label, val], i) => {
-                const rx = ml + (i * ratingW) + ratingW / 2;
+        const ratingsHTML = ratingsData.map(([label, val]) => `
+            <div style="text-align: center; flex: 1;">
+                <div style="font-size: 9px; color: #6b7280; margin-bottom: 6px;">${label}</div>
+                <div style="background: #e5e7eb; border-radius: 10px; height: 6px; margin: 0 10px;">
+                    <div style="background: linear-gradient(90deg, #10b981, #059669); height: 6px; border-radius: 10px; width: ${(val/5)*100}%;"></div>
+                </div>
+                <div style="font-size: 14px; font-weight: 700; color: #111827; margin-top: 6px;">${val}/5</div>
+            </div>
+        `).join('');
 
-                // Label
-                doc.setFont(fontFamily, 'normal');
-                doc.setFontSize(7);
-                doc.setTextColor(...gray);
-                doc.text(label, rx, y + 8, { align: 'center' });
+        // Generate stars
+        const stars = Array(5).fill(0).map((_, i) =>
+            `<span style="color: ${i < e.rating ? '#fbbf24' : '#d1d5db'}; font-size: 16px;">★</span>`
+        ).join('');
 
-                // Progress bar background
-                const barW = 30;
-                const barH = 4;
-                const barX = rx - barW / 2;
-                doc.setFillColor(229, 231, 235);
-                doc.roundedRect(barX, y + 12, barW, barH, 2, 2, 'F');
+        // Truncate story
+        let story = e.project_story || '';
+        if (story.length > 500) story = story.substring(0, 497) + '...';
 
-                // Progress bar fill
-                doc.setFillColor(...primary);
-                doc.roundedRect(barX, y + 12, (val / 5) * barW, barH, 2, 2, 'F');
+        // Source label clean
+        const srcClean = getDiscoverySourceLabel(e.discovery_source).replace(/[^\w\s\-àâäéèêëïîôùûüçÀÂÄÉÈÊËÏÎÔÙÛÜÇ\']/g, '').trim();
 
-                // Value
-                doc.setFont(fontFamily, 'bold');
-                doc.setFontSize(10);
-                doc.setTextColor(...dark);
-                doc.text(`${val}/5`, rx, y + 24, { align: 'center' });
-            });
+        // Create the HTML template
+        const htmlContent = `
+        <div id="pdf-content" style="font-family: 'Montserrat', sans-serif; width: 210mm; min-height: 297mm; padding: 0; margin: 0; background: #fff; color: #111827; position: relative; box-sizing: border-box;">
+            <!-- Google Font -->
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+            <!-- Top accent bar -->
+            <div style="height: 5px; background: linear-gradient(90deg, #10b981, #059669);"></div>
+
+            <!-- Header -->
+            <div style="padding: 20px 28px 16px; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #e5e7eb;">
+                <div>
+                    <img src="/images/logo/logo_travel.png" alt="Travel Express" style="height: 45px; margin-bottom: 4px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display: none; font-size: 22px; font-weight: 700; color: #059669;">TRAVEL <span style="color: #111827;">EXPRESS</span></div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 10px; color: #9ca3af; letter-spacing: 1px; text-transform: uppercase;">Fiche d'Évaluation</div>
+                    <div style="font-size: 20px; font-weight: 700; color: #111827; margin-top: 2px;">#${String(e.id).padStart(4, '0')}</div>
+                </div>
+            </div>
+
+            <!-- Main Info Section -->
+            <div style="padding: 24px 28px; display: flex; gap: 24px;">
+                <!-- Left: Personal Info -->
+                <div style="flex: 1;">
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+                        <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 20px;">
+                            ${(e.first_name?.charAt(0) || '?')}${(e.last_name?.charAt(0) || '?')}
+                        </div>
+                        <div>
+                            <div style="font-size: 22px; font-weight: 700; color: #111827;">${e.first_name} ${e.last_name}</div>
+                            <div style="font-size: 12px; color: #6b7280;">${e.email}</div>
+                            ${e.phone ? `<div style="font-size: 11px; color: #9ca3af;">${e.phone}</div>` : ''}
+                        </div>
+                    </div>
+
+                    <!-- Info Grid -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div>
+                            <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Université</div>
+                            <div style="font-size: 12px; font-weight: 600; color: #111827;">${e.university || '—'}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Pays d'études</div>
+                            <div style="font-size: 12px; font-weight: 600; color: #111827;">${e.country_of_study || '—'}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Niveau</div>
+                            <div style="font-size: 12px; font-weight: 600; color: #111827;">${getStudyLevelLabel(e.study_level)}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Filière</div>
+                            <div style="font-size: 12px; font-weight: 600; color: #111827;">${e.field_of_study || '—'}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Service</div>
+                            <div style="font-size: 12px; font-weight: 600; color: #111827;">${getServiceLabel(e.service_used)}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Source</div>
+                            <div style="font-size: 12px; font-weight: 600; color: #111827;">${srcClean}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Rating Card -->
+                <div style="width: 140px; background: linear-gradient(135deg, #f0fdf4, #ecfdf5); border-radius: 16px; padding: 20px; text-align: center; border: 1px solid #d1fae5;">
+                    <div style="font-size: 9px; color: #059669; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 8px;">Note Globale</div>
+                    <div style="font-size: 48px; font-weight: 700; color: #059669; line-height: 1;">${e.rating}</div>
+                    <div style="font-size: 14px; color: #10b981; margin-top: -4px;">/5</div>
+                    <div style="margin-top: 8px;">${stars}</div>
+                    <div style="margin-top: 12px; padding: 6px 12px; border-radius: 20px; font-size: 9px; font-weight: 600; ${e.would_recommend ? 'background: #dcfce7; color: #166534;' : 'background: #fee2e2; color: #991b1b;'}">
+                        ${e.would_recommend ? '✓ Recommande' : '✗ Ne recommande pas'}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ratings Bar -->
+            ${ratingsData.length > 0 ? `
+            <div style="margin: 0 28px 20px; padding: 16px; background: #f9fafb; border-radius: 12px; display: flex; gap: 8px;">
+                ${ratingsHTML}
+            </div>
+            ` : ''}
+
+            <!-- Testimonial Section -->
+            <div style="margin: 0 28px 20px; padding: 20px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; position: relative;">
+                <div style="position: absolute; top: 12px; left: 16px; font-size: 48px; color: #e5e7eb; font-family: Georgia, serif; line-height: 1;">"</div>
+                <div style="font-size: 10px; color: #059669; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 12px; padding-left: 28px;">Témoignage</div>
+                <div style="font-size: 11px; color: #374151; line-height: 1.6; padding-left: 28px;">${story}</div>
+            </div>
+
+            <!-- Comment if exists -->
+            ${e.comment ? `
+            <div style="margin: 0 28px 20px; padding: 16px; background: #fefce8; border-radius: 12px; border-left: 4px solid #eab308;">
+                <div style="font-size: 10px; color: #a16207; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 8px;">Commentaire</div>
+                <div style="font-size: 11px; color: #713f12; line-height: 1.5; font-style: italic;">${e.comment.length > 200 ? e.comment.substring(0, 197) + '...' : e.comment}</div>
+            </div>
+            ` : ''}
+
+            <!-- Signature & Verification Row -->
+            <div style="margin: 0 28px; display: flex; gap: 20px; align-items: flex-start;">
+                <!-- Signature -->
+                <div style="flex: 1; padding: 16px; background: #f9fafb; border-radius: 12px; border: 1px dashed #d1d5db;">
+                    <div style="font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Signature</div>
+                    ${e.signature ? `<img src="${e.signature}" style="max-height: 50px; max-width: 100%;">` : '<div style="color: #d1d5db; font-size: 11px;">Non signée</div>'}
+                    ${e.signed_at ? `<div style="font-size: 9px; color: #9ca3af; margin-top: 6px;">Signé le ${formatDate(e.signed_at)}</div>` : ''}
+                </div>
+
+                <!-- Verification Status -->
+                <div style="width: 140px; text-align: center;">
+                    ${e.is_verified ? `
+                    <div style="padding: 12px; background: #dcfce7; border-radius: 12px; border: 2px solid #22c55e;">
+                        <div style="font-size: 24px; color: #22c55e;">✓</div>
+                        <div style="font-size: 11px; font-weight: 700; color: #166534;">VÉRIFIÉ</div>
+                        ${e.verified_at ? `<div style="font-size: 9px; color: #15803d; margin-top: 4px;">${formatDate(e.verified_at)}</div>` : ''}
+                    </div>
+                    ` : `
+                    <div style="padding: 12px; background: #fef3c7; border-radius: 12px; border: 2px solid #f59e0b;">
+                        <div style="font-size: 24px; color: #f59e0b;">⏳</div>
+                        <div style="font-size: 11px; font-weight: 700; color: #92400e;">EN ATTENTE</div>
+                    </div>
+                    `}
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="position: absolute; bottom: 0; left: 0; right: 0;">
+                <div style="padding: 12px 28px; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-size: 9px; color: #9ca3af;">
+                        Évaluation du ${formatDate(e.created_at)} • Réf: EVAL-${String(e.id).padStart(4, '0')}
+                    </div>
+                    ${e.is_featured ? `<div style="padding: 4px 10px; background: linear-gradient(90deg, #fbbf24, #f59e0b); border-radius: 12px; font-size: 9px; font-weight: 600; color: white;">★ EN VEDETTE</div>` : ''}
+                </div>
+                <div style="padding: 10px 28px; background: linear-gradient(90deg, #10b981, #059669); color: white; font-size: 10px; text-align: center;">
+                    Travel Express SARL • Burkina Faso • www.travelexpress.bf • contact@travelexpress.bf
+                </div>
+            </div>
+        </div>
+        `;
+
+        // Create temporary container
+        const container = document.createElement('div');
+        container.innerHTML = htmlContent;
+        container.style.position = 'absolute';
+        container.style.left = '-9999px';
+        container.style.top = '0';
+        document.body.appendChild(container);
+
+        // Wait for fonts to load
+        await document.fonts.ready;
+        await new Promise(resolve => setTimeout(resolve, 300));
+
+        // PDF options
+        const opt = {
+            margin: 0,
+            filename: `TravelExpress_Evaluation_${e.first_name}_${e.last_name}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: {
+                scale: 2,
+                useCORS: true,
+                letterRendering: true,
+                logging: false
+            },
+            jsPDF: {
+                unit: 'mm',
+                format: 'a4',
+                orientation: 'portrait'
+            }
+        };
+
+        try {
+            await html2pdf().set(opt).from(container.firstChild).save();
+            showToast('success', 'PDF téléchargé', 'Document créé avec succès');
+        } catch (err) {
+            console.error('PDF Error:', err);
+            showToast('error', 'Erreur', 'Impossible de générer le PDF');
+        } finally {
+            document.body.removeChild(container);
         }
-
-        // ══════════════════════════════════════════════════════════════════════
-        // TESTIMONIAL SECTION
-        // ══════════════════════════════════════════════════════════════════════
-        y = 176;
-
-        doc.setFont(fontFamily, 'bold');
-        doc.setFontSize(9);
-        doc.setTextColor(...primaryDark);
-        doc.text('TÉMOIGNAGE', ml, y);
-
-        y += 6;
-        doc.setDrawColor(...primary);
-        doc.setLineWidth(0.3);
-        doc.line(ml, y, ml + 25, y);
-
-        y += 6;
-        doc.setFont(fontFamily, 'normal');
-        doc.setFontSize(9);
-        doc.setTextColor(...dark);
-
-        let storyText = e.project_story || '';
-        if (storyText.length > 450) {
-            storyText = storyText.substring(0, 447) + '...';
-        }
-        const storyLines = doc.splitTextToSize(storyText, contentW);
-        doc.text(storyLines.slice(0, 7), ml, y);
-        y += Math.min(storyLines.length, 7) * 4.5 + 4;
-
-        // ══════════════════════════════════════════════════════════════════════
-        // COMMENT (if exists) + SIGNATURE SIDE BY SIDE
-        // ══════════════════════════════════════════════════════════════════════
-        y = Math.max(y, 220);
-
-        if (e.comment) {
-            // Comment section
-            doc.setFont(fontFamily, 'bold');
-            doc.setFontSize(8);
-            doc.setTextColor(...primaryDark);
-            doc.text('COMMENTAIRE', ml, y);
-
-            y += 5;
-            doc.setFont(fontFamily, 'italic');
-            doc.setFontSize(8);
-            doc.setTextColor(...gray);
-            let commentText = e.comment.length > 180 ? e.comment.substring(0, 177) + '...' : e.comment;
-            const commentLines = doc.splitTextToSize(commentText, contentW - 70);
-            doc.text(commentLines.slice(0, 3), ml, y);
-        }
-
-        // Signature box - positioned at right
-        const sigBoxW = 55;
-        const sigBoxH = 30;
-        const sigBoxX = W - mr - sigBoxW;
-        const sigBoxY = y - 8;
-
-        doc.setFillColor(...bgLight);
-        doc.roundedRect(sigBoxX, sigBoxY, sigBoxW, sigBoxH, 2, 2, 'F');
-        doc.setDrawColor(209, 213, 219);
-        doc.setLineWidth(0.3);
-        doc.roundedRect(sigBoxX, sigBoxY, sigBoxW, sigBoxH, 2, 2, 'S');
-
-        doc.setFont(fontFamily, 'normal');
-        doc.setFontSize(7);
-        doc.setTextColor(...lightGray);
-        doc.text('SIGNATURE', sigBoxX + 4, sigBoxY + 5);
-
-        if (e.signature) {
-            try {
-                doc.addImage(e.signature, 'PNG', sigBoxX + 4, sigBoxY + 8, sigBoxW - 8, sigBoxH - 12, undefined, 'FAST');
-            } catch (err) {}
-        }
-
-        // ══════════════════════════════════════════════════════════════════════
-        // FOOTER SECTION
-        // ══════════════════════════════════════════════════════════════════════
-
-        // Verification badge if verified
-        if (e.is_verified) {
-            const badgeY = H - 45;
-            doc.setFillColor(220, 252, 231);
-            doc.roundedRect(ml, badgeY, 50, 12, 2, 2, 'F');
-            doc.setFont(fontFamily, 'bold');
-            doc.setFontSize(8);
-            doc.setTextColor(22, 101, 52);
-            doc.text('VÉRIFIÉ', ml + 25, badgeY + 7.5, { align: 'center' });
-        }
-
-        // Dates
-        const dateY = H - 32;
-        doc.setFont(fontFamily, 'normal');
-        doc.setFontSize(8);
-        doc.setTextColor(...lightGray);
-        doc.text(`Évaluation du ${formatDate(e.created_at)}`, ml, dateY);
-        if (e.signed_at) {
-            doc.text(`Signé le ${formatDate(e.signed_at)}`, ml, dateY + 5);
-        }
-
-        // Bottom bar
-        doc.setFillColor(...primary);
-        doc.rect(0, H - 12, W, 12, 'F');
-
-        doc.setFont(fontFamily, 'normal');
-        doc.setFontSize(7);
-        doc.setTextColor(...white);
-        doc.text('Travel Express SARL  •  Burkina Faso  •  www.travelexpress.bf  •  contact@travelexpress.bf', W / 2, H - 5, { align: 'center' });
-
-        // Save PDF
-        const fileName = `TravelExpress_Evaluation_${e.first_name}_${e.last_name}.pdf`;
-        doc.save(fileName);
-
-        showToast('success', 'PDF téléchargé', `${fileName} créé avec succès`);
     }
 
     // Initialize
