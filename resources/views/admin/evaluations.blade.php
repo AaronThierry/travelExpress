@@ -164,11 +164,9 @@
 @endsection
 
 @section('scripts')
-<!-- jsPDF Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- jsPDF Library - loaded async -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" async></script>
 <script>
-    const { jsPDF } = window.jspdf;
-
     let currentTab = 'all';
     let pendingAction = null;
     let pendingId = null;
@@ -667,6 +665,14 @@
 
     // Export PDF Function
     async function exportPDF(id) {
+        // Check if jsPDF is loaded
+        if (!window.jspdf) {
+            showToast('error', 'Erreur', 'La bibliothèque PDF n\'est pas encore chargée. Réessayez dans quelques secondes.');
+            return;
+        }
+
+        const { jsPDF } = window.jspdf;
+
         // Use stored data or fetch if not available
         let e = currentEvaluationData;
         if (!e || e.id !== id) {
