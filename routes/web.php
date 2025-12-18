@@ -61,6 +61,10 @@ Route::get('/admin/contact-requests', function () {
     return view('admin.contact-requests');
 })->name('admin.contact-requests');
 
+Route::get('/admin/evaluations', function () {
+    return view('admin.evaluations');
+})->name('admin.evaluations');
+
 // Bourse page
 Route::get('/bourse', function () {
     return view('bourse');

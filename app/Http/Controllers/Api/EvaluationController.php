@@ -80,6 +80,8 @@ class EvaluationController extends Controller
             'public_testimonial' => 'nullable|string|max:1000',
             'allow_public_display' => 'boolean',
             'allow_photo_display' => 'boolean',
+
+            'signature' => 'required|string', // Base64 signature data
         ]);
 
         // Handle photo upload
@@ -98,6 +100,11 @@ class EvaluationController extends Controller
         $validated['allow_public_display'] = $validated['allow_public_display'] ?? false;
         $validated['allow_photo_display'] = $validated['allow_photo_display'] ?? false;
         $validated['service_used'] = $validated['service_used'] ?? 'etudes';
+
+        // Set signed_at timestamp if signature provided
+        if (!empty($validated['signature'])) {
+            $validated['signed_at'] = now();
+        }
 
         $evaluation = Evaluation::create($validated);
 

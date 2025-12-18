@@ -35,6 +35,8 @@ class Evaluation extends Model
         'public_testimonial',
         'allow_public_display',
         'allow_photo_display',
+        'signature',
+        'signed_at',
         'is_verified',
         'is_featured',
         'verified_at',
@@ -52,6 +54,7 @@ class Evaluation extends Model
         'is_verified' => 'boolean',
         'is_featured' => 'boolean',
         'verified_at' => 'datetime',
+        'signed_at' => 'datetime',
         'start_year' => 'integer',
     ];
 
@@ -148,5 +151,21 @@ class Evaluation extends Model
     public function scopePublic($query)
     {
         return $query->where('allow_public_display', true)->verified();
+    }
+
+    /**
+     * Scope signed evaluations.
+     */
+    public function scopeSigned($query)
+    {
+        return $query->whereNotNull('signature');
+    }
+
+    /**
+     * Check if evaluation is signed.
+     */
+    public function getIsSignedAttribute(): bool
+    {
+        return !empty($this->signature);
     }
 }

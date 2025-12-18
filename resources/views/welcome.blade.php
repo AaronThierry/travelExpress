@@ -3526,8 +3526,19 @@
                 allowPublicDisplay: false,
                 allowPhotoDisplay: false,
 
+                // Signature
+                signatureData: '',
+                signatureCanvas: null,
+                signatureCtx: null,
+                isDrawing: false,
+
                 // Prefill from logged user
                 init() {
+                    // Initialize signature canvas after DOM is ready
+                    this.$nextTick(() => {
+                        this.initSignatureCanvas();
+                    });
+
                     const token = localStorage.getItem('auth_token');
                     if (token) {
                         fetch('/api/user', {
@@ -3547,8 +3558,63 @@
                     }
                 },
 
+                initSignatureCanvas() {
+                    const canvas = document.getElementById('signature-canvas');
+                    if (!canvas) return;
+
+                    this.signatureCanvas = canvas;
+                    this.signatureCtx = canvas.getContext('2d');
+                    this.signatureCtx.strokeStyle = '#1e3a5f';
+                    this.signatureCtx.lineWidth = 2;
+                    this.signatureCtx.lineCap = 'round';
+                    this.signatureCtx.lineJoin = 'round';
+
+                    // Mouse events
+                    canvas.addEventListener('mousedown', (e) => this.startDrawing(e));
+                    canvas.addEventListener('mousemove', (e) => this.draw(e));
+                    canvas.addEventListener('mouseup', () => this.stopDrawing());
+                    canvas.addEventListener('mouseout', () => this.stopDrawing());
+
+                    // Touch events
+                    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); this.startDrawing(e.touches[0]); });
+                    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); this.draw(e.touches[0]); });
+                    canvas.addEventListener('touchend', () => this.stopDrawing());
+                },
+
+                startDrawing(e) {
+                    this.isDrawing = true;
+                    const rect = this.signatureCanvas.getBoundingClientRect();
+                    this.signatureCtx.beginPath();
+                    this.signatureCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+                },
+
+                draw(e) {
+                    if (!this.isDrawing) return;
+                    const rect = this.signatureCanvas.getBoundingClientRect();
+                    this.signatureCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+                    this.signatureCtx.stroke();
+                },
+
+                stopDrawing() {
+                    if (this.isDrawing) {
+                        this.isDrawing = false;
+                        this.signatureData = this.signatureCanvas.toDataURL('image/png');
+                    }
+                },
+
+                clearSignature() {
+                    if (this.signatureCtx && this.signatureCanvas) {
+                        this.signatureCtx.clearRect(0, 0, this.signatureCanvas.width, this.signatureCanvas.height);
+                        this.signatureData = '';
+                    }
+                },
+
                 nextStep() {
                     if (this.step < this.totalSteps) this.step++;
+                    // Re-init signature canvas when reaching step 4
+                    if (this.step === 4) {
+                        this.$nextTick(() => this.initSignatureCanvas());
+                    }
                 },
                 prevStep() {
                     if (this.step > 1) this.step--;
@@ -3581,7 +3647,8 @@
                         comment: this.comment || null,
                         public_testimonial: this.publicTestimonial || null,
                         allow_public_display: this.allowPublicDisplay,
-                        allow_photo_display: this.allowPhotoDisplay
+                        allow_photo_display: this.allowPhotoDisplay,
+                        signature: this.signatureData
                     };
 
                     try {
@@ -3972,6 +4039,38 @@
                                 </label>
                             </div>
                         </div>
+
+                        <!-- Signature -->
+                        <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-200">
+                            <div class="flex items-start gap-3 mb-4">
+                                <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Signature *</h4>
+                                    <p class="text-sm text-gray-600">Signez dans le cadre ci-dessous pour valider votre évaluation</p>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <canvas id="signature-canvas" width="500" height="150"
+                                        class="w-full border-2 border-dashed border-amber-300 rounded-xl bg-white cursor-crosshair touch-none"
+                                        style="max-height: 150px;"></canvas>
+                                <button type="button" @click="clearSignature()"
+                                        class="absolute top-2 right-2 p-2 bg-white/80 hover:bg-white text-gray-500 hover:text-red-500 rounded-lg transition-colors shadow-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class="text-xs text-amber-700 mt-2 flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Utilisez votre souris ou votre doigt pour signer
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -3995,8 +4094,8 @@
                         </svg>
                     </button>
 
-                    <button type="button" @click="submitForm()" x-show="step === totalSteps" :disabled="submitting"
-                            class="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 flex items-center gap-2">
+                    <button type="button" @click="submitForm()" x-show="step === totalSteps" :disabled="submitting || !signatureData"
+                            class="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
                         <svg x-show="submitting" class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>

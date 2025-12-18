@@ -285,6 +285,14 @@
                     Demandes
                     <span id="requests-badge" class="ml-auto bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
                 </a>
+
+                <a href="/admin/evaluations" class="nav-link {{ request()->is('admin/evaluations') ? 'active' : '' }}" onclick="closeMobile()">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Évaluations
+                    <span id="evaluations-badge" class="ml-auto bg-teal-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
+                </a>
             </nav>
 
             <!-- Footer Sidebar -->
@@ -447,6 +455,24 @@
             } catch (e) {}
         }
 
+        async function loadPendingEvaluationsCount() {
+            try {
+                const response = await fetch('/api/admin/evaluations/stats', {
+                    headers: { 'Authorization': `Bearer ${authToken}`, 'Accept': 'application/json' }
+                });
+                if (response.ok) {
+                    const result = await response.json();
+                    const count = result.data.pending;
+                    const badge = document.getElementById('evaluations-badge');
+                    if (count > 0) {
+                        badge.textContent = count;
+                        badge.classList.remove('hidden');
+                        document.getElementById('notif-dot').classList.remove('hidden');
+                    }
+                }
+            } catch (e) {}
+        }
+
         async function logout() {
             try {
                 await fetch('/api/logout', {
@@ -461,6 +487,7 @@
         loadUserInfo();
         loadPendingCount();
         loadNewRequestsCount();
+        loadPendingEvaluationsCount();
     </script>
 
     @yield('scripts')
