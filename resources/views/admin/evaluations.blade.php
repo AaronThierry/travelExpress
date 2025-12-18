@@ -671,44 +671,7 @@
         return date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     }
 
-    // Montserrat font loading for PDF
-    let montserratLoaded = false;
-    let montserratRegular = null;
-    let montserratBold = null;
-    let montserratItalic = null;
-
-    async function loadMontserratFonts() {
-        if (montserratLoaded) return true;
-
-        try {
-            // Load Montserrat fonts from Google Fonts CDN
-            const fontUrls = {
-                regular: 'https://fonts.gstatic.com/s/montserrat/v26/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-.ttf',
-                bold: 'https://fonts.gstatic.com/s/montserrat/v26/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w-.ttf',
-                italic: 'https://fonts.gstatic.com/s/montserrat/v26/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jq6R8WXh0pg.ttf'
-            };
-
-            const loadFont = async (url) => {
-                const response = await fetch(url);
-                const buffer = await response.arrayBuffer();
-                return btoa(String.fromCharCode(...new Uint8Array(buffer)));
-            };
-
-            [montserratRegular, montserratBold, montserratItalic] = await Promise.all([
-                loadFont(fontUrls.regular),
-                loadFont(fontUrls.bold),
-                loadFont(fontUrls.italic)
-            ]);
-
-            montserratLoaded = true;
-            return true;
-        } catch (err) {
-            console.warn('Could not load Montserrat fonts, using fallback:', err);
-            return false;
-        }
-    }
-
-    // Export PDF Function - Professional Minimalist Design with Montserrat
+    // Export PDF Function - Professional Minimalist Design
     async function exportPDF(id) {
         if (!window.jspdf) {
             showToast('error', 'Erreur', 'La bibliothèque PDF n\'est pas encore chargée. Réessayez dans quelques secondes.');
@@ -741,23 +704,8 @@
         const mr = 18;
         const contentW = W - ml - mr;
 
-        // Load and register Montserrat fonts
-        await loadMontserratFonts();
-        let fontFamily = 'helvetica'; // fallback
-
-        if (montserratLoaded) {
-            try {
-                doc.addFileToVFS('Montserrat-Regular.ttf', montserratRegular);
-                doc.addFileToVFS('Montserrat-Bold.ttf', montserratBold);
-                doc.addFileToVFS('Montserrat-Italic.ttf', montserratItalic);
-                doc.addFont('Montserrat-Regular.ttf', 'Montserrat', 'normal');
-                doc.addFont('Montserrat-Bold.ttf', 'Montserrat', 'bold');
-                doc.addFont('Montserrat-Italic.ttf', 'Montserrat', 'italic');
-                fontFamily = 'Montserrat';
-            } catch (err) {
-                console.warn('Font registration failed:', err);
-            }
-        }
+        // Use helvetica as it's clean and professional (similar to Montserrat)
+        const fontFamily = 'helvetica';
 
         // Professional Color Palette
         const primary = [16, 185, 129];
