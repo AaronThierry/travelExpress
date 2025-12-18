@@ -164,8 +164,9 @@
 @endsection
 
 @section('scripts')
-<!-- jsPDF Library - loaded async -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" async></script>
+<!-- jsPDF Library with font support -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- Montserrat font embedded as base64 will be loaded dynamically -->
 <script>
     let currentTab = 'all';
     let pendingAction = null;
@@ -670,7 +671,44 @@
         return date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     }
 
-    // Export PDF Function - Professional Minimalist Design
+    // Montserrat font loading for PDF
+    let montserratLoaded = false;
+    let montserratRegular = null;
+    let montserratBold = null;
+    let montserratItalic = null;
+
+    async function loadMontserratFonts() {
+        if (montserratLoaded) return true;
+
+        try {
+            // Load Montserrat fonts from Google Fonts CDN
+            const fontUrls = {
+                regular: 'https://fonts.gstatic.com/s/montserrat/v26/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-.ttf',
+                bold: 'https://fonts.gstatic.com/s/montserrat/v26/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w-.ttf',
+                italic: 'https://fonts.gstatic.com/s/montserrat/v26/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jq6R8WXh0pg.ttf'
+            };
+
+            const loadFont = async (url) => {
+                const response = await fetch(url);
+                const buffer = await response.arrayBuffer();
+                return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+            };
+
+            [montserratRegular, montserratBold, montserratItalic] = await Promise.all([
+                loadFont(fontUrls.regular),
+                loadFont(fontUrls.bold),
+                loadFont(fontUrls.italic)
+            ]);
+
+            montserratLoaded = true;
+            return true;
+        } catch (err) {
+            console.warn('Could not load Montserrat fonts, using fallback:', err);
+            return false;
+        }
+    }
+
+    // Export PDF Function - Professional Minimalist Design with Montserrat
     async function exportPDF(id) {
         if (!window.jspdf) {
             showToast('error', 'Erreur', 'La bibliothèque PDF n\'est pas encore chargée. Réessayez dans quelques secondes.');
@@ -699,14 +737,32 @@
         const doc = new jsPDF('p', 'mm', 'a4');
         const W = 210;
         const H = 297;
-        const ml = 18; // margin left
-        const mr = 18; // margin right
+        const ml = 18;
+        const mr = 18;
         const contentW = W - ml - mr;
 
+        // Load and register Montserrat fonts
+        await loadMontserratFonts();
+        let fontFamily = 'helvetica'; // fallback
+
+        if (montserratLoaded) {
+            try {
+                doc.addFileToVFS('Montserrat-Regular.ttf', montserratRegular);
+                doc.addFileToVFS('Montserrat-Bold.ttf', montserratBold);
+                doc.addFileToVFS('Montserrat-Italic.ttf', montserratItalic);
+                doc.addFont('Montserrat-Regular.ttf', 'Montserrat', 'normal');
+                doc.addFont('Montserrat-Bold.ttf', 'Montserrat', 'bold');
+                doc.addFont('Montserrat-Italic.ttf', 'Montserrat', 'italic');
+                fontFamily = 'Montserrat';
+            } catch (err) {
+                console.warn('Font registration failed:', err);
+            }
+        }
+
         // Professional Color Palette
-        const primary = [16, 185, 129];      // Emerald
+        const primary = [16, 185, 129];
         const primaryDark = [5, 150, 105];
-        const dark = [17, 24, 39];           // Near black
+        const dark = [17, 24, 39];
         const gray = [75, 85, 99];
         const lightGray = [156, 163, 175];
         const bgLight = [249, 250, 251];
@@ -736,19 +792,19 @@
             });
             doc.addImage(logoImg, 'PNG', ml, y - 6, 40, 20);
         } catch (err) {
-            doc.setFont('helvetica', 'bold');
+            doc.setFont(fontFamily, 'bold');
             doc.setFontSize(20);
             doc.setTextColor(...primaryDark);
             doc.text('TRAVEL EXPRESS', ml, y + 4);
         }
 
         // Document reference - right side
-        doc.setFont('helvetica', 'normal');
+        doc.setFont(fontFamily, 'normal');
         doc.setFontSize(9);
         doc.setTextColor(...lightGray);
         doc.text('FICHE D\'ÉVALUATION', W - mr, y - 2, { align: 'right' });
 
-        doc.setFont('helvetica', 'bold');
+        doc.setFont(fontFamily, 'bold');
         doc.setFontSize(12);
         doc.setTextColor(...dark);
         doc.text(`#${String(e.id).padStart(4, '0')}`, W - mr, y + 5, { align: 'right' });
@@ -763,13 +819,13 @@
         // MAIN TITLE SECTION
         // ══════════════════════════════════════════════════════════════════════
         y = 52;
-        doc.setFont('helvetica', 'bold');
+        doc.setFont(fontFamily, 'bold');
         doc.setFontSize(22);
         doc.setTextColor(...dark);
         doc.text(`${e.first_name} ${e.last_name}`, ml, y);
 
         y += 8;
-        doc.setFont('helvetica', 'normal');
+        doc.setFont(fontFamily, 'normal');
         doc.setFontSize(10);
         doc.setTextColor(...gray);
         doc.text(`${e.email}${e.phone ? '  •  ' + e.phone : ''}`, ml, y);
@@ -779,7 +835,7 @@
         const circleY = 55;
         doc.setFillColor(...primary);
         doc.circle(circleX, circleY, 16, 'F');
-        doc.setFont('helvetica', 'bold');
+        doc.setFont(fontFamily, 'bold');
         doc.setFontSize(24);
         doc.setTextColor(...white);
         doc.text(`${e.rating}`, circleX, circleY + 3, { align: 'center' });
@@ -793,15 +849,14 @@
         y = 75;
         const col1X = ml;
         const col2X = ml + contentW / 2 + 5;
-        const colWidth = contentW / 2 - 5;
 
         // Helper: Draw info row
         const infoRow = (label, value, x, yPos) => {
-            doc.setFont('helvetica', 'normal');
+            doc.setFont(fontFamily, 'normal');
             doc.setFontSize(8);
             doc.setTextColor(...lightGray);
             doc.text(label.toUpperCase(), x, yPos);
-            doc.setFont('helvetica', 'bold');
+            doc.setFont(fontFamily, 'bold');
             doc.setFontSize(10);
             doc.setTextColor(...dark);
             const val = value && value.length > 28 ? value.substring(0, 25) + '...' : (value || '—');
@@ -833,7 +888,7 @@
             doc.setFillColor(254, 226, 226);
         }
         doc.roundedRect(col2X, yCol2, 55, 10, 2, 2, 'F');
-        doc.setFont('helvetica', 'bold');
+        doc.setFont(fontFamily, 'bold');
         doc.setFontSize(8);
         if (e.would_recommend) {
             doc.setTextColor(22, 101, 52);
@@ -865,7 +920,7 @@
                 const rx = ml + (i * ratingW) + ratingW / 2;
 
                 // Label
-                doc.setFont('helvetica', 'normal');
+                doc.setFont(fontFamily, 'normal');
                 doc.setFontSize(7);
                 doc.setTextColor(...gray);
                 doc.text(label, rx, y + 8, { align: 'center' });
@@ -882,7 +937,7 @@
                 doc.roundedRect(barX, y + 12, (val / 5) * barW, barH, 2, 2, 'F');
 
                 // Value
-                doc.setFont('helvetica', 'bold');
+                doc.setFont(fontFamily, 'bold');
                 doc.setFontSize(10);
                 doc.setTextColor(...dark);
                 doc.text(`${val}/5`, rx, y + 24, { align: 'center' });
@@ -894,7 +949,7 @@
         // ══════════════════════════════════════════════════════════════════════
         y = 176;
 
-        doc.setFont('helvetica', 'bold');
+        doc.setFont(fontFamily, 'bold');
         doc.setFontSize(9);
         doc.setTextColor(...primaryDark);
         doc.text('TÉMOIGNAGE', ml, y);
@@ -905,7 +960,7 @@
         doc.line(ml, y, ml + 25, y);
 
         y += 6;
-        doc.setFont('helvetica', 'normal');
+        doc.setFont(fontFamily, 'normal');
         doc.setFontSize(9);
         doc.setTextColor(...dark);
 
@@ -924,13 +979,13 @@
 
         if (e.comment) {
             // Comment section
-            doc.setFont('helvetica', 'bold');
+            doc.setFont(fontFamily, 'bold');
             doc.setFontSize(8);
             doc.setTextColor(...primaryDark);
             doc.text('COMMENTAIRE', ml, y);
 
             y += 5;
-            doc.setFont('helvetica', 'italic');
+            doc.setFont(fontFamily, 'italic');
             doc.setFontSize(8);
             doc.setTextColor(...gray);
             let commentText = e.comment.length > 180 ? e.comment.substring(0, 177) + '...' : e.comment;
@@ -950,7 +1005,7 @@
         doc.setLineWidth(0.3);
         doc.roundedRect(sigBoxX, sigBoxY, sigBoxW, sigBoxH, 2, 2, 'S');
 
-        doc.setFont('helvetica', 'normal');
+        doc.setFont(fontFamily, 'normal');
         doc.setFontSize(7);
         doc.setTextColor(...lightGray);
         doc.text('SIGNATURE', sigBoxX + 4, sigBoxY + 5);
@@ -970,7 +1025,7 @@
             const badgeY = H - 45;
             doc.setFillColor(220, 252, 231);
             doc.roundedRect(ml, badgeY, 50, 12, 2, 2, 'F');
-            doc.setFont('helvetica', 'bold');
+            doc.setFont(fontFamily, 'bold');
             doc.setFontSize(8);
             doc.setTextColor(22, 101, 52);
             doc.text('VÉRIFIÉ', ml + 25, badgeY + 7.5, { align: 'center' });
@@ -978,7 +1033,7 @@
 
         // Dates
         const dateY = H - 32;
-        doc.setFont('helvetica', 'normal');
+        doc.setFont(fontFamily, 'normal');
         doc.setFontSize(8);
         doc.setTextColor(...lightGray);
         doc.text(`Évaluation du ${formatDate(e.created_at)}`, ml, dateY);
@@ -990,7 +1045,7 @@
         doc.setFillColor(...primary);
         doc.rect(0, H - 12, W, 12, 'F');
 
-        doc.setFont('helvetica', 'normal');
+        doc.setFont(fontFamily, 'normal');
         doc.setFontSize(7);
         doc.setTextColor(...white);
         doc.text('Travel Express SARL  •  Burkina Faso  •  www.travelexpress.bf  •  contact@travelexpress.bf', W / 2, H - 5, { align: 'center' });
