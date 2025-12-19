@@ -241,43 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
         typingObserver.observe(el);
     });
 
-    // 9. CURSOR FOLLOWER (optionnel, pour un effet premium)
-    const cursor = document.createElement('div');
-    cursor.classList.add('custom-cursor');
-    document.body.appendChild(cursor);
-
-    const cursorStyle = document.createElement('style');
-    cursorStyle.textContent = `
-        .custom-cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #e2a60a;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.15s ease-out, opacity 0.15s;
-            opacity: 0;
-        }
-        .custom-cursor.active {
-            opacity: 1;
-            transform: scale(1.5);
-        }
-    `;
-    document.head.appendChild(cursorStyle);
-
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX - 10 + 'px';
-        cursor.style.top = e.clientY - 10 + 'px';
-        cursor.style.opacity = '1';
-    });
-
-    document.querySelectorAll('a, button').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('active'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
-    });
-
-    // 10. IMAGE LAZY LOADING avec effet de blur
+    // 9. IMAGE LAZY LOADING avec effet de blur
     const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -293,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
         imageObserver.observe(img);
     });
 
-    // 11. SCROLL PROGRESS INDICATOR
+    // 10. SCROLL PROGRESS INDICATOR
     const progressBar = document.createElement('div');
     progressBar.style.cssText = `
         position: fixed;
@@ -313,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
         progressBar.style.width = scrolled + '%';
     });
 
-    // 12. STAGGER ANIMATION pour les listes
+    // 11. STAGGER ANIMATION pour les listes
     document.querySelectorAll('.stagger-list').forEach(list => {
         const items = list.children;
 
