@@ -93,6 +93,7 @@
             margin-top: 3px;
             text-transform: uppercase;
             font-weight: 500;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         .doc-badge {
@@ -134,6 +135,7 @@
             color: #666666;
             font-weight: 400;
             font-style: italic;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         .doc-ref {
@@ -199,10 +201,11 @@
             width: 28%;
             padding: 10px 14px;
             background: #fafafa;
-            font-weight: 600;
+            font-weight: 700;
             color: #0a0a0a;
             font-size: 8.5pt;
             border-right: 1px solid #f0f0f0;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
         }
 
         .info-value {
@@ -210,7 +213,9 @@
             width: 22%;
             padding: 10px 14px;
             color: #333333;
-            font-size: 8.5pt;
+            font-size: 9pt;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
+            font-weight: 500;
         }
 
         /* ===== RATING SECTION ===== */
@@ -249,6 +254,7 @@
             margin-bottom: 8px;
             border-radius: 0 6px 6px 0;
             font-size: 9pt;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         .rating-line:last-child {
@@ -257,7 +263,8 @@
 
         .rating-line strong {
             color: #0a0a0a;
-            font-weight: 600;
+            font-weight: 700;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
         }
 
         .badge {
@@ -269,6 +276,7 @@
             margin-left: 8px;
             letter-spacing: 0.5px;
             text-transform: uppercase;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
         }
 
         .badge-success {
@@ -324,6 +332,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
         }
 
         .text-box {
@@ -335,6 +344,8 @@
             line-height: 1.6;
             border-radius: 0 6px 6px 0;
             color: #333333;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
+            font-weight: 400;
         }
 
         /* ===== SIGNATURE SECTION ===== */
@@ -368,6 +379,7 @@
             letter-spacing: 2px;
             margin-bottom: 12px;
             font-weight: 600;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
         }
 
         .signature-img {
@@ -392,6 +404,7 @@
             color: #666666;
             margin-top: 4px;
             font-weight: 400;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         .stamp-text {
@@ -420,11 +433,13 @@
             font-size: 7pt;
             color: #666666;
             line-height: 1.5;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         .legal strong {
             color: #0a0a0a;
             font-weight: 700;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
         }
 
         /* ===== FOOTER ===== */
@@ -446,6 +461,7 @@
             font-size: 7pt;
             color: #888888;
             font-weight: 400;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         .footer-center {
@@ -462,6 +478,7 @@
             font-size: 7pt;
             color: #888888;
             font-weight: 400;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
     </style>
 </head>
