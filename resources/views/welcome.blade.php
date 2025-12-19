@@ -3703,90 +3703,219 @@
                     if (!canvas) return;
 
                     this.signatureCanvas = canvas;
-                    this.signatureCtx = canvas.getContext('2d');
+                    this.signatureCtx = canvas.getContext('2d', {
+                        alpha: true,
+                        desynchronized: true,
+                        willReadFrequently: false
+                    });
 
-                    // Set canvas resolution for high quality signature
-                    // Use minimum 2x for good quality on all devices
+                    // Ultra-high resolution for professional quality (4x minimum)
                     const rect = canvas.getBoundingClientRect();
-                    const dpr = Math.max(window.devicePixelRatio || 1, 2);
+                    const dpr = Math.max(window.devicePixelRatio || 1, 4);
                     canvas.width = rect.width * dpr;
                     canvas.height = rect.height * dpr;
                     this.signatureCtx.scale(dpr, dpr);
                     this.canvasDpr = dpr;
 
-                    // Signature style settings - thicker line for better visibility
-                    this.signatureCtx.strokeStyle = '#1e3a5f';
-                    this.signatureCtx.lineWidth = 3;
+                    // Professional ink signature style
+                    this.signatureCtx.strokeStyle = '#0a0a0a';
+                    this.signatureCtx.fillStyle = '#0a0a0a';
                     this.signatureCtx.lineCap = 'round';
                     this.signatureCtx.lineJoin = 'round';
                     this.signatureCtx.imageSmoothingEnabled = true;
                     this.signatureCtx.imageSmoothingQuality = 'high';
 
-                    // Store last position for smooth drawing
+                    // Advanced stroke tracking for pressure simulation
+                    this.points = [];
                     this.lastX = 0;
                     this.lastY = 0;
+                    this.lastTime = 0;
+                    this.lastVelocity = 0;
+                    this.baseWidth = 2.5;
+                    this.minWidth = 1.2;
+                    this.maxWidth = 4.5;
+                    this.velocityFilterWeight = 0.7;
+                    this.minDistance = 0.5;
 
                     // Mouse events
                     canvas.addEventListener('mousedown', (e) => this.startDrawing(e));
                     canvas.addEventListener('mousemove', (e) => this.draw(e));
                     canvas.addEventListener('mouseup', () => this.stopDrawing());
-                    canvas.addEventListener('mouseout', () => this.stopDrawing());
+                    canvas.addEventListener('mouseleave', () => this.stopDrawing());
 
-                    // Touch events
-                    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); this.startDrawing(e.touches[0]); });
-                    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); this.draw(e.touches[0]); });
-                    canvas.addEventListener('touchend', () => this.stopDrawing());
+                    // Touch events with passive: false for better responsiveness
+                    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); this.startDrawing(e.touches[0]); }, { passive: false });
+                    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); this.draw(e.touches[0]); }, { passive: false });
+                    canvas.addEventListener('touchend', () => this.stopDrawing(), { passive: true });
+                    canvas.addEventListener('touchcancel', () => this.stopDrawing(), { passive: true });
                 },
 
                 getCanvasCoords(e) {
                     const rect = this.signatureCanvas.getBoundingClientRect();
                     return {
                         x: e.clientX - rect.left,
-                        y: e.clientY - rect.top
+                        y: e.clientY - rect.top,
+                        time: Date.now()
                     };
+                },
+
+                calculateVelocity(point1, point2) {
+                    const dx = point2.x - point1.x;
+                    const dy = point2.y - point1.y;
+                    const dt = point2.time - point1.time || 1;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    return distance / dt;
+                },
+
+                getStrokeWidth(velocity) {
+                    // Inverse relationship: faster = thinner, slower = thicker
+                    const normalizedVelocity = Math.min(velocity * 2, 1);
+                    const width = this.maxWidth - (this.maxWidth - this.minWidth) * normalizedVelocity;
+                    return Math.max(this.minWidth, Math.min(this.maxWidth, width));
+                },
+
+                drawCurve(points) {
+                    if (points.length < 2) return;
+
+                    const ctx = this.signatureCtx;
+
+                    if (points.length === 2) {
+                        // Simple line for 2 points
+                        ctx.beginPath();
+                        ctx.moveTo(points[0].x, points[0].y);
+                        ctx.lineTo(points[1].x, points[1].y);
+                        ctx.lineWidth = points[0].width || this.baseWidth;
+                        ctx.stroke();
+                        return;
+                    }
+
+                    // Use cubic Bezier curves for smooth interpolation
+                    for (let i = 1; i < points.length - 1; i++) {
+                        const p0 = points[i - 1];
+                        const p1 = points[i];
+                        const p2 = points[i + 1];
+
+                        // Calculate control points for smooth curve
+                        const midX1 = (p0.x + p1.x) / 2;
+                        const midY1 = (p0.y + p1.y) / 2;
+                        const midX2 = (p1.x + p2.x) / 2;
+                        const midY2 = (p1.y + p2.y) / 2;
+
+                        ctx.beginPath();
+                        ctx.moveTo(midX1, midY1);
+                        ctx.quadraticCurveTo(p1.x, p1.y, midX2, midY2);
+
+                        // Smooth width transition
+                        const avgWidth = (p0.width + p1.width + p2.width) / 3;
+                        ctx.lineWidth = avgWidth;
+                        ctx.stroke();
+                    }
                 },
 
                 startDrawing(e) {
                     this.isDrawing = true;
                     const coords = this.getCanvasCoords(e);
+
+                    this.points = [];
                     this.lastX = coords.x;
                     this.lastY = coords.y;
-                    this.signatureCtx.beginPath();
-                    this.signatureCtx.moveTo(coords.x, coords.y);
-                    // Draw a small dot at start point
-                    this.signatureCtx.lineTo(coords.x + 0.1, coords.y + 0.1);
-                    this.signatureCtx.stroke();
+                    this.lastTime = coords.time;
+                    this.lastVelocity = 0;
+
+                    // Add starting point with base width
+                    this.points.push({
+                        x: coords.x,
+                        y: coords.y,
+                        time: coords.time,
+                        width: this.baseWidth
+                    });
+
+                    // Draw initial dot
+                    const ctx = this.signatureCtx;
+                    ctx.beginPath();
+                    ctx.arc(coords.x, coords.y, this.baseWidth / 2, 0, Math.PI * 2);
+                    ctx.fill();
                 },
 
                 draw(e) {
                     if (!this.isDrawing) return;
+
                     const coords = this.getCanvasCoords(e);
 
-                    // Use quadratic curve for smoother lines
-                    this.signatureCtx.beginPath();
-                    this.signatureCtx.moveTo(this.lastX, this.lastY);
+                    // Calculate distance from last point
+                    const dx = coords.x - this.lastX;
+                    const dy = coords.y - this.lastY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    // Calculate midpoint for smooth curve
-                    const midX = (this.lastX + coords.x) / 2;
-                    const midY = (this.lastY + coords.y) / 2;
-                    this.signatureCtx.quadraticCurveTo(this.lastX, this.lastY, midX, midY);
-                    this.signatureCtx.stroke();
+                    // Skip if movement is too small (reduces jitter)
+                    if (distance < this.minDistance) return;
+
+                    // Calculate velocity with smoothing
+                    const velocity = this.calculateVelocity(
+                        { x: this.lastX, y: this.lastY, time: this.lastTime },
+                        coords
+                    );
+
+                    // Apply velocity filter for smoother transitions
+                    const smoothVelocity = this.velocityFilterWeight * velocity +
+                                          (1 - this.velocityFilterWeight) * this.lastVelocity;
+
+                    // Calculate stroke width based on velocity
+                    const strokeWidth = this.getStrokeWidth(smoothVelocity);
+
+                    // Add point with calculated width
+                    this.points.push({
+                        x: coords.x,
+                        y: coords.y,
+                        time: coords.time,
+                        width: strokeWidth
+                    });
+
+                    // Draw the curve with recent points for real-time feedback
+                    if (this.points.length >= 3) {
+                        const recentPoints = this.points.slice(-4);
+                        this.drawCurve(recentPoints);
+                    } else if (this.points.length === 2) {
+                        // Draw line for first segment
+                        const ctx = this.signatureCtx;
+                        ctx.beginPath();
+                        ctx.moveTo(this.points[0].x, this.points[0].y);
+                        ctx.lineTo(this.points[1].x, this.points[1].y);
+                        ctx.lineWidth = (this.points[0].width + this.points[1].width) / 2;
+                        ctx.stroke();
+                    }
 
                     this.lastX = coords.x;
                     this.lastY = coords.y;
+                    this.lastTime = coords.time;
+                    this.lastVelocity = smoothVelocity;
                 },
 
                 stopDrawing() {
                     if (this.isDrawing) {
                         this.isDrawing = false;
-                        this.signatureData = this.signatureCanvas.toDataURL('image/png');
+
+                        // Draw final endpoint
+                        if (this.points.length > 0) {
+                            const lastPoint = this.points[this.points.length - 1];
+                            const ctx = this.signatureCtx;
+                            ctx.beginPath();
+                            ctx.arc(lastPoint.x, lastPoint.y, lastPoint.width / 3, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+
+                        // Export at high quality
+                        this.signatureData = this.signatureCanvas.toDataURL('image/png', 1.0);
+                        this.points = [];
                     }
                 },
 
                 clearSignature() {
                     if (this.signatureCtx && this.signatureCanvas) {
-                        this.signatureCtx.clearRect(0, 0, this.signatureCanvas.width, this.signatureCanvas.height);
+                        const dpr = this.canvasDpr || Math.max(window.devicePixelRatio || 1, 4);
+                        this.signatureCtx.clearRect(0, 0, this.signatureCanvas.width / dpr, this.signatureCanvas.height / dpr);
                         this.signatureData = '';
+                        this.points = [];
                     }
                 },
 
