@@ -9,7 +9,7 @@
     <!-- Google Fonts - Premium Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -19,6 +19,7 @@
     <style>
         .font-display { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; }
         .font-sans { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; }
+        .font-elegant { font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif; }
 
         /* Custom Leaflet Popup */
         .leaflet-popup-content-wrapper {
@@ -3618,8 +3619,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-base sm:text-xl font-bold text-[#d4af37]">Formulaire d'évaluation</h3>
-                            <p class="text-white/70 text-xs sm:text-sm hidden xs:block">Partagez votre expérience avec Travel Express</p>
+                            <h3 class="font-elegant text-lg sm:text-2xl font-semibold text-[#d4af37] tracking-wide italic">Formulaire d'évaluation</h3>
+                            <p class="font-elegant text-white/70 text-xs sm:text-sm hidden xs:block tracking-wider">Partagez votre expérience avec Travel Express</p>
                         </div>
                     </div>
                     <button @click="evaluationModalOpen = false" class="text-white/60 hover:text-[#d4af37] transition-colors p-1.5 sm:p-2 hover:bg-[#d4af37]/10 rounded-lg sm:rounded-xl flex-shrink-0">
