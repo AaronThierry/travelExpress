@@ -20,511 +20,478 @@
             font-family: 'DejaVu Sans', Helvetica, Arial, sans-serif;
             font-size: 10px;
             line-height: 1.5;
-            color: #1a1a2e;
+            color: #2d3748;
             background: #ffffff;
         }
 
-        /* ===== LUXURY HEADER ===== */
+        /* ===== ELEGANT HEADER ===== */
         .header {
-            background: #0f4c3a;
+            background: #1a5d4a;
             color: white;
-            padding: 25px 35px;
+            padding: 30px 40px;
             position: relative;
-            overflow: hidden;
-        }
-
-        .header-pattern {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 100%;
-            opacity: 0.1;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 10px,
-                rgba(255,255,255,0.1) 10px,
-                rgba(255,255,255,0.1) 20px
-            );
         }
 
         .header-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .brand-section {
             display: table;
             width: 100%;
         }
 
-        .brand-left {
+        .header-left {
             display: table-cell;
             vertical-align: middle;
-            width: 65%;
+            width: 60%;
         }
 
-        .brand-right {
+        .header-right {
             display: table-cell;
             vertical-align: middle;
             text-align: right;
-            width: 35%;
+            width: 40%;
         }
 
-        .logo-container {
+        .logo-box {
             display: inline-block;
-        }
-
-        .logo-icon {
-            display: inline-block;
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #d4af37, #f4d03f);
-            background-color: #d4af37;
-            border-radius: 10px;
+            background: #c9a227;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
             text-align: center;
-            line-height: 45px;
-            font-size: 22px;
+            line-height: 50px;
+            font-size: 20px;
             font-weight: bold;
-            color: #0f4c3a;
+            color: #1a5d4a;
             vertical-align: middle;
-            margin-right: 12px;
+            margin-right: 15px;
         }
 
-        .logo-text-container {
+        .logo-text {
             display: inline-block;
             vertical-align: middle;
         }
 
         .logo-main {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #ffffff;
-        }
-
-        .logo-tagline {
-            font-size: 8px;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #d4af37;
-            margin-top: 3px;
         }
 
-        .doc-badge {
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.2);
-            border: 1px solid #d4af37;
-            color: #d4af37;
-            padding: 8px 18px;
-            border-radius: 25px;
+        .logo-sub {
             font-size: 9px;
+            color: #c9a227;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .doc-title {
+            background: rgba(201, 162, 39, 0.2);
+            border: 2px solid #c9a227;
+            color: #c9a227;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 11px;
             font-weight: bold;
             letter-spacing: 2px;
-            text-transform: uppercase;
+            display: inline-block;
         }
 
-        .gold-bar {
-            height: 4px;
-            background: linear-gradient(90deg, #d4af37, #f4d03f, #d4af37);
-            background-color: #d4af37;
+        .gold-line {
+            height: 5px;
+            background: #c9a227;
         }
 
-        /* ===== MAIN CONTENT ===== */
+        /* ===== CONTENT ===== */
         .content {
-            padding: 25px 35px 80px 35px;
+            padding: 30px 40px 90px 40px;
         }
 
-        /* ===== HERO PROFILE CARD ===== */
-        .hero-card {
-            background: linear-gradient(135deg, #f8f9fa, #ffffff);
-            background-color: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
+        /* ===== PROFILE CARD ===== */
+        .profile-card {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
             position: relative;
-            overflow: hidden;
         }
 
-        .hero-card::before {
-            content: '';
+        .profile-card-accent {
             position: absolute;
             top: 0;
             left: 0;
-            width: 5px;
+            width: 6px;
             height: 100%;
-            background: linear-gradient(180deg, #0f4c3a, #1a7f5a);
-            background-color: #0f4c3a;
+            background: #1a5d4a;
+            border-radius: 15px 0 0 15px;
         }
 
-        .hero-content {
+        .profile-row {
             display: table;
             width: 100%;
         }
 
-        .hero-avatar-section {
+        .profile-avatar-cell {
             display: table-cell;
-            width: 80px;
+            width: 85px;
             vertical-align: top;
         }
 
         .avatar {
-            width: 65px;
-            height: 65px;
-            background: linear-gradient(135deg, #0f4c3a, #1a7f5a);
-            background-color: #0f4c3a;
+            width: 70px;
+            height: 70px;
+            background: #1a5d4a;
             border-radius: 50%;
             text-align: center;
-            line-height: 65px;
+            line-height: 70px;
             color: white;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
-            border: 3px solid #d4af37;
+            border: 4px solid #c9a227;
         }
 
-        .hero-info-section {
+        .profile-info-cell {
             display: table-cell;
             vertical-align: top;
-            padding-left: 15px;
+            padding-left: 20px;
         }
 
-        .hero-name {
-            font-size: 20px;
+        .profile-name {
+            font-size: 22px;
             font-weight: bold;
-            color: #0f4c3a;
+            color: #1a5d4a;
+            margin-bottom: 5px;
+        }
+
+        .profile-email {
+            font-size: 11px;
+            color: #718096;
             margin-bottom: 3px;
-            letter-spacing: 0.5px;
         }
 
-        .hero-contact {
-            font-size: 10px;
-            color: #6c757d;
-            margin-bottom: 2px;
-        }
-
-        .hero-rating-section {
+        .profile-rating-cell {
             display: table-cell;
-            width: 140px;
+            width: 160px;
             vertical-align: top;
             text-align: right;
         }
 
-        .rating-display {
-            background: linear-gradient(135deg, #fff8e1, #fffde7);
-            background-color: #fff8e1;
-            border: 1px solid #ffe082;
+        .rating-box {
+            background: #fffbeb;
+            border: 2px solid #c9a227;
             border-radius: 12px;
-            padding: 12px 15px;
+            padding: 15px;
             text-align: center;
         }
 
-        .stars {
-            font-size: 16px;
-            color: #d4af37;
-            letter-spacing: 3px;
-            margin-bottom: 4px;
+        .rating-score {
+            font-size: 36px;
+            font-weight: bold;
+            color: #c9a227;
         }
 
-        .rating-label {
-            font-size: 9px;
-            color: #8d6e00;
+        .rating-max {
+            font-size: 16px;
+            color: #a0aec0;
+        }
+
+        .rating-text {
+            font-size: 10px;
+            color: #92400e;
+            margin-top: 5px;
             font-weight: 600;
         }
 
-        /* ===== STATUS BADGES ===== */
-        .status-row {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px dashed #dee2e6;
+        .rating-dots {
+            margin-top: 8px;
         }
 
-        .status-badge {
+        .dot {
             display: inline-block;
-            padding: 5px 12px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 2px;
+        }
+
+        .dot-filled {
+            background: #c9a227;
+        }
+
+        .dot-empty {
+            background: #e2e8f0;
+            border: 1px solid #cbd5e0;
+        }
+
+        /* ===== TAGS ===== */
+        .tags-row {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px dashed #e2e8f0;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 8px;
+            font-size: 9px;
             font-weight: bold;
-            text-transform: uppercase;
+            margin-right: 10px;
             letter-spacing: 0.5px;
-            margin-right: 8px;
         }
 
-        .badge-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+        .tag-green {
+            background: #c6f6d5;
+            color: #22543d;
         }
 
-        .badge-warning {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeeba;
+        .tag-blue {
+            background: #bee3f8;
+            color: #2a4365;
         }
 
-        .badge-gold {
-            background: linear-gradient(135deg, #fff8e1, #ffe082);
-            background-color: #fff8e1;
-            color: #8d6e00;
-            border: 1px solid #d4af37;
+        .tag-gold {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #c9a227;
         }
 
-        .badge-info {
-            background: #cce5ff;
-            color: #004085;
-            border: 1px solid #b8daff;
+        .tag-red {
+            background: #fed7d7;
+            color: #742a2a;
         }
 
-        .badge-danger {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        /* ===== METRICS GRID ===== */
-        .metrics-grid {
+        /* ===== INFO GRID ===== */
+        .info-grid {
             display: table;
             width: 100%;
-            margin-bottom: 20px;
-            border-spacing: 8px;
+            margin-bottom: 25px;
+            border-spacing: 10px;
         }
 
-        .metric-card {
+        .info-item {
             display: table-cell;
             width: 25%;
             vertical-align: top;
         }
 
-        .metric-inner {
-            background: #ffffff;
-            border: 1px solid #e9ecef;
+        .info-box {
+            background: white;
+            border: 2px solid #e2e8f0;
             border-radius: 12px;
-            padding: 14px 10px;
+            padding: 15px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            height: 100%;
         }
 
-        .metric-inner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: #0f4c3a;
+        .info-box-top {
+            height: 4px;
+            background: #1a5d4a;
+            border-radius: 10px 10px 0 0;
+            margin: -15px -15px 12px -15px;
         }
 
-        .metric-icon {
-            font-size: 18px;
+        .info-label {
+            font-size: 8px;
+            color: #a0aec0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-bottom: 6px;
         }
 
-        .metric-label {
-            font-size: 7px;
-            color: #6c757d;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-
-        .metric-value {
-            font-size: 10px;
+        .info-value {
+            font-size: 11px;
             font-weight: bold;
-            color: #1a1a2e;
-            line-height: 1.3;
+            color: #2d3748;
+            line-height: 1.4;
         }
 
         /* ===== SECTIONS ===== */
         .section {
-            margin-bottom: 18px;
+            margin-bottom: 22px;
         }
 
         .section-header {
             display: table;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
-        .section-icon {
+        .section-num {
             display: table-cell;
-            width: 28px;
+            width: 35px;
             vertical-align: middle;
         }
 
-        .section-icon-circle {
-            width: 24px;
-            height: 24px;
-            background: linear-gradient(135deg, #0f4c3a, #1a7f5a);
-            background-color: #0f4c3a;
+        .num-circle {
+            width: 28px;
+            height: 28px;
+            background: #1a5d4a;
             border-radius: 50%;
             text-align: center;
-            line-height: 24px;
+            line-height: 28px;
             color: white;
-            font-size: 11px;
+            font-size: 12px;
+            font-weight: bold;
         }
 
-        .section-title-container {
+        .section-title-box {
             display: table-cell;
             vertical-align: middle;
-            padding-left: 10px;
+            padding-left: 12px;
         }
 
         .section-title {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
-            color: #0f4c3a;
+            color: #1a5d4a;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
         }
 
         .section-subtitle {
-            font-size: 8px;
-            color: #6c757d;
+            font-size: 9px;
+            color: #a0aec0;
             margin-top: 2px;
         }
 
-        .section-content {
-            background: #f8f9fa;
+        .section-body {
+            background: #f7fafc;
             border-radius: 10px;
-            padding: 14px 16px;
-            border-left: 4px solid #0f4c3a;
-            margin-left: 12px;
+            padding: 16px 18px;
+            border-left: 5px solid #1a5d4a;
+            margin-left: 14px;
         }
 
         .section-text {
-            font-size: 10px;
-            color: #343a40;
-            line-height: 1.7;
-            text-align: justify;
+            font-size: 11px;
+            color: #4a5568;
+            line-height: 1.8;
         }
 
-        /* ===== RATINGS DETAIL ===== */
-        .ratings-container {
-            background: linear-gradient(135deg, #fffbf0, #fff8e1);
-            background-color: #fffbf0;
-            border: 1px solid #ffe082;
+        /* ===== RATINGS GRID ===== */
+        .ratings-box {
+            background: #fffbeb;
+            border: 2px solid #c9a227;
             border-radius: 12px;
-            padding: 15px;
-            margin-left: 12px;
+            padding: 18px;
+            margin-left: 14px;
         }
 
-        .ratings-row {
+        .ratings-grid {
             display: table;
             width: 100%;
         }
 
-        .rating-cell {
+        .rating-item {
             display: table-cell;
             width: 20%;
-            padding: 5px;
+            padding: 6px;
             text-align: center;
             vertical-align: top;
         }
 
-        .rating-box {
+        .rating-item-box {
             background: white;
             border-radius: 10px;
-            padding: 10px 5px;
-            border: 1px solid #f0e6d2;
+            padding: 12px 8px;
+            border: 1px solid #fde68a;
         }
 
-        .rating-box-label {
-            font-size: 7px;
-            color: #8d6e00;
+        .rating-item-label {
+            font-size: 8px;
+            color: #92400e;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
-        .rating-box-score {
-            font-size: 20px;
+        .rating-item-score {
+            font-size: 28px;
             font-weight: bold;
-            color: #d4af37;
+            color: #c9a227;
         }
 
-        .rating-box-max {
-            font-size: 10px;
-            color: #adb5bd;
+        .rating-item-max {
+            font-size: 12px;
+            color: #a0aec0;
         }
 
-        .rating-box-stars {
-            font-size: 8px;
-            color: #d4af37;
-            margin-top: 3px;
-            letter-spacing: 1px;
+        .rating-item-dots {
+            margin-top: 6px;
         }
 
-        /* ===== TESTIMONIAL BOX ===== */
-        .testimonial-container {
-            background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
-            background-color: #e8f5e9;
-            border: 1px solid #a5d6a7;
+        .mini-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin: 0 1px;
+        }
+
+        /* ===== TESTIMONIAL ===== */
+        .testimonial-box {
+            background: #f0fff4;
+            border: 2px solid #9ae6b4;
             border-radius: 12px;
-            padding: 18px 20px;
-            margin-left: 12px;
+            padding: 20px;
+            margin-left: 14px;
             position: relative;
         }
 
-        .quote-decoration {
+        .quote-mark {
             position: absolute;
-            top: 8px;
-            left: 12px;
-            font-size: 45px;
-            color: #0f4c3a;
-            opacity: 0.15;
+            top: 10px;
+            left: 15px;
+            font-size: 50px;
+            color: #1a5d4a;
+            opacity: 0.2;
             font-family: Georgia, serif;
             line-height: 1;
         }
 
         .testimonial-text {
-            font-size: 11px;
-            color: #2e7d32;
-            line-height: 1.8;
+            font-size: 12px;
+            color: #276749;
+            line-height: 1.9;
             font-style: italic;
-            padding-left: 20px;
-            position: relative;
-            z-index: 2;
+            padding-left: 25px;
         }
 
-        /* ===== SIGNATURE SECTION ===== */
-        .signature-container {
+        /* ===== SIGNATURE ===== */
+        .signature-section {
             text-align: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px dashed #dee2e6;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px dashed #e2e8f0;
         }
 
         .signature-box {
             display: inline-block;
-            background: linear-gradient(135deg, #fffbf0, #fff8e1);
-            background-color: #fffbf0;
-            border: 2px dashed #d4af37;
+            background: #fffbeb;
+            border: 3px dashed #c9a227;
             border-radius: 15px;
-            padding: 15px 30px;
-            min-width: 220px;
+            padding: 20px 40px;
+            min-width: 250px;
         }
 
-        .signature-title {
-            font-size: 8px;
-            color: #8d6e00;
+        .signature-label {
+            font-size: 9px;
+            color: #92400e;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-weight: bold;
         }
 
-        .signature-image {
-            max-height: 60px;
-            max-width: 180px;
+        .signature-img {
+            max-height: 70px;
+            max-width: 200px;
         }
 
         .signature-date {
-            font-size: 8px;
-            color: #adb5bd;
-            margin-top: 8px;
+            font-size: 9px;
+            color: #a0aec0;
+            margin-top: 10px;
         }
 
         /* ===== FOOTER ===== */
@@ -533,12 +500,12 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: #0f4c3a;
+            background: #1a5d4a;
             color: white;
-            padding: 12px 35px;
+            padding: 15px 40px;
         }
 
-        .footer-content {
+        .footer-row {
             display: table;
             width: 100%;
         }
@@ -557,169 +524,150 @@
         }
 
         .footer-brand {
-            font-size: 10px;
+            font-size: 12px;
             font-weight: bold;
-            color: #d4af37;
+            color: #c9a227;
         }
 
-        .footer-info {
-            font-size: 8px;
-            color: rgba(255,255,255,0.7);
-            margin-top: 2px;
-        }
-
-        .footer-doc {
-            font-size: 8px;
-            color: rgba(255,255,255,0.7);
-        }
-
-        .footer-id {
+        .footer-date {
             font-size: 9px;
-            color: #d4af37;
+            color: rgba(255,255,255,0.7);
+            margin-top: 3px;
+        }
+
+        .footer-ref {
+            font-size: 11px;
+            color: #c9a227;
             font-weight: bold;
         }
 
-        /* ===== DECORATIVE ===== */
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #d4af37, transparent);
-            margin: 15px 0;
-        }
-
-        .watermark {
-            position: fixed;
-            bottom: 80px;
-            right: 30px;
-            font-size: 60px;
-            color: rgba(15, 76, 58, 0.03);
-            font-weight: bold;
-            transform: rotate(-15deg);
-            z-index: 0;
+        .footer-type {
+            font-size: 8px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 3px;
         }
     </style>
 </head>
 <body>
-    <!-- Watermark -->
-    <div class="watermark">TRAVEL EXPRESS</div>
-
     <!-- Header -->
     <div class="header">
-        <div class="header-pattern"></div>
         <div class="header-content">
-            <div class="brand-section">
-                <div class="brand-left">
-                    <div class="logo-container">
-                        <span class="logo-icon">TE</span>
-                        <div class="logo-text-container">
-                            <div class="logo-main">Travel Express</div>
-                            <div class="logo-tagline">Excellence in International Education</div>
-                        </div>
-                    </div>
+            <div class="header-left">
+                <span class="logo-box">TE</span>
+                <div class="logo-text">
+                    <div class="logo-main">TRAVEL EXPRESS</div>
+                    <div class="logo-sub">EXCELLENCE IN INTERNATIONAL EDUCATION</div>
                 </div>
-                <div class="brand-right">
-                    <span class="doc-badge">Fiche d'Evaluation</span>
-                </div>
+            </div>
+            <div class="header-right">
+                <span class="doc-title">FICHE D'EVALUATION</span>
             </div>
         </div>
     </div>
-    <div class="gold-bar"></div>
+    <div class="gold-line"></div>
 
     <!-- Content -->
     <div class="content">
-        <!-- Hero Profile Card -->
-        <div class="hero-card">
-            <div class="hero-content">
-                <div class="hero-avatar-section">
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="profile-card-accent"></div>
+            <div class="profile-row">
+                <div class="profile-avatar-cell">
                     <div class="avatar">{{ strtoupper(substr($evaluation->first_name, 0, 1)) }}{{ strtoupper(substr($evaluation->last_name, 0, 1)) }}</div>
                 </div>
-                <div class="hero-info-section">
-                    <div class="hero-name">{{ $evaluation->first_name }} {{ $evaluation->last_name }}</div>
-                    <div class="hero-contact">{{ $evaluation->email }}</div>
+                <div class="profile-info-cell">
+                    <div class="profile-name">{{ $evaluation->first_name }} {{ $evaluation->last_name }}</div>
+                    <div class="profile-email">{{ $evaluation->email }}</div>
                     @if($evaluation->phone)
-                    <div class="hero-contact">{{ $evaluation->phone }}</div>
+                    <div class="profile-email">{{ $evaluation->phone }}</div>
                     @endif
                 </div>
-                <div class="hero-rating-section">
-                    <div class="rating-display">
-                        <div class="stars">
+                <div class="profile-rating-cell">
+                    <div class="rating-box">
+                        <div class="rating-score">{{ $evaluation->rating }}<span class="rating-max">/5</span></div>
+                        <div class="rating-dots">
                             @for($i = 1; $i <= 5; $i++)
-                                {{ $i <= $evaluation->rating ? "\u2605" : "\u2606" }}
+                                <span class="dot {{ $i <= $evaluation->rating ? 'dot-filled' : 'dot-empty' }}"></span>
                             @endfor
                         </div>
-                        <div class="rating-label">Note Globale: {{ $evaluation->rating }}/5</div>
+                        <div class="rating-text">NOTE GLOBALE</div>
                     </div>
                 </div>
             </div>
 
-            <div class="status-row">
+            <div class="tags-row">
                 @if($evaluation->would_recommend)
-                    <span class="status-badge badge-info">Recommande Travel Express</span>
+                    <span class="tag tag-blue">RECOMMANDE TRAVEL EXPRESS</span>
                 @else
-                    <span class="status-badge badge-danger">Ne recommande pas</span>
+                    <span class="tag tag-red">NE RECOMMANDE PAS</span>
                 @endif
                 @if($evaluation->start_year)
-                    <span class="status-badge badge-success">Promotion {{ $evaluation->start_year }}</span>
+                    <span class="tag tag-green">PROMOTION {{ $evaluation->start_year }}</span>
                 @endif
-                <span class="status-badge badge-gold">Service: {{ $evaluation->service_used ?? 'Etudes' }}</span>
+                <span class="tag tag-gold">SERVICE: {{ strtoupper($evaluation->service_used ?? 'ETUDES') }}</span>
             </div>
         </div>
 
-        <!-- Metrics Grid -->
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <div class="metric-inner">
-                    <div class="metric-label">Universite</div>
-                    <div class="metric-value">{{ $evaluation->university }}</div>
+        <!-- Info Grid -->
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-box">
+                    <div class="info-box-top"></div>
+                    <div class="info-label">Universite</div>
+                    <div class="info-value">{{ $evaluation->university }}</div>
                 </div>
             </div>
-            <div class="metric-card">
-                <div class="metric-inner">
-                    <div class="metric-label">Pays d'etude</div>
-                    <div class="metric-value">{{ $evaluation->country_of_study }}</div>
+            <div class="info-item">
+                <div class="info-box">
+                    <div class="info-box-top"></div>
+                    <div class="info-label">Pays d'etude</div>
+                    <div class="info-value">{{ $evaluation->country_of_study }}</div>
                 </div>
             </div>
-            <div class="metric-card">
-                <div class="metric-inner">
-                    <div class="metric-label">Niveau d'etude</div>
-                    <div class="metric-value">{{ $evaluation->study_level_label }}</div>
+            <div class="info-item">
+                <div class="info-box">
+                    <div class="info-box-top"></div>
+                    <div class="info-label">Niveau</div>
+                    <div class="info-value">{{ $evaluation->study_level_label }}</div>
                 </div>
             </div>
-            <div class="metric-card">
-                <div class="metric-inner">
-                    <div class="metric-label">Filiere</div>
-                    <div class="metric-value">{{ $evaluation->field_of_study }}</div>
+            <div class="info-item">
+                <div class="info-box">
+                    <div class="info-box-top"></div>
+                    <div class="info-label">Filiere</div>
+                    <div class="info-value">{{ $evaluation->field_of_study }}</div>
                 </div>
             </div>
         </div>
 
-        <!-- Project Story -->
+        <!-- Section 1: Parcours -->
         <div class="section">
             <div class="section-header">
-                <div class="section-icon">
-                    <div class="section-icon-circle">1</div>
+                <div class="section-num">
+                    <div class="num-circle">1</div>
                 </div>
-                <div class="section-title-container">
+                <div class="section-title-box">
                     <div class="section-title">Parcours & Histoire</div>
                     <div class="section-subtitle">Comment le projet a ete realise</div>
                 </div>
             </div>
-            <div class="section-content">
+            <div class="section-body">
                 <p class="section-text">{{ $evaluation->project_story }}</p>
             </div>
         </div>
 
-        <!-- Discovery Source -->
+        <!-- Section 2: Source -->
         <div class="section">
             <div class="section-header">
-                <div class="section-icon">
-                    <div class="section-icon-circle">2</div>
+                <div class="section-num">
+                    <div class="num-circle">2</div>
                 </div>
-                <div class="section-title-container">
+                <div class="section-title-box">
                     <div class="section-title">Source de Decouverte</div>
                     <div class="section-subtitle">Comment nous avez-vous connu</div>
                 </div>
             </div>
-            <div class="section-content">
+            <div class="section-body">
                 <p class="section-text">
                     <strong>{{ $evaluation->discovery_source_label }}</strong>
                     @if($evaluation->discovery_source_detail)
@@ -729,78 +677,78 @@
             </div>
         </div>
 
-        <!-- Detailed Ratings -->
+        <!-- Section 3: Ratings -->
         @if($evaluation->rating_accompagnement || $evaluation->rating_communication || $evaluation->rating_delais || $evaluation->rating_rapport_qualite_prix)
         <div class="section">
             <div class="section-header">
-                <div class="section-icon">
-                    <div class="section-icon-circle">3</div>
+                <div class="section-num">
+                    <div class="num-circle">3</div>
                 </div>
-                <div class="section-title-container">
+                <div class="section-title-box">
                     <div class="section-title">Evaluations Detaillees</div>
                     <div class="section-subtitle">Notes par critere</div>
                 </div>
             </div>
-            <div class="ratings-container">
-                <div class="ratings-row">
-                    <div class="rating-cell">
-                        <div class="rating-box">
-                            <div class="rating-box-label">Globale</div>
-                            <div class="rating-box-score">{{ $evaluation->rating }}<span class="rating-box-max">/5</span></div>
-                            <div class="rating-box-stars">
+            <div class="ratings-box">
+                <div class="ratings-grid">
+                    <div class="rating-item">
+                        <div class="rating-item-box">
+                            <div class="rating-item-label">Globale</div>
+                            <div class="rating-item-score">{{ $evaluation->rating }}<span class="rating-item-max">/5</span></div>
+                            <div class="rating-item-dots">
                                 @for($i = 1; $i <= 5; $i++)
-                                    {{ $i <= $evaluation->rating ? "\u2605" : "\u2606" }}
+                                    <span class="mini-dot {{ $i <= $evaluation->rating ? 'dot-filled' : 'dot-empty' }}"></span>
                                 @endfor
                             </div>
                         </div>
                     </div>
                     @if($evaluation->rating_accompagnement)
-                    <div class="rating-cell">
-                        <div class="rating-box">
-                            <div class="rating-box-label">Accompagnement</div>
-                            <div class="rating-box-score">{{ $evaluation->rating_accompagnement }}<span class="rating-box-max">/5</span></div>
-                            <div class="rating-box-stars">
+                    <div class="rating-item">
+                        <div class="rating-item-box">
+                            <div class="rating-item-label">Accompagnement</div>
+                            <div class="rating-item-score">{{ $evaluation->rating_accompagnement }}<span class="rating-item-max">/5</span></div>
+                            <div class="rating-item-dots">
                                 @for($i = 1; $i <= 5; $i++)
-                                    {{ $i <= $evaluation->rating_accompagnement ? "\u2605" : "\u2606" }}
+                                    <span class="mini-dot {{ $i <= $evaluation->rating_accompagnement ? 'dot-filled' : 'dot-empty' }}"></span>
                                 @endfor
                             </div>
                         </div>
                     </div>
                     @endif
                     @if($evaluation->rating_communication)
-                    <div class="rating-cell">
-                        <div class="rating-box">
-                            <div class="rating-box-label">Communication</div>
-                            <div class="rating-box-score">{{ $evaluation->rating_communication }}<span class="rating-box-max">/5</span></div>
-                            <div class="rating-box-stars">
+                    <div class="rating-item">
+                        <div class="rating-item-box">
+                            <div class="rating-item-label">Communication</div>
+                            <div class="rating-item-score">{{ $evaluation->rating_communication }}<span class="rating-item-max">/5</span></div>
+                            <div class="rating-item-dots">
                                 @for($i = 1; $i <= 5; $i++)
-                                    {{ $i <= $evaluation->rating_communication ? "\u2605" : "\u2606" }}
+                                    <span class="mini-dot {{ $i <= $evaluation->rating_communication ? 'dot-filled' : 'dot-empty' }}"></span>
                                 @endfor
                             </div>
                         </div>
                     </div>
                     @endif
                     @if($evaluation->rating_delais)
-                    <div class="rating-cell">
-                        <div class="rating-box">
-                            <div class="rating-box-label">Delais</div>
-                            <div class="rating-box-score">{{ $evaluation->rating_delais }}<span class="rating-box-max">/5</span></div>
-                            <div class="rating-box-stars">
+                    <div class="rating-item">
+                        <div class="rating-item-box">
+                            <div class="rating-item-label">Delais</div>
+                            <div class="rating-item-score">{{ $evaluation->rating_delais }}<span class="rating-item-max">/5</span></div>
+                            <div class="rating-item-dots">
                                 @for($i = 1; $i <= 5; $i++)
-                                    {{ $i <= $evaluation->rating_delais ? "\u2605" : "\u2606" }}
+                                    <span class="mini-dot {{ $i <= $evaluation->rating_delais ? 'dot-filled' : 'dot-empty' }}"></span>
                                 @endfor
                             </div>
                         </div>
                     </div>
                     @endif
                     @if($evaluation->rating_rapport_qualite_prix)
-                    <div class="rating-cell">
-                        <div class="rating-box">
-                            <div class="rating-box-label">Qualite/Prix</div>
-                            <div class="rating-box-score">{{ $evaluation->rating_rapport_qualite_prix }}<span class="rating-box-max">/5</span></div>
-                            <div class="rating-box-stars">
+                    <div class="rating-item">
+                        <div class="rating-item-box">
+                            <div class="rating-item-label">Qualite/Prix</div>
+                            <div class="rating-item-score">{{ $evaluation->rating_rapport_qualite_prix }}<span class="rating-item-max">/5</span></div>
+                            <div class="rating-item-dots">
                                 @for($i = 1; $i <= 5; $i++)
-                                    {{ $i <= $evaluation->rating_rapport_qualite_prix ? "\u2605" : "\u2606" }}
+                                    <span class="mini-dot {{ $i <= $evaluation->rating_rapport_qualite_prix ? 'dot-filled' : 'dot-empty' }}"></span>
                                 @endfor
                             </div>
                         </div>
@@ -811,38 +759,38 @@
         </div>
         @endif
 
-        <!-- Comment -->
+        <!-- Section 4: Comment -->
         @if($evaluation->comment)
         <div class="section">
             <div class="section-header">
-                <div class="section-icon">
-                    <div class="section-icon-circle">4</div>
+                <div class="section-num">
+                    <div class="num-circle">4</div>
                 </div>
-                <div class="section-title-container">
+                <div class="section-title-box">
                     <div class="section-title">Commentaire</div>
                     <div class="section-subtitle">Remarques supplementaires</div>
                 </div>
             </div>
-            <div class="section-content">
+            <div class="section-body">
                 <p class="section-text">{{ $evaluation->comment }}</p>
             </div>
         </div>
         @endif
 
-        <!-- Public Testimonial -->
+        <!-- Section 5: Testimonial -->
         @if($evaluation->public_testimonial)
         <div class="section">
             <div class="section-header">
-                <div class="section-icon">
-                    <div class="section-icon-circle">5</div>
+                <div class="section-num">
+                    <div class="num-circle">5</div>
                 </div>
-                <div class="section-title-container">
+                <div class="section-title-box">
                     <div class="section-title">Temoignage</div>
                     <div class="section-subtitle">Message public</div>
                 </div>
             </div>
-            <div class="testimonial-container">
-                <span class="quote-decoration">"</span>
+            <div class="testimonial-box">
+                <span class="quote-mark">"</span>
                 <p class="testimonial-text">{{ $evaluation->public_testimonial }}</p>
             </div>
         </div>
@@ -850,30 +798,28 @@
 
         <!-- Signature -->
         @if($signature)
-        <div class="signature-container">
+        <div class="signature-section">
             <div class="signature-box">
-                <div class="signature-title">Signature Authentique</div>
-                <img src="{{ $signature }}" alt="Signature" class="signature-image">
+                <div class="signature-label">Signature Authentique</div>
+                <img src="{{ $signature }}" alt="Signature" class="signature-img">
                 @if($evaluation->signed_at)
                 <div class="signature-date">Signe le {{ $evaluation->signed_at->format('d/m/Y') }}</div>
                 @endif
             </div>
         </div>
         @endif
-
-        <div class="divider"></div>
     </div>
 
     <!-- Footer -->
     <div class="footer">
-        <div class="footer-content">
+        <div class="footer-row">
             <div class="footer-left">
                 <div class="footer-brand">TRAVEL EXPRESS</div>
-                <div class="footer-info">Document genere le {{ $generatedAt }}</div>
+                <div class="footer-date">Document genere le {{ $generatedAt }}</div>
             </div>
             <div class="footer-right">
-                <div class="footer-doc">Document officiel - Usage interne</div>
-                <div class="footer-id">REF: TE-EVAL-{{ str_pad($evaluation->id, 5, '0', STR_PAD_LEFT) }}</div>
+                <div class="footer-ref">REF: TE-EVAL-{{ str_pad($evaluation->id, 5, '0', STR_PAD_LEFT) }}</div>
+                <div class="footer-type">Document officiel - Usage interne</div>
             </div>
         </div>
     </div>
