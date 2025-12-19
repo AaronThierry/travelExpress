@@ -3607,22 +3607,22 @@
              class="relative w-full max-w-3xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
 
 >
-            <!-- Header with gradient -->
-            <div class="relative bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 px-4 sm:px-6 py-4 sm:py-6 text-white">
-                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.08\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+            <!-- Header with gradient - Black & Gold theme -->
+            <div class="relative bg-gradient-to-r from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] px-4 sm:px-6 py-4 sm:py-6 text-white">
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23d4af37\" fill-opacity=\"0.08\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
                 <div class="relative flex items-center justify-between">
                     <div class="flex items-center gap-3 sm:gap-4">
-                        <div class="w-10 h-10 sm:w-14 sm:h-14 bg-white/20 backdrop-blur rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-10 h-10 sm:w-14 sm:h-14 bg-[#d4af37]/20 backdrop-blur rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0 border border-[#d4af37]/30">
+                            <svg class="w-5 h-5 sm:w-7 sm:h-7 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-base sm:text-xl font-bold">Formulaire d'évaluation</h3>
-                            <p class="text-white/80 text-xs sm:text-sm hidden xs:block">Partagez votre expérience avec Travel Express</p>
+                            <h3 class="text-base sm:text-xl font-bold text-[#d4af37]">Formulaire d'évaluation</h3>
+                            <p class="text-white/70 text-xs sm:text-sm hidden xs:block">Partagez votre expérience avec Travel Express</p>
                         </div>
                     </div>
-                    <button @click="evaluationModalOpen = false" class="text-white/80 hover:text-white transition-colors p-1.5 sm:p-2 hover:bg-white/10 rounded-lg sm:rounded-xl flex-shrink-0">
+                    <button @click="evaluationModalOpen = false" class="text-white/60 hover:text-[#d4af37] transition-colors p-1.5 sm:p-2 hover:bg-[#d4af37]/10 rounded-lg sm:rounded-xl flex-shrink-0">
                         <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -3856,27 +3856,27 @@
                     }
                 }
             }">
-                <!-- Progress bar -->
+                <!-- Progress bar - Black & Gold theme -->
                 <div class="mb-6">
                     <div class="flex items-center justify-between mb-2">
-                        <span class="text-sm font-medium text-gray-600">Étape <span x-text="step"></span> sur <span x-text="totalSteps"></span></span>
+                        <span class="text-sm font-medium text-[#0a0a0a]">Étape <span x-text="step"></span> sur <span x-text="totalSteps"></span></span>
                         <span class="text-sm text-gray-500" x-text="step === 1 ? 'Informations personnelles' : step === 2 ? 'Parcours académique' : step === 3 ? 'Votre expérience' : 'Évaluation'"></span>
                     </div>
                     <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-500 rounded-full" :style="'width: ' + (step / totalSteps * 100) + '%'"></div>
+                        <div class="h-full bg-gradient-to-r from-[#d4af37] to-[#b8960c] transition-all duration-500 rounded-full" :style="'width: ' + (step / totalSteps * 100) + '%'"></div>
                     </div>
                 </div>
 
-                <!-- Success Message -->
+                <!-- Success Message - Black & Gold theme -->
                 <div x-show="success" x-transition class="text-center py-12">
-                    <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-20 h-20 bg-[#d4af37]/10 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-[#d4af37]">
+                        <svg class="w-10 h-10 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
                     </div>
-                    <h4 class="text-2xl font-bold text-gray-900 mb-3">Merci pour votre évaluation !</h4>
+                    <h4 class="text-2xl font-bold text-[#0a0a0a] mb-3">Merci pour votre évaluation !</h4>
                     <p class="text-gray-600 mb-6">Votre retour est précieux et nous aide à améliorer nos services.</p>
-                    <button @click="evaluationModalOpen = false; success = false; step = 1;" class="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors">
+                    <button @click="evaluationModalOpen = false; success = false; step = 1;" class="px-6 py-3 bg-[#0a0a0a] text-[#d4af37] font-semibold rounded-xl hover:bg-[#1a1a1a] transition-colors border border-[#d4af37]/30">
                         Fermer
                     </button>
                 </div>
@@ -3892,47 +3892,205 @@
                     </button>
                 </div>
 
-                <!-- Step 1: Informations personnelles -->
+                <!-- Step 1: Informations personnelles - Black & Gold theme -->
                 <div x-show="step === 1 && !success" x-transition>
                     <div class="space-y-5">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Prénom *</label>
+                                <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Prénom *</label>
                                 <input type="text" x-model="firstName" required placeholder="Votre prénom"
-                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Nom *</label>
+                                <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Nom *</label>
                                 <input type="text" x-model="lastName" required placeholder="Votre nom"
-                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
+                            <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Email *</label>
                             <input type="email" x-model="email" required placeholder="votre.email@exemple.com"
-                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Téléphone</label>
-                            <input type="tel" x-model="phone" placeholder="+226 70 00 00 00"
-                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                            <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Téléphone</label>
+                            <div class="flex gap-2" x-data="{
+                                evalPhoneOpen: false,
+                                evalPhoneSearch: '',
+                                evalPhoneNumber: '',
+                                evalSelectedCode: '+226',
+                                evalSelectedIso: 'bf',
+                                evalSelectedCountry: 'Burkina Faso',
+                                evalCountries: [
+                                    { code: '+27', country: 'Afrique du Sud', iso: 'za' },
+                                    { code: '+213', country: 'Algérie', iso: 'dz' },
+                                    { code: '+49', country: 'Allemagne', iso: 'de' },
+                                    { code: '+32', country: 'Belgique', iso: 'be' },
+                                    { code: '+229', country: 'Bénin', iso: 'bj' },
+                                    { code: '+55', country: 'Brésil', iso: 'br' },
+                                    { code: '+226', country: 'Burkina Faso', iso: 'bf' },
+                                    { code: '+257', country: 'Burundi', iso: 'bi' },
+                                    { code: '+237', country: 'Cameroun', iso: 'cm' },
+                                    { code: '+1', country: 'Canada/USA', iso: 'us' },
+                                    { code: '+236', country: 'Centrafrique', iso: 'cf' },
+                                    { code: '+86', country: 'Chine', iso: 'cn' },
+                                    { code: '+242', country: 'Congo', iso: 'cg' },
+                                    { code: '+243', country: 'RD Congo', iso: 'cd' },
+                                    { code: '+225', country: 'Côte d\'Ivoire', iso: 'ci' },
+                                    { code: '+20', country: 'Égypte', iso: 'eg' },
+                                    { code: '+971', country: 'Émirats', iso: 'ae' },
+                                    { code: '+34', country: 'Espagne', iso: 'es' },
+                                    { code: '+251', country: 'Éthiopie', iso: 'et' },
+                                    { code: '+33', country: 'France', iso: 'fr' },
+                                    { code: '+241', country: 'Gabon', iso: 'ga' },
+                                    { code: '+220', country: 'Gambie', iso: 'gm' },
+                                    { code: '+233', country: 'Ghana', iso: 'gh' },
+                                    { code: '+224', country: 'Guinée', iso: 'gn' },
+                                    { code: '+245', country: 'Guinée-Bissau', iso: 'gw' },
+                                    { code: '+91', country: 'Inde', iso: 'in' },
+                                    { code: '+39', country: 'Italie', iso: 'it' },
+                                    { code: '+81', country: 'Japon', iso: 'jp' },
+                                    { code: '+254', country: 'Kenya', iso: 'ke' },
+                                    { code: '+961', country: 'Liban', iso: 'lb' },
+                                    { code: '+261', country: 'Madagascar', iso: 'mg' },
+                                    { code: '+223', country: 'Mali', iso: 'ml' },
+                                    { code: '+212', country: 'Maroc', iso: 'ma' },
+                                    { code: '+230', country: 'Maurice', iso: 'mu' },
+                                    { code: '+222', country: 'Mauritanie', iso: 'mr' },
+                                    { code: '+227', country: 'Niger', iso: 'ne' },
+                                    { code: '+234', country: 'Nigéria', iso: 'ng' },
+                                    { code: '+256', country: 'Ouganda', iso: 'ug' },
+                                    { code: '+31', country: 'Pays-Bas', iso: 'nl' },
+                                    { code: '+351', country: 'Portugal', iso: 'pt' },
+                                    { code: '+44', country: 'Royaume-Uni', iso: 'gb' },
+                                    { code: '+250', country: 'Rwanda', iso: 'rw' },
+                                    { code: '+221', country: 'Sénégal', iso: 'sn' },
+                                    { code: '+232', country: 'Sierra Leone', iso: 'sl' },
+                                    { code: '+41', country: 'Suisse', iso: 'ch' },
+                                    { code: '+235', country: 'Tchad', iso: 'td' },
+                                    { code: '+228', country: 'Togo', iso: 'tg' },
+                                    { code: '+216', country: 'Tunisie', iso: 'tn' },
+                                    { code: '+90', country: 'Turquie', iso: 'tr' },
+                                    { code: '+260', country: 'Zambie', iso: 'zm' },
+                                    { code: '+263', country: 'Zimbabwe', iso: 'zw' }
+                                ],
+                                get evalFilteredCountries() {
+                                    if (!this.evalPhoneSearch) return this.evalCountries;
+                                    const s = this.evalPhoneSearch.toLowerCase();
+                                    return this.evalCountries.filter(c => c.country.toLowerCase().includes(s) || c.code.includes(s));
+                                },
+                                evalSelectCountry(c) {
+                                    this.evalSelectedCode = c.code;
+                                    this.evalSelectedIso = c.iso;
+                                    this.evalSelectedCountry = c.country;
+                                    this.evalPhoneOpen = false;
+                                    this.evalPhoneSearch = '';
+                                    this.updateParentPhone();
+                                },
+                                formatEvalPhone() {
+                                    let digits = this.evalPhoneNumber.replace(/\D/g, '');
+                                    if (digits.length > 0) {
+                                        let formatted = '';
+                                        for (let i = 0; i < digits.length; i += 2) {
+                                            if (i > 0) formatted += ' ';
+                                            formatted += digits.substring(i, i + 2);
+                                        }
+                                        this.evalPhoneNumber = formatted;
+                                    }
+                                    this.updateParentPhone();
+                                },
+                                updateParentPhone() {
+                                    const digits = this.evalPhoneNumber.replace(/\D/g, '');
+                                    if (digits) {
+                                        phone = this.evalSelectedCode + ' ' + this.evalPhoneNumber;
+                                    } else {
+                                        phone = '';
+                                    }
+                                }
+                            }" x-init="$watch('evalPhoneNumber', () => formatEvalPhone())">
+                                <!-- Bouton sélecteur avec drapeau -->
+                                <div class="relative">
+                                    <button type="button" @click="evalPhoneOpen = !evalPhoneOpen"
+                                            class="flex items-center gap-2 w-[120px] sm:w-[140px] px-3 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all text-sm font-medium hover:bg-gray-100"
+                                            :class="{ 'ring-2 ring-[#d4af37] border-[#d4af37]': evalPhoneOpen }">
+                                        <img :src="'https://flagcdn.com/w40/' + evalSelectedIso + '.png'"
+                                             :srcset="'https://flagcdn.com/w80/' + evalSelectedIso + '.png 2x'"
+                                             :alt="evalSelectedCountry"
+                                             class="w-7 h-5 object-cover rounded-sm shadow-sm ring-1 ring-black/10">
+                                        <span class="font-bold text-[#0a0a0a]" x-text="evalSelectedCode"></span>
+                                        <svg class="w-4 h-4 ml-auto text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': evalPhoneOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </button>
+
+                                    <!-- Dropdown -->
+                                    <div x-show="evalPhoneOpen" @click.away="evalPhoneOpen = false"
+                                         x-transition:enter="transition ease-out duration-150"
+                                         x-transition:enter-start="opacity-0 scale-95"
+                                         x-transition:enter-end="opacity-100 scale-100"
+                                         x-transition:leave="transition ease-in duration-100"
+                                         x-transition:leave-start="opacity-100 scale-100"
+                                         x-transition:leave-end="opacity-0 scale-95"
+                                         class="absolute z-50 left-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden"
+                                         style="display: none;">
+
+                                        <!-- Recherche -->
+                                        <div class="p-3 border-b border-gray-100 bg-gray-50">
+                                            <div class="relative">
+                                                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                                </svg>
+                                                <input type="text" x-model="evalPhoneSearch" placeholder="Rechercher un pays..."
+                                                       class="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] outline-none bg-white"
+                                                       @click.stop>
+                                            </div>
+                                        </div>
+
+                                        <!-- Liste des pays -->
+                                        <div class="max-h-64 overflow-y-auto">
+                                            <template x-for="c in evalFilteredCountries" :key="c.iso">
+                                                <button type="button" @click="evalSelectCountry(c)"
+                                                        class="flex items-center gap-3 w-full px-4 py-3 hover:bg-[#d4af37]/10 transition-colors text-left border-b border-gray-50"
+                                                        :class="{ 'bg-[#d4af37]/10 border-l-4 border-l-[#d4af37]': evalSelectedIso === c.iso }">
+                                                    <img :src="'https://flagcdn.com/w40/' + c.iso + '.png'"
+                                                         :srcset="'https://flagcdn.com/w80/' + c.iso + '.png 2x'"
+                                                         :alt="c.country"
+                                                         class="w-8 h-6 object-cover rounded-sm shadow-sm ring-1 ring-black/10">
+                                                    <span class="flex-1 text-sm font-medium text-gray-700" x-text="c.country"></span>
+                                                    <span class="text-sm font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded" x-text="c.code"></span>
+                                                    <svg x-show="evalSelectedIso === c.iso" class="w-5 h-5 text-[#d4af37]" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                                    </svg>
+                                                </button>
+                                            </template>
+                                            <div x-show="evalFilteredCountries.length === 0" class="px-4 py-6 text-sm text-gray-500 text-center">
+                                                Aucun pays trouvé
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Champ téléphone -->
+                                <input type="tel" x-model="evalPhoneNumber" placeholder="70 00 00 00"
+                                       class="flex-1 min-w-0 px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Step 2: Parcours académique -->
+                <!-- Step 2: Parcours académique - Black & Gold theme -->
                 <div x-show="step === 2 && !success" x-transition>
                     <div class="space-y-5">
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Université / École *</label>
+                            <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Université / École *</label>
                             <input type="text" x-model="university" required placeholder="Nom de votre université ou école"
-                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Pays d'études *</label>
+                                <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Pays d'études *</label>
                                 <select x-model="countryOfStudy" required
-                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
                                     <option value="">Sélectionner...</option>
                                     <option value="Chine">Chine</option>
                                     <option value="Espagne">Espagne</option>
@@ -3944,9 +4102,9 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Niveau d'études *</label>
+                                <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Niveau d'études *</label>
                                 <select x-model="studyLevel" required
-                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
                                     <option value="">Sélectionner...</option>
                                     <option value="licence_1">Licence 1</option>
                                     <option value="licence_2">Licence 2</option>
@@ -3961,14 +4119,14 @@
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Filière *</label>
+                                <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Filière *</label>
                                 <input type="text" x-model="fieldOfStudy" required placeholder="Ex: Informatique, Commerce..."
-                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Année de début</label>
+                                <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Année de début</label>
                                 <select x-model="startYear"
-                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
                                     <option value="">Sélectionner...</option>
                                     <template x-for="year in Array.from({length: 10}, (_, i) => new Date().getFullYear() - i)" :key="year">
                                         <option :value="year" x-text="year"></option>
@@ -3977,25 +4135,25 @@
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Type de service utilisé</label>
+                            <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Type de service utilisé</label>
                             <div class="grid grid-cols-3 gap-2 sm:gap-3">
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="serviceUsed" value="etudes" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-xl sm:text-2xl mb-1 block">🎓</span>
                                         <span class="text-xs sm:text-sm font-medium">Études</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="serviceUsed" value="business" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-xl sm:text-2xl mb-1 block">💼</span>
                                         <span class="text-xs sm:text-sm font-medium">Business</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="serviceUsed" value="visa_seul" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-xl sm:text-2xl mb-1 block">📄</span>
                                         <span class="text-xs sm:text-sm font-medium">Visa seul</span>
                                     </div>
@@ -4005,78 +4163,78 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Expérience -->
+                <!-- Step 3: Expérience - Black & Gold theme -->
                 <div x-show="step === 3 && !success" x-transition>
                     <div class="space-y-5">
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Comment êtes-vous parvenu(e) à réaliser votre projet de voyage ? *</label>
+                            <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Comment êtes-vous parvenu(e) à réaliser votre projet de voyage ? *</label>
                             <textarea x-model="projectStory" required rows="4" placeholder="Racontez-nous votre parcours, les étapes clés, les défis surmontés..."
-                                      class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all resize-none"></textarea>
+                                      class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all resize-none"></textarea>
                             <p class="text-xs text-gray-500 mt-1">Minimum 50 caractères - <span x-text="projectStory.length"></span>/50</p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-3">Comment avez-vous connu Travel Express ? *</label>
+                            <label class="block text-sm font-semibold text-[#0a0a0a] mb-3">Comment avez-vous connu Travel Express ? *</label>
                             <div class="grid grid-cols-3 gap-2 sm:gap-3">
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="ambassadeur_la_bobolaise" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">👩‍💼</span>
                                         <span class="text-[10px] sm:text-xs font-medium leading-tight block">La Bobolaise</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="ambassadeur_ley_ley" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">👨‍💼</span>
                                         <span class="text-[10px] sm:text-xs font-medium leading-tight block">Ley Ley</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="ambassadeur_autre" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">🤝</span>
                                         <span class="text-[10px] sm:text-xs font-medium leading-tight block">Autre amb.</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="facebook" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">📘</span>
                                         <span class="text-[10px] sm:text-xs font-medium leading-tight block">Facebook</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="tiktok" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">🎵</span>
                                         <span class="text-[10px] sm:text-xs font-medium leading-tight block">TikTok</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="instagram" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">📸</span>
                                         <span class="text-[10px] sm:text-xs font-medium leading-tight block">Instagram</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="youtube" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">▶️</span>
                                         <span class="text-[10px] sm:text-xs font-medium leading-tight block">YouTube</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="bouche_a_oreille" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">🗣️</span>
                                         <span class="text-[10px] sm:text-xs font-medium leading-tight block">Bouche à or.</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="autre" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">❓</span>
                                         <span class="text-[10px] sm:text-xs font-medium leading-tight block">Autre</span>
                                     </div>
@@ -4085,19 +4243,19 @@
                         </div>
 
                         <div x-show="discoverySource === 'ambassadeur_autre' || discoverySource === 'autre'" x-transition>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Précisez</label>
+                            <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Précisez</label>
                             <input type="text" x-model="discoverySourceDetail" placeholder="Nom de l'ambassadeur ou autre source..."
-                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
                         </div>
                     </div>
                 </div>
 
-                <!-- Step 4: Évaluation -->
+                <!-- Step 4: Évaluation - Black & Gold theme -->
                 <div x-show="step === 4 && !success" x-transition>
                     <div class="space-y-6">
                         <!-- Note globale -->
-                        <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl sm:rounded-2xl p-3 sm:p-5">
-                            <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3">Note globale à Travel Express *</label>
+                        <div class="bg-gradient-to-br from-[#d4af37]/10 to-[#0a0a0a]/5 rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-[#d4af37]/20">
+                            <label class="block text-xs sm:text-sm font-semibold text-[#0a0a0a] mb-2 sm:mb-3">Note globale à Travel Express *</label>
                             <div class="flex items-center justify-center gap-1 sm:gap-2">
                                 <template x-for="star in 5" :key="star">
                                     <button type="button" @click="rating = star" class="focus:outline-none transform hover:scale-110 transition-transform">
@@ -4164,13 +4322,13 @@
 
                         <!-- Recommandation -->
                         <div>
-                            <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3">Recommanderiez-vous Travel Express ?</label>
+                            <label class="block text-xs sm:text-sm font-semibold text-[#0a0a0a] mb-2 sm:mb-3">Recommanderiez-vous Travel Express ?</label>
                             <div class="flex gap-2 sm:gap-4">
                                 <label class="flex-1 cursor-pointer">
                                     <input type="radio" x-model="wouldRecommend" :value="true" class="peer sr-only">
-                                    <div class="p-2.5 sm:p-4 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                    <div class="p-2.5 sm:p-4 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
                                         <span class="text-xl sm:text-3xl mb-1 sm:mb-2 block">👍</span>
-                                        <span class="font-semibold text-gray-700 text-xs sm:text-base">Oui !</span>
+                                        <span class="font-semibold text-[#0a0a0a] text-xs sm:text-base">Oui !</span>
                                     </div>
                                 </label>
                                 <label class="flex-1 cursor-pointer">
@@ -4185,27 +4343,27 @@
 
                         <!-- Commentaire -->
                         <div>
-                            <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">Laissez un commentaire à Travel Express</label>
+                            <label class="block text-xs sm:text-sm font-semibold text-[#0a0a0a] mb-1.5 sm:mb-2">Laissez un commentaire à Travel Express</label>
                             <textarea x-model="comment" rows="2" placeholder="Vos suggestions, remarques ou feedback..."
-                                      class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all resize-none"></textarea>
+                                      class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all resize-none"></textarea>
                         </div>
 
-                        <!-- Signature -->
-                        <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-amber-200">
+                        <!-- Signature - Black & Gold theme -->
+                        <div class="bg-gradient-to-br from-[#d4af37]/10 to-[#0a0a0a]/5 rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-[#d4af37]/30">
                             <div class="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-4">
-                                <div class="w-8 h-8 sm:w-10 sm:h-10 bg-amber-100 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-8 h-8 sm:w-10 sm:h-10 bg-[#d4af37]/20 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0 border border-[#d4af37]/30">
+                                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                                     </svg>
                                 </div>
                                 <div>
-                                    <h4 class="font-semibold text-gray-900 text-sm sm:text-base">Signature *</h4>
+                                    <h4 class="font-semibold text-[#0a0a0a] text-sm sm:text-base">Signature *</h4>
                                     <p class="text-xs sm:text-sm text-gray-600">Signez ci-dessous pour valider</p>
                                 </div>
                             </div>
                             <div class="relative">
                                 <canvas id="signature-canvas"
-                                        class="w-full border-2 border-dashed border-amber-300 rounded-lg sm:rounded-xl bg-white cursor-crosshair touch-none"
+                                        class="w-full border-2 border-dashed border-[#d4af37]/50 rounded-lg sm:rounded-xl bg-white cursor-crosshair touch-none"
                                         style="height: 120px;"></canvas>
                                 <button type="button" @click="clearSignature()"
                                         class="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 p-1.5 sm:p-2 bg-white/80 hover:bg-white text-gray-500 hover:text-red-500 rounded-md sm:rounded-lg transition-colors shadow-sm">
@@ -4214,7 +4372,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <p class="text-[10px] sm:text-xs text-amber-700 mt-1.5 sm:mt-2 flex items-center gap-1">
+                            <p class="text-[10px] sm:text-xs text-[#0a0a0a]/70 mt-1.5 sm:mt-2 flex items-center gap-1">
                                 <svg class="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
@@ -4224,10 +4382,10 @@
                     </div>
                 </div>
 
-                <!-- Navigation buttons -->
+                <!-- Navigation buttons - Black & Gold theme -->
                 <div x-show="!success" class="flex items-center justify-between mt-4 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-100">
                     <button type="button" @click="prevStep()" x-show="step > 1"
-                            class="px-3 sm:px-5 py-2 sm:py-2.5 text-gray-600 hover:text-gray-900 font-medium rounded-lg sm:rounded-xl hover:bg-gray-100 transition-all flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                            class="px-3 sm:px-5 py-2 sm:py-2.5 text-[#0a0a0a] hover:text-[#d4af37] font-medium rounded-lg sm:rounded-xl hover:bg-[#d4af37]/10 transition-all flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
                         <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                         </svg>
@@ -4238,7 +4396,7 @@
 
                     <button type="button" @click="nextStep()" x-show="step < totalSteps"
                             :disabled="(step === 1 && (!firstName || !lastName || !email)) || (step === 2 && (!university || !countryOfStudy || !studyLevel || !fieldOfStudy)) || (step === 3 && (!projectStory || projectStory.length < 50 || !discoverySource))"
-                            class="px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-lg sm:rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                            class="px-4 sm:px-6 py-2 sm:py-2.5 bg-[#0a0a0a] text-[#d4af37] font-semibold rounded-lg sm:rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 sm:gap-2 text-sm sm:text-base border border-[#d4af37]/30 hover:bg-[#1a1a1a]">
                         Suivant
                         <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -4246,7 +4404,7 @@
                     </button>
 
                     <button type="button" @click="submitForm()" x-show="step === totalSteps" :disabled="submitting || !signatureData"
-                            class="px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-lg sm:rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                            class="px-4 sm:px-6 py-2 sm:py-2.5 bg-[#0a0a0a] text-[#d4af37] font-semibold rounded-lg sm:rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 sm:gap-2 text-sm sm:text-base border border-[#d4af37]/30 hover:bg-[#1a1a1a]">
                         <svg x-show="submitting" class="animate-spin w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
