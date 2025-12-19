@@ -2443,7 +2443,18 @@
                         </div>
 
                         <!-- Form -->
-                        <form id="contact-form" class="space-y-4 sm:space-y-5">
+                        <form id="contact-form" class="space-y-4 sm:space-y-5" x-data="{
+                            name: '',
+                            nameTouched: false,
+                            get nameValid() { return this.name.trim().length >= 2; },
+                            email: '',
+                            emailTouched: false,
+                            get emailValid() { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email); },
+                            destination: '',
+                            destinationTouched: false,
+                            projectType: '',
+                            projectTypeTouched: false
+                        }">
                             <!-- Step indicator -->
                             <div class="flex items-center gap-2 mb-1">
                                 <span class="text-[10px] sm:text-xs font-bold text-primary-600 uppercase tracking-wider">Formulaire de contact</span>
@@ -2456,15 +2467,49 @@
                                     <label for="contact-name" class="block text-xs sm:text-sm font-semibold text-slate-700">
                                         Nom complet <span class="text-red-500">*</span>
                                     </label>
-                                    <input type="text" id="contact-name" name="name" required placeholder="Votre nom"
-                                           class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-0 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900 placeholder-slate-400">
+                                    <div class="relative">
+                                        <input type="text" id="contact-name" name="name" required placeholder="Votre nom"
+                                               x-model="name" @blur="nameTouched = true"
+                                               class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-2 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900 placeholder-slate-400 pr-10"
+                                               :class="{
+                                                   'border-transparent': !nameTouched,
+                                                   'border-emerald-500 bg-emerald-50/50': nameTouched && nameValid,
+                                                   'border-red-400 bg-red-50/50': nameTouched && !nameValid
+                                               }">
+                                        <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                                            <svg x-show="nameTouched && nameValid" class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <svg x-show="nameTouched && !nameValid" class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <p x-show="nameTouched && !nameValid" class="text-xs text-red-500 mt-0.5">Veuillez entrer votre nom</p>
                                 </div>
                                 <div class="space-y-1.5">
                                     <label for="contact-email" class="block text-xs sm:text-sm font-semibold text-slate-700">
                                         Email <span class="text-red-500">*</span>
                                     </label>
-                                    <input type="email" id="contact-email" name="email" required placeholder="votre@email.com"
-                                           class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-0 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900 placeholder-slate-400">
+                                    <div class="relative">
+                                        <input type="email" id="contact-email" name="email" required placeholder="votre@email.com"
+                                               x-model="email" @blur="emailTouched = true"
+                                               class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-2 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900 placeholder-slate-400 pr-10"
+                                               :class="{
+                                                   'border-transparent': !emailTouched,
+                                                   'border-emerald-500 bg-emerald-50/50': emailTouched && emailValid,
+                                                   'border-red-400 bg-red-50/50': emailTouched && !emailValid
+                                               }">
+                                        <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                                            <svg x-show="emailTouched && emailValid" class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <svg x-show="emailTouched && !emailValid" class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <p x-show="emailTouched && !emailValid" class="text-xs text-red-500 mt-0.5">Email invalide</p>
                                 </div>
                             </div>
 
@@ -2476,66 +2521,94 @@
                                 <div class="flex gap-2" x-data="{
                                     open: false,
                                     search: '',
+                                    phoneNumber: '',
+                                    phoneValid: null,
+                                    phoneTouched: false,
                                     selectedCode: '+226',
                                     selectedIso: 'bf',
                                     selectedCountry: 'Burkina Faso',
                                     countries: [
-                                        { code: '+27', country: 'Afrique du Sud', iso: 'za' },
-                                        { code: '+213', country: 'Algérie', iso: 'dz' },
-                                        { code: '+49', country: 'Allemagne', iso: 'de' },
-                                        { code: '+32', country: 'Belgique', iso: 'be' },
-                                        { code: '+229', country: 'Bénin', iso: 'bj' },
-                                        { code: '+55', country: 'Brésil', iso: 'br' },
-                                        { code: '+226', country: 'Burkina Faso', iso: 'bf' },
-                                        { code: '+257', country: 'Burundi', iso: 'bi' },
-                                        { code: '+237', country: 'Cameroun', iso: 'cm' },
-                                        { code: '+1', country: 'Canada/USA', iso: 'us' },
-                                        { code: '+236', country: 'Centrafrique', iso: 'cf' },
-                                        { code: '+86', country: 'Chine', iso: 'cn' },
-                                        { code: '+242', country: 'Congo', iso: 'cg' },
-                                        { code: '+243', country: 'RD Congo', iso: 'cd' },
-                                        { code: '+225', country: 'Côte d\'Ivoire', iso: 'ci' },
-                                        { code: '+20', country: 'Égypte', iso: 'eg' },
-                                        { code: '+971', country: 'Émirats', iso: 'ae' },
-                                        { code: '+34', country: 'Espagne', iso: 'es' },
-                                        { code: '+251', country: 'Éthiopie', iso: 'et' },
-                                        { code: '+33', country: 'France', iso: 'fr' },
-                                        { code: '+241', country: 'Gabon', iso: 'ga' },
-                                        { code: '+220', country: 'Gambie', iso: 'gm' },
-                                        { code: '+233', country: 'Ghana', iso: 'gh' },
-                                        { code: '+224', country: 'Guinée', iso: 'gn' },
-                                        { code: '+245', country: 'Guinée-Bissau', iso: 'gw' },
-                                        { code: '+91', country: 'Inde', iso: 'in' },
-                                        { code: '+39', country: 'Italie', iso: 'it' },
-                                        { code: '+81', country: 'Japon', iso: 'jp' },
-                                        { code: '+254', country: 'Kenya', iso: 'ke' },
-                                        { code: '+961', country: 'Liban', iso: 'lb' },
-                                        { code: '+261', country: 'Madagascar', iso: 'mg' },
-                                        { code: '+223', country: 'Mali', iso: 'ml' },
-                                        { code: '+212', country: 'Maroc', iso: 'ma' },
-                                        { code: '+230', country: 'Maurice', iso: 'mu' },
-                                        { code: '+222', country: 'Mauritanie', iso: 'mr' },
-                                        { code: '+227', country: 'Niger', iso: 'ne' },
-                                        { code: '+234', country: 'Nigéria', iso: 'ng' },
-                                        { code: '+256', country: 'Ouganda', iso: 'ug' },
-                                        { code: '+31', country: 'Pays-Bas', iso: 'nl' },
-                                        { code: '+351', country: 'Portugal', iso: 'pt' },
-                                        { code: '+44', country: 'Royaume-Uni', iso: 'gb' },
-                                        { code: '+250', country: 'Rwanda', iso: 'rw' },
-                                        { code: '+221', country: 'Sénégal', iso: 'sn' },
-                                        { code: '+232', country: 'Sierra Leone', iso: 'sl' },
-                                        { code: '+41', country: 'Suisse', iso: 'ch' },
-                                        { code: '+235', country: 'Tchad', iso: 'td' },
-                                        { code: '+228', country: 'Togo', iso: 'tg' },
-                                        { code: '+216', country: 'Tunisie', iso: 'tn' },
-                                        { code: '+90', country: 'Turquie', iso: 'tr' },
-                                        { code: '+260', country: 'Zambie', iso: 'zm' },
-                                        { code: '+263', country: 'Zimbabwe', iso: 'zw' }
+                                        { code: '+27', country: 'Afrique du Sud', iso: 'za', minLen: 9, maxLen: 9 },
+                                        { code: '+213', country: 'Algérie', iso: 'dz', minLen: 9, maxLen: 9 },
+                                        { code: '+49', country: 'Allemagne', iso: 'de', minLen: 10, maxLen: 11 },
+                                        { code: '+32', country: 'Belgique', iso: 'be', minLen: 9, maxLen: 9 },
+                                        { code: '+229', country: 'Bénin', iso: 'bj', minLen: 8, maxLen: 8 },
+                                        { code: '+55', country: 'Brésil', iso: 'br', minLen: 10, maxLen: 11 },
+                                        { code: '+226', country: 'Burkina Faso', iso: 'bf', minLen: 8, maxLen: 8 },
+                                        { code: '+257', country: 'Burundi', iso: 'bi', minLen: 8, maxLen: 8 },
+                                        { code: '+237', country: 'Cameroun', iso: 'cm', minLen: 9, maxLen: 9 },
+                                        { code: '+1', country: 'Canada/USA', iso: 'us', minLen: 10, maxLen: 10 },
+                                        { code: '+236', country: 'Centrafrique', iso: 'cf', minLen: 8, maxLen: 8 },
+                                        { code: '+86', country: 'Chine', iso: 'cn', minLen: 11, maxLen: 11 },
+                                        { code: '+242', country: 'Congo', iso: 'cg', minLen: 9, maxLen: 9 },
+                                        { code: '+243', country: 'RD Congo', iso: 'cd', minLen: 9, maxLen: 9 },
+                                        { code: '+225', country: 'Côte d\'Ivoire', iso: 'ci', minLen: 10, maxLen: 10 },
+                                        { code: '+20', country: 'Égypte', iso: 'eg', minLen: 10, maxLen: 10 },
+                                        { code: '+971', country: 'Émirats', iso: 'ae', minLen: 9, maxLen: 9 },
+                                        { code: '+34', country: 'Espagne', iso: 'es', minLen: 9, maxLen: 9 },
+                                        { code: '+251', country: 'Éthiopie', iso: 'et', minLen: 9, maxLen: 9 },
+                                        { code: '+33', country: 'France', iso: 'fr', minLen: 9, maxLen: 9 },
+                                        { code: '+241', country: 'Gabon', iso: 'ga', minLen: 7, maxLen: 8 },
+                                        { code: '+220', country: 'Gambie', iso: 'gm', minLen: 7, maxLen: 7 },
+                                        { code: '+233', country: 'Ghana', iso: 'gh', minLen: 9, maxLen: 9 },
+                                        { code: '+224', country: 'Guinée', iso: 'gn', minLen: 9, maxLen: 9 },
+                                        { code: '+245', country: 'Guinée-Bissau', iso: 'gw', minLen: 7, maxLen: 7 },
+                                        { code: '+91', country: 'Inde', iso: 'in', minLen: 10, maxLen: 10 },
+                                        { code: '+39', country: 'Italie', iso: 'it', minLen: 9, maxLen: 10 },
+                                        { code: '+81', country: 'Japon', iso: 'jp', minLen: 10, maxLen: 10 },
+                                        { code: '+254', country: 'Kenya', iso: 'ke', minLen: 9, maxLen: 9 },
+                                        { code: '+961', country: 'Liban', iso: 'lb', minLen: 7, maxLen: 8 },
+                                        { code: '+261', country: 'Madagascar', iso: 'mg', minLen: 9, maxLen: 9 },
+                                        { code: '+223', country: 'Mali', iso: 'ml', minLen: 8, maxLen: 8 },
+                                        { code: '+212', country: 'Maroc', iso: 'ma', minLen: 9, maxLen: 9 },
+                                        { code: '+230', country: 'Maurice', iso: 'mu', minLen: 7, maxLen: 8 },
+                                        { code: '+222', country: 'Mauritanie', iso: 'mr', minLen: 8, maxLen: 8 },
+                                        { code: '+227', country: 'Niger', iso: 'ne', minLen: 8, maxLen: 8 },
+                                        { code: '+234', country: 'Nigéria', iso: 'ng', minLen: 10, maxLen: 10 },
+                                        { code: '+256', country: 'Ouganda', iso: 'ug', minLen: 9, maxLen: 9 },
+                                        { code: '+31', country: 'Pays-Bas', iso: 'nl', minLen: 9, maxLen: 9 },
+                                        { code: '+351', country: 'Portugal', iso: 'pt', minLen: 9, maxLen: 9 },
+                                        { code: '+44', country: 'Royaume-Uni', iso: 'gb', minLen: 10, maxLen: 10 },
+                                        { code: '+250', country: 'Rwanda', iso: 'rw', minLen: 9, maxLen: 9 },
+                                        { code: '+221', country: 'Sénégal', iso: 'sn', minLen: 9, maxLen: 9 },
+                                        { code: '+232', country: 'Sierra Leone', iso: 'sl', minLen: 8, maxLen: 8 },
+                                        { code: '+41', country: 'Suisse', iso: 'ch', minLen: 9, maxLen: 9 },
+                                        { code: '+235', country: 'Tchad', iso: 'td', minLen: 8, maxLen: 8 },
+                                        { code: '+228', country: 'Togo', iso: 'tg', minLen: 8, maxLen: 8 },
+                                        { code: '+216', country: 'Tunisie', iso: 'tn', minLen: 8, maxLen: 8 },
+                                        { code: '+90', country: 'Turquie', iso: 'tr', minLen: 10, maxLen: 10 },
+                                        { code: '+260', country: 'Zambie', iso: 'zm', minLen: 9, maxLen: 9 },
+                                        { code: '+263', country: 'Zimbabwe', iso: 'zw', minLen: 9, maxLen: 9 }
                                     ],
+                                    get currentCountry() {
+                                        return this.countries.find(c => c.iso === this.selectedIso) || { minLen: 8, maxLen: 10 };
+                                    },
                                     get filteredCountries() {
                                         if (!this.search) return this.countries;
                                         const s = this.search.toLowerCase();
                                         return this.countries.filter(c => c.country.toLowerCase().includes(s) || c.code.includes(s));
+                                    },
+                                    validatePhone() {
+                                        const digits = this.phoneNumber.replace(/\D/g, '');
+                                        if (!digits) {
+                                            this.phoneValid = null;
+                                            return;
+                                        }
+                                        const country = this.currentCountry;
+                                        this.phoneValid = digits.length >= country.minLen && digits.length <= country.maxLen;
+                                    },
+                                    formatPhone() {
+                                        let digits = this.phoneNumber.replace(/\D/g, '');
+                                        if (digits.length > 0) {
+                                            // Format en groupes de 2 chiffres
+                                            let formatted = '';
+                                            for (let i = 0; i < digits.length; i += 2) {
+                                                if (i > 0) formatted += ' ';
+                                                formatted += digits.substring(i, i + 2);
+                                            }
+                                            this.phoneNumber = formatted;
+                                        }
+                                        this.validatePhone();
                                     },
                                     selectCountry(c) {
                                         this.selectedCode = c.code;
@@ -2544,20 +2617,22 @@
                                         this.open = false;
                                         this.search = '';
                                         document.getElementById('contact-phone-code').value = c.code;
+                                        this.validatePhone();
                                     }
-                                }">
+                                }" x-init="$watch('phoneNumber', () => { phoneTouched = true; formatPhone(); })">
                                     <!-- Hidden input pour le formulaire -->
                                     <input type="hidden" id="contact-phone-code" name="phone_code" x-bind:value="selectedCode">
 
                                     <!-- Bouton sélecteur avec drapeau -->
                                     <div class="relative">
                                         <button type="button" @click="open = !open"
-                                                class="flex items-center gap-1.5 sm:gap-2 w-[100px] sm:w-[130px] px-2 sm:px-3 py-2.5 sm:py-3 bg-slate-50 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 text-xs sm:text-sm font-medium hover:bg-slate-100">
-                                            <img :src="'https://flagcdn.com/24x18/' + selectedIso + '.png'"
+                                                class="flex items-center gap-1.5 sm:gap-2 w-[110px] sm:w-[140px] px-2.5 sm:px-3 py-2.5 sm:py-3 bg-slate-50 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900 text-xs sm:text-sm font-medium hover:bg-slate-100 border-2 border-transparent"
+                                                :class="{ 'border-primary-500 bg-white': open }">
+                                            <img :src="'https://flagcdn.com/w40/' + selectedIso + '.png'"
+                                                 :srcset="'https://flagcdn.com/w80/' + selectedIso + '.png 2x'"
                                                  :alt="selectedCountry"
-                                                 class="w-6 h-[18px] object-cover rounded shadow-sm border border-slate-200"
-                                                 onerror="this.style.display='none'">
-                                            <span class="font-semibold" x-text="selectedCode"></span>
+                                                 class="w-7 h-5 sm:w-8 sm:h-6 object-cover rounded-sm shadow-sm ring-1 ring-black/10">
+                                            <span class="font-bold text-slate-800" x-text="selectedCode"></span>
                                             <svg class="w-4 h-4 ml-auto text-slate-400 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                             </svg>
@@ -2571,47 +2646,80 @@
                                              x-transition:leave="transition ease-in duration-100"
                                              x-transition:leave-start="opacity-100 scale-100"
                                              x-transition:leave-end="opacity-0 scale-95"
-                                             class="absolute z-50 left-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden"
+                                             class="absolute z-50 left-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden"
                                              style="display: none;">
 
                                             <!-- Recherche -->
-                                            <div class="p-2 border-b border-slate-100">
+                                            <div class="p-3 border-b border-slate-100 bg-slate-50">
                                                 <div class="relative">
                                                     <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                                                     </svg>
-                                                    <input type="text" x-model="search" placeholder="Rechercher..."
-                                                           class="w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+                                                    <input type="text" x-model="search" placeholder="Rechercher un pays..."
+                                                           class="w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none bg-white"
                                                            @click.stop>
                                                 </div>
                                             </div>
 
                                             <!-- Liste des pays -->
-                                            <div class="max-h-56 overflow-y-auto">
+                                            <div class="max-h-64 overflow-y-auto">
                                                 <template x-for="c in filteredCountries" :key="c.iso">
                                                     <button type="button" @click="selectCountry(c)"
-                                                            class="flex items-center gap-3 w-full px-3 py-2.5 hover:bg-primary-50 transition-colors text-left"
-                                                            :class="{ 'bg-primary-50 border-l-2 border-primary-500': selectedIso === c.iso }">
-                                                        <img :src="'https://flagcdn.com/24x18/' + c.iso + '.png'"
+                                                            class="flex items-center gap-3 w-full px-4 py-3 hover:bg-primary-50 transition-colors text-left border-b border-slate-50"
+                                                            :class="{ 'bg-primary-50 border-l-4 border-l-primary-500': selectedIso === c.iso }">
+                                                        <img :src="'https://flagcdn.com/w40/' + c.iso + '.png'"
+                                                             :srcset="'https://flagcdn.com/w80/' + c.iso + '.png 2x'"
                                                              :alt="c.country"
-                                                             class="w-6 h-[18px] object-cover rounded shadow-sm border border-slate-200">
-                                                        <span class="flex-1 text-sm text-slate-700" x-text="c.country"></span>
-                                                        <span class="text-sm font-semibold text-slate-500" x-text="c.code"></span>
-                                                        <svg x-show="selectedIso === c.iso" class="w-4 h-4 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                                                             class="w-8 h-6 object-cover rounded-sm shadow-sm ring-1 ring-black/10">
+                                                        <span class="flex-1 text-sm font-medium text-slate-700" x-text="c.country"></span>
+                                                        <span class="text-sm font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded" x-text="c.code"></span>
+                                                        <svg x-show="selectedIso === c.iso" class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
                                                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                                         </svg>
                                                     </button>
                                                 </template>
-                                                <div x-show="filteredCountries.length === 0" class="px-3 py-4 text-sm text-slate-500 text-center">
+                                                <div x-show="filteredCountries.length === 0" class="px-4 py-6 text-sm text-slate-500 text-center">
+                                                    <svg class="w-8 h-8 mx-auto mb-2 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                    </svg>
                                                     Aucun pays trouvé
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <input type="tel" id="contact-phone" name="phone" required placeholder="65 60 45 92"
-                                           class="flex-1 min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-0 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900 placeholder-slate-400">
+                                    <!-- Champ téléphone avec validation -->
+                                    <div class="relative flex-1">
+                                        <input type="tel" id="contact-phone" name="phone" required placeholder="65 60 45 92"
+                                               x-model="phoneNumber"
+                                               class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-2 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900 placeholder-slate-400 pr-10"
+                                               :class="{
+                                                   'border-transparent': !phoneTouched || phoneValid === null,
+                                                   'border-emerald-500 bg-emerald-50/50': phoneTouched && phoneValid === true,
+                                                   'border-red-400 bg-red-50/50': phoneTouched && phoneValid === false
+                                               }">
+                                        <!-- Icône de validation -->
+                                        <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                                            <svg x-show="phoneTouched && phoneValid === true" class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <svg x-show="phoneTouched && phoneValid === false" class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </div>
+                                    </div>
                                 </div>
+                                <!-- Message d'erreur -->
+                                <p x-show="phoneTouched && phoneValid === false"
+                                   x-transition:enter="transition ease-out duration-200"
+                                   x-transition:enter-start="opacity-0 -translate-y-1"
+                                   x-transition:enter-end="opacity-100 translate-y-0"
+                                   class="text-xs text-red-500 mt-1 flex items-center gap-1">
+                                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span x-text="'Numéro invalide (' + currentCountry.minLen + (currentCountry.minLen !== currentCountry.maxLen ? '-' + currentCountry.maxLen : '') + ' chiffres attendus)'"></span>
+                                </p>
                             </div>
 
                             <!-- Row 3: Destination & Project Type -->
@@ -2620,27 +2728,59 @@
                                     <label for="contact-destination" class="block text-xs sm:text-sm font-semibold text-slate-700">
                                         Destination <span class="text-red-500">*</span>
                                     </label>
-                                    <select id="contact-destination" name="destination" required
-                                            class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-0 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900">
-                                        <option value="">Choisir un pays...</option>
-                                        <option value="china">🇨🇳 Chine</option>
-                                        <option value="germany">🇩🇪 Allemagne</option>
-                                        <option value="spain">🇪🇸 Espagne</option>
-                                        <option value="other">🌍 Autre pays</option>
-                                    </select>
+                                    <div class="relative">
+                                        <select id="contact-destination" name="destination" required
+                                                x-model="destination" @change="destinationTouched = true"
+                                                class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-2 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900 pr-10 appearance-none"
+                                                :class="{
+                                                    'border-transparent': !destinationTouched,
+                                                    'border-emerald-500 bg-emerald-50/50': destinationTouched && destination,
+                                                    'border-red-400 bg-red-50/50': destinationTouched && !destination
+                                                }">
+                                            <option value="">Choisir un pays...</option>
+                                            <option value="china">Chine</option>
+                                            <option value="germany">Allemagne</option>
+                                            <option value="spain">Espagne</option>
+                                            <option value="other">Autre pays</option>
+                                        </select>
+                                        <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none flex items-center gap-1">
+                                            <svg x-show="destinationTouched && destination" class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <svg x-show="!destinationTouched || !destination" class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                            </svg>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="space-y-1.5">
                                     <label for="contact-project-type" class="block text-xs sm:text-sm font-semibold text-slate-700">
                                         Type de projet <span class="text-red-500">*</span>
                                     </label>
-                                    <select id="contact-project-type" name="project_type" required
-                                            class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-0 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900">
-                                        <option value="">Choisir...</option>
-                                        <option value="etudes">📚 Études</option>
-                                        <option value="travail">💼 Travail</option>
-                                        <option value="business">🏢 Business</option>
-                                        <option value="autre">📋 Autre</option>
-                                    </select>
+                                    <div class="relative">
+                                        <select id="contact-project-type" name="project_type" required
+                                                x-model="projectType" @change="projectTypeTouched = true"
+                                                class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border-2 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm sm:text-base text-slate-900 pr-10 appearance-none"
+                                                :class="{
+                                                    'border-transparent': !projectTypeTouched,
+                                                    'border-emerald-500 bg-emerald-50/50': projectTypeTouched && projectType,
+                                                    'border-red-400 bg-red-50/50': projectTypeTouched && !projectType
+                                                }">
+                                            <option value="">Choisir...</option>
+                                            <option value="etudes">Études</option>
+                                            <option value="travail">Travail</option>
+                                            <option value="business">Business</option>
+                                            <option value="autre">Autre</option>
+                                        </select>
+                                        <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none flex items-center gap-1">
+                                            <svg x-show="projectTypeTouched && projectType" class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <svg x-show="!projectTypeTouched || !projectType" class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                            </svg>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
