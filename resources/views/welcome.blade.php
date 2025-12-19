@@ -3454,7 +3454,7 @@
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
          @click.self="evaluationModalOpen = false"
-         class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 pt-10 pb-10"
+         class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-start justify-center p-2 sm:p-4 pt-4 sm:pt-10 pb-4 sm:pb-10"
          style="display: none;">
         <div x-show="evaluationModalOpen"
              x-transition:enter="transition ease-out duration-300"
@@ -3464,25 +3464,26 @@
              x-transition:leave-start="opacity-100 translate-y-0 scale-100"
              x-transition:leave-end="opacity-0 translate-y-8 scale-95"
              @click.stop
-             class="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden">
+             class="relative w-full max-w-3xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
 
+>
             <!-- Header with gradient -->
-            <div class="relative bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 px-6 py-6 text-white">
+            <div class="relative bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 px-4 sm:px-6 py-4 sm:py-6 text-white">
                 <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.08\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
                 <div class="relative flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
-                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-3 sm:gap-4">
+                        <div class="w-10 h-10 sm:w-14 sm:h-14 bg-white/20 backdrop-blur rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold">Formulaire d'évaluation</h3>
-                            <p class="text-white/80 text-sm">Partagez votre expérience avec Travel Express</p>
+                            <h3 class="text-base sm:text-xl font-bold">Formulaire d'évaluation</h3>
+                            <p class="text-white/80 text-xs sm:text-sm hidden xs:block">Partagez votre expérience avec Travel Express</p>
                         </div>
                     </div>
-                    <button @click="evaluationModalOpen = false" class="text-white/80 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button @click="evaluationModalOpen = false" class="text-white/80 hover:text-white transition-colors p-1.5 sm:p-2 hover:bg-white/10 rounded-lg sm:rounded-xl flex-shrink-0">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                     </button>
@@ -3490,7 +3491,7 @@
             </div>
 
             <!-- Form Content -->
-            <form id="evaluation-form" class="p-6 max-h-[70vh] overflow-y-auto" x-data="{
+            <form id="evaluation-form" class="p-4 sm:p-6 max-h-[80vh] sm:max-h-[70vh] overflow-y-auto" x-data="{
                 step: 1,
                 totalSteps: 4,
                 submitting: false,
@@ -3837,26 +3838,26 @@
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Type de service utilisé</label>
-                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <div class="grid grid-cols-3 gap-2 sm:gap-3">
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="serviceUsed" value="etudes" class="peer sr-only">
-                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-2xl mb-1 block">🎓</span>
-                                        <span class="text-sm font-medium">Études</span>
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-xl sm:text-2xl mb-1 block">🎓</span>
+                                        <span class="text-xs sm:text-sm font-medium">Études</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="serviceUsed" value="business" class="peer sr-only">
-                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-2xl mb-1 block">💼</span>
-                                        <span class="text-sm font-medium">Business</span>
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-xl sm:text-2xl mb-1 block">💼</span>
+                                        <span class="text-xs sm:text-sm font-medium">Business</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="serviceUsed" value="visa_seul" class="peer sr-only">
-                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-2xl mb-1 block">📄</span>
-                                        <span class="text-sm font-medium">Visa seul</span>
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-xl sm:text-2xl mb-1 block">📄</span>
+                                        <span class="text-xs sm:text-sm font-medium">Visa seul</span>
                                     </div>
                                 </label>
                             </div>
@@ -3876,68 +3877,68 @@
 
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-3">Comment avez-vous connu Travel Express ? *</label>
-                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <div class="grid grid-cols-3 gap-2 sm:gap-3">
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="ambassadeur_la_bobolaise" class="peer sr-only">
-                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-2xl mb-1 block">👩‍💼</span>
-                                        <span class="text-xs font-medium">La Bobolaise</span>
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">👩‍💼</span>
+                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">La Bobolaise</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="ambassadeur_ley_ley" class="peer sr-only">
-                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-2xl mb-1 block">👨‍💼</span>
-                                        <span class="text-xs font-medium">Ley Ley</span>
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">👨‍💼</span>
+                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">Ley Ley</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="ambassadeur_autre" class="peer sr-only">
-                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-2xl mb-1 block">🤝</span>
-                                        <span class="text-xs font-medium">Autre ambassadeur</span>
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">🤝</span>
+                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">Autre amb.</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="facebook" class="peer sr-only">
-                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-2xl mb-1 block">📘</span>
-                                        <span class="text-xs font-medium">Facebook</span>
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">📘</span>
+                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">Facebook</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="tiktok" class="peer sr-only">
-                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-2xl mb-1 block">🎵</span>
-                                        <span class="text-xs font-medium">TikTok</span>
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">🎵</span>
+                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">TikTok</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="instagram" class="peer sr-only">
-                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-2xl mb-1 block">📸</span>
-                                        <span class="text-xs font-medium">Instagram</span>
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">📸</span>
+                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">Instagram</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="youtube" class="peer sr-only">
-                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-2xl mb-1 block">▶️</span>
-                                        <span class="text-xs font-medium">YouTube</span>
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">▶️</span>
+                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">YouTube</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="bouche_a_oreille" class="peer sr-only">
-                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-2xl mb-1 block">🗣️</span>
-                                        <span class="text-xs font-medium">Bouche à oreille</span>
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">🗣️</span>
+                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">Bouche à or.</span>
                                     </div>
                                 </label>
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="autre" class="peer sr-only">
-                                    <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-2xl mb-1 block">❓</span>
-                                        <span class="text-xs font-medium">Autre</span>
+                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">❓</span>
+                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">Autre</span>
                                     </div>
                                 </label>
                             </div>
@@ -3955,64 +3956,64 @@
                 <div x-show="step === 4 && !success" x-transition>
                     <div class="space-y-6">
                         <!-- Note globale -->
-                        <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-5">
-                            <label class="block text-sm font-semibold text-gray-700 mb-3">Note globale à Travel Express *</label>
-                            <div class="flex items-center justify-center gap-2">
+                        <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl sm:rounded-2xl p-3 sm:p-5">
+                            <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3">Note globale à Travel Express *</label>
+                            <div class="flex items-center justify-center gap-1 sm:gap-2">
                                 <template x-for="star in 5" :key="star">
                                     <button type="button" @click="rating = star" class="focus:outline-none transform hover:scale-110 transition-transform">
-                                        <svg class="w-10 h-10 transition-colors" :class="star <= rating ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                                        <svg class="w-8 h-8 sm:w-10 sm:h-10 transition-colors" :class="star <= rating ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                         </svg>
                                     </button>
                                 </template>
                             </div>
-                            <p class="text-center text-sm text-gray-600 mt-2" x-text="rating === 5 ? 'Excellent !' : rating === 4 ? 'Très bien' : rating === 3 ? 'Bien' : rating === 2 ? 'Moyen' : 'À améliorer'"></p>
+                            <p class="text-center text-xs sm:text-sm text-gray-600 mt-1 sm:mt-2" x-text="rating === 5 ? 'Excellent !' : rating === 4 ? 'Très bien' : rating === 3 ? 'Bien' : rating === 2 ? 'Moyen' : 'À améliorer'"></p>
                         </div>
 
                         <!-- Notes détaillées -->
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-gray-50 rounded-xl p-4">
-                                <label class="block text-xs font-medium text-gray-600 mb-2">Accompagnement</label>
-                                <div class="flex gap-1">
+                        <div class="grid grid-cols-2 gap-2 sm:gap-4">
+                            <div class="bg-gray-50 rounded-lg sm:rounded-xl p-2.5 sm:p-4">
+                                <label class="block text-[10px] sm:text-xs font-medium text-gray-600 mb-1.5 sm:mb-2">Accompagnement</label>
+                                <div class="flex gap-0.5 sm:gap-1 justify-center sm:justify-start">
                                     <template x-for="star in 5" :key="'acc-'+star">
                                         <button type="button" @click="ratingAccompagnement = star" class="focus:outline-none">
-                                            <svg class="w-6 h-6" :class="star <= ratingAccompagnement ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                                            <svg class="w-5 h-5 sm:w-6 sm:h-6" :class="star <= ratingAccompagnement ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                             </svg>
                                         </button>
                                     </template>
                                 </div>
                             </div>
-                            <div class="bg-gray-50 rounded-xl p-4">
-                                <label class="block text-xs font-medium text-gray-600 mb-2">Communication</label>
-                                <div class="flex gap-1">
+                            <div class="bg-gray-50 rounded-lg sm:rounded-xl p-2.5 sm:p-4">
+                                <label class="block text-[10px] sm:text-xs font-medium text-gray-600 mb-1.5 sm:mb-2">Communication</label>
+                                <div class="flex gap-0.5 sm:gap-1 justify-center sm:justify-start">
                                     <template x-for="star in 5" :key="'com-'+star">
                                         <button type="button" @click="ratingCommunication = star" class="focus:outline-none">
-                                            <svg class="w-6 h-6" :class="star <= ratingCommunication ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                                            <svg class="w-5 h-5 sm:w-6 sm:h-6" :class="star <= ratingCommunication ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                             </svg>
                                         </button>
                                     </template>
                                 </div>
                             </div>
-                            <div class="bg-gray-50 rounded-xl p-4">
-                                <label class="block text-xs font-medium text-gray-600 mb-2">Respect des délais</label>
-                                <div class="flex gap-1">
+                            <div class="bg-gray-50 rounded-lg sm:rounded-xl p-2.5 sm:p-4">
+                                <label class="block text-[10px] sm:text-xs font-medium text-gray-600 mb-1.5 sm:mb-2">Délais</label>
+                                <div class="flex gap-0.5 sm:gap-1 justify-center sm:justify-start">
                                     <template x-for="star in 5" :key="'del-'+star">
                                         <button type="button" @click="ratingDelais = star" class="focus:outline-none">
-                                            <svg class="w-6 h-6" :class="star <= ratingDelais ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                                            <svg class="w-5 h-5 sm:w-6 sm:h-6" :class="star <= ratingDelais ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                             </svg>
                                         </button>
                                     </template>
                                 </div>
                             </div>
-                            <div class="bg-gray-50 rounded-xl p-4">
-                                <label class="block text-xs font-medium text-gray-600 mb-2">Rapport qualité/prix</label>
-                                <div class="flex gap-1">
+                            <div class="bg-gray-50 rounded-lg sm:rounded-xl p-2.5 sm:p-4">
+                                <label class="block text-[10px] sm:text-xs font-medium text-gray-600 mb-1.5 sm:mb-2">Qualité/Prix</label>
+                                <div class="flex gap-0.5 sm:gap-1 justify-center sm:justify-start">
                                     <template x-for="star in 5" :key="'qp-'+star">
                                         <button type="button" @click="ratingQualitePrix = star" class="focus:outline-none">
-                                            <svg class="w-6 h-6" :class="star <= ratingQualitePrix ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                                            <svg class="w-5 h-5 sm:w-6 sm:h-6" :class="star <= ratingQualitePrix ? 'text-amber-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                             </svg>
                                         </button>
@@ -4023,20 +4024,20 @@
 
                         <!-- Recommandation -->
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-3">Recommanderiez-vous Travel Express ?</label>
-                            <div class="flex gap-4">
+                            <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3">Recommanderiez-vous Travel Express ?</label>
+                            <div class="flex gap-2 sm:gap-4">
                                 <label class="flex-1 cursor-pointer">
                                     <input type="radio" x-model="wouldRecommend" :value="true" class="peer sr-only">
-                                    <div class="p-4 border-2 border-gray-200 rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                        <span class="text-3xl mb-2 block">👍</span>
-                                        <span class="font-semibold text-gray-700">Oui, absolument !</span>
+                                    <div class="p-2.5 sm:p-4 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                        <span class="text-xl sm:text-3xl mb-1 sm:mb-2 block">👍</span>
+                                        <span class="font-semibold text-gray-700 text-xs sm:text-base">Oui !</span>
                                     </div>
                                 </label>
                                 <label class="flex-1 cursor-pointer">
                                     <input type="radio" x-model="wouldRecommend" :value="false" class="peer sr-only">
-                                    <div class="p-4 border-2 border-gray-200 rounded-xl text-center peer-checked:border-red-500 peer-checked:bg-red-50 transition-all">
-                                        <span class="text-3xl mb-2 block">👎</span>
-                                        <span class="font-semibold text-gray-700">Non</span>
+                                    <div class="p-2.5 sm:p-4 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-red-500 peer-checked:bg-red-50 transition-all">
+                                        <span class="text-xl sm:text-3xl mb-1 sm:mb-2 block">👎</span>
+                                        <span class="font-semibold text-gray-700 text-xs sm:text-base">Non</span>
                                     </div>
                                 </label>
                             </div>
@@ -4044,75 +4045,77 @@
 
                         <!-- Commentaire -->
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Laissez un commentaire à Travel Express</label>
-                            <textarea x-model="comment" rows="3" placeholder="Vos suggestions, remarques ou feedback..."
-                                      class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all resize-none"></textarea>
+                            <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">Laissez un commentaire à Travel Express</label>
+                            <textarea x-model="comment" rows="2" placeholder="Vos suggestions, remarques ou feedback..."
+                                      class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all resize-none"></textarea>
                         </div>
 
                         <!-- Signature -->
-                        <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-200">
-                            <div class="flex items-start gap-3 mb-4">
-                                <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-amber-200">
+                            <div class="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-4">
+                                <div class="w-8 h-8 sm:w-10 sm:h-10 bg-amber-100 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                                     </svg>
                                 </div>
                                 <div>
-                                    <h4 class="font-semibold text-gray-900">Signature *</h4>
-                                    <p class="text-sm text-gray-600">Signez dans le cadre ci-dessous pour valider votre évaluation</p>
+                                    <h4 class="font-semibold text-gray-900 text-sm sm:text-base">Signature *</h4>
+                                    <p class="text-xs sm:text-sm text-gray-600">Signez ci-dessous pour valider</p>
                                 </div>
                             </div>
                             <div class="relative">
                                 <canvas id="signature-canvas"
-                                        class="w-full border-2 border-dashed border-amber-300 rounded-xl bg-white cursor-crosshair touch-none"
-                                        style="height: 150px;"></canvas>
+                                        class="w-full border-2 border-dashed border-amber-300 rounded-lg sm:rounded-xl bg-white cursor-crosshair touch-none"
+                                        style="height: 120px;"></canvas>
                                 <button type="button" @click="clearSignature()"
-                                        class="absolute top-2 right-2 p-2 bg-white/80 hover:bg-white text-gray-500 hover:text-red-500 rounded-lg transition-colors shadow-sm">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        class="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 p-1.5 sm:p-2 bg-white/80 hover:bg-white text-gray-500 hover:text-red-500 rounded-md sm:rounded-lg transition-colors shadow-sm">
+                                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                     </svg>
                                 </button>
                             </div>
-                            <p class="text-xs text-amber-700 mt-2 flex items-center gap-1">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <p class="text-[10px] sm:text-xs text-amber-700 mt-1.5 sm:mt-2 flex items-center gap-1">
+                                <svg class="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
-                                Utilisez votre souris ou votre doigt pour signer
+                                Utilisez votre doigt ou souris pour signer
                             </p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Navigation buttons -->
-                <div x-show="!success" class="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
+                <div x-show="!success" class="flex items-center justify-between mt-4 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-100">
                     <button type="button" @click="prevStep()" x-show="step > 1"
-                            class="px-5 py-2.5 text-gray-600 hover:text-gray-900 font-medium rounded-xl hover:bg-gray-100 transition-all flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            class="px-3 sm:px-5 py-2 sm:py-2.5 text-gray-600 hover:text-gray-900 font-medium rounded-lg sm:rounded-xl hover:bg-gray-100 transition-all flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                         </svg>
-                        Précédent
+                        <span class="hidden sm:inline">Précédent</span>
+                        <span class="sm:hidden">Retour</span>
                     </button>
                     <div x-show="step === 1"></div>
 
                     <button type="button" @click="nextStep()" x-show="step < totalSteps"
                             :disabled="(step === 1 && (!firstName || !lastName || !email)) || (step === 2 && (!university || !countryOfStudy || !studyLevel || !fieldOfStudy)) || (step === 3 && (!projectStory || projectStory.length < 50 || !discoverySource))"
-                            class="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+                            class="px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-lg sm:rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
                         Suivant
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
                     </button>
 
                     <button type="button" @click="submitForm()" x-show="step === totalSteps" :disabled="submitting || !signatureData"
-                            class="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
-                        <svg x-show="submitting" class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                            class="px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-lg sm:rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                        <svg x-show="submitting" class="animate-spin w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        <svg x-show="!submitting" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg x-show="!submitting" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
-                        <span x-text="submitting ? 'Envoi...' : 'Envoyer mon évaluation'"></span>
+                        <span x-text="submitting ? 'Envoi...' : 'Envoyer'" class="sm:hidden"></span>
+                        <span x-text="submitting ? 'Envoi...' : 'Envoyer mon évaluation'" class="hidden sm:inline"></span>
                     </button>
                 </div>
             </form>
