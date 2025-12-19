@@ -3638,6 +3638,7 @@
                 submitting: false,
                 success: false,
                 error: null,
+                stepValidationAttempted: false,
 
                 // Form data
                 firstName: '',
@@ -3664,6 +3665,17 @@
                 wouldRecommend: true,
                 comment: '',
 
+                // Touched states for validation display
+                firstNameTouched: false,
+                lastNameTouched: false,
+                emailTouched: false,
+                universityTouched: false,
+                countryOfStudyTouched: false,
+                studyLevelTouched: false,
+                fieldOfStudyTouched: false,
+                projectStoryTouched: false,
+                discoverySourceTouched: false,
+
                 // Signature
                 signatureData: '',
                 signatureCanvas: null,
@@ -3671,6 +3683,50 @@
                 isDrawing: false,
                 lastX: 0,
                 lastY: 0,
+
+                // Validation methods
+                get isValidEmail() {
+                    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email);
+                },
+                get isStep1Valid() {
+                    return this.firstName.trim().length >= 2 &&
+                           this.lastName.trim().length >= 2 &&
+                           this.isValidEmail;
+                },
+                get isStep2Valid() {
+                    return this.university.trim().length >= 3 &&
+                           this.countryOfStudy.trim().length >= 2 &&
+                           this.studyLevel !== '' &&
+                           this.fieldOfStudy.trim().length >= 2;
+                },
+                get isStep3Valid() {
+                    return this.projectStory.trim().length >= 50 &&
+                           this.discoverySource !== '';
+                },
+                get isStep4Valid() {
+                    return this.signatureData !== '';
+                },
+
+                // Get validation errors for current step
+                getStepErrors() {
+                    let errors = [];
+                    if (this.step === 1) {
+                        if (this.firstName.trim().length < 2) errors.push('Prénom (min. 2 caractères)');
+                        if (this.lastName.trim().length < 2) errors.push('Nom (min. 2 caractères)');
+                        if (!this.isValidEmail) errors.push('Email valide requis');
+                    } else if (this.step === 2) {
+                        if (this.university.trim().length < 3) errors.push('Université (min. 3 caractères)');
+                        if (this.countryOfStudy.trim().length < 2) errors.push('Pays d\'études');
+                        if (this.studyLevel === '') errors.push('Niveau d\'études');
+                        if (this.fieldOfStudy.trim().length < 2) errors.push('Filière (min. 2 caractères)');
+                    } else if (this.step === 3) {
+                        if (this.projectStory.trim().length < 50) errors.push('Parcours (min. 50 caractères)');
+                        if (this.discoverySource === '') errors.push('Source de découverte');
+                    } else if (this.step === 4) {
+                        if (this.signatureData === '') errors.push('Signature requise');
+                    }
+                    return errors;
+                },
 
                 // Prefill from logged user
                 init() {
@@ -3920,14 +3976,43 @@
                 },
 
                 nextStep() {
-                    if (this.step < this.totalSteps) this.step++;
-                    // Re-init signature canvas when reaching step 4
-                    if (this.step === 4) {
-                        this.$nextTick(() => this.initSignatureCanvas());
+                    this.stepValidationAttempted = true;
+
+                    // Validate current step before proceeding
+                    let canProceed = false;
+                    if (this.step === 1) {
+                        this.firstNameTouched = true;
+                        this.lastNameTouched = true;
+                        this.emailTouched = true;
+                        canProceed = this.isStep1Valid;
+                    } else if (this.step === 2) {
+                        this.universityTouched = true;
+                        this.countryOfStudyTouched = true;
+                        this.studyLevelTouched = true;
+                        this.fieldOfStudyTouched = true;
+                        canProceed = this.isStep2Valid;
+                    } else if (this.step === 3) {
+                        this.projectStoryTouched = true;
+                        this.discoverySourceTouched = true;
+                        canProceed = this.isStep3Valid;
+                    } else {
+                        canProceed = true;
+                    }
+
+                    if (canProceed && this.step < this.totalSteps) {
+                        this.step++;
+                        this.stepValidationAttempted = false;
+                        // Re-init signature canvas when reaching step 4
+                        if (this.step === 4) {
+                            this.$nextTick(() => this.initSignatureCanvas());
+                        }
                     }
                 },
                 prevStep() {
-                    if (this.step > 1) this.step--;
+                    if (this.step > 1) {
+                        this.step--;
+                        this.stepValidationAttempted = false;
+                    }
                 },
 
                 async submitForm() {
@@ -3987,13 +4072,50 @@
                 }
             }">
                 <!-- Progress bar - Black & Gold theme -->
-                <div class="mb-6">
+                <div class="mb-4">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-sm font-medium text-[#0a0a0a]">Étape <span x-text="step"></span> sur <span x-text="totalSteps"></span></span>
                         <span class="text-sm text-gray-500" x-text="step === 1 ? 'Informations personnelles' : step === 2 ? 'Parcours académique' : step === 3 ? 'Votre expérience' : 'Évaluation'"></span>
                     </div>
                     <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div class="h-full bg-gradient-to-r from-[#d4af37] to-[#b8960c] transition-all duration-500 rounded-full" :style="'width: ' + (step / totalSteps * 100) + '%'"></div>
+                    </div>
+                </div>
+
+                <!-- Step Validation Indicators -->
+                <div class="flex items-center justify-center gap-2 mb-4" x-show="!success">
+                    <template x-for="s in totalSteps" :key="s">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all"
+                                 :class="{
+                                     'bg-[#d4af37] text-[#0a0a0a]': s < step || (s === step && ((s === 1 && isStep1Valid) || (s === 2 && isStep2Valid) || (s === 3 && isStep3Valid) || (s === 4 && isStep4Valid))),
+                                     'bg-[#0a0a0a] text-[#d4af37] ring-2 ring-[#d4af37]': s === step && !((s === 1 && isStep1Valid) || (s === 2 && isStep2Valid) || (s === 3 && isStep3Valid) || (s === 4 && isStep4Valid)),
+                                     'bg-gray-200 text-gray-500': s > step
+                                 }">
+                                <span x-show="s < step || (s === step && ((s === 1 && isStep1Valid) || (s === 2 && isStep2Valid) || (s === 3 && isStep3Valid) || (s === 4 && isStep4Valid)))">✓</span>
+                                <span x-show="!(s < step || (s === step && ((s === 1 && isStep1Valid) || (s === 2 && isStep2Valid) || (s === 3 && isStep3Valid) || (s === 4 && isStep4Valid))))" x-text="s"></span>
+                            </div>
+                            <div x-show="s < totalSteps" class="w-6 sm:w-10 h-0.5 mx-1"
+                                 :class="s < step ? 'bg-[#d4af37]' : 'bg-gray-200'"></div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Validation Errors Alert -->
+                <div x-show="stepValidationAttempted && getStepErrors().length > 0" x-transition
+                     class="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl">
+                    <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <p class="text-sm font-semibold text-red-700">Veuillez corriger les champs suivants :</p>
+                            <ul class="mt-1 text-xs text-red-600 list-disc list-inside">
+                                <template x-for="err in getStepErrors()" :key="err">
+                                    <li x-text="err"></li>
+                                </template>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -4028,19 +4150,55 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Prénom *</label>
-                                <input type="text" x-model="firstName" required placeholder="Votre prénom"
-                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
+                                <div class="relative">
+                                    <input type="text" x-model="firstName" @blur="firstNameTouched = true" required placeholder="Votre prénom"
+                                           class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all pr-10"
+                                           :class="{
+                                               'border-gray-200': !firstNameTouched,
+                                               'border-emerald-500 bg-emerald-50/50': firstNameTouched && firstName.trim().length >= 2,
+                                               'border-red-400 bg-red-50/50': firstNameTouched && firstName.trim().length < 2
+                                           }">
+                                    <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                                        <svg x-show="firstNameTouched && firstName.trim().length >= 2" class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                        <svg x-show="firstNameTouched && firstName.trim().length < 2" class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    </div>
+                                </div>
+                                <p x-show="firstNameTouched && firstName.trim().length < 2" class="text-xs text-red-500 mt-1">Min. 2 caractères</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Nom *</label>
-                                <input type="text" x-model="lastName" required placeholder="Votre nom"
-                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
+                                <div class="relative">
+                                    <input type="text" x-model="lastName" @blur="lastNameTouched = true" required placeholder="Votre nom"
+                                           class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all pr-10"
+                                           :class="{
+                                               'border-gray-200': !lastNameTouched,
+                                               'border-emerald-500 bg-emerald-50/50': lastNameTouched && lastName.trim().length >= 2,
+                                               'border-red-400 bg-red-50/50': lastNameTouched && lastName.trim().length < 2
+                                           }">
+                                    <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                                        <svg x-show="lastNameTouched && lastName.trim().length >= 2" class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                        <svg x-show="lastNameTouched && lastName.trim().length < 2" class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    </div>
+                                </div>
+                                <p x-show="lastNameTouched && lastName.trim().length < 2" class="text-xs text-red-500 mt-1">Min. 2 caractères</p>
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Email *</label>
-                            <input type="email" x-model="email" required placeholder="votre.email@exemple.com"
-                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
+                            <div class="relative">
+                                <input type="email" x-model="email" @blur="emailTouched = true" required placeholder="votre.email@exemple.com"
+                                       class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all pr-10"
+                                       :class="{
+                                           'border-gray-200': !emailTouched,
+                                           'border-emerald-500 bg-emerald-50/50': emailTouched && isValidEmail,
+                                           'border-red-400 bg-red-50/50': emailTouched && !isValidEmail
+                                       }">
+                                <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                                    <svg x-show="emailTouched && isValidEmail" class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    <svg x-show="emailTouched && !isValidEmail" class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                            </div>
+                            <p x-show="emailTouched && !isValidEmail" class="text-xs text-red-500 mt-1">Email invalide</p>
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Téléphone</label>
@@ -4213,45 +4371,91 @@
                     <div class="space-y-5">
                         <div>
                             <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Université / École *</label>
-                            <input type="text" x-model="university" required placeholder="Nom de votre université ou école"
-                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
+                            <div class="relative">
+                                <input type="text" x-model="university" @blur="universityTouched = true" required placeholder="Nom de votre université ou école"
+                                       class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all pr-10"
+                                       :class="{
+                                           'border-gray-200': !universityTouched,
+                                           'border-emerald-500 bg-emerald-50/50': universityTouched && university.trim().length >= 3,
+                                           'border-red-400 bg-red-50/50': universityTouched && university.trim().length < 3
+                                       }">
+                                <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                                    <svg x-show="universityTouched && university.trim().length >= 3" class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    <svg x-show="universityTouched && university.trim().length < 3" class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                            </div>
+                            <p x-show="universityTouched && university.trim().length < 3" class="text-xs text-red-500 mt-1">Min. 3 caractères</p>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Pays d'études *</label>
-                                <select x-model="countryOfStudy" required
-                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
-                                    <option value="">Sélectionner...</option>
-                                    <option value="Chine">Chine</option>
-                                    <option value="Espagne">Espagne</option>
-                                    <option value="Allemagne">Allemagne</option>
-                                    <option value="France">France</option>
-                                    <option value="Canada">Canada</option>
-                                    <option value="Belgique">Belgique</option>
-                                    <option value="Autre">Autre</option>
-                                </select>
+                                <div class="relative">
+                                    <select x-model="countryOfStudy" @change="countryOfStudyTouched = true" required
+                                            class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all pr-10"
+                                            :class="{
+                                                'border-gray-200': !countryOfStudyTouched,
+                                                'border-emerald-500 bg-emerald-50/50': countryOfStudyTouched && countryOfStudy !== '',
+                                                'border-red-400 bg-red-50/50': countryOfStudyTouched && countryOfStudy === ''
+                                            }">
+                                        <option value="">Sélectionner...</option>
+                                        <option value="Chine">Chine</option>
+                                        <option value="Espagne">Espagne</option>
+                                        <option value="Allemagne">Allemagne</option>
+                                        <option value="France">France</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="Belgique">Belgique</option>
+                                        <option value="Autre">Autre</option>
+                                    </select>
+                                    <div class="absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none">
+                                        <svg x-show="countryOfStudyTouched && countryOfStudy !== ''" class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                </div>
+                                <p x-show="countryOfStudyTouched && countryOfStudy === ''" class="text-xs text-red-500 mt-1">Requis</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Niveau d'études *</label>
-                                <select x-model="studyLevel" required
-                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
-                                    <option value="">Sélectionner...</option>
-                                    <option value="licence_1">Licence 1</option>
-                                    <option value="licence_2">Licence 2</option>
-                                    <option value="licence_3">Licence 3</option>
-                                    <option value="master_1">Master 1</option>
-                                    <option value="master_2">Master 2</option>
-                                    <option value="doctorat">Doctorat</option>
-                                    <option value="formation_professionnelle">Formation professionnelle</option>
-                                    <option value="autre">Autre</option>
-                                </select>
+                                <div class="relative">
+                                    <select x-model="studyLevel" @change="studyLevelTouched = true" required
+                                            class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all pr-10"
+                                            :class="{
+                                                'border-gray-200': !studyLevelTouched,
+                                                'border-emerald-500 bg-emerald-50/50': studyLevelTouched && studyLevel !== '',
+                                                'border-red-400 bg-red-50/50': studyLevelTouched && studyLevel === ''
+                                            }">
+                                        <option value="">Sélectionner...</option>
+                                        <option value="licence_1">Licence 1</option>
+                                        <option value="licence_2">Licence 2</option>
+                                        <option value="licence_3">Licence 3</option>
+                                        <option value="master_1">Master 1</option>
+                                        <option value="master_2">Master 2</option>
+                                        <option value="doctorat">Doctorat</option>
+                                        <option value="formation_professionnelle">Formation professionnelle</option>
+                                        <option value="autre">Autre</option>
+                                    </select>
+                                    <div class="absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none">
+                                        <svg x-show="studyLevelTouched && studyLevel !== ''" class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                </div>
+                                <p x-show="studyLevelTouched && studyLevel === ''" class="text-xs text-red-500 mt-1">Requis</p>
                             </div>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Filière *</label>
-                                <input type="text" x-model="fieldOfStudy" required placeholder="Ex: Informatique, Commerce..."
-                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
+                                <div class="relative">
+                                    <input type="text" x-model="fieldOfStudy" @blur="fieldOfStudyTouched = true" required placeholder="Ex: Informatique, Commerce..."
+                                           class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all pr-10"
+                                           :class="{
+                                               'border-gray-200': !fieldOfStudyTouched,
+                                               'border-emerald-500 bg-emerald-50/50': fieldOfStudyTouched && fieldOfStudy.trim().length >= 2,
+                                               'border-red-400 bg-red-50/50': fieldOfStudyTouched && fieldOfStudy.trim().length < 2
+                                           }">
+                                    <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                                        <svg x-show="fieldOfStudyTouched && fieldOfStudy.trim().length >= 2" class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                        <svg x-show="fieldOfStudyTouched && fieldOfStudy.trim().length < 2" class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    </div>
+                                </div>
+                                <p x-show="fieldOfStudyTouched && fieldOfStudy.trim().length < 2" class="text-xs text-red-500 mt-1">Min. 2 caractères</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Année de début</label>
@@ -4298,13 +4502,25 @@
                     <div class="space-y-5">
                         <div>
                             <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Comment êtes-vous parvenu(e) à réaliser votre projet de voyage ? *</label>
-                            <textarea x-model="projectStory" required rows="4" placeholder="Racontez-nous votre parcours, les étapes clés, les défis surmontés..."
-                                      class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all resize-none"></textarea>
-                            <p class="text-xs text-gray-500 mt-1">Minimum 50 caractères - <span x-text="projectStory.length"></span>/50</p>
+                            <textarea x-model="projectStory" @blur="projectStoryTouched = true" required rows="4" placeholder="Racontez-nous votre parcours, les étapes clés, les défis surmontés..."
+                                      class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all resize-none"
+                                      :class="{
+                                          'border-gray-200': !projectStoryTouched,
+                                          'border-emerald-500 bg-emerald-50/50': projectStoryTouched && projectStory.trim().length >= 50,
+                                          'border-red-400 bg-red-50/50': projectStoryTouched && projectStory.trim().length < 50
+                                      }"></textarea>
+                            <div class="flex items-center justify-between mt-1">
+                                <p class="text-xs" :class="projectStory.trim().length >= 50 ? 'text-emerald-600' : 'text-gray-500'">
+                                    <span x-text="projectStory.length"></span>/50 caractères
+                                    <span x-show="projectStory.trim().length >= 50" class="text-emerald-600 font-medium">✓</span>
+                                </p>
+                                <p x-show="projectStoryTouched && projectStory.trim().length < 50" class="text-xs text-red-500">Min. 50 caractères requis</p>
+                            </div>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-[#0a0a0a] mb-3">Comment avez-vous connu Travel Express ? *</label>
+                            <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Comment avez-vous connu Travel Express ? *</label>
+                            <p x-show="discoverySourceTouched && discoverySource === ''" class="text-xs text-red-500 mb-2">Veuillez sélectionner une option</p>
                             <div class="grid grid-cols-3 gap-2 sm:gap-3">
                                 <label class="relative cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="ambassadeur_la_bobolaise" class="peer sr-only">
