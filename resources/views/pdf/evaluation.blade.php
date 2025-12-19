@@ -20,8 +20,8 @@
 
         body {
             font-family: 'Montserrat', 'DejaVu Sans', Helvetica, Arial, sans-serif;
-            font-size: 9pt;
-            line-height: 1.4;
+            font-size: 8.5pt;
+            line-height: 1.3;
             color: #1a1a1a;
             background: #ffffff;
         }
@@ -30,7 +30,7 @@
         .header {
             background: #0a0a0a;
             color: white;
-            padding: 28px 45px;
+            padding: 20px 40px;
             position: relative;
         }
 
@@ -112,79 +112,79 @@
 
         /* ===== CONTENT ===== */
         .content {
-            padding: 30px 45px 25px 45px;
+            padding: 20px 40px 15px 40px;
         }
 
         /* ===== TITLE ===== */
         .title-section {
             text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
             border-bottom: 2px solid #f0f0f0;
         }
 
         .title-main {
-            font-size: 18pt;
+            font-size: 16pt;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             color: #0a0a0a;
             font-family: 'Poppins', 'DejaVu Sans', sans-serif;
         }
 
         .title-sub {
-            font-size: 8pt;
+            font-size: 7pt;
             color: #666666;
-            margin-top: 6px;
+            margin-top: 4px;
             font-weight: 400;
             letter-spacing: 1px;
         }
 
         .doc-ref {
-            font-size: 8pt;
+            font-size: 7pt;
             color: #d4af37;
-            margin-top: 10px;
+            margin-top: 6px;
             font-weight: 600;
             letter-spacing: 1px;
         }
 
         /* ===== SECTIONS ===== */
         .section {
-            margin-bottom: 18px;
+            margin-bottom: 12px;
         }
 
         .section-header {
             display: table;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .section-number {
             display: table-cell;
-            width: 28px;
+            width: 24px;
             vertical-align: middle;
         }
 
         .num-circle {
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             background: #0a0a0a;
             border-radius: 50%;
             text-align: center;
-            line-height: 22px;
+            line-height: 18px;
             color: #d4af37;
-            font-size: 10pt;
+            font-size: 9pt;
             font-weight: 700;
         }
 
         .section-title-box {
             display: table-cell;
             vertical-align: middle;
-            padding-left: 12px;
+            padding-left: 10px;
         }
 
         .section-title {
-            font-size: 11pt;
+            font-size: 10pt;
             font-weight: 700;
             color: #0a0a0a;
             text-transform: uppercase;
@@ -225,9 +225,9 @@
         }
 
         .info-table td {
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-bottom: 1px solid #f0f0f0;
-            font-size: 8.5pt;
+            font-size: 8pt;
         }
 
         .info-table tr:last-child td {
@@ -251,59 +251,59 @@
         .rating-section {
             display: table;
             width: 100%;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .rating-left {
             display: table-cell;
-            width: 28%;
+            width: 25%;
             vertical-align: middle;
         }
 
         .rating-right {
             display: table-cell;
-            width: 72%;
+            width: 75%;
             vertical-align: middle;
-            padding-left: 25px;
+            padding-left: 20px;
         }
 
         .rating-box {
             background: #0a0a0a;
-            border-radius: 12px;
-            padding: 18px;
+            border-radius: 10px;
+            padding: 12px;
             text-align: center;
             border: 2px solid #d4af37;
         }
 
         .rating-score {
-            font-size: 38pt;
+            font-size: 28pt;
             font-weight: 800;
             font-family: 'Poppins', 'DejaVu Sans', sans-serif;
             color: #d4af37;
         }
 
         .rating-max {
-            font-size: 16pt;
+            font-size: 12pt;
             color: #888888;
             font-weight: 400;
         }
 
         .rating-label {
-            font-size: 7pt;
+            font-size: 6pt;
             color: #888888;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-top: 5px;
+            letter-spacing: 2px;
+            margin-top: 3px;
             font-weight: 600;
         }
 
         .info-line {
-            font-size: 9pt;
-            margin-bottom: 10px;
-            padding: 10px 15px;
+            font-size: 8pt;
+            margin-bottom: 6px;
+            padding: 8px 12px;
             background: #fafafa;
-            border-left: 4px solid #d4af37;
-            border-radius: 0 8px 8px 0;
+            border-left: 3px solid #d4af37;
+            border-radius: 0 6px 6px 0;
         }
 
         .info-line strong {
@@ -313,11 +313,11 @@
 
         .badge {
             display: inline-block;
-            padding: 4px 14px;
-            font-size: 7pt;
+            padding: 3px 10px;
+            font-size: 6.5pt;
             font-weight: 700;
-            border-radius: 20px;
-            margin-left: 8px;
+            border-radius: 15px;
+            margin-left: 6px;
             letter-spacing: 0.5px;
         }
 
@@ -334,7 +334,7 @@
         /* ===== RATINGS TABLE ===== */
         .ratings-table {
             width: 100%;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
             border: 2px solid #0a0a0a;
         }
@@ -342,8 +342,8 @@
         .ratings-table th {
             background: #0a0a0a;
             color: #d4af37;
-            padding: 10px;
-            font-size: 7.5pt;
+            padding: 6px;
+            font-size: 7pt;
             font-weight: 700;
             text-align: center;
             text-transform: uppercase;
@@ -351,14 +351,14 @@
         }
 
         .ratings-table td {
-            padding: 12px;
+            padding: 8px;
             text-align: center;
             border: 1px solid #f0f0f0;
             background: #fafafa;
         }
 
         .ratings-table .score {
-            font-size: 16pt;
+            font-size: 13pt;
             font-weight: 800;
             color: #d4af37;
             font-family: 'Poppins', 'DejaVu Sans', sans-serif;
@@ -368,18 +368,18 @@
         .text-box {
             background: #fafafa;
             border: 1px solid #e0e0e0;
-            border-left: 5px solid #0a0a0a;
-            padding: 14px 18px;
-            font-size: 9pt;
-            line-height: 1.7;
-            border-radius: 0 10px 10px 0;
+            border-left: 4px solid #0a0a0a;
+            padding: 10px 14px;
+            font-size: 8pt;
+            line-height: 1.5;
+            border-radius: 0 8px 8px 0;
             color: #333333;
         }
 
         .text-label {
-            font-size: 7pt;
+            font-size: 6.5pt;
             color: #888888;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
@@ -387,8 +387,8 @@
 
         /* ===== SIGNATURE SECTION ===== */
         .signature-section {
-            margin-top: 25px;
-            padding-top: 20px;
+            margin-top: 15px;
+            padding-top: 12px;
             border-top: 2px solid #e0e0e0;
         }
 
@@ -397,61 +397,62 @@
         }
 
         .signature-grid td {
-            width: 45%;
+            width: 46%;
             vertical-align: top;
         }
 
         .signature-grid td.spacer {
-            width: 10%;
+            width: 8%;
         }
 
         .signature-box {
-            border: 3px solid #0a0a0a;
-            border-radius: 15px;
-            padding: 20px;
+            border: 2px solid #0a0a0a;
+            border-radius: 12px;
+            padding: 15px;
             text-align: center;
-            min-height: 150px;
+            min-height: 130px;
             background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
         }
 
         .signature-title {
-            font-size: 8pt;
+            font-size: 7pt;
             color: #888888;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
             font-weight: 600;
         }
 
         .signature-img {
-            max-height: 70px;
-            max-width: 200px;
-            margin: 15px 0;
+            max-height: 90px;
+            max-width: 220px;
+            margin: 8px auto;
+            display: block;
         }
 
         .signature-name {
-            font-size: 13pt;
+            font-size: 11pt;
             font-weight: 700;
             color: #0a0a0a;
-            margin-top: 15px;
-            padding-top: 12px;
-            border-top: 3px solid #d4af37;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 2px solid #d4af37;
             font-family: 'Poppins', 'DejaVu Sans', sans-serif;
             letter-spacing: 1px;
         }
 
         .signature-date {
-            font-size: 9pt;
+            font-size: 8pt;
             color: #666666;
-            margin-top: 6px;
+            margin-top: 4px;
             font-weight: 500;
         }
 
         .stamp-text {
-            font-size: 14pt;
+            font-size: 12pt;
             font-weight: 800;
             color: #0a0a0a;
-            margin: 20px 0;
+            margin: 12px 0;
             font-family: 'Poppins', 'DejaVu Sans', sans-serif;
             letter-spacing: 2px;
         }
@@ -464,7 +465,7 @@
             right: 0;
             background: #0a0a0a;
             color: white;
-            padding: 15px 45px;
+            padding: 10px 40px;
         }
 
         .footer-table {
@@ -494,13 +495,13 @@
 
         /* ===== LEGAL ===== */
         .legal {
-            margin-top: 18px;
-            padding: 12px 18px;
+            margin-top: 12px;
+            padding: 10px 14px;
             background: #0a0a0a;
-            border-radius: 8px;
-            font-size: 7pt;
+            border-radius: 6px;
+            font-size: 6.5pt;
             color: #888888;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .legal strong {
@@ -623,10 +624,10 @@
                 <div class="section-title-box"><div class="section-title">Temoignage</div></div>
             </div>
             <div class="text-label">Parcours et experience:</div>
-            <div class="text-box">{{ Str::limit($evaluation->project_story, 300) }}</div>
+            <div class="text-box">{{ Str::limit($evaluation->project_story, 200) }}</div>
             @if($evaluation->comment)
-            <div class="text-label" style="margin-top: 10px;">Commentaire:</div>
-            <div class="text-box">{{ Str::limit($evaluation->comment, 150) }}</div>
+            <div class="text-label" style="margin-top: 8px;">Commentaire:</div>
+            <div class="text-box">{{ Str::limit($evaluation->comment, 100) }}</div>
             @endif
         </div>
 
