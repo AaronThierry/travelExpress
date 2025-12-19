@@ -4364,7 +4364,7 @@
                             </div>
                             <div class="relative">
                                 <canvas id="signature-canvas"
-                                        class="w-full border-2 border-dashed border-[#d4af37]/50 rounded-lg sm:rounded-xl bg-white cursor-crosshair touch-none"
+                                        class="w-full border-2 border-[#0a0a0a] rounded-lg sm:rounded-xl bg-white cursor-crosshair touch-none shadow-inner"
                                         style="height: 120px;"></canvas>
                                 <button type="button" @click="clearSignature()"
                                         class="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 p-1.5 sm:p-2 bg-white/80 hover:bg-white text-gray-500 hover:text-red-500 rounded-md sm:rounded-lg transition-colors shadow-sm">
