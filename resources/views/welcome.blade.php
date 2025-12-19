@@ -112,14 +112,6 @@
             transform: translateY(0);
         }
 
-        /* Hide avatar ring animation on mobile */
-        @media (max-width: 1023px) {
-            .avatar-ring::before {
-                display: none !important;
-                animation: none !important;
-            }
-        }
-
         /* Disable touch highlight/ring on mobile for signature canvas */
         #signature-canvas {
             -webkit-tap-highlight-color: transparent;
@@ -1706,10 +1698,6 @@
                 0% { background-position: -200% 0; }
                 100% { background-position: 200% 0; }
             }
-            @keyframes pulse-ring {
-                0% { transform: scale(0.8); opacity: 1; }
-                100% { transform: scale(1.3); opacity: 0; }
-            }
             .testimonial-card-premium {
                 transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             }
@@ -1724,18 +1712,6 @@
             }
             .testimonial-card-premium:hover {
                 box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
-            }
-            .avatar-ring {
-                position: relative;
-            }
-            .avatar-ring::before {
-                content: '';
-                position: absolute;
-                inset: -4px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #0071e3, #FF9500);
-                z-index: -1;
-                animation: pulse-ring 2s ease-out infinite;
             }
             .quote-gradient {
                 background: linear-gradient(135deg, rgba(0,113,227,0.1), rgba(255,149,0,0.1));
