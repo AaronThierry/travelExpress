@@ -3619,8 +3619,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="font-elegant text-lg sm:text-2xl font-semibold text-[#d4af37] tracking-wide italic">Formulaire d'évaluation</h3>
-                            <p class="font-elegant text-white/70 text-xs sm:text-sm hidden xs:block tracking-wider">Partagez votre expérience avec Travel Express</p>
+                            <h3 class="font-display text-lg sm:text-2xl font-bold text-[#d4af37] tracking-wide">Formulaire d'évaluation</h3>
+                            <p class="font-display text-white/70 text-xs sm:text-sm hidden xs:block tracking-wider font-medium">Partagez votre expérience avec Travel Express</p>
                         </div>
                     </div>
                     <button @click="evaluationModalOpen = false" class="text-white/60 hover:text-[#d4af37] transition-colors p-1.5 sm:p-2 hover:bg-[#d4af37]/10 rounded-lg sm:rounded-xl flex-shrink-0">
