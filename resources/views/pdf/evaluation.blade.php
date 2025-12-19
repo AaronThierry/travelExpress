@@ -349,77 +349,114 @@
         }
 
         /* ===== SIGNATURE SECTION ===== */
-        .signature-grid {
-            width: 100%;
+        .auth-wrapper {
+            border: 2px solid #0a0a0a;
+            border-radius: 10px;
+            overflow: hidden;
             margin-top: 10px;
         }
 
-        .signature-grid td {
-            width: 46%;
-            vertical-align: top;
+        .auth-header {
+            background: #0a0a0a;
+            color: #d4af37;
+            padding: 8px 15px;
+            text-align: center;
         }
 
-        .signature-grid td.spacer {
-            width: 8%;
+        .auth-header-text {
+            font-size: 8pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+        }
+
+        .signature-grid {
+            width: 100%;
+        }
+
+        .signature-grid td {
+            width: 50%;
+            vertical-align: top;
+            padding: 15px 20px;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .signature-grid td:last-child {
+            border-right: none;
         }
 
         .signature-box {
-            border: 2px solid #0a0a0a;
-            border-radius: 10px;
-            padding: 18px;
             text-align: center;
-            min-height: 140px;
+            min-height: 120px;
             background: #ffffff;
         }
 
         .signature-title {
             font-size: 7pt;
-            color: #888888;
+            color: #0a0a0a;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 12px;
-            font-weight: 600;
+            margin-bottom: 8px;
+            font-weight: 700;
             font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            background: #f5f5f5;
+            padding: 6px 10px;
+            border-radius: 4px;
+        }
+
+        .signature-area {
+            min-height: 70px;
+            display: block;
+            margin: 10px 0;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 8px;
         }
 
         .signature-img {
-            max-height: 80px;
-            max-width: 200px;
-            margin: 10px auto;
+            max-height: 100px;
+            max-width: 250px;
+            margin: 0 auto;
             display: block;
         }
 
         .signature-name {
-            font-size: 12pt;
+            font-size: 11pt;
             font-weight: 700;
             color: #0a0a0a;
-            margin-top: 12px;
-            padding-top: 10px;
-            border-top: 2px solid #d4af37;
+            margin-top: 8px;
             font-family: 'Poppins', 'DejaVu Sans', sans-serif;
         }
 
         .signature-date {
             font-size: 8pt;
             color: #666666;
-            margin-top: 4px;
-            font-weight: 400;
+            margin-top: 3px;
+            font-weight: 500;
             font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
+        .stamp-container {
+            min-height: 70px;
+            display: block;
+            margin: 10px 0;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 8px;
+        }
+
         .stamp-text {
-            font-size: 14pt;
+            font-size: 13pt;
             font-weight: 800;
             color: #0a0a0a;
-            margin: 15px 0;
+            margin: 10px 0 5px 0;
             font-family: 'Poppins', 'DejaVu Sans', sans-serif;
             letter-spacing: 2px;
         }
 
         .stamp-subtitle {
-            font-size: 10pt;
+            font-size: 9pt;
             font-weight: 600;
-            color: #0a0a0a;
+            color: #666666;
             font-family: 'Poppins', sans-serif;
         }
 
@@ -603,39 +640,43 @@
             @endif
         </div>
 
-        <!-- SECTION 5: SIGNATURES -->
+        <!-- SECTION 5: AUTHENTIFICATION -->
         <div class="section">
             <div class="section-header">
                 <div class="section-icon">&#10106;</div>
                 <div class="section-title">Authentification</div>
             </div>
-            <table class="signature-grid">
-                <tr>
-                    <td>
-                        <div class="signature-box">
-                            <div class="signature-title">Signature du Beneficiaire</div>
-                            @if($signature)
-                                <img src="{{ $signature }}" alt="Signature" class="signature-img">
-                            @else
-                                <div style="height: 45px;"></div>
-                            @endif
-                            <div class="signature-name">{{ $evaluation->first_name }} {{ $evaluation->last_name }}</div>
-                            @if($evaluation->signed_at)
-                            <div class="signature-date">Signe le {{ $evaluation->signed_at->format('d/m/Y') }}</div>
-                            @endif
-                        </div>
-                    </td>
-                    <td class="spacer"></td>
-                    <td>
-                        <div class="signature-box">
-                            <div class="signature-title">Cachet de l'Organisme</div>
-                            <div class="stamp-text">TRAVEL EXPRESS</div>
-                            <div class="stamp-subtitle">Service Qualite</div>
-                            <div class="signature-date">{{ now()->format('d/m/Y') }}</div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+            <div class="auth-wrapper">
+                <table class="signature-grid">
+                    <tr>
+                        <td>
+                            <div class="signature-box">
+                                <div class="signature-title">Signature du Beneficiaire</div>
+                                <div class="signature-area">
+                                    @if($signature)
+                                        <img src="{{ $signature }}" alt="Signature" class="signature-img">
+                                    @endif
+                                </div>
+                                <div class="signature-name">{{ $evaluation->first_name }} {{ $evaluation->last_name }}</div>
+                                @if($evaluation->signed_at)
+                                <div class="signature-date">Signe le {{ $evaluation->signed_at->format('d/m/Y') }}</div>
+                                @endif
+                            </div>
+                        </td>
+                        <td>
+                            <div class="signature-box">
+                                <div class="signature-title">Cachet de l'Organisme</div>
+                                <div class="stamp-container">
+                                    <div class="stamp-text">TRAVEL EXPRESS</div>
+                                    <div class="stamp-subtitle">Service Qualite</div>
+                                </div>
+                                <div class="signature-name">Direction</div>
+                                <div class="signature-date">{{ now()->format('d/m/Y') }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
         <!-- LEGAL -->
