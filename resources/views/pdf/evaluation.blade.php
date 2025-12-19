@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Attestation d'Evaluation - {{ $evaluation->first_name }} {{ $evaluation->last_name }}</title>
+    <title>Attestation - {{ $evaluation->first_name }} {{ $evaluation->last_name }}</title>
     <style>
         @page {
-            margin: 20mm 15mm 25mm 15mm;
+            margin: 12mm 12mm 15mm 12mm;
             size: A4 portrait;
         }
 
@@ -17,423 +17,415 @@
         }
 
         body {
-            font-family: 'DejaVu Sans', Arial, sans-serif;
-            font-size: 10pt;
-            line-height: 1.4;
-            color: #000000;
+            font-family: 'DejaVu Sans', Helvetica, Arial, sans-serif;
+            font-size: 8pt;
+            line-height: 1.3;
+            color: #2c3e50;
             background: #ffffff;
         }
 
-        /* ===== EN-TETE OFFICIEL ===== */
+        /* ===== EN-TETE ===== */
         .header {
-            border-bottom: 2px solid #000000;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            border-bottom: 2px solid #1a5d4a;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
         }
 
-        .header-row {
-            display: table;
+        .header-table {
             width: 100%;
         }
 
         .header-left {
-            display: table-cell;
-            width: 70%;
-            vertical-align: top;
+            width: 65%;
         }
 
         .header-right {
-            display: table-cell;
-            width: 30%;
-            vertical-align: top;
+            width: 35%;
             text-align: right;
+            vertical-align: top;
         }
 
-        .org-name {
-            font-size: 16pt;
+        .company-name {
+            font-size: 15pt;
             font-weight: bold;
             color: #1a5d4a;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-family: 'DejaVu Serif', Georgia, serif;
         }
 
-        .org-type {
-            font-size: 9pt;
-            color: #333333;
-            margin-top: 3px;
+        .company-desc {
+            font-size: 7pt;
+            color: #7f8c8d;
+            margin-top: 2px;
+            font-style: italic;
         }
 
-        .org-contact {
-            font-size: 8pt;
-            color: #666666;
-            margin-top: 8px;
-            line-height: 1.5;
+        .doc-info {
+            font-size: 7pt;
+            color: #555;
+        }
+
+        .doc-info strong {
+            color: #1a5d4a;
         }
 
         .doc-ref {
-            font-size: 8pt;
-            color: #333333;
-            text-align: right;
-        }
-
-        .doc-ref-label {
+            font-size: 9pt;
             font-weight: bold;
+            color: #1a5d4a;
+            font-family: 'DejaVu Sans Mono', monospace;
         }
 
-        /* ===== TITRE DU DOCUMENT ===== */
-        .doc-title {
+        /* ===== TITRE ===== */
+        .title-section {
             text-align: center;
-            margin: 25px 0;
-            padding: 15px 0;
-            border-top: 1px solid #cccccc;
-            border-bottom: 1px solid #cccccc;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-top: 1px solid #bdc3c7;
+            border-bottom: 1px solid #bdc3c7;
         }
 
-        .doc-title h1 {
-            font-size: 14pt;
+        .title-main {
+            font-size: 12pt;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #000000;
+            letter-spacing: 3px;
+            color: #2c3e50;
+            font-family: 'DejaVu Serif', Georgia, serif;
         }
 
-        .doc-title-sub {
-            font-size: 9pt;
-            color: #666666;
-            margin-top: 5px;
+        .title-sub {
+            font-size: 7pt;
+            color: #7f8c8d;
+            margin-top: 3px;
+            font-style: italic;
         }
 
         /* ===== SECTIONS ===== */
         .section {
-            margin-bottom: 18px;
+            margin-bottom: 8px;
         }
 
         .section-title {
-            font-size: 10pt;
+            font-size: 8pt;
             font-weight: bold;
             color: #1a5d4a;
             text-transform: uppercase;
+            letter-spacing: 1px;
             border-bottom: 1px solid #1a5d4a;
-            padding-bottom: 4px;
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
+            padding-bottom: 2px;
+            margin-bottom: 5px;
+            font-family: 'DejaVu Serif', Georgia, serif;
         }
 
         /* ===== TABLEAUX ===== */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 10px;
         }
 
-        table.info-table td {
-            padding: 6px 8px;
-            vertical-align: top;
-            border: 1px solid #cccccc;
+        .info-table td {
+            padding: 3px 5px;
+            border: 1px solid #ddd;
+            font-size: 7.5pt;
         }
 
-        table.info-table td.label {
-            background: #f5f5f5;
+        .info-table .label {
+            background: #f8f9fa;
             font-weight: bold;
-            width: 35%;
-            font-size: 9pt;
+            width: 30%;
+            color: #2c3e50;
         }
 
-        table.info-table td.value {
-            width: 65%;
-            font-size: 9pt;
+        .info-table .value {
+            width: 70%;
+            color: #34495e;
         }
 
-        table.ratings-table {
-            margin-top: 10px;
+        /* Deux colonnes */
+        .two-col-table {
+            width: 100%;
         }
 
-        table.ratings-table th {
+        .two-col-table td {
+            width: 50%;
+            vertical-align: top;
+            padding: 0 5px;
+        }
+
+        .two-col-table td:first-child {
+            padding-left: 0;
+        }
+
+        .two-col-table td:last-child {
+            padding-right: 0;
+        }
+
+        .two-col-table .info-table {
+            width: 100%;
+        }
+
+        /* ===== NOTE GLOBALE ===== */
+        .rating-box {
+            text-align: center;
+            padding: 8px;
+            background: linear-gradient(135deg, #f8f9fa, #ecf0f1);
+            border: 2px solid #1a5d4a;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+
+        .rating-score {
+            font-size: 22pt;
+            font-weight: bold;
+            color: #1a5d4a;
+            font-family: 'DejaVu Serif', Georgia, serif;
+        }
+
+        .rating-max {
+            font-size: 12pt;
+            color: #7f8c8d;
+        }
+
+        .rating-label {
+            font-size: 7pt;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        /* ===== EVALUATIONS DETAILLEES ===== */
+        .ratings-table th {
             background: #1a5d4a;
             color: white;
-            padding: 8px;
-            font-size: 8pt;
+            padding: 4px;
+            font-size: 7pt;
             font-weight: bold;
             text-align: center;
-            border: 1px solid #1a5d4a;
         }
 
-        table.ratings-table td {
-            padding: 8px;
+        .ratings-table td {
+            padding: 4px;
             text-align: center;
-            border: 1px solid #cccccc;
-            font-size: 9pt;
+            border: 1px solid #ddd;
+            font-size: 7.5pt;
         }
 
-        table.ratings-table td.score {
+        .ratings-table .score {
             font-weight: bold;
-            font-size: 11pt;
             color: #1a5d4a;
-        }
-
-        /* ===== TEXTE ===== */
-        .text-block {
-            background: #fafafa;
-            border: 1px solid #e0e0e0;
-            padding: 12px;
             font-size: 9pt;
-            line-height: 1.6;
-            text-align: justify;
         }
 
-        .text-label {
-            font-size: 8pt;
-            color: #666666;
-            font-style: italic;
-            margin-bottom: 5px;
-        }
-
-        /* ===== INDICATEURS ===== */
-        .indicator {
+        /* ===== BADGES ===== */
+        .badge {
             display: inline-block;
-            padding: 3px 10px;
-            font-size: 8pt;
+            padding: 2px 8px;
+            font-size: 7pt;
             font-weight: bold;
             border-radius: 3px;
         }
 
-        .indicator-positive {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+        .badge-success {
+            background: #d5f4e6;
+            color: #1a5d4a;
+            border: 1px solid #a8e6cf;
         }
 
-        .indicator-negative {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+        .badge-danger {
+            background: #ffeaea;
+            color: #c0392b;
+            border: 1px solid #f5b7b1;
         }
 
-        /* ===== SIGNATURE ===== */
-        .signature-section {
-            margin-top: 30px;
-            page-break-inside: avoid;
+        /* ===== TEXTE ===== */
+        .text-box {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            padding: 6px 8px;
+            font-size: 7.5pt;
+            line-height: 1.4;
+            border-radius: 3px;
         }
 
-        .signature-row {
-            display: table;
+        .text-label {
+            font-size: 6.5pt;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 2px;
+        }
+
+        /* ===== SIGNATURES ===== */
+        .signature-table {
             width: 100%;
-            margin-top: 20px;
+            margin-top: 8px;
         }
 
-        .signature-col {
-            display: table-cell;
-            width: 50%;
+        .signature-table td {
+            width: 48%;
             vertical-align: top;
         }
 
         .signature-box {
-            border: 1px solid #cccccc;
-            padding: 15px;
-            min-height: 100px;
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: center;
+            min-height: 70px;
+            border-radius: 3px;
         }
 
-        .signature-label {
-            font-size: 8pt;
-            color: #666666;
-            margin-bottom: 10px;
+        .signature-title {
+            font-size: 6.5pt;
+            color: #7f8c8d;
+            margin-bottom: 5px;
         }
 
         .signature-img {
-            max-height: 60px;
-            max-width: 150px;
+            max-height: 35px;
+            max-width: 120px;
         }
 
         .signature-name {
-            font-size: 9pt;
+            font-size: 8pt;
             font-weight: bold;
-            margin-top: 10px;
-            border-top: 1px solid #000000;
+            margin-top: 5px;
             padding-top: 5px;
+            border-top: 1px solid #2c3e50;
+            font-family: 'DejaVu Serif', Georgia, serif;
         }
 
         .signature-date {
-            font-size: 8pt;
-            color: #666666;
-            margin-top: 5px;
+            font-size: 6.5pt;
+            color: #7f8c8d;
         }
 
-        /* ===== PIED DE PAGE ===== */
+        /* ===== MENTIONS LEGALES ===== */
+        .legal {
+            margin-top: 8px;
+            padding: 5px 8px;
+            background: #f8f9fa;
+            border-left: 3px solid #1a5d4a;
+            font-size: 6pt;
+            color: #7f8c8d;
+            line-height: 1.4;
+        }
+
+        /* ===== FOOTER ===== */
         .footer {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            border-top: 1px solid #cccccc;
-            padding-top: 10px;
-            font-size: 7pt;
-            color: #666666;
+            font-size: 6pt;
+            color: #95a5a6;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 5px;
         }
 
-        .footer-row {
-            display: table;
+        .footer-table {
             width: 100%;
         }
 
         .footer-left {
-            display: table-cell;
-            width: 60%;
             text-align: left;
         }
 
         .footer-right {
-            display: table-cell;
-            width: 40%;
             text-align: right;
         }
 
-        /* ===== NOTE GLOBALE ===== */
-        .global-rating {
-            text-align: center;
-            padding: 15px;
-            background: #f8f9fa;
-            border: 2px solid #1a5d4a;
-            margin: 15px 0;
-        }
-
-        .global-rating-score {
-            font-size: 28pt;
-            font-weight: bold;
-            color: #1a5d4a;
-        }
-
-        .global-rating-max {
-            font-size: 14pt;
-            color: #666666;
-        }
-
-        .global-rating-label {
-            font-size: 9pt;
-            color: #333333;
+        /* ===== INLINE LAYOUT ===== */
+        .inline-info {
+            font-size: 7.5pt;
             margin-top: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        /* ===== MENTIONS LEGALES ===== */
-        .legal-notice {
-            margin-top: 20px;
-            padding: 10px;
-            background: #f5f5f5;
-            border-left: 3px solid #1a5d4a;
-            font-size: 7pt;
-            color: #666666;
-            line-height: 1.5;
+        .inline-info strong {
+            color: #2c3e50;
         }
     </style>
 </head>
 <body>
     <!-- EN-TETE -->
     <div class="header">
-        <div class="header-row">
-            <div class="header-left">
-                <div class="org-name">TRAVEL EXPRESS</div>
-                <div class="org-type">Agence d'Accompagnement pour les Etudes Internationales</div>
-                <div class="org-contact">
-                    Email: contact@travelexpress.com<br>
-                    Site web: www.travelexpress.com
-                </div>
-            </div>
-            <div class="header-right">
-                <div class="doc-ref">
-                    <span class="doc-ref-label">Reference:</span><br>
-                    TE-EVAL-{{ str_pad($evaluation->id, 5, '0', STR_PAD_LEFT) }}<br><br>
-                    <span class="doc-ref-label">Date d'emission:</span><br>
-                    {{ $generatedAt }}
-                </div>
-            </div>
-        </div>
+        <table class="header-table">
+            <tr>
+                <td class="header-left">
+                    <div class="company-name">TRAVEL EXPRESS</div>
+                    <div class="company-desc">Agence d'Accompagnement pour les Etudes Internationales</div>
+                </td>
+                <td class="header-right">
+                    <div class="doc-info">
+                        <strong>Ref:</strong> <span class="doc-ref">TE-{{ str_pad($evaluation->id, 5, '0', STR_PAD_LEFT) }}</span><br>
+                        <strong>Date:</strong> {{ $generatedAt }}
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <!-- TITRE -->
-    <div class="doc-title">
-        <h1>Attestation d'Evaluation</h1>
-        <div class="doc-title-sub">Fiche de satisfaction client - Document officiel</div>
+    <div class="title-section">
+        <div class="title-main">Attestation d'Evaluation</div>
+        <div class="title-sub">Document officiel de satisfaction client</div>
     </div>
 
-    <!-- SECTION 1: INFORMATIONS PERSONNELLES -->
-    <div class="section">
-        <div class="section-title">1. Informations du Beneficiaire</div>
-        <table class="info-table">
-            <tr>
-                <td class="label">Nom complet</td>
-                <td class="value">{{ $evaluation->first_name }} {{ $evaluation->last_name }}</td>
-            </tr>
-            <tr>
-                <td class="label">Adresse email</td>
-                <td class="value">{{ $evaluation->email }}</td>
-            </tr>
-            @if($evaluation->phone)
-            <tr>
-                <td class="label">Telephone</td>
-                <td class="value">{{ $evaluation->phone }}</td>
-            </tr>
-            @endif
-            <tr>
-                <td class="label">Service utilise</td>
-                <td class="value">{{ ucfirst($evaluation->service_used ?? 'Etudes') }}</td>
-            </tr>
-        </table>
-    </div>
-
-    <!-- SECTION 2: PARCOURS ACADEMIQUE -->
-    <div class="section">
-        <div class="section-title">2. Parcours Academique</div>
-        <table class="info-table">
-            <tr>
-                <td class="label">Universite / Etablissement</td>
-                <td class="value">{{ $evaluation->university }}</td>
-            </tr>
-            <tr>
-                <td class="label">Pays d'etude</td>
-                <td class="value">{{ $evaluation->country_of_study }}</td>
-            </tr>
-            <tr>
-                <td class="label">Niveau d'etude</td>
-                <td class="value">{{ $evaluation->study_level_label }}</td>
-            </tr>
-            <tr>
-                <td class="label">Filiere / Domaine</td>
-                <td class="value">{{ $evaluation->field_of_study }}</td>
-            </tr>
-            @if($evaluation->start_year)
-            <tr>
-                <td class="label">Annee de debut</td>
-                <td class="value">{{ $evaluation->start_year }}</td>
-            </tr>
-            @endif
-        </table>
-    </div>
+    <!-- SECTION 1 & 2: INFOS EN DEUX COLONNES -->
+    <table class="two-col-table">
+        <tr>
+            <td>
+                <div class="section">
+                    <div class="section-title">Beneficiaire</div>
+                    <table class="info-table">
+                        <tr><td class="label">Nom</td><td class="value">{{ $evaluation->first_name }} {{ $evaluation->last_name }}</td></tr>
+                        <tr><td class="label">Email</td><td class="value">{{ $evaluation->email }}</td></tr>
+                        <tr><td class="label">Service</td><td class="value">{{ ucfirst($evaluation->service_used ?? 'Etudes') }}</td></tr>
+                    </table>
+                </div>
+            </td>
+            <td>
+                <div class="section">
+                    <div class="section-title">Parcours Academique</div>
+                    <table class="info-table">
+                        <tr><td class="label">Universite</td><td class="value">{{ $evaluation->university }}</td></tr>
+                        <tr><td class="label">Pays</td><td class="value">{{ $evaluation->country_of_study }}</td></tr>
+                        <tr><td class="label">Niveau</td><td class="value">{{ $evaluation->study_level_label }}</td></tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
 
     <!-- SECTION 3: EVALUATION GLOBALE -->
     <div class="section">
-        <div class="section-title">3. Evaluation Globale</div>
-        <div class="global-rating">
-            <div class="global-rating-score">{{ $evaluation->rating }}<span class="global-rating-max"> / 5</span></div>
-            <div class="global-rating-label">Note de satisfaction globale</div>
-        </div>
-
-        <table style="width: 100%; margin-top: 10px;">
+        <div class="section-title">Evaluation</div>
+        <table class="two-col-table">
             <tr>
-                <td style="width: 50%; vertical-align: top; padding-right: 10px;">
-                    <strong>Recommandation:</strong><br>
-                    @if($evaluation->would_recommend)
-                        <span class="indicator indicator-positive">OUI - Recommande Travel Express</span>
-                    @else
-                        <span class="indicator indicator-negative">NON - Ne recommande pas</span>
-                    @endif
+                <td style="width: 35%;">
+                    <div class="rating-box">
+                        <div class="rating-score">{{ $evaluation->rating }}<span class="rating-max">/5</span></div>
+                        <div class="rating-label">Note globale</div>
+                    </div>
                 </td>
-                <td style="width: 50%; vertical-align: top;">
-                    <strong>Source de decouverte:</strong><br>
-                    <span style="font-size: 9pt;">{{ $evaluation->discovery_source_label }}</span>
-                    @if($evaluation->discovery_source_detail)
-                        <br><span style="font-size: 8pt; color: #666;">({{ $evaluation->discovery_source_detail }})</span>
-                    @endif
+                <td style="width: 65%; padding-left: 10px;">
+                    <div class="inline-info">
+                        <strong>Recommandation:</strong>
+                        @if($evaluation->would_recommend)
+                            <span class="badge badge-success">OUI</span>
+                        @else
+                            <span class="badge badge-danger">NON</span>
+                        @endif
+                    </div>
+                    <div class="inline-info">
+                        <strong>Source:</strong> {{ $evaluation->discovery_source_label }}
+                    </div>
+                    <div class="inline-info">
+                        <strong>Filiere:</strong> {{ $evaluation->field_of_study }}
+                        @if($evaluation->start_year)
+                        | <strong>Annee:</strong> {{ $evaluation->start_year }}
+                        @endif
+                    </div>
                 </td>
             </tr>
         </table>
@@ -442,128 +434,81 @@
     <!-- SECTION 4: EVALUATIONS DETAILLEES -->
     @if($evaluation->rating_accompagnement || $evaluation->rating_communication || $evaluation->rating_delais || $evaluation->rating_rapport_qualite_prix)
     <div class="section">
-        <div class="section-title">4. Evaluations Detaillees par Critere</div>
+        <div class="section-title">Evaluations Detaillees</div>
         <table class="ratings-table">
-            <thead>
-                <tr>
-                    <th>Critere</th>
-                    <th>Note</th>
-                    <th>Appreciation</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if($evaluation->rating_accompagnement)
-                <tr>
-                    <td>Qualite de l'accompagnement</td>
-                    <td class="score">{{ $evaluation->rating_accompagnement }} / 5</td>
-                    <td>{{ $evaluation->rating_accompagnement >= 4 ? 'Excellent' : ($evaluation->rating_accompagnement >= 3 ? 'Satisfaisant' : 'A ameliorer') }}</td>
-                </tr>
-                @endif
-                @if($evaluation->rating_communication)
-                <tr>
-                    <td>Communication</td>
-                    <td class="score">{{ $evaluation->rating_communication }} / 5</td>
-                    <td>{{ $evaluation->rating_communication >= 4 ? 'Excellent' : ($evaluation->rating_communication >= 3 ? 'Satisfaisant' : 'A ameliorer') }}</td>
-                </tr>
-                @endif
-                @if($evaluation->rating_delais)
-                <tr>
-                    <td>Respect des delais</td>
-                    <td class="score">{{ $evaluation->rating_delais }} / 5</td>
-                    <td>{{ $evaluation->rating_delais >= 4 ? 'Excellent' : ($evaluation->rating_delais >= 3 ? 'Satisfaisant' : 'A ameliorer') }}</td>
-                </tr>
-                @endif
-                @if($evaluation->rating_rapport_qualite_prix)
-                <tr>
-                    <td>Rapport qualite / prix</td>
-                    <td class="score">{{ $evaluation->rating_rapport_qualite_prix }} / 5</td>
-                    <td>{{ $evaluation->rating_rapport_qualite_prix >= 4 ? 'Excellent' : ($evaluation->rating_rapport_qualite_prix >= 3 ? 'Satisfaisant' : 'A ameliorer') }}</td>
-                </tr>
-                @endif
-            </tbody>
+            <tr>
+                <th style="width: 25%;">Accompagnement</th>
+                <th style="width: 25%;">Communication</th>
+                <th style="width: 25%;">Delais</th>
+                <th style="width: 25%;">Qualite/Prix</th>
+            </tr>
+            <tr>
+                <td class="score">{{ $evaluation->rating_accompagnement ?? '-' }}/5</td>
+                <td class="score">{{ $evaluation->rating_communication ?? '-' }}/5</td>
+                <td class="score">{{ $evaluation->rating_delais ?? '-' }}/5</td>
+                <td class="score">{{ $evaluation->rating_rapport_qualite_prix ?? '-' }}/5</td>
+            </tr>
         </table>
     </div>
     @endif
 
     <!-- SECTION 5: TEMOIGNAGE -->
     <div class="section">
-        <div class="section-title">5. Temoignage et Commentaires</div>
-
-        <div class="text-label">Description du parcours:</div>
-        <div class="text-block">
-            {{ $evaluation->project_story }}
-        </div>
-
+        <div class="section-title">Temoignage</div>
+        <div class="text-label">Parcours:</div>
+        <div class="text-box">{{ Str::limit($evaluation->project_story, 300) }}</div>
         @if($evaluation->comment)
-        <div style="margin-top: 10px;">
-            <div class="text-label">Commentaires additionnels:</div>
-            <div class="text-block">
-                {{ $evaluation->comment }}
-            </div>
-        </div>
-        @endif
-
-        @if($evaluation->public_testimonial)
-        <div style="margin-top: 10px;">
-            <div class="text-label">Temoignage public autorise:</div>
-            <div class="text-block" style="font-style: italic;">
-                "{{ $evaluation->public_testimonial }}"
-            </div>
-        </div>
+        <div class="text-label" style="margin-top: 5px;">Commentaire:</div>
+        <div class="text-box">{{ Str::limit($evaluation->comment, 150) }}</div>
         @endif
     </div>
 
-    <!-- SECTION 6: SIGNATURE -->
-    <div class="signature-section">
-        <div class="section-title">6. Authentification</div>
-        <div class="signature-row">
-            <div class="signature-col" style="padding-right: 15px;">
-                <div class="signature-box">
-                    <div class="signature-label">Signature du beneficiaire</div>
-                    @if($signature)
-                        <img src="{{ $signature }}" alt="Signature" class="signature-img">
-                    @else
-                        <div style="height: 40px;"></div>
-                    @endif
-                    <div class="signature-name">{{ $evaluation->first_name }} {{ $evaluation->last_name }}</div>
-                    @if($evaluation->signed_at)
-                    <div class="signature-date">Signe le {{ $evaluation->signed_at->format('d/m/Y') }}</div>
-                    @endif
-                </div>
-            </div>
-            <div class="signature-col" style="padding-left: 15px;">
-                <div class="signature-box">
-                    <div class="signature-label">Cachet de l'organisme</div>
-                    <div style="height: 40px; display: flex; align-items: center; justify-content: center;">
-                        <span style="font-size: 10pt; font-weight: bold; color: #1a5d4a;">TRAVEL EXPRESS</span>
+    <!-- SECTION 6: SIGNATURES -->
+    <div class="section">
+        <div class="section-title">Authentification</div>
+        <table class="signature-table">
+            <tr>
+                <td>
+                    <div class="signature-box">
+                        <div class="signature-title">Signature du beneficiaire</div>
+                        @if($signature)
+                            <img src="{{ $signature }}" alt="Signature" class="signature-img">
+                        @else
+                            <div style="height: 25px;"></div>
+                        @endif
+                        <div class="signature-name">{{ $evaluation->first_name }} {{ $evaluation->last_name }}</div>
+                        @if($evaluation->signed_at)
+                        <div class="signature-date">{{ $evaluation->signed_at->format('d/m/Y') }}</div>
+                        @endif
                     </div>
-                    <div class="signature-name">Service Qualite</div>
-                    <div class="signature-date">{{ now()->format('d/m/Y') }}</div>
-                </div>
-            </div>
-        </div>
+                </td>
+                <td style="width: 4%;"></td>
+                <td>
+                    <div class="signature-box">
+                        <div class="signature-title">Cachet de l'organisme</div>
+                        <div style="font-size: 9pt; font-weight: bold; color: #1a5d4a; margin: 8px 0;">TRAVEL EXPRESS</div>
+                        <div class="signature-name">Service Qualite</div>
+                        <div class="signature-date">{{ now()->format('d/m/Y') }}</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <!-- MENTIONS LEGALES -->
-    <div class="legal-notice">
-        <strong>Mentions legales:</strong> Ce document est une attestation officielle delivree par Travel Express.
-        Les informations contenues dans ce document sont fournies par le beneficiaire et attestent de son experience avec nos services.
-        Toute falsification de ce document est passible de poursuites.
-        Document genere automatiquement - Reference: TE-EVAL-{{ str_pad($evaluation->id, 5, '0', STR_PAD_LEFT) }}
+    <div class="legal">
+        <strong>Mentions legales:</strong> Attestation officielle delivree par Travel Express. Les informations sont fournies par le beneficiaire.
+        Toute falsification est passible de poursuites. Ref: TE-{{ str_pad($evaluation->id, 5, '0', STR_PAD_LEFT) }}
     </div>
 
-    <!-- PIED DE PAGE -->
+    <!-- FOOTER -->
     <div class="footer">
-        <div class="footer-row">
-            <div class="footer-left">
-                Travel Express - Agence d'Accompagnement pour les Etudes Internationales<br>
-                Document officiel - Ref: TE-EVAL-{{ str_pad($evaluation->id, 5, '0', STR_PAD_LEFT) }}
-            </div>
-            <div class="footer-right">
-                Page 1/1<br>
-                Genere le {{ $generatedAt }}
-            </div>
-        </div>
+        <table class="footer-table">
+            <tr>
+                <td class="footer-left">Travel Express - Document officiel</td>
+                <td class="footer-right">Page 1/1 | {{ $generatedAt }}</td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>
