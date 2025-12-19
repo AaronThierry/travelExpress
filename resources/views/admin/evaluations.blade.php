@@ -464,16 +464,21 @@
                     <!-- Signature -->
                     ${e.signature ? `
                     <div>
-                        <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
-                            <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <h3 class="text-sm font-bold text-gray-900 mb-3 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                             </svg>
                             Signature
                         </h3>
-                        <div class="bg-amber-50 rounded-xl p-6 border-2 border-dashed border-amber-200">
-                            <img src="${e.signature}" alt="Signature" class="max-h-32 w-auto mx-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+                        <div class="bg-white rounded-xl p-4 border-2 border-[#0a0a0a] shadow-sm">
+                            <div class="bg-gradient-to-b from-gray-50 to-white rounded-lg p-4 min-h-[120px] flex items-center justify-center">
+                                <img src="${e.signature}" alt="Signature" class="max-h-28 w-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+                            </div>
+                            <div class="mt-3 pt-3 border-t-2 border-[#d4af37]">
+                                <p class="text-center text-xs text-gray-600 font-medium">${e.first_name} ${e.last_name}</p>
+                            </div>
                         </div>
-                        ${e.signed_at ? `<p class="text-xs text-gray-500 mt-2">Signé le ${formatDate(e.signed_at)}</p>` : ''}
+                        ${e.signed_at ? `<p class="text-xs text-gray-500 mt-2 text-center">Signé le ${formatDate(e.signed_at)}</p>` : ''}
                     </div>
                     ` : ''}
 
