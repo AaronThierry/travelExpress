@@ -3645,7 +3645,6 @@
                 ratingDelais: 5,
                 ratingQualitePrix: 5,
                 wouldRecommend: true,
-                comment: '',
 
                 // Touched states for validation display
                 firstNameTouched: false,
@@ -4021,7 +4020,6 @@
                         rating_delais: this.ratingDelais,
                         rating_rapport_qualite_prix: this.ratingQualitePrix,
                         would_recommend: this.wouldRecommend,
-                        comment: this.comment || null,
                         signature: this.signatureData
                     };
 
@@ -4667,13 +4665,6 @@
                                     </div>
                                 </label>
                             </div>
-                        </div>
-
-                        <!-- Commentaire -->
-                        <div>
-                            <label class="block text-xs sm:text-sm font-semibold text-[#0a0a0a] mb-1.5 sm:mb-2">Laissez un commentaire à Travel Express</label>
-                            <textarea x-model="comment" rows="2" placeholder="Vos suggestions, remarques ou feedback..."
-                                      class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all resize-none"></textarea>
                         </div>
 
                         <!-- Signature - Black & Gold theme -->
