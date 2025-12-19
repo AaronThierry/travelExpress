@@ -1775,12 +1775,7 @@
                 <!-- Loading State -->
                 <template x-if="loading">
                     <div class="flex justify-center items-center py-20">
-                        <div class="relative">
-                            <div class="w-16 h-16 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-8 h-8 bg-primary-600 rounded-full animate-pulse"></div>
-                            </div>
-                        </div>
+                        <div class="text-slate-400 text-sm font-medium">Chargement...</div>
                     </div>
                 </template>
 
