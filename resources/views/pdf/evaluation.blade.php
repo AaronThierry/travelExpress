@@ -5,6 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Attestation - {{ $evaluation->first_name }} {{ $evaluation->last_name }}</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+
         @page {
             margin: 0;
             size: A4 portrait;
@@ -17,19 +19,29 @@
         }
 
         body {
-            font-family: 'DejaVu Sans', Helvetica, Arial, sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', Helvetica, Arial, sans-serif;
             font-size: 9pt;
             line-height: 1.4;
-            color: #2c3e50;
+            color: #1a1a1a;
             background: #ffffff;
         }
 
-        /* ===== HEADER PREMIUM ===== */
+        /* ===== HEADER LUXE NOIR & OR ===== */
         .header {
-            background: #0d3b2d;
+            background: #0a0a0a;
             color: white;
-            padding: 25px 40px;
+            padding: 28px 45px;
             position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #d4af37, #f4e4a6, #d4af37);
         }
 
         .header-table {
@@ -49,17 +61,18 @@
 
         .logo-box {
             display: inline-block;
-            background: #c9a227;
-            width: 45px;
-            height: 45px;
+            background: linear-gradient(135deg, #d4af37, #f4e4a6);
+            width: 50px;
+            height: 50px;
             border-radius: 8px;
             text-align: center;
-            line-height: 45px;
-            font-size: 18pt;
-            font-weight: bold;
-            color: #0d3b2d;
+            line-height: 50px;
+            font-size: 20pt;
+            font-weight: 800;
+            color: #0a0a0a;
             vertical-align: middle;
-            margin-right: 15px;
+            margin-right: 18px;
+            font-family: 'Poppins', sans-serif;
         }
 
         .logo-text {
@@ -68,117 +81,115 @@
         }
 
         .company-name {
-            font-size: 18pt;
-            font-weight: bold;
-            letter-spacing: 3px;
-            font-family: 'DejaVu Serif', Georgia, serif;
+            font-size: 20pt;
+            font-weight: 700;
+            letter-spacing: 4px;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            color: #ffffff;
         }
 
         .company-tagline {
             font-size: 7pt;
-            color: #c9a227;
-            letter-spacing: 2px;
-            margin-top: 3px;
+            color: #d4af37;
+            letter-spacing: 3px;
+            margin-top: 4px;
             text-transform: uppercase;
+            font-weight: 500;
         }
 
         .doc-badge {
             display: inline-block;
-            background: rgba(201, 162, 39, 0.15);
-            border: 2px solid #c9a227;
-            color: #c9a227;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 9pt;
-            font-weight: bold;
-            letter-spacing: 2px;
+            background: transparent;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 8pt;
+            font-weight: 700;
+            letter-spacing: 3px;
             text-transform: uppercase;
-        }
-
-        .gold-bar {
-            height: 4px;
-            background: #c9a227;
         }
 
         /* ===== CONTENT ===== */
         .content {
-            padding: 25px 40px 20px 40px;
+            padding: 30px 45px 25px 45px;
         }
 
         /* ===== TITLE ===== */
         .title-section {
             text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid #f0f0f0;
         }
 
         .title-main {
-            font-size: 16pt;
-            font-weight: bold;
+            font-size: 18pt;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            color: #0d3b2d;
-            font-family: 'DejaVu Serif', Georgia, serif;
+            letter-spacing: 5px;
+            color: #0a0a0a;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
         }
 
         .title-sub {
             font-size: 8pt;
-            color: #7f8c8d;
-            margin-top: 5px;
-            font-style: italic;
+            color: #666666;
+            margin-top: 6px;
+            font-weight: 400;
+            letter-spacing: 1px;
         }
 
         .doc-ref {
             font-size: 8pt;
-            color: #0d3b2d;
-            margin-top: 8px;
-            font-family: 'DejaVu Sans Mono', monospace;
-            font-weight: bold;
+            color: #d4af37;
+            margin-top: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         /* ===== SECTIONS ===== */
         .section {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .section-header {
             display: table;
             width: 100%;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .section-number {
             display: table-cell;
-            width: 25px;
+            width: 28px;
             vertical-align: middle;
         }
 
         .num-circle {
-            width: 20px;
-            height: 20px;
-            background: #0d3b2d;
+            width: 22px;
+            height: 22px;
+            background: #0a0a0a;
             border-radius: 50%;
             text-align: center;
-            line-height: 20px;
-            color: white;
-            font-size: 9pt;
-            font-weight: bold;
+            line-height: 22px;
+            color: #d4af37;
+            font-size: 10pt;
+            font-weight: 700;
         }
 
         .section-title-box {
             display: table-cell;
             vertical-align: middle;
-            padding-left: 10px;
+            padding-left: 12px;
         }
 
         .section-title {
-            font-size: 10pt;
-            font-weight: bold;
-            color: #0d3b2d;
+            font-size: 11pt;
+            font-weight: 700;
+            color: #0a0a0a;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-family: 'DejaVu Serif', Georgia, serif;
+            letter-spacing: 2px;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
         }
 
         /* ===== TABLES ===== */
@@ -189,13 +200,13 @@
 
         .info-grid {
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .info-grid td {
             width: 50%;
             vertical-align: top;
-            padding: 0 10px;
+            padding: 0 12px;
         }
 
         .info-grid td:first-child {
@@ -208,15 +219,15 @@
 
         .info-table {
             width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
             overflow: hidden;
         }
 
         .info-table td {
-            padding: 6px 10px;
-            border-bottom: 1px solid #eee;
-            font-size: 8pt;
+            padding: 8px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 8.5pt;
         }
 
         .info-table tr:last-child td {
@@ -224,160 +235,160 @@
         }
 
         .info-table .label {
-            background: #f8f9fa;
-            font-weight: bold;
+            background: #fafafa;
+            font-weight: 600;
             width: 35%;
-            color: #0d3b2d;
+            color: #0a0a0a;
         }
 
         .info-table .value {
             width: 65%;
-            color: #34495e;
+            color: #333333;
+            font-weight: 400;
         }
 
         /* ===== RATING BOX ===== */
         .rating-section {
             display: table;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .rating-left {
             display: table-cell;
-            width: 30%;
+            width: 28%;
             vertical-align: middle;
         }
 
         .rating-right {
             display: table-cell;
-            width: 70%;
+            width: 72%;
             vertical-align: middle;
-            padding-left: 20px;
+            padding-left: 25px;
         }
 
         .rating-box {
-            background: linear-gradient(135deg, #0d3b2d 0%, #1a5d4a 100%);
-            border-radius: 10px;
-            padding: 15px;
+            background: #0a0a0a;
+            border-radius: 12px;
+            padding: 18px;
             text-align: center;
-            color: white;
+            border: 2px solid #d4af37;
         }
 
         .rating-score {
-            font-size: 32pt;
-            font-weight: bold;
-            font-family: 'DejaVu Serif', Georgia, serif;
-            color: #c9a227;
+            font-size: 38pt;
+            font-weight: 800;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            color: #d4af37;
         }
 
         .rating-max {
-            font-size: 14pt;
-            color: rgba(255,255,255,0.7);
+            font-size: 16pt;
+            color: #888888;
+            font-weight: 400;
         }
 
         .rating-label {
             font-size: 7pt;
-            color: rgba(255,255,255,0.8);
+            color: #888888;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             margin-top: 5px;
+            font-weight: 600;
         }
 
         .info-line {
-            font-size: 8.5pt;
-            margin-bottom: 8px;
-            padding: 8px 12px;
-            background: #f8f9fa;
-            border-left: 3px solid #0d3b2d;
-            border-radius: 0 5px 5px 0;
+            font-size: 9pt;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            background: #fafafa;
+            border-left: 4px solid #d4af37;
+            border-radius: 0 8px 8px 0;
         }
 
         .info-line strong {
-            color: #0d3b2d;
+            color: #0a0a0a;
+            font-weight: 600;
         }
 
         .badge {
             display: inline-block;
-            padding: 3px 12px;
+            padding: 4px 14px;
             font-size: 7pt;
-            font-weight: bold;
-            border-radius: 15px;
-            margin-left: 5px;
+            font-weight: 700;
+            border-radius: 20px;
+            margin-left: 8px;
+            letter-spacing: 0.5px;
         }
 
         .badge-success {
-            background: #d5f4e6;
-            color: #0d3b2d;
+            background: #d4af37;
+            color: #0a0a0a;
         }
 
         .badge-danger {
-            background: #ffeaea;
-            color: #c0392b;
+            background: #1a1a1a;
+            color: #ffffff;
         }
 
         /* ===== RATINGS TABLE ===== */
         .ratings-table {
             width: 100%;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            border: 1px solid #ddd;
+            border: 2px solid #0a0a0a;
         }
 
         .ratings-table th {
-            background: #0d3b2d;
-            color: white;
-            padding: 8px;
+            background: #0a0a0a;
+            color: #d4af37;
+            padding: 10px;
             font-size: 7.5pt;
-            font-weight: bold;
+            font-weight: 700;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .ratings-table td {
-            padding: 10px;
+            padding: 12px;
             text-align: center;
-            border: 1px solid #eee;
+            border: 1px solid #f0f0f0;
             background: #fafafa;
         }
 
         .ratings-table .score {
-            font-size: 14pt;
-            font-weight: bold;
-            color: #c9a227;
-            font-family: 'DejaVu Serif', Georgia, serif;
-        }
-
-        .ratings-table .score-label {
-            font-size: 7pt;
-            color: #7f8c8d;
+            font-size: 16pt;
+            font-weight: 800;
+            color: #d4af37;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
         }
 
         /* ===== TEXT BOX ===== */
         .text-box {
-            background: #f8f9fa;
+            background: #fafafa;
             border: 1px solid #e0e0e0;
-            border-left: 4px solid #0d3b2d;
-            padding: 12px 15px;
-            font-size: 8.5pt;
-            line-height: 1.6;
-            border-radius: 0 8px 8px 0;
-            color: #34495e;
+            border-left: 5px solid #0a0a0a;
+            padding: 14px 18px;
+            font-size: 9pt;
+            line-height: 1.7;
+            border-radius: 0 10px 10px 0;
+            color: #333333;
         }
 
         .text-label {
             font-size: 7pt;
-            color: #7f8c8d;
-            font-style: italic;
-            margin-bottom: 5px;
+            color: #888888;
+            margin-bottom: 6px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
 
         /* ===== SIGNATURE SECTION ===== */
         .signature-section {
-            margin-top: 20px;
-            padding-top: 15px;
+            margin-top: 25px;
+            padding-top: 20px;
             border-top: 2px solid #e0e0e0;
         }
 
@@ -386,59 +397,63 @@
         }
 
         .signature-grid td {
-            width: 46%;
+            width: 45%;
             vertical-align: top;
         }
 
         .signature-grid td.spacer {
-            width: 8%;
+            width: 10%;
         }
 
         .signature-box {
-            border: 2px solid #0d3b2d;
-            border-radius: 10px;
-            padding: 15px;
+            border: 3px solid #0a0a0a;
+            border-radius: 15px;
+            padding: 20px;
             text-align: center;
-            min-height: 120px;
-            background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+            min-height: 150px;
+            background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
         }
 
         .signature-title {
-            font-size: 7pt;
-            color: #7f8c8d;
+            font-size: 8pt;
+            color: #888888;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 600;
         }
 
         .signature-img {
-            max-height: 50px;
-            max-width: 150px;
-            margin: 10px 0;
+            max-height: 70px;
+            max-width: 200px;
+            margin: 15px 0;
         }
 
         .signature-name {
-            font-size: 11pt;
-            font-weight: bold;
-            color: #0d3b2d;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 2px solid #0d3b2d;
-            font-family: 'DejaVu Serif', Georgia, serif;
+            font-size: 13pt;
+            font-weight: 700;
+            color: #0a0a0a;
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 3px solid #d4af37;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            letter-spacing: 1px;
         }
 
         .signature-date {
-            font-size: 8pt;
-            color: #7f8c8d;
-            margin-top: 5px;
+            font-size: 9pt;
+            color: #666666;
+            margin-top: 6px;
+            font-weight: 500;
         }
 
         .stamp-text {
-            font-size: 12pt;
-            font-weight: bold;
-            color: #0d3b2d;
-            margin: 15px 0;
-            font-family: 'DejaVu Serif', Georgia, serif;
+            font-size: 14pt;
+            font-weight: 800;
+            color: #0a0a0a;
+            margin: 20px 0;
+            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            letter-spacing: 2px;
         }
 
         /* ===== FOOTER ===== */
@@ -447,9 +462,9 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: #0d3b2d;
+            background: #0a0a0a;
             color: white;
-            padding: 12px 40px;
+            padding: 15px 45px;
         }
 
         .footer-table {
@@ -458,32 +473,38 @@
 
         .footer-left {
             font-size: 7pt;
-            color: rgba(255,255,255,0.7);
+            color: #888888;
+            font-weight: 400;
         }
 
         .footer-center {
             text-align: center;
-            font-size: 8pt;
-            color: #c9a227;
-            font-weight: bold;
+            font-size: 9pt;
+            color: #d4af37;
+            font-weight: 700;
+            letter-spacing: 2px;
         }
 
         .footer-right {
             text-align: right;
             font-size: 7pt;
-            color: rgba(255,255,255,0.7);
+            color: #888888;
+            font-weight: 400;
         }
 
         /* ===== LEGAL ===== */
         .legal {
-            margin-top: 15px;
-            padding: 10px 15px;
-            background: #f8f9fa;
-            border-radius: 5px;
-            font-size: 6.5pt;
-            color: #7f8c8d;
-            line-height: 1.5;
-            border-left: 3px solid #c9a227;
+            margin-top: 18px;
+            padding: 12px 18px;
+            background: #0a0a0a;
+            border-radius: 8px;
+            font-size: 7pt;
+            color: #888888;
+            line-height: 1.6;
+        }
+
+        .legal strong {
+            color: #d4af37;
         }
     </style>
 </head>
@@ -505,7 +526,6 @@
             </tr>
         </table>
     </div>
-    <div class="gold-bar"></div>
 
     <!-- CONTENT -->
     <div class="content">
@@ -566,7 +586,7 @@
                     </div>
                     <div class="info-line">
                         <strong>Source de decouverte:</strong> {{ $evaluation->discovery_source_label }}
-                        @if($evaluation->discovery_source_detail)({{ $evaluation->discovery_source_detail }})@endif
+                        @if($evaluation->discovery_source_detail) ({{ $evaluation->discovery_source_detail }})@endif
                     </div>
                 </div>
             </div>
@@ -603,10 +623,10 @@
                 <div class="section-title-box"><div class="section-title">Temoignage</div></div>
             </div>
             <div class="text-label">Parcours et experience:</div>
-            <div class="text-box">{{ Str::limit($evaluation->project_story, 350) }}</div>
+            <div class="text-box">{{ Str::limit($evaluation->project_story, 300) }}</div>
             @if($evaluation->comment)
-            <div class="text-label" style="margin-top: 8px;">Commentaire supplementaire:</div>
-            <div class="text-box">{{ Str::limit($evaluation->comment, 200) }}</div>
+            <div class="text-label" style="margin-top: 10px;">Commentaire:</div>
+            <div class="text-box">{{ Str::limit($evaluation->comment, 150) }}</div>
             @endif
         </div>
 
@@ -624,7 +644,7 @@
                             @if($signature)
                                 <img src="{{ $signature }}" alt="Signature" class="signature-img">
                             @else
-                                <div style="height: 40px;"></div>
+                                <div style="height: 50px;"></div>
                             @endif
                             <div class="signature-name">{{ $evaluation->first_name }} {{ $evaluation->last_name }}</div>
                             @if($evaluation->signed_at)
@@ -648,8 +668,7 @@
         <!-- LEGAL -->
         <div class="legal">
             <strong>Mentions legales:</strong> Ce document est une attestation officielle delivree par Travel Express.
-            Les informations contenues sont fournies par le beneficiaire et attestent de son experience avec nos services.
-            Toute falsification de ce document est passible de poursuites judiciaires.
+            Les informations contenues sont fournies par le beneficiaire. Toute falsification est passible de poursuites.
         </div>
     </div>
 
@@ -657,8 +676,8 @@
     <div class="footer">
         <table class="footer-table">
             <tr>
-                <td class="footer-left">Travel Express - Agence d'Accompagnement International</td>
-                <td class="footer-center">REF: TE-EVAL-{{ str_pad($evaluation->id, 5, '0', STR_PAD_LEFT) }}</td>
+                <td class="footer-left">Travel Express - Agence Internationale</td>
+                <td class="footer-center">TE-EVAL-{{ str_pad($evaluation->id, 5, '0', STR_PAD_LEFT) }}</td>
                 <td class="footer-right">Page 1/1 | {{ $generatedAt }}</td>
             </tr>
         </table>
