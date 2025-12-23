@@ -4090,7 +4090,7 @@
                 }
             }">
                 <!-- Scrollable Content Area -->
-                <div class="flex-1 overflow-y-auto px-4 sm:px-6 pt-4 sm:pt-6">
+                <div class="flex-1 overflow-y-auto px-4 sm:px-6 py-3 sm:py-4">
                 <!-- Progress bar - Black & Gold theme -->
                 <div class="mb-4">
                     <div class="flex items-center justify-between mb-2">
