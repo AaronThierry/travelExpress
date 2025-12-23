@@ -4804,9 +4804,9 @@
                 <!-- End Scrollable Content Area -->
 
                 <!-- Footer Statique avec boutons de navigation - Black & Gold theme -->
-                <div x-show="!success" class="border-t border-gray-200 bg-gradient-to-r from-gray-50 to-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between flex-shrink-0">
+                <div x-show="!success" class="border-t border-gray-200 bg-gradient-to-r from-gray-50 to-white px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between flex-shrink-0">
                     <button type="button" @click="prevStep()" x-show="step > 1"
-                            class="px-3 sm:px-5 py-2 sm:py-2.5 text-[#0a0a0a] hover:text-[#d4af37] font-medium rounded-lg sm:rounded-xl hover:bg-[#d4af37]/10 transition-all flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                            class="px-2 sm:px-4 py-1.5 sm:py-2 text-[#0a0a0a] hover:text-[#d4af37] font-medium rounded-lg hover:bg-[#d4af37]/10 transition-all flex items-center gap-1 text-xs sm:text-sm">
                         <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                         </svg>
@@ -4817,7 +4817,7 @@
 
                     <button type="button" @click="nextStep()" x-show="step < totalSteps"
                             :disabled="(step === 1 && (!firstName || !lastName || !email)) || (step === 2 && (!university || !countryOfStudy || !studyLevel || !fieldOfStudy)) || (step === 3 && (!projectStory || projectStory.length < 50 || !discoverySource))"
-                            class="px-4 sm:px-6 py-2 sm:py-2.5 bg-[#0a0a0a] text-[#d4af37] font-semibold rounded-lg sm:rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 sm:gap-2 text-sm sm:text-base border border-[#d4af37]/30 hover:bg-[#1a1a1a]">
+                            class="px-3 sm:px-5 py-1.5 sm:py-2 bg-[#0a0a0a] text-[#d4af37] font-semibold rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 text-xs sm:text-sm border border-[#d4af37]/30 hover:bg-[#1a1a1a]">
                         Suivant
                         <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -4825,7 +4825,7 @@
                     </button>
 
                     <button type="button" @click="submitForm()" x-show="step === totalSteps" :disabled="submitting || !signatureData"
-                            class="px-4 sm:px-6 py-2 sm:py-2.5 bg-[#0a0a0a] text-[#d4af37] font-semibold rounded-lg sm:rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 sm:gap-2 text-sm sm:text-base border border-[#d4af37]/30 hover:bg-[#1a1a1a]">
+                            class="px-3 sm:px-5 py-1.5 sm:py-2 bg-[#0a0a0a] text-[#d4af37] font-semibold rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 text-xs sm:text-sm border border-[#d4af37]/30 hover:bg-[#1a1a1a]">
                         <svg x-show="submitting" class="animate-spin w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
