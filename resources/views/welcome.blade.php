@@ -3638,6 +3638,9 @@
                 projectStory: '',
                 discoverySource: '',
                 discoverySourceDetail: '',
+                ambassadorDirectContact: null,
+                conversationScreenshots: [],
+                screenshotPreviews: [],
 
                 rating: 5,
                 ratingAccompagnement: 5,
@@ -3996,37 +3999,72 @@
                     }
                 },
 
+                handleScreenshotUpload(event) {
+                    const files = Array.from(event.target.files);
+                    files.forEach(file => {
+                        if (file.type.startsWith('image/')) {
+                            this.conversationScreenshots.push(file);
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                this.screenshotPreviews.push(e.target.result);
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                },
+
+                removeScreenshot(index) {
+                    this.conversationScreenshots.splice(index, 1);
+                    this.screenshotPreviews.splice(index, 1);
+                },
+
+                get isAmbassadorSelected() {
+                    return this.discoverySource === 'ambassadeur_la_bobolaise' ||
+                           this.discoverySource === 'ambassadeur_ley_ley' ||
+                           this.discoverySource === 'ambassadeur_autre';
+                },
+
                 async submitForm() {
                     this.submitting = true;
                     this.error = null;
 
-                    const formData = {
-                        first_name: this.firstName,
-                        last_name: this.lastName,
-                        email: this.email,
-                        phone: this.phone,
-                        university: this.university,
-                        country_of_study: this.countryOfStudy,
-                        study_level: this.studyLevel,
-                        field_of_study: this.fieldOfStudy,
-                        start_year: this.startYear || null,
-                        service_used: this.serviceUsed,
-                        project_story: this.projectStory,
-                        discovery_source: this.discoverySource,
-                        discovery_source_detail: this.discoverySourceDetail || null,
-                        rating: this.rating,
-                        rating_accompagnement: this.ratingAccompagnement,
-                        rating_communication: this.ratingCommunication,
-                        rating_delais: this.ratingDelais,
-                        rating_rapport_qualite_prix: this.ratingQualitePrix,
-                        would_recommend: this.wouldRecommend,
-                        signature: this.signatureData
-                    };
+                    const formData = new FormData();
+                    formData.append('first_name', this.firstName);
+                    formData.append('last_name', this.lastName);
+                    formData.append('email', this.email);
+                    formData.append('phone', this.phone);
+                    formData.append('university', this.university);
+                    formData.append('country_of_study', this.countryOfStudy);
+                    formData.append('study_level', this.studyLevel);
+                    formData.append('field_of_study', this.fieldOfStudy);
+                    if (this.startYear) formData.append('start_year', this.startYear);
+                    formData.append('service_used', this.serviceUsed);
+                    formData.append('project_story', this.projectStory);
+                    formData.append('discovery_source', this.discoverySource);
+                    if (this.discoverySourceDetail) formData.append('discovery_source_detail', this.discoverySourceDetail);
+
+                    // Données ambassadrice
+                    if (this.isAmbassadorSelected) {
+                        if (this.ambassadorDirectContact !== null) {
+                            formData.append('ambassador_direct_contact', this.ambassadorDirectContact ? '1' : '0');
+                        }
+                        // Ajouter les captures d'écran
+                        this.conversationScreenshots.forEach((file, index) => {
+                            formData.append(`conversation_screenshots[${index}]`, file);
+                        });
+                    }
+
+                    formData.append('rating', this.rating);
+                    formData.append('rating_accompagnement', this.ratingAccompagnement);
+                    formData.append('rating_communication', this.ratingCommunication);
+                    formData.append('rating_delais', this.ratingDelais);
+                    formData.append('rating_rapport_qualite_prix', this.ratingQualitePrix);
+                    formData.append('would_recommend', this.wouldRecommend ? '1' : '0');
+                    formData.append('signature', this.signatureData);
 
                     try {
                         const token = localStorage.getItem('auth_token');
                         const headers = {
-                            'Content-Type': 'application/json',
                             'Accept': 'application/json'
                         };
                         if (token) headers['Authorization'] = 'Bearer ' + token;
@@ -4034,7 +4072,7 @@
                         const response = await fetch('/api/evaluations', {
                             method: 'POST',
                             headers: headers,
-                            body: JSON.stringify(formData)
+                            body: formData
                         });
 
                         const result = await response.json();
@@ -4572,6 +4610,68 @@
                             <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Précisez</label>
                             <input type="text" x-model="discoverySourceDetail" placeholder="Nom de l'ambassadeur ou autre source..."
                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
+                        </div>
+
+                        <!-- Questions spécifiques aux ambassadrices -->
+                        <div x-show="isAmbassadorSelected" x-transition class="space-y-4">
+                            <!-- Question mise en relation directe -->
+                            <div class="bg-gradient-to-br from-[#d4af37]/10 to-[#0a0a0a]/5 rounded-xl p-4 border border-[#d4af37]/30">
+                                <label class="block text-sm font-semibold text-[#0a0a0a] mb-3">
+                                    <span x-text="discoverySource === 'ambassadeur_la_bobolaise' ? 'La Bobolaise' : discoverySource === 'ambassadeur_ley_ley' ? 'Ley Ley' : 'Cet ambassadeur'"></span>
+                                    vous a-t-il/elle mis en relation directe avec Travel Express ? *
+                                </label>
+                                <div class="flex gap-3">
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" x-model="ambassadorDirectContact" :value="true" class="peer sr-only">
+                                        <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
+                                            <span class="text-2xl mb-1 block">✅</span>
+                                            <span class="font-semibold text-[#0a0a0a] text-sm">Oui</span>
+                                        </div>
+                                    </label>
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" x-model="ambassadorDirectContact" :value="false" class="peer sr-only">
+                                        <div class="p-3 border-2 border-gray-200 rounded-xl text-center peer-checked:border-gray-400 peer-checked:bg-gray-100 transition-all">
+                                            <span class="text-2xl mb-1 block">❌</span>
+                                            <span class="font-semibold text-gray-700 text-sm">Non</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Upload de captures d'écran -->
+                            <div class="bg-white rounded-xl p-4 border-2 border-dashed border-[#d4af37]/40">
+                                <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">
+                                    📸 Captures d'écran de conversation (optionnel)
+                                </label>
+                                <p class="text-xs text-gray-600 mb-3">
+                                    Vous pouvez ajouter des captures d'écran de vos échanges avec l'ambassadrice
+                                </p>
+
+                                <input type="file" id="screenshot-upload" @change="handleScreenshotUpload($event)"
+                                       accept="image/*" multiple class="hidden">
+                                <label for="screenshot-upload"
+                                       class="flex items-center justify-center gap-2 px-4 py-3 bg-[#d4af37]/10 hover:bg-[#d4af37]/20 border border-[#d4af37]/30 rounded-lg cursor-pointer transition-all">
+                                    <svg class="w-5 h-5 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                    <span class="text-sm font-medium text-[#0a0a0a]">Ajouter des captures</span>
+                                </label>
+
+                                <!-- Prévisualisation des captures -->
+                                <div x-show="screenshotPreviews.length > 0" class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
+                                    <template x-for="(preview, index) in screenshotPreviews" :key="index">
+                                        <div class="relative group">
+                                            <img :src="preview" class="w-full h-32 object-cover rounded-lg border-2 border-gray-200">
+                                            <button type="button" @click="removeScreenshot(index)"
+                                                    class="absolute top-1 right-1 p-1.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
