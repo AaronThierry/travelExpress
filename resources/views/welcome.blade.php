@@ -4615,42 +4615,42 @@
                         </div>
 
                         <!-- Questions spécifiques aux ambassadrices -->
-                        <div x-show="isAmbassadorSelected" x-transition class="space-y-3">
+                        <div x-show="isAmbassadorSelected" x-transition class="space-y-2">
                             <!-- Question mise en relation directe -->
-                            <div class="bg-gradient-to-br from-[#d4af37]/10 to-[#0a0a0a]/5 rounded-lg p-3 border border-[#d4af37]/30">
-                                <label class="block text-xs font-semibold text-[#0a0a0a] mb-2">
-                                    <span x-text="discoverySource === 'ambassadeur_la_bobolaise' ? 'La Bobolaise' : discoverySource === 'ambassadeur_ley_ley' ? 'Ley Ley' : 'Cet ambassadeur'"></span>
-                                    vous a-t-il/elle mis en relation directe avec Travel Express ? *
+                            <div class="bg-gradient-to-br from-[#d4af37]/10 to-[#0a0a0a]/5 rounded p-2 border border-[#d4af37]/30">
+                                <label class="block text-[10px] font-semibold text-[#0a0a0a] mb-1.5">
+                                    <span x-text="discoverySource === 'ambassadeur_la_bobolaise' ? 'La Bobolaise' : discoverySource === 'ambassadeur_ley_ley' ? 'Ley Ley' : 'Ambassadeur'"></span>
+                                    vous a mis en relation directe ? *
                                 </label>
-                                <div class="flex gap-2">
+                                <div class="flex gap-1.5">
                                     <label class="flex-1 cursor-pointer">
                                         <input type="radio" x-model="ambassadorDirectContact" :value="true" class="peer sr-only">
-                                        <div class="p-2 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
-                                            <span class="text-xl block">✅</span>
-                                            <span class="font-semibold text-[#0a0a0a] text-xs">Oui</span>
+                                        <div class="p-1.5 border-2 border-gray-200 rounded text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
+                                            <span class="text-lg block">✅</span>
+                                            <span class="font-semibold text-[#0a0a0a] text-[10px]">Oui</span>
                                         </div>
                                     </label>
                                     <label class="flex-1 cursor-pointer">
                                         <input type="radio" x-model="ambassadorDirectContact" :value="false" class="peer sr-only">
-                                        <div class="p-2 border-2 border-gray-200 rounded-lg text-center peer-checked:border-gray-400 peer-checked:bg-gray-100 transition-all">
-                                            <span class="text-xl block">❌</span>
-                                            <span class="font-semibold text-gray-700 text-xs">Non</span>
+                                        <div class="p-1.5 border-2 border-gray-200 rounded text-center peer-checked:border-gray-400 peer-checked:bg-gray-100 transition-all">
+                                            <span class="text-lg block">❌</span>
+                                            <span class="font-semibold text-gray-700 text-[10px]">Non</span>
                                         </div>
                                     </label>
                                 </div>
                             </div>
 
                             <!-- Upload de captures d'écran -->
-                            <div class="bg-white rounded-lg p-3 border border-[#d4af37]/30">
-                                <div class="flex items-center justify-between mb-2">
-                                    <label class="text-xs font-semibold text-[#0a0a0a]">
-                                        📸 Captures conversation (optionnel)
+                            <div class="bg-white rounded p-2 border border-[#d4af37]/30">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <label class="text-[10px] font-semibold text-[#0a0a0a]">
+                                        📸 Captures (opt.)
                                     </label>
                                     <input type="file" id="screenshot-upload" @change="handleScreenshotUpload($event)"
                                            accept="image/*" multiple class="hidden">
                                     <label for="screenshot-upload"
-                                           class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#d4af37]/10 hover:bg-[#d4af37]/20 border border-[#d4af37]/30 rounded-lg cursor-pointer transition-all text-xs font-medium text-[#0a0a0a]">
-                                        <svg class="w-4 h-4 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                           class="inline-flex items-center gap-1 px-2 py-1 bg-[#d4af37]/10 hover:bg-[#d4af37]/20 border border-[#d4af37]/30 rounded cursor-pointer transition-all text-[10px] font-medium text-[#0a0a0a]">
+                                        <svg class="w-3 h-3 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                                         </svg>
                                         Ajouter
@@ -4658,13 +4658,13 @@
                                 </div>
 
                                 <!-- Prévisualisation des captures -->
-                                <div x-show="screenshotPreviews.length > 0" class="grid grid-cols-3 gap-2 mt-2">
+                                <div x-show="screenshotPreviews.length > 0" class="grid grid-cols-4 gap-1.5 mt-1.5">
                                     <template x-for="(preview, index) in screenshotPreviews" :key="index">
                                         <div class="relative group">
-                                            <img :src="preview" class="w-full h-20 object-cover rounded border border-gray-200">
+                                            <img :src="preview" class="w-full h-14 object-cover rounded border border-gray-200">
                                             <button type="button" @click="removeScreenshot(index)"
-                                                    class="absolute top-0.5 right-0.5 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    class="absolute top-0 right-0 p-0.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                                 </svg>
                                             </button>
