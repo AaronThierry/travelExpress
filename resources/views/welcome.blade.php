@@ -3613,8 +3613,8 @@
                 </div>
             </div>
 
-            <!-- Form Content -->
-            <form id="evaluation-form" class="p-4 sm:p-6 max-h-[80vh] sm:max-h-[70vh] overflow-y-auto" x-data="{
+            <!-- Form Content - Scrollable -->
+            <form id="evaluation-form" class="flex flex-col max-h-[calc(90vh-180px)] sm:max-h-[calc(80vh-180px)]" x-data="{
                 step: 1,
                 totalSteps: 4,
                 submitting: false,
@@ -4089,6 +4089,8 @@
                     }
                 }
             }">
+                <!-- Scrollable Content Area -->
+                <div class="flex-1 overflow-y-auto px-4 sm:px-6 pt-4 sm:pt-6">
                 <!-- Progress bar - Black & Gold theme -->
                 <div class="mb-4">
                     <div class="flex items-center justify-between mb-2">
@@ -4800,9 +4802,11 @@
                         </div>
                     </div>
                 </div>
+                </div>
+                <!-- End Scrollable Content Area -->
 
-                <!-- Navigation buttons - Black & Gold theme -->
-                <div x-show="!success" class="flex items-center justify-between mt-4 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-100">
+                <!-- Footer Statique avec boutons de navigation - Black & Gold theme -->
+                <div x-show="!success" class="border-t border-gray-200 bg-gradient-to-r from-gray-50 to-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between flex-shrink-0">
                     <button type="button" @click="prevStep()" x-show="step > 1"
                             class="px-3 sm:px-5 py-2 sm:py-2.5 text-[#0a0a0a] hover:text-[#d4af37] font-medium rounded-lg sm:rounded-xl hover:bg-[#d4af37]/10 transition-all flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
                         <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
