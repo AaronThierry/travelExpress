@@ -3591,7 +3591,7 @@
 
 >
             <!-- Header with gradient - Black & Gold theme -->
-            <div class="relative bg-gradient-to-r from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] px-4 sm:px-6 py-4 sm:py-6 text-white">
+            <div class="relative bg-gradient-to-r from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] px-3 sm:px-4 py-2.5 sm:py-3 text-white">
                 <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23d4af37\" fill-opacity=\"0.08\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
                 <div class="relative flex items-center justify-between">
                     <div class="flex items-center gap-3 sm:gap-4">
@@ -3614,7 +3614,7 @@
             </div>
 
             <!-- Form Content - Scrollable -->
-            <form id="evaluation-form" class="flex flex-col h-[calc(90vh-120px)] sm:h-[calc(85vh-120px)]" x-data="{
+            <form id="evaluation-form" class="flex flex-col h-[calc(90vh-80px)] sm:h-[calc(88vh-80px)]" x-data="{
                 step: 1,
                 totalSteps: 4,
                 submitting: false,
