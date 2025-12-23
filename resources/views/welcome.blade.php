@@ -3614,7 +3614,7 @@
             </div>
 
             <!-- Form Content - Scrollable -->
-            <form id="evaluation-form" class="flex flex-col max-h-[calc(90vh-180px)] sm:max-h-[calc(80vh-180px)]" x-data="{
+            <form id="evaluation-form" class="flex flex-col h-[calc(90vh-120px)] sm:h-[calc(85vh-120px)]" x-data="{
                 step: 1,
                 totalSteps: 4,
                 submitting: false,
