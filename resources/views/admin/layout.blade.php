@@ -20,11 +20,6 @@
         /* Sidebar élégant */
         .sidebar {
             background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            overflow: hidden;
         }
 
         /* Navigation élégante */
