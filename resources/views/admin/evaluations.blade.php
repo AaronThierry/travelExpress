@@ -56,7 +56,7 @@
 </div>
 
 <!-- Stats Cards -->
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+<div class="grid grid-cols-2 gap-4 mb-6">
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
@@ -67,32 +67,6 @@
             <div>
                 <p class="text-2xl font-bold text-gray-900" id="stat-total">0</p>
                 <p class="text-xs text-gray-500">Total</p>
-            </div>
-        </div>
-    </div>
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
-                <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-            </div>
-            <div>
-                <p class="text-2xl font-bold text-gray-900" id="stat-pending">0</p>
-                <p class="text-xs text-gray-500">En attente</p>
-            </div>
-        </div>
-    </div>
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-            </div>
-            <div>
-                <p class="text-2xl font-bold text-gray-900" id="stat-verified">0</p>
-                <p class="text-xs text-gray-500">Vérifiées</p>
             </div>
         </div>
     </div>
@@ -111,26 +85,6 @@
     </div>
 </div>
 
-<!-- Tabs -->
-<div class="mb-4 sm:mb-6">
-    <div class="border-b border-gray-200">
-        <nav class="-mb-px flex space-x-4 sm:space-x-8 overflow-x-auto">
-            <button onclick="switchTab('all')" id="tab-all" class="tab-button border-emerald-600 text-emerald-600 whitespace-nowrap py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm">
-                Toutes
-            </button>
-            <button onclick="switchTab('pending')" id="tab-pending" class="tab-button border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm flex items-center gap-1 sm:gap-2">
-                En attente
-                <span id="pending-count" class="bg-amber-100 text-amber-800 py-0.5 px-1.5 sm:px-2.5 rounded-full text-[10px] sm:text-xs font-medium">0</span>
-            </button>
-            <button onclick="switchTab('verified')" id="tab-verified" class="tab-button border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm">
-                Vérifiées
-            </button>
-            <button onclick="switchTab('featured')" id="tab-featured" class="tab-button border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm">
-                Mises en avant
-            </button>
-        </nav>
-    </div>
-</div>
 
 <!-- Loading State -->
 <div id="loading" class="text-center py-8 sm:py-12 bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-200">
@@ -162,12 +116,8 @@
     .tab-button.border-emerald-600 { border-bottom-color: #059669; color: #059669; }
 </style>
 
-<!-- Load jsPDF before main script -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script>
     const authToken = localStorage.getItem('auth_token');
-    let currentTab = 'all';
     let pendingAction = null;
     let pendingId = null;
     let currentEvaluationData = null;
@@ -185,27 +135,11 @@
                 const result = await response.json();
                 const data = result.data;
                 document.getElementById('stat-total').textContent = data.total || 0;
-                document.getElementById('stat-pending').textContent = data.pending || 0;
-                document.getElementById('stat-verified').textContent = data.verified || 0;
                 document.getElementById('stat-rating').textContent = data.average_rating || '0';
-                document.getElementById('pending-count').textContent = data.pending || 0;
             }
         } catch (e) {
             console.error('Stats error:', e);
         }
-    }
-
-    // Switch tabs
-    function switchTab(tab) {
-        currentTab = tab;
-        document.querySelectorAll('.tab-button').forEach(btn => {
-            btn.classList.remove('border-emerald-600', 'text-emerald-600');
-            btn.classList.add('border-transparent', 'text-gray-500');
-        });
-        const activeTab = document.getElementById(`tab-${tab}`);
-        activeTab.classList.remove('border-transparent', 'text-gray-500');
-        activeTab.classList.add('border-emerald-600', 'text-emerald-600');
-        loadEvaluations();
     }
 
     // Load evaluations
@@ -221,12 +155,7 @@
         emptyEl.classList.add('hidden');
 
         try {
-            let endpoint = '/api/admin/evaluations';
-            if (currentTab === 'pending') endpoint = '/api/admin/evaluations/pending';
-            else if (currentTab === 'verified') endpoint = '/api/admin/evaluations?verified=1';
-            else if (currentTab === 'featured') endpoint = '/api/admin/evaluations?featured=1';
-
-            const response = await fetch(endpoint, {
+            const response = await fetch('/api/admin/evaluations', {
                 headers: {
                     'Authorization': `Bearer ${authToken}`,
                     'Accept': 'application/json'
@@ -328,18 +257,12 @@
 
                     <!-- Actions -->
                     <div class="flex lg:flex-col gap-2 pt-3 lg:pt-0 border-t lg:border-t-0 border-gray-100">
-                        <button onclick="viewDetail(${e.id})" class="flex-1 lg:flex-none px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium flex items-center justify-center gap-2">
+                        <button onclick="viewDetail(${e.id})" class="w-full px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium flex items-center justify-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                             </svg>
                             Détails
-                        </button>
-                        <button onclick="exportToPDF(${e.id})" class="flex-1 lg:flex-none px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
-                            </svg>
-                            Export PDF
                         </button>
                     </div>
                 </div>
@@ -507,142 +430,6 @@
 
     function closeDetailModal() {
         document.getElementById('detail-modal').classList.add('hidden');
-    }
-
-    // Export evaluation to PDF
-    async function exportToPDF(id) {
-        try {
-            // Check if jsPDF is loaded
-            if (!window.jspdf) {
-                console.error('jsPDF library not loaded');
-                showToast('error', 'Erreur', 'Bibliothèque PDF non chargée');
-                return;
-            }
-
-            const response = await fetch(`/api/admin/evaluations/${id}`, {
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
-                }
-            });
-            if (!response.ok) throw new Error('Erreur');
-            const result = await response.json();
-            const e = result.data;
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            let y = 20;
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const margin = 20;
-            const contentWidth = pageWidth - (margin * 2);
-
-            // Header
-            doc.setFillColor(212, 175, 55);
-            doc.rect(0, 0, pageWidth, 25, 'F');
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(20);
-            doc.setFont(undefined, 'bold');
-            doc.text('ÉVALUATION TRAVEL EXPRESS', pageWidth / 2, 15, { align: 'center' });
-
-            y = 35;
-            doc.setTextColor(0, 0, 0);
-
-            // Informations personnelles
-            doc.setFontSize(14);
-            doc.setFont(undefined, 'bold');
-            doc.text('Informations personnelles', margin, y);
-            y += 8;
-
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
-            doc.text(`Nom: ${e.first_name} ${e.last_name}`, margin, y);
-            y += 6;
-            doc.text(`Email: ${e.email}`, margin, y);
-            y += 6;
-            if (e.phone) {
-                doc.text(`Téléphone: ${e.phone}`, margin, y);
-                y += 6;
-            }
-            doc.text(`Date: ${new Date(e.created_at).toLocaleDateString('fr-FR')}`, margin, y);
-            y += 12;
-
-            // Parcours académique
-            doc.setFontSize(14);
-            doc.setFont(undefined, 'bold');
-            doc.text('Parcours académique', margin, y);
-            y += 8;
-
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
-            doc.text(`Université: ${e.university}`, margin, y);
-            y += 6;
-            doc.text(`Pays: ${e.country_of_study}`, margin, y);
-            y += 6;
-            doc.text(`Niveau: ${e.study_level}`, margin, y);
-            y += 6;
-            doc.text(`Domaine: ${e.field_of_study}`, margin, y);
-            y += 12;
-
-            // Histoire du projet
-            doc.setFontSize(14);
-            doc.setFont(undefined, 'bold');
-            doc.text('Histoire du projet', margin, y);
-            y += 8;
-
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
-            const storyLines = doc.splitTextToSize(e.project_story, contentWidth);
-            doc.text(storyLines, margin, y);
-            y += (storyLines.length * 6) + 8;
-
-            // Check if new page needed
-            if (y > 250) {
-                doc.addPage();
-                y = 20;
-            }
-
-            // Évaluations
-            doc.setFontSize(14);
-            doc.setFont(undefined, 'bold');
-            doc.text('Évaluations', margin, y);
-            y += 8;
-
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
-            doc.text(`Note globale: ${'★'.repeat(e.rating)}${'☆'.repeat(5-e.rating)} (${e.rating}/5)`, margin, y);
-            y += 6;
-            doc.text(`Accompagnement: ${'★'.repeat(e.rating_accompagnement)}${'☆'.repeat(5-e.rating_accompagnement)} (${e.rating_accompagnement}/5)`, margin, y);
-            y += 6;
-            doc.text(`Communication: ${'★'.repeat(e.rating_communication)}${'☆'.repeat(5-e.rating_communication)} (${e.rating_communication}/5)`, margin, y);
-            y += 6;
-            doc.text(`Délais: ${'★'.repeat(e.rating_delais)}${'☆'.repeat(5-e.rating_delais)} (${e.rating_delais}/5)`, margin, y);
-            y += 6;
-            doc.text(`Qualité/Prix: ${'★'.repeat(e.rating_rapport_qualite_prix)}${'☆'.repeat(5-e.rating_rapport_qualite_prix)} (${e.rating_rapport_qualite_prix}/5)`, margin, y);
-            y += 6;
-            doc.text(`Recommande: ${e.would_recommend ? 'Oui' : 'Non'}`, margin, y);
-            y += 12;
-
-            // Signature
-            if (e.signature) {
-                if (y > 230) {
-                    doc.addPage();
-                    y = 20;
-                }
-                doc.setFontSize(14);
-                doc.setFont(undefined, 'bold');
-                doc.text('Signature', margin, y);
-                y += 8;
-                doc.addImage(e.signature, 'PNG', margin, y, 60, 30);
-            }
-
-            // Save PDF
-            doc.save(`Evaluation_${e.first_name}_${e.last_name}_${Date.now()}.pdf`);
-            showToast('success', 'Succès', 'PDF exporté avec succès');
-        } catch (error) {
-            console.error('PDF Export Error:', error);
-            showToast('error', 'Erreur', 'Impossible d\'exporter le PDF: ' + error.message);
-        }
     }
 
     // Confirmation modal
