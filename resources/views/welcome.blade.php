@@ -4519,99 +4519,106 @@
 
                 <!-- Step 3: Expérience - Black & Gold theme -->
                 <div x-show="step === 3 && !success" x-transition>
-                    <div class="space-y-5">
+                    <div class="space-y-3">
+                        <!-- Histoire du projet -->
                         <div>
-                            <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Comment êtes-vous parvenu(e) à réaliser votre projet de voyage ? *</label>
-                            <textarea x-model="projectStory" @blur="projectStoryTouched = true" required rows="4" placeholder="Racontez-nous votre parcours, les étapes clés, les défis surmontés..."
-                                      class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all resize-none"
+                            <label class="block text-xs font-semibold text-[#0a0a0a] mb-1.5">
+                                Comment êtes-vous parvenu(e) à réaliser votre projet ? *
+                            </label>
+                            <textarea x-model="projectStory" @blur="projectStoryTouched = true" required rows="3"
+                                      placeholder="Votre parcours, étapes clés, défis..."
+                                      class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all resize-none"
                                       :class="{
                                           'border-gray-200': !projectStoryTouched,
                                           'border-emerald-500 bg-emerald-50/50': projectStoryTouched && projectStory.trim().length >= 50,
                                           'border-red-400 bg-red-50/50': projectStoryTouched && projectStory.trim().length < 50
                                       }"></textarea>
                             <div class="flex items-center justify-between mt-1">
-                                <p class="text-xs" :class="projectStory.trim().length >= 50 ? 'text-emerald-600' : 'text-gray-500'">
-                                    <span x-text="projectStory.length"></span>/50 caractères
-                                    <span x-show="projectStory.trim().length >= 50" class="text-emerald-600 font-medium">✓</span>
+                                <p class="text-[10px]" :class="projectStory.trim().length >= 50 ? 'text-emerald-600' : 'text-gray-500'">
+                                    <span x-text="projectStory.length"></span>/50 car.
+                                    <span x-show="projectStory.trim().length >= 50">✓</span>
                                 </p>
-                                <p x-show="projectStoryTouched && projectStory.trim().length < 50" class="text-xs text-red-500">Min. 50 caractères requis</p>
+                                <p x-show="projectStoryTouched && projectStory.trim().length < 50" class="text-[10px] text-red-500">Min. 50</p>
                             </div>
                         </div>
 
+                        <!-- Source de découverte -->
                         <div>
-                            <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Comment avez-vous connu Travel Express ? *</label>
-                            <p x-show="discoverySourceTouched && discoverySource === ''" class="text-xs text-red-500 mb-2">Veuillez sélectionner une option</p>
-                            <div class="grid grid-cols-3 gap-2 sm:gap-3">
-                                <label class="relative cursor-pointer">
+                            <label class="block text-xs font-semibold text-[#0a0a0a] mb-1.5">
+                                Comment avez-vous connu Travel Express ? *
+                            </label>
+                            <p x-show="discoverySourceTouched && discoverySource === ''" class="text-[10px] text-red-500 mb-1.5">Sélectionner une option</p>
+                            <div class="grid grid-cols-3 gap-1.5">
+                                <label class="cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="ambassadeur_la_bobolaise" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
-                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">👩‍💼</span>
-                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">La Bobolaise</span>
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">👩‍💼</span>
+                                        <span class="text-[9px] font-medium block">La Bobolaise</span>
                                     </div>
                                 </label>
-                                <label class="relative cursor-pointer">
+                                <label class="cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="ambassadeur_ley_ley" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
-                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">👨‍💼</span>
-                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">Ley Ley</span>
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">👨‍💼</span>
+                                        <span class="text-[9px] font-medium block">Ley Ley</span>
                                     </div>
                                 </label>
-                                <label class="relative cursor-pointer">
+                                <label class="cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="ambassadeur_autre" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
-                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">🤝</span>
-                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">Autre amb.</span>
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">🤝</span>
+                                        <span class="text-[9px] font-medium block">Autre amb.</span>
                                     </div>
                                 </label>
-                                <label class="relative cursor-pointer">
+                                <label class="cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="facebook" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
-                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">📘</span>
-                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">Facebook</span>
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">📘</span>
+                                        <span class="text-[9px] font-medium block">Facebook</span>
                                     </div>
                                 </label>
-                                <label class="relative cursor-pointer">
+                                <label class="cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="tiktok" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
-                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">🎵</span>
-                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">TikTok</span>
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">🎵</span>
+                                        <span class="text-[9px] font-medium block">TikTok</span>
                                     </div>
                                 </label>
-                                <label class="relative cursor-pointer">
+                                <label class="cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="instagram" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
-                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">📸</span>
-                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">Instagram</span>
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">📸</span>
+                                        <span class="text-[9px] font-medium block">Instagram</span>
                                     </div>
                                 </label>
-                                <label class="relative cursor-pointer">
+                                <label class="cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="youtube" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
-                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">▶️</span>
-                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">YouTube</span>
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">▶️</span>
+                                        <span class="text-[9px] font-medium block">YouTube</span>
                                     </div>
                                 </label>
-                                <label class="relative cursor-pointer">
+                                <label class="cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="bouche_a_oreille" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
-                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">🗣️</span>
-                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">Bouche à or.</span>
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">🗣️</span>
+                                        <span class="text-[9px] font-medium block">Bouche à or.</span>
                                     </div>
                                 </label>
-                                <label class="relative cursor-pointer">
+                                <label class="cursor-pointer">
                                     <input type="radio" x-model="discoverySource" value="autre" class="peer sr-only">
-                                    <div class="p-2 sm:p-3 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
-                                        <span class="text-lg sm:text-2xl mb-0.5 sm:mb-1 block">❓</span>
-                                        <span class="text-[10px] sm:text-xs font-medium leading-tight block">Autre</span>
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">❓</span>
+                                        <span class="text-[9px] font-medium block">Autre</span>
                                     </div>
                                 </label>
                             </div>
                         </div>
 
                         <div x-show="discoverySource === 'ambassadeur_autre' || discoverySource === 'autre'" x-transition>
-                            <label class="block text-sm font-semibold text-[#0a0a0a] mb-2">Précisez</label>
-                            <input type="text" x-model="discoverySourceDetail" placeholder="Nom de l'ambassadeur ou autre source..."
-                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
+                            <label class="block text-xs font-semibold text-[#0a0a0a] mb-1.5">Précisez</label>
+                            <input type="text" x-model="discoverySourceDetail" placeholder="Nom ou source..."
+                                   class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all">
                         </div>
 
                         <!-- Questions spécifiques aux ambassadrices -->
