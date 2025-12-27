@@ -4,6 +4,10 @@
 @section('page-title', 'Évaluations')
 @section('page-description', 'Gérez les évaluations des collaborateurs accompagnés')
 
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+@endpush
+
 @section('content')
 <!-- Modal de détail -->
 <div id="detail-modal" class="fixed inset-0 z-50 hidden">
@@ -336,11 +340,11 @@
                             </svg>
                             Détails
                         </button>
-                        <button onclick="printEvaluation(${e.id})" class="flex-1 lg:flex-none px-4 py-2.5 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium flex items-center justify-center gap-2">
+                        <button onclick="exportToPDF(${e.id})" class="flex-1 lg:flex-none px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium flex items-center justify-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
                             </svg>
-                            Imprimer
+                            Export PDF
                         </button>
                     </div>
                 </div>
@@ -510,8 +514,8 @@
         document.getElementById('detail-modal').classList.add('hidden');
     }
 
-    // Print evaluation as PDF
-    async function printEvaluation(id) {
+    // Export evaluation to PDF
+    async function exportToPDF(id) {
         try {
             const response = await fetch(`/api/admin/evaluations/${id}`, {
                 headers: {
@@ -523,123 +527,118 @@
             const result = await response.json();
             const e = result.data;
 
-            // Open print window
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Évaluation - ${e.first_name} ${e.last_name}</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; }
-                        h1 { color: #0a0a0a; border-bottom: 3px solid #d4af37; padding-bottom: 10px; }
-                        h2 { color: #0a0a0a; margin-top: 30px; font-size: 18px; }
-                        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
-                        .info-item { padding: 10px; background: #f9f9f9; border-radius: 5px; }
-                        .label { font-size: 12px; color: #666; font-weight: bold; margin-bottom: 5px; }
-                        .value { font-size: 14px; color: #333; }
-                        .rating { color: #d4af37; font-size: 18px; }
-                        .signature { border: 2px solid #d4af37; border-radius: 10px; padding: 10px; margin-top: 20px; max-width: 300px; }
-                        .signature img { max-width: 100%; height: auto; }
-                        @media print { body { padding: 20px; } }
-                    </style>
-                </head>
-                <body>
-                    <h1>📋 Évaluation Travel Express</h1>
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
 
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="label">Nom complet</div>
-                            <div class="value">${e.first_name} ${e.last_name}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Email</div>
-                            <div class="value">${e.email}</div>
-                        </div>
-                        ${e.phone ? `
-                        <div class="info-item">
-                            <div class="label">Téléphone</div>
-                            <div class="value">${e.phone}</div>
-                        </div>
-                        ` : ''}
-                        <div class="info-item">
-                            <div class="label">Date</div>
-                            <div class="value">${new Date(e.created_at).toLocaleDateString('fr-FR')}</div>
-                        </div>
-                    </div>
+            let y = 20;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const margin = 20;
+            const contentWidth = pageWidth - (margin * 2);
 
-                    <h2>🎓 Parcours académique</h2>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="label">Université</div>
-                            <div class="value">${e.university}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Pays d'études</div>
-                            <div class="value">${e.country_of_study}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Niveau d'études</div>
-                            <div class="value">${e.study_level}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Domaine</div>
-                            <div class="value">${e.field_of_study}</div>
-                        </div>
-                    </div>
+            // Header
+            doc.setFillColor(212, 175, 55);
+            doc.rect(0, 0, pageWidth, 25, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(20);
+            doc.setFont(undefined, 'bold');
+            doc.text('ÉVALUATION TRAVEL EXPRESS', pageWidth / 2, 15, { align: 'center' });
 
-                    <h2>📝 Histoire du projet</h2>
-                    <div class="info-item">
-                        <div class="value">${e.project_story}</div>
-                    </div>
+            y = 35;
+            doc.setTextColor(0, 0, 0);
 
-                    <h2>⭐ Évaluations</h2>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="label">Note globale</div>
-                            <div class="rating">${'★'.repeat(e.rating)}${'☆'.repeat(5-e.rating)}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Accompagnement</div>
-                            <div class="rating">${'★'.repeat(e.rating_accompagnement)}${'☆'.repeat(5-e.rating_accompagnement)}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Communication</div>
-                            <div class="rating">${'★'.repeat(e.rating_communication)}${'☆'.repeat(5-e.rating_communication)}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Délais</div>
-                            <div class="rating">${'★'.repeat(e.rating_delais)}${'☆'.repeat(5-e.rating_delais)}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Qualité/Prix</div>
-                            <div class="rating">${'★'.repeat(e.rating_rapport_qualite_prix)}${'☆'.repeat(5-e.rating_rapport_qualite_prix)}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="label">Recommande</div>
-                            <div class="value">${e.would_recommend ? 'Oui 👍' : 'Non 👎'}</div>
-                        </div>
-                    </div>
+            // Informations personnelles
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text('Informations personnelles', margin, y);
+            y += 8;
 
-                    ${e.signature ? `
-                    <h2>✍️ Signature</h2>
-                    <div class="signature">
-                        <img src="${e.signature}" alt="Signature" />
-                    </div>
-                    ` : ''}
-                </body>
-                </html>
-            `);
-            printWindow.document.close();
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.text(`Nom: ${e.first_name} ${e.last_name}`, margin, y);
+            y += 6;
+            doc.text(`Email: ${e.email}`, margin, y);
+            y += 6;
+            if (e.phone) {
+                doc.text(`Téléphone: ${e.phone}`, margin, y);
+                y += 6;
+            }
+            doc.text(`Date: ${new Date(e.created_at).toLocaleDateString('fr-FR')}`, margin, y);
+            y += 12;
 
-            // Wait for content to load then print
-            printWindow.onload = function() {
-                setTimeout(() => {
-                    printWindow.print();
-                }, 250);
-            };
+            // Parcours académique
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text('Parcours académique', margin, y);
+            y += 8;
+
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.text(`Université: ${e.university}`, margin, y);
+            y += 6;
+            doc.text(`Pays: ${e.country_of_study}`, margin, y);
+            y += 6;
+            doc.text(`Niveau: ${e.study_level}`, margin, y);
+            y += 6;
+            doc.text(`Domaine: ${e.field_of_study}`, margin, y);
+            y += 12;
+
+            // Histoire du projet
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text('Histoire du projet', margin, y);
+            y += 8;
+
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            const storyLines = doc.splitTextToSize(e.project_story, contentWidth);
+            doc.text(storyLines, margin, y);
+            y += (storyLines.length * 6) + 8;
+
+            // Check if new page needed
+            if (y > 250) {
+                doc.addPage();
+                y = 20;
+            }
+
+            // Évaluations
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text('Évaluations', margin, y);
+            y += 8;
+
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.text(`Note globale: ${'★'.repeat(e.rating)}${'☆'.repeat(5-e.rating)} (${e.rating}/5)`, margin, y);
+            y += 6;
+            doc.text(`Accompagnement: ${'★'.repeat(e.rating_accompagnement)}${'☆'.repeat(5-e.rating_accompagnement)} (${e.rating_accompagnement}/5)`, margin, y);
+            y += 6;
+            doc.text(`Communication: ${'★'.repeat(e.rating_communication)}${'☆'.repeat(5-e.rating_communication)} (${e.rating_communication}/5)`, margin, y);
+            y += 6;
+            doc.text(`Délais: ${'★'.repeat(e.rating_delais)}${'☆'.repeat(5-e.rating_delais)} (${e.rating_delais}/5)`, margin, y);
+            y += 6;
+            doc.text(`Qualité/Prix: ${'★'.repeat(e.rating_rapport_qualite_prix)}${'☆'.repeat(5-e.rating_rapport_qualite_prix)} (${e.rating_rapport_qualite_prix}/5)`, margin, y);
+            y += 6;
+            doc.text(`Recommande: ${e.would_recommend ? 'Oui' : 'Non'}`, margin, y);
+            y += 12;
+
+            // Signature
+            if (e.signature) {
+                if (y > 230) {
+                    doc.addPage();
+                    y = 20;
+                }
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.text('Signature', margin, y);
+                y += 8;
+                doc.addImage(e.signature, 'PNG', margin, y, 60, 30);
+            }
+
+            // Save PDF
+            doc.save(`Evaluation_${e.first_name}_${e.last_name}_${Date.now()}.pdf`);
+            showToast('success', 'Succès', 'PDF exporté avec succès');
         } catch (error) {
-            showToast('error', 'Erreur', 'Impossible d\'imprimer l\'évaluation');
+            showToast('error', 'Erreur', 'Impossible d\'exporter le PDF');
         }
     }
 
