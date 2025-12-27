@@ -4,10 +4,6 @@
 @section('page-title', 'Évaluations')
 @section('page-description', 'Gérez les évaluations des collaborateurs accompagnés')
 
-@push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-@endpush
-
 @section('content')
 <!-- Modal de détail -->
 <div id="detail-modal" class="fixed inset-0 z-50 hidden">
@@ -517,6 +513,13 @@
     // Export evaluation to PDF
     async function exportToPDF(id) {
         try {
+            // Check if jsPDF is loaded
+            if (!window.jspdf) {
+                console.error('jsPDF library not loaded');
+                showToast('error', 'Erreur', 'Bibliothèque PDF non chargée');
+                return;
+            }
+
             const response = await fetch(`/api/admin/evaluations/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${authToken}`,
@@ -638,7 +641,8 @@
             doc.save(`Evaluation_${e.first_name}_${e.last_name}_${Date.now()}.pdf`);
             showToast('success', 'Succès', 'PDF exporté avec succès');
         } catch (error) {
-            showToast('error', 'Erreur', 'Impossible d\'exporter le PDF');
+            console.error('PDF Export Error:', error);
+            showToast('error', 'Erreur', 'Impossible d\'exporter le PDF: ' + error.message);
         }
     }
 
@@ -856,4 +860,8 @@
     loadStats();
     loadEvaluations();
 </script>
+@endsection
+
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 @endsection
