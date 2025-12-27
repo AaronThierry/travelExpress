@@ -329,23 +329,18 @@
 
                     <!-- Actions -->
                     <div class="flex lg:flex-col gap-2 pt-3 lg:pt-0 border-t lg:border-t-0 border-gray-100">
-                        <button onclick="viewDetail(${e.id})" class="flex-1 lg:flex-none px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-xs font-medium">
+                        <button onclick="viewDetail(${e.id})" class="flex-1 lg:flex-none px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
                             Détails
                         </button>
-                        ${!e.is_verified ? `
-                            <button onclick="showConfirmModal('verify', ${e.id})" class="flex-1 lg:flex-none px-3 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-xs font-medium">
-                                Vérifier
-                            </button>
-                        ` : `
-                            <button onclick="showConfirmModal('unverify', ${e.id})" class="flex-1 lg:flex-none px-3 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors text-xs font-medium">
-                                Retirer
-                            </button>
-                        `}
-                        <button onclick="showConfirmModal('featured', ${e.id})" class="flex-1 lg:flex-none px-3 py-2 ${e.is_featured ? 'bg-yellow-100 text-yellow-800' : 'bg-yellow-500 text-white'} rounded-lg hover:opacity-90 transition-colors text-xs font-medium">
-                            ${e.is_featured ? 'Retirer ⭐' : 'Mettre ⭐'}
-                        </button>
-                        <button onclick="showConfirmModal('delete', ${e.id})" class="flex-1 lg:flex-none px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs font-medium">
-                            Supprimer
+                        <button onclick="printEvaluation(${e.id})" class="flex-1 lg:flex-none px-4 py-2.5 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                            </svg>
+                            Imprimer
                         </button>
                     </div>
                 </div>
@@ -513,6 +508,139 @@
 
     function closeDetailModal() {
         document.getElementById('detail-modal').classList.add('hidden');
+    }
+
+    // Print evaluation as PDF
+    async function printEvaluation(id) {
+        try {
+            const response = await fetch(`/api/admin/evaluations/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Accept': 'application/json'
+                }
+            });
+            if (!response.ok) throw new Error('Erreur');
+            const result = await response.json();
+            const e = result.data;
+
+            // Open print window
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Évaluation - ${e.first_name} ${e.last_name}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; }
+                        h1 { color: #0a0a0a; border-bottom: 3px solid #d4af37; padding-bottom: 10px; }
+                        h2 { color: #0a0a0a; margin-top: 30px; font-size: 18px; }
+                        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+                        .info-item { padding: 10px; background: #f9f9f9; border-radius: 5px; }
+                        .label { font-size: 12px; color: #666; font-weight: bold; margin-bottom: 5px; }
+                        .value { font-size: 14px; color: #333; }
+                        .rating { color: #d4af37; font-size: 18px; }
+                        .signature { border: 2px solid #d4af37; border-radius: 10px; padding: 10px; margin-top: 20px; max-width: 300px; }
+                        .signature img { max-width: 100%; height: auto; }
+                        @media print { body { padding: 20px; } }
+                    </style>
+                </head>
+                <body>
+                    <h1>📋 Évaluation Travel Express</h1>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="label">Nom complet</div>
+                            <div class="value">${e.first_name} ${e.last_name}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="label">Email</div>
+                            <div class="value">${e.email}</div>
+                        </div>
+                        ${e.phone ? `
+                        <div class="info-item">
+                            <div class="label">Téléphone</div>
+                            <div class="value">${e.phone}</div>
+                        </div>
+                        ` : ''}
+                        <div class="info-item">
+                            <div class="label">Date</div>
+                            <div class="value">${new Date(e.created_at).toLocaleDateString('fr-FR')}</div>
+                        </div>
+                    </div>
+
+                    <h2>🎓 Parcours académique</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="label">Université</div>
+                            <div class="value">${e.university}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="label">Pays d'études</div>
+                            <div class="value">${e.country_of_study}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="label">Niveau d'études</div>
+                            <div class="value">${e.study_level}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="label">Domaine</div>
+                            <div class="value">${e.field_of_study}</div>
+                        </div>
+                    </div>
+
+                    <h2>📝 Histoire du projet</h2>
+                    <div class="info-item">
+                        <div class="value">${e.project_story}</div>
+                    </div>
+
+                    <h2>⭐ Évaluations</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="label">Note globale</div>
+                            <div class="rating">${'★'.repeat(e.rating)}${'☆'.repeat(5-e.rating)}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="label">Accompagnement</div>
+                            <div class="rating">${'★'.repeat(e.rating_accompagnement)}${'☆'.repeat(5-e.rating_accompagnement)}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="label">Communication</div>
+                            <div class="rating">${'★'.repeat(e.rating_communication)}${'☆'.repeat(5-e.rating_communication)}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="label">Délais</div>
+                            <div class="rating">${'★'.repeat(e.rating_delais)}${'☆'.repeat(5-e.rating_delais)}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="label">Qualité/Prix</div>
+                            <div class="rating">${'★'.repeat(e.rating_rapport_qualite_prix)}${'☆'.repeat(5-e.rating_rapport_qualite_prix)}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="label">Recommande</div>
+                            <div class="value">${e.would_recommend ? 'Oui 👍' : 'Non 👎'}</div>
+                        </div>
+                    </div>
+
+                    ${e.signature ? `
+                    <h2>✍️ Signature</h2>
+                    <div class="signature">
+                        <img src="${e.signature}" alt="Signature" />
+                    </div>
+                    ` : ''}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+
+            // Wait for content to load then print
+            printWindow.onload = function() {
+                setTimeout(() => {
+                    printWindow.print();
+                }, 250);
+            };
+        } catch (error) {
+            showToast('error', 'Erreur', 'Impossible d\'imprimer l\'évaluation');
+        }
     }
 
     // Confirmation modal
