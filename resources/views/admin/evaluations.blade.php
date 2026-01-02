@@ -483,8 +483,10 @@
 
     // Confirmation modal
     function showConfirmModal(type, id) {
+        console.log('showConfirmModal called with:', type, id);
         pendingAction = type;
         pendingId = id;
+        console.log('Set pendingAction:', pendingAction, 'pendingId:', pendingId);
 
         const modal = document.getElementById('confirm-modal');
         const iconEl = document.getElementById('confirm-icon');
