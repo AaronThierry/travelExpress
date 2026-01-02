@@ -2602,7 +2602,7 @@
                                         document.getElementById('contact-phone-code').value = c.code;
                                         this.validatePhone();
                                     }
-                                }" x-init="$watch('phoneNumber', () => { phoneTouched = true; formatPhone(); })">
+                                }" x-init="$watch('phoneNumber', () => { this.phoneTouched = true; formatPhone(); })">
                                     <!-- Hidden input pour le formulaire -->
                                     <input type="hidden" id="contact-phone-code" name="phone_code" x-bind:value="selectedCode">
 
