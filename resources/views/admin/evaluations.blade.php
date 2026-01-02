@@ -335,6 +335,43 @@
                     <div>
                         <h3 class="text-sm font-bold text-gray-900 mb-2">Comment avez-vous connu Travel Express ?</h3>
                         <p class="text-sm text-gray-700">${getDiscoverySourceLabel(e.discovery_source)} ${e.discovery_source_detail ? `(${e.discovery_source_detail})` : ''}</p>
+
+                        <!-- Ambassador Details -->
+                        ${(e.discovery_source === 'ambassadeur_la_bobolaise' || e.discovery_source === 'ambassadeur_ley_ley' || e.discovery_source === 'ambassadeur_autre') ? `
+                            <div class="mt-4 space-y-3">
+                                ${e.ambassador_direct_contact !== null ? `
+                                    <div class="bg-gradient-to-r from-[#d4af37]/10 to-amber-50 rounded-xl p-4 border border-[#d4af37]/30">
+                                        <p class="text-xs text-gray-600 mb-1">Mise en relation directe par l'ambassadeur :</p>
+                                        <p class="font-semibold text-sm ${e.ambassador_direct_contact ? 'text-emerald-600' : 'text-gray-600'}">
+                                            ${e.ambassador_direct_contact ? '✅ Oui' : '❌ Non'}
+                                        </p>
+                                    </div>
+                                ` : ''}
+
+                                ${e.conversation_screenshots ? `
+                                    <div class="bg-gray-50 rounded-xl p-4">
+                                        <h4 class="text-xs font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            </svg>
+                                            Captures d'écran de conversation (${JSON.parse(e.conversation_screenshots).length})
+                                        </h4>
+                                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                            ${JSON.parse(e.conversation_screenshots).map(screenshot => `
+                                                <a href="/storage/${screenshot}" target="_blank" class="group relative aspect-square rounded-lg overflow-hidden border-2 border-gray-200 hover:border-[#d4af37] transition-all cursor-pointer shadow-sm hover:shadow-lg">
+                                                    <img src="/storage/${screenshot}" alt="Capture d'écran" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                                                        <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                                                        </svg>
+                                                    </div>
+                                                </a>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        ` : ''}
                     </div>
 
                     <!-- Notes -->
