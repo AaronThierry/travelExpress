@@ -3684,8 +3684,15 @@
                            this.fieldOfStudy.trim().length >= 2;
                 },
                 get isStep3Valid() {
-                    return this.projectStory.trim().length >= 50 &&
-                           this.discoverySource !== '';
+                    const basicValid = this.projectStory.trim().length >= 50 &&
+                                      this.discoverySource !== '';
+
+                    // Si un ambassadeur est sélectionné, les captures sont obligatoires
+                    if (this.isAmbassadorSelected) {
+                        return basicValid && this.conversationScreenshots.length > 0;
+                    }
+
+                    return basicValid;
                 },
                 get isStep4Valid() {
                     return this.signatureData !== '';
@@ -3706,6 +3713,9 @@
                     } else if (this.step === 3) {
                         if (this.projectStory.trim().length < 50) errors.push('Parcours (min. 50 caractères)');
                         if (this.discoverySource === '') errors.push('Source de découverte');
+                        if (this.isAmbassadorSelected && this.conversationScreenshots.length === 0) {
+                            errors.push('Captures d\'écran requises');
+                        }
                     } else if (this.step === 4) {
                         if (this.signatureData === '') errors.push('Signature requise');
                     }
@@ -4651,7 +4661,7 @@
                             <div class="bg-white rounded p-2 border border-[#d4af37]/30">
                                 <div class="flex items-center justify-between mb-1.5">
                                     <label class="text-[10px] font-semibold text-[#0a0a0a]">
-                                        📸 Captures (opt.)
+                                        📸 Captures *
                                     </label>
                                     <input type="file" id="screenshot-upload" @change="handleScreenshotUpload($event)"
                                            accept="image/*" multiple class="hidden">
