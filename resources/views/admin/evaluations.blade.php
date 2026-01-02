@@ -536,10 +536,12 @@
 
     async function executeConfirmAction() {
         if (!pendingAction || !pendingId) return;
-        closeConfirmModal();
 
+        // Copy values BEFORE closing modal (which resets them to null)
         const action = pendingAction;
         const id = pendingId;
+
+        closeConfirmModal();
 
         try {
             let endpoint = '';
