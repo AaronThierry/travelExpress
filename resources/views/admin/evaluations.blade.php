@@ -601,6 +601,7 @@
 
     function getDiscoverySourceLabel(source) {
         const labels = {
+            'siao': '🏢 SIAO',
             'ambassadeur_la_bobolaise': '👩‍💼 La Bobolaise', 'ambassadeur_ley_ley': '👨‍💼 Ley Ley',
             'ambassadeur_autre': '🤝 Autre ambassadeur', 'facebook': '📘 Facebook',
             'tiktok': '🎵 TikTok', 'instagram': '📸 Instagram', 'youtube': '▶️ YouTube',

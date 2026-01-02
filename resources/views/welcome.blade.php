@@ -4642,38 +4642,10 @@
                             <p x-show="discoverySourceTouched && discoverySource === ''" class="text-[10px] text-red-500 mb-1.5">Sélectionner une option</p>
                             <div class="grid grid-cols-3 gap-1.5">
                                 <label class="cursor-pointer">
-                                    <input type="radio" x-model="discoverySource" value="ambassadeur_la_bobolaise" class="peer sr-only">
+                                    <input type="radio" x-model="discoverySource" value="siao" class="peer sr-only">
                                     <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
-                                        <span class="text-xl block mb-0.5">👩‍💼</span>
-                                        <span class="text-[9px] font-medium block">La Bobolaise</span>
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" x-model="discoverySource" value="ambassadeur_ley_ley" class="peer sr-only">
-                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
-                                        <span class="text-xl block mb-0.5">👨‍💼</span>
-                                        <span class="text-[9px] font-medium block">Ley Ley</span>
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" x-model="discoverySource" value="ambassadeur_autre" class="peer sr-only">
-                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
-                                        <span class="text-xl block mb-0.5">🤝</span>
-                                        <span class="text-[9px] font-medium block">Autre amb.</span>
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" x-model="discoverySource" value="facebook" class="peer sr-only">
-                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
-                                        <span class="text-xl block mb-0.5">📘</span>
-                                        <span class="text-[9px] font-medium block">Facebook</span>
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" x-model="discoverySource" value="tiktok" class="peer sr-only">
-                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
-                                        <span class="text-xl block mb-0.5">🎵</span>
-                                        <span class="text-[9px] font-medium block">TikTok</span>
+                                        <span class="text-xl block mb-0.5">🏢</span>
+                                        <span class="text-[9px] font-medium block">SIAO</span>
                                     </div>
                                 </label>
                                 <label class="cursor-pointer">
@@ -4684,10 +4656,10 @@
                                     </div>
                                 </label>
                                 <label class="cursor-pointer">
-                                    <input type="radio" x-model="discoverySource" value="youtube" class="peer sr-only">
+                                    <input type="radio" x-model="discoverySource" value="ambassadeur_ley_ley" class="peer sr-only">
                                     <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
-                                        <span class="text-xl block mb-0.5">▶️</span>
-                                        <span class="text-[9px] font-medium block">YouTube</span>
+                                        <span class="text-xl block mb-0.5">👨‍💼</span>
+                                        <span class="text-[9px] font-medium block">Ley Ley</span>
                                     </div>
                                 </label>
                                 <label class="cursor-pointer">
@@ -4695,6 +4667,41 @@
                                     <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
                                         <span class="text-xl block mb-0.5">🗣️</span>
                                         <span class="text-[9px] font-medium block">Bouche à or.</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="facebook" class="peer sr-only">
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">📘</span>
+                                        <span class="text-[9px] font-medium block">Facebook</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="ambassadeur_autre" class="peer sr-only">
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">🤝</span>
+                                        <span class="text-[9px] font-medium block">Autre amb.</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="youtube" class="peer sr-only">
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">▶️</span>
+                                        <span class="text-[9px] font-medium block">YouTube</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="ambassadeur_la_bobolaise" class="peer sr-only">
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">👩‍💼</span>
+                                        <span class="text-[9px] font-medium block">La Bobolaise</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" x-model="discoverySource" value="tiktok" class="peer sr-only">
+                                    <div class="p-1.5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">🎵</span>
+                                        <span class="text-[9px] font-medium block">TikTok</span>
                                     </div>
                                 </label>
                                 <label class="cursor-pointer">

@@ -118,6 +118,7 @@ class Evaluation extends Model
     public function getDiscoverySourceLabelAttribute(): string
     {
         return match($this->discovery_source) {
+            'siao' => 'SIAO',
             'ambassadeur_la_bobolaise' => 'Ambassadrice - La Bobolaise',
             'ambassadeur_ley_ley' => 'Ambassadeur - Ley Ley',
             'ambassadeur_autre' => 'Autre ambassadeur',

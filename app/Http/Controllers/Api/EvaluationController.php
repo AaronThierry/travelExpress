@@ -62,7 +62,7 @@ class EvaluationController extends Controller
             'project_story' => 'required|string|min:50|max:2000',
 
             'discovery_source' => ['required', Rule::in([
-                'ambassadeur_la_bobolaise', 'ambassadeur_ley_ley', 'ambassadeur_autre',
+                'siao', 'ambassadeur_la_bobolaise', 'ambassadeur_ley_ley', 'ambassadeur_autre',
                 'facebook', 'tiktok', 'instagram', 'youtube',
                 'bouche_a_oreille', 'site_web', 'evenement', 'autre'
             ])],
