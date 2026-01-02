@@ -4161,21 +4161,56 @@
                     </div>
                 </div>
 
-                <!-- Step Validation Indicators -->
-                <div class="flex items-center justify-center gap-2 mb-4" x-show="!success">
+                <!-- Step Validation Indicators - Enhanced Design -->
+                <div class="flex items-center justify-center gap-2 mb-6" x-show="!success">
                     <template x-for="s in totalSteps" :key="s">
-                        <div class="flex items-center">
-                            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all"
+                        <div class="flex items-center" x-data="{ isCompleted: s < step || (s === step && ((s === 1 && isStep1Valid) || (s === 2 && isStep2Valid) || (s === 3 && isStep3Valid) || (s === 4 && isStep4Valid))) }">
+                            <!-- Step Circle with Animation -->
+                            <div class="relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center transition-all duration-500 ease-out transform"
                                  :class="{
-                                     'bg-[#d4af37] text-[#0a0a0a]': s < step || (s === step && ((s === 1 && isStep1Valid) || (s === 2 && isStep2Valid) || (s === 3 && isStep3Valid) || (s === 4 && isStep4Valid))),
-                                     'bg-[#0a0a0a] text-[#d4af37] ring-2 ring-[#d4af37]': s === step && !((s === 1 && isStep1Valid) || (s === 2 && isStep2Valid) || (s === 3 && isStep3Valid) || (s === 4 && isStep4Valid)),
-                                     'bg-gray-200 text-gray-500': s > step
+                                     'scale-100': s !== step,
+                                     'scale-110': s === step
                                  }">
-                                <span x-show="s < step || (s === step && ((s === 1 && isStep1Valid) || (s === 2 && isStep2Valid) || (s === 3 && isStep3Valid) || (s === 4 && isStep4Valid)))">✓</span>
-                                <span x-show="!(s < step || (s === step && ((s === 1 && isStep1Valid) || (s === 2 && isStep2Valid) || (s === 3 && isStep3Valid) || (s === 4 && isStep4Valid))))" x-text="s"></span>
+                                <!-- Background Circle with Glow -->
+                                <div class="absolute inset-0 rounded-full transition-all duration-500"
+                                     :class="{
+                                         'bg-gradient-to-br from-[#d4af37] to-[#b8960c] shadow-lg shadow-[#d4af37]/50': isCompleted,
+                                         'bg-gradient-to-br from-[#0a0a0a] to-[#2a2a2a] ring-2 ring-[#d4af37] shadow-xl': s === step && !isCompleted,
+                                         'bg-gray-200': s > step
+                                     }"></div>
+
+                                <!-- Icon/Number -->
+                                <div class="relative z-10 flex items-center justify-center text-sm sm:text-base font-bold transition-all duration-300"
+                                     :class="{
+                                         'text-white': isCompleted || (s === step && !isCompleted),
+                                         'text-gray-500': s > step
+                                     }">
+                                    <!-- Checkmark with animation -->
+                                    <span x-show="isCompleted"
+                                          x-transition:enter="transition ease-out duration-300"
+                                          x-transition:enter-start="opacity-0 scale-0 rotate-180"
+                                          x-transition:enter-end="opacity-100 scale-100 rotate-0"
+                                          class="text-lg sm:text-xl">✓</span>
+                                    <!-- Number -->
+                                    <span x-show="!isCompleted"
+                                          x-text="s"
+                                          x-transition:enter="transition ease-out duration-300"
+                                          x-transition:enter-start="opacity-0 scale-0"
+                                          x-transition:enter-end="opacity-100 scale-100"></span>
+                                </div>
+
+                                <!-- Pulse animation for current step -->
+                                <div x-show="s === step && !isCompleted"
+                                     class="absolute inset-0 rounded-full bg-[#d4af37] animate-ping opacity-20"></div>
                             </div>
-                            <div x-show="s < totalSteps" class="w-6 sm:w-10 h-0.5 mx-1"
-                                 :class="s < step ? 'bg-[#d4af37]' : 'bg-gray-200'"></div>
+
+                            <!-- Connecting Line -->
+                            <div x-show="s < totalSteps"
+                                 class="h-1 w-8 sm:w-12 mx-2 rounded-full transition-all duration-500"
+                                 :class="{
+                                     'bg-gradient-to-r from-[#d4af37] to-[#b8960c]': s < step,
+                                     'bg-gray-200': s >= step
+                                 }"></div>
                         </div>
                     </template>
                 </div>
@@ -4867,11 +4902,11 @@
                 </div>
                 <!-- End Scrollable Content Area -->
 
-                <!-- Footer Statique avec boutons de navigation - Black & Gold theme -->
-                <div x-show="!success" class="border-t border-gray-200 bg-gradient-to-r from-gray-50 to-white px-3 sm:px-4 py-1.5 sm:py-2 flex items-center justify-between flex-shrink-0">
+                <!-- Footer Statique avec boutons de navigation - Black & Gold theme Enhanced -->
+                <div x-show="!success" class="border-t border-gray-200 bg-gradient-to-r from-gray-50 to-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between flex-shrink-0 shadow-lg">
                     <button type="button" @click="prevStep()" x-show="step > 1"
-                            class="px-2 sm:px-3 py-1 sm:py-1.5 text-[#0a0a0a] hover:text-[#d4af37] font-medium rounded-lg hover:bg-[#d4af37]/10 transition-all flex items-center gap-1 text-xs sm:text-sm">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            class="group px-4 sm:px-6 py-2.5 sm:py-3 text-[#0a0a0a] hover:text-[#d4af37] font-semibold rounded-xl hover:bg-[#d4af37]/10 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base border border-gray-200 hover:border-[#d4af37]/30 hover:shadow-md">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                         </svg>
                         <span class="hidden sm:inline">Précédent</span>
@@ -4881,24 +4916,24 @@
 
                     <button type="button" @click="nextStep()" x-show="step < totalSteps"
                             :disabled="(step === 1 && (!firstName || !lastName || !email)) || (step === 2 && (!university || !countryOfStudy || !studyLevel || !fieldOfStudy)) || (step === 3 && (!projectStory || projectStory.length < 50 || !discoverySource))"
-                            class="px-3 sm:px-4 py-1 sm:py-1.5 bg-[#0a0a0a] text-[#d4af37] font-semibold rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 text-xs sm:text-sm border border-[#d4af37]/30 hover:bg-[#1a1a1a]">
-                        Suivant
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            class="group px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-[#0a0a0a] to-[#1a1a1a] text-[#d4af37] font-bold rounded-xl hover:shadow-xl hover:shadow-[#d4af37]/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm sm:text-base border border-[#d4af37]/30 hover:scale-105 disabled:hover:scale-100">
+                        <span>Suivant</span>
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
                     </button>
 
                     <button type="button" @click="submitForm()" x-show="step === totalSteps" :disabled="submitting || !signatureData"
-                            class="px-3 sm:px-4 py-1 sm:py-1.5 bg-[#0a0a0a] text-[#d4af37] font-semibold rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 text-xs sm:text-sm border border-[#d4af37]/30 hover:bg-[#1a1a1a]">
-                        <svg x-show="submitting" class="animate-spin w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24">
+                            class="group px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-[#d4af37] to-[#b8960c] text-white font-bold rounded-xl hover:shadow-xl hover:shadow-[#d4af37]/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm sm:text-base border border-[#d4af37] hover:scale-105 disabled:hover:scale-100">
+                        <svg x-show="submitting" class="animate-spin w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        <svg x-show="!submitting" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg x-show="!submitting" class="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
                         <span x-text="submitting ? 'Envoi...' : 'Envoyer'" class="sm:hidden"></span>
-                        <span x-text="submitting ? 'Envoi...' : 'Envoyer mon évaluation'" class="hidden sm:inline"></span>
+                        <span x-text="submitting ? 'Envoi en cours...' : 'Envoyer mon évaluation'" class="hidden sm:inline"></span>
                     </button>
                 </div>
             </form>
