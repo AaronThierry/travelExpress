@@ -117,7 +117,7 @@
 </style>
 
 <script>
-    const authToken = localStorage.getItem('auth_token');
+    // authToken is already declared in layout.blade.php
     let pendingAction = null;
     let pendingId = null;
     let currentEvaluationData = null;
