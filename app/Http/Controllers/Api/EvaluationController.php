@@ -67,6 +67,8 @@ class EvaluationController extends Controller
                 'bouche_a_oreille', 'site_web', 'evenement', 'autre'
             ])],
             'discovery_source_detail' => 'nullable|string|max:255',
+            'ambassador_direct_contact' => 'nullable|boolean',
+            'conversation_screenshots.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
 
             'rating' => 'required|integer|min:1|max:5',
             'rating_accompagnement' => 'nullable|integer|min:1|max:5',
@@ -88,6 +90,16 @@ class EvaluationController extends Controller
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('evaluations', 'public');
             $validated['photo'] = $path;
+        }
+
+        // Handle conversation screenshots upload
+        if ($request->hasFile('conversation_screenshots')) {
+            $screenshots = [];
+            foreach ($request->file('conversation_screenshots') as $screenshot) {
+                $path = $screenshot->store('evaluations/screenshots', 'public');
+                $screenshots[] = $path;
+            }
+            $validated['conversation_screenshots'] = json_encode($screenshots);
         }
 
         // Link to user if authenticated
