@@ -546,6 +546,8 @@
             else if (action === 'featured') endpoint = `/api/admin/evaluations/${id}/toggle-featured`;
             else if (action === 'delete') { endpoint = `/api/admin/evaluations/${id}`; method = 'DELETE'; }
 
+            console.log('Action:', action, 'ID:', id, 'Endpoint:', endpoint, 'Method:', method);
+
             const headers = {
                 'Authorization': `Bearer ${authToken}`,
                 'Accept': 'application/json',
