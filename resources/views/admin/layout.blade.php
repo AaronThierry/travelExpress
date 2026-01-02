@@ -371,7 +371,8 @@
             }
         }
 
-        let authToken = localStorage.getItem('auth_token');
+        // Make authToken globally accessible
+        window.authToken = localStorage.getItem('auth_token');
         const tokenExpiresAt = localStorage.getItem('token_expires_at');
 
         function isTokenExpired() {
@@ -386,7 +387,7 @@
             localStorage.removeItem('is_admin');
         }
 
-        if (!authToken || isTokenExpired()) {
+        if (!window.authToken || isTokenExpired()) {
             clearAuthData();
             window.location.href = '/login';
         }
@@ -395,7 +396,7 @@
             try {
                 const response = await fetch('/api/verify', {
                     headers: {
-                        'Authorization': `Bearer ${authToken}`,
+                        'Authorization': `Bearer ${window.authToken}`,
                         'Accept': 'application/json'
                     }
                 });
@@ -422,7 +423,7 @@
         async function loadPendingCount() {
             try {
                 const response = await fetch('/api/admin/testimonials/pending', {
-                    headers: { 'Authorization': `Bearer ${authToken}`, 'Accept': 'application/json' }
+                    headers: { 'Authorization': `Bearer ${window.authToken}`, 'Accept': 'application/json' }
                 });
                 if (response.ok) {
                     const result = await response.json();
@@ -440,7 +441,7 @@
         async function loadNewRequestsCount() {
             try {
                 const response = await fetch('/api/admin/contact-requests/stats', {
-                    headers: { 'Authorization': `Bearer ${authToken}`, 'Accept': 'application/json' }
+                    headers: { 'Authorization': `Bearer ${window.authToken}`, 'Accept': 'application/json' }
                 });
                 if (response.ok) {
                     const result = await response.json();
@@ -458,7 +459,7 @@
         async function loadPendingEvaluationsCount() {
             try {
                 const response = await fetch('/api/admin/evaluations/stats', {
-                    headers: { 'Authorization': `Bearer ${authToken}`, 'Accept': 'application/json' }
+                    headers: { 'Authorization': `Bearer ${window.authToken}`, 'Accept': 'application/json' }
                 });
                 if (response.ok) {
                     const result = await response.json();
@@ -477,7 +478,7 @@
             try {
                 await fetch('/api/logout', {
                     method: 'POST',
-                    headers: { 'Authorization': `Bearer ${authToken}`, 'Accept': 'application/json' }
+                    headers: { 'Authorization': `Bearer ${window.authToken}`, 'Accept': 'application/json' }
                 });
             } catch (e) {}
             clearAuthData();

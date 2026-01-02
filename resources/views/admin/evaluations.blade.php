@@ -117,7 +117,8 @@
 </style>
 
 <script>
-    // authToken is already declared in layout.blade.php
+    // Define authToken locally if not already defined globally
+    const authToken = window.authToken || localStorage.getItem('auth_token');
     let pendingAction = null;
     let pendingId = null;
     let currentEvaluationData = null;
