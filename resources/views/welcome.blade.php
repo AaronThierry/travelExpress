@@ -4089,6 +4089,12 @@
 
                         if (response.ok) {
                             this.success = true;
+                            // Fermer la modale après 3 secondes
+                            setTimeout(() => {
+                                this.showModal = false;
+                                // Réinitialiser le formulaire
+                                this.resetForm();
+                            }, 3000);
                         } else {
                             this.error = result.message || 'Une erreur est survenue.';
                         }
@@ -4096,6 +4102,39 @@
                         this.error = 'Erreur de connexion. Veuillez réessayer.';
                     } finally {
                         this.submitting = false;
+                    }
+                },
+
+                resetForm() {
+                    this.step = 1;
+                    this.success = false;
+                    this.error = null;
+                    this.firstName = '';
+                    this.lastName = '';
+                    this.email = '';
+                    this.phone = '';
+                    this.university = '';
+                    this.countryOfStudy = '';
+                    this.studyLevel = '';
+                    this.fieldOfStudy = '';
+                    this.startYear = '';
+                    this.serviceUsed = '';
+                    this.projectStory = '';
+                    this.discoverySource = '';
+                    this.discoverySourceDetail = '';
+                    this.ambassadorDirectContact = null;
+                    this.conversationScreenshots = [];
+                    this.screenshotPreviews = [];
+                    this.rating = 0;
+                    this.ratingAccompagnement = 0;
+                    this.ratingCommunication = 0;
+                    this.ratingDelais = 0;
+                    this.ratingQualitePrix = 0;
+                    this.wouldRecommend = null;
+                    this.signatureData = '';
+                    if (this.signatureCanvas) {
+                        const ctx = this.signatureCanvas.getContext('2d');
+                        ctx.clearRect(0, 0, this.signatureCanvas.width, this.signatureCanvas.height);
                     }
                 }
             }">
@@ -4150,17 +4189,15 @@
                 </div>
 
                 <!-- Success Message - Black & Gold theme -->
-                <div x-show="success" x-transition class="text-center py-12">
-                    <div class="w-20 h-20 bg-[#d4af37]/10 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-[#d4af37]">
-                        <svg class="w-10 h-10 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                <div x-show="success" x-transition class="text-center py-16">
+                    <div class="w-24 h-24 bg-gradient-to-br from-[#d4af37] to-[#b8960c] rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl animate-bounce">
+                        <svg class="w-14 h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
                         </svg>
                     </div>
-                    <h4 class="text-2xl font-bold text-[#0a0a0a] mb-3">Merci pour votre évaluation !</h4>
-                    <p class="text-gray-600 mb-6">Votre retour est précieux et nous aide à améliorer nos services.</p>
-                    <button @click="evaluationModalOpen = false; success = false; step = 1;" class="px-6 py-3 bg-[#0a0a0a] text-[#d4af37] font-semibold rounded-xl hover:bg-[#1a1a1a] transition-colors border border-[#d4af37]/30">
-                        Fermer
-                    </button>
+                    <h4 class="text-3xl font-bold text-[#0a0a0a] mb-4">Évaluation envoyée avec succès !</h4>
+                    <p class="text-lg text-gray-600 mb-3">Merci pour votre précieux retour 🙏</p>
+                    <p class="text-sm text-gray-500">Cette fenêtre se fermera automatiquement...</p>
                 </div>
 
                 <!-- Error Message -->
