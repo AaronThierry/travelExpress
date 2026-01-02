@@ -2379,7 +2379,7 @@
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <p class="font-bold text-slate-900 text-xs sm:text-sm">Email</p>
-                                    <p class="text-primary-600 font-semibold text-[11px] sm:text-xs truncate">armel.bakoua@travel-express.bf</p>
+                                    <p class="text-primary-600 font-semibold text-[11px] sm:text-xs truncate">armel.bakoua@travels.express</p>
                                 </div>
                                 <svg class="w-4 h-4 text-primary-500 group-hover:translate-x-1 transition-transform flex-shrink-0 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -4743,7 +4743,7 @@
                             <div class="bg-white rounded p-2 border border-[#d4af37]/30">
                                 <div class="flex items-center justify-between mb-1.5">
                                     <label class="text-[10px] font-semibold text-[#0a0a0a]">
-                                        📸 Captures *
+                                        📸 Captures d'ecran de votre conversation *
                                     </label>
                                     <input type="file" id="screenshot-upload" @change="handleScreenshotUpload($event)"
                                            accept="image/*" multiple class="hidden">

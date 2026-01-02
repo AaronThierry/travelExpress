@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EvaluationController extends Controller
 {
@@ -146,7 +147,17 @@ class EvaluationController extends Controller
 
         // Delete photo if exists
         if ($evaluation->photo) {
-            \Storage::disk('public')->delete($evaluation->photo);
+            Storage::disk('public')->delete($evaluation->photo);
+        }
+
+        // Delete conversation screenshots if exist
+        if ($evaluation->conversation_screenshots) {
+            $screenshots = json_decode($evaluation->conversation_screenshots, true);
+            if (is_array($screenshots)) {
+                foreach ($screenshots as $screenshot) {
+                    Storage::disk('public')->delete($screenshot);
+                }
+            }
         }
 
         $evaluation->delete();
