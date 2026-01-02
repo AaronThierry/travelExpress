@@ -151,12 +151,9 @@ class EvaluationController extends Controller
         }
 
         // Delete conversation screenshots if exist
-        if ($evaluation->conversation_screenshots) {
-            $screenshots = json_decode($evaluation->conversation_screenshots, true);
-            if (is_array($screenshots)) {
-                foreach ($screenshots as $screenshot) {
-                    Storage::disk('public')->delete($screenshot);
-                }
+        if ($evaluation->conversation_screenshots && is_array($evaluation->conversation_screenshots)) {
+            foreach ($evaluation->conversation_screenshots as $screenshot) {
+                Storage::disk('public')->delete($screenshot);
             }
         }
 

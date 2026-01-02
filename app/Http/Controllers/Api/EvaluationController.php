@@ -99,7 +99,7 @@ class EvaluationController extends Controller
                 $path = $screenshot->store('evaluations/screenshots', 'public');
                 $screenshots[] = $path;
             }
-            $validated['conversation_screenshots'] = json_encode($screenshots);
+            $validated['conversation_screenshots'] = $screenshots;
         }
 
         // Link to user if authenticated
