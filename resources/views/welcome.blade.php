@@ -4085,20 +4085,30 @@
                             body: formData
                         });
 
-                        const result = await response.json();
-
-                        if (response.ok) {
-                            this.success = true;
-                            // Fermer la modale après 3 secondes
-                            setTimeout(() => {
-                                this.showModal = false;
-                                // Réinitialiser le formulaire
-                                this.resetForm();
-                            }, 3000);
-                        } else {
-                            this.error = result.message || 'Une erreur est survenue.';
+                        if (!response.ok) {
+                            let errorMessage = 'Une erreur est survenue.';
+                            try {
+                                const result = await response.json();
+                                errorMessage = result.message || errorMessage;
+                            } catch (e) {
+                                errorMessage = `Erreur ${response.status}: ${response.statusText}`;
+                            }
+                            this.error = errorMessage;
+                            return;
                         }
+
+                        const result = await response.json();
+                        this.success = true;
+
+                        // Fermer la modale après 3 secondes
+                        setTimeout(() => {
+                            this.showModal = false;
+                            // Réinitialiser le formulaire
+                            this.resetForm();
+                        }, 3000);
+
                     } catch (e) {
+                        console.error('Erreur lors de la soumission:', e);
                         this.error = 'Erreur de connexion. Veuillez réessayer.';
                     } finally {
                         this.submitting = false;
