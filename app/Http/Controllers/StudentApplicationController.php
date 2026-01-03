@@ -161,13 +161,13 @@ class StudentApplicationController extends Controller
     }
 
     /**
-     * Download all documents as ZIP (admin only)
+     * Download all documents as ZIP
      */
     public function downloadAllDocuments($applicationId)
     {
         $application = StudentApplication::with('documents')->findOrFail($applicationId);
 
-        $zipFileName = 'dossier_' . $application->student_name . '_' . time() . '.zip';
+        $zipFileName = 'dossier_' . str_replace(' ', '_', $application->student_name) . '_' . time() . '.zip';
         $zipPath = storage_path('app/temp/' . $zipFileName);
 
         // Create temp directory if it doesn't exist
@@ -175,8 +175,8 @@ class StudentApplicationController extends Controller
             mkdir(storage_path('app/temp'), 0755, true);
         }
 
-        $zip = new ZipArchive();
-        if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
+        $zip = new \ZipArchive();
+        if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== true) {
             abort(500, 'Impossible de créer l\'archive');
         }
 
@@ -190,5 +190,24 @@ class StudentApplicationController extends Controller
         $zip->close();
 
         return response()->download($zipPath, $zipFileName)->deleteFileAfterSend(true);
+    }
+
+    /**
+     * Preview document inline (for admin)
+     */
+    public function previewDocument($documentId)
+    {
+        $document = ApplicationDocument::findOrFail($documentId);
+
+        if (!Storage::disk('private')->exists($document->file_path)) {
+            abort(404, 'Fichier introuvable');
+        }
+
+        $filePath = storage_path('app/private/' . $document->file_path);
+
+        return response()->file($filePath, [
+            'Content-Type' => $document->mime_type,
+            'Content-Disposition' => 'inline; filename="' . $document->original_filename . '"'
+        ]);
     }
 }

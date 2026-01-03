@@ -115,6 +115,5 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/student-applications/{id}', [StudentApplicationAdminController::class, 'destroy']);
         Route::post('/student-applications/documents/{documentId}/approve', [StudentApplicationAdminController::class, 'approveDocument']);
         Route::post('/student-applications/documents/{documentId}/reject', [StudentApplicationAdminController::class, 'rejectDocument']);
-        Route::get('/student-applications/{applicationId}/download-all', [App\Http\Controllers\StudentApplicationController::class, 'downloadAllDocuments']);
     });
 });

@@ -86,6 +86,12 @@ Route::post('/student/upload/{token}/submit', [App\Http\Controllers\StudentAppli
 Route::get('/document/{documentId}/download', [App\Http\Controllers\StudentApplicationController::class, 'downloadDocument'])
     ->name('document.download');
 
+Route::get('/student-applications/{applicationId}/download-all', [App\Http\Controllers\StudentApplicationController::class, 'downloadAllDocuments'])
+    ->name('application.download-all');
+
+Route::get('/document/{documentId}/preview', [App\Http\Controllers\StudentApplicationController::class, 'previewDocument'])
+    ->name('document.preview');
+
 // Admin Student Applications Routes
 Route::get('/admin/student-applications', function () {
     return view('admin.student-applications');

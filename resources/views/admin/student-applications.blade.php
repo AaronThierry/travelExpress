@@ -170,6 +170,22 @@
     </div>
 </div>
 
+<!-- Preview Modal -->
+<div id="preview-modal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4">
+    <div class="relative w-full h-full max-w-6xl max-h-[90vh] bg-white rounded-lg overflow-hidden">
+        <div class="absolute top-4 right-4 z-10">
+            <button onclick="closePreview()" class="bg-white rounded-full p-2 shadow-lg hover:bg-gray-100">
+                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div id="preview-content" class="w-full h-full flex items-center justify-center">
+            <!-- Preview content will be loaded here -->
+        </div>
+    </div>
+</div>
+
 <script>
     let currentPage = 1;
     let searchTimeout;
@@ -433,13 +449,17 @@
                                 <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
                                     <div class="flex-1">
                                         <div class="font-medium text-gray-900">${docs[doc.document_type] || doc.document_type}</div>
-                                        <div class="text-sm text-gray-500">${doc.original_filename}</div>
+                                        <div class="text-sm text-gray-500">${doc.original_filename} (${doc.file_size_human})</div>
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <span class="px-2 py-1 text-xs font-medium rounded ${getStatusClass(doc.status)}">
                                             ${getStatusLabel(doc.status)}
                                         </span>
-                                        <a href="/document/${doc.id}/download" class="text-blue-600 hover:text-blue-800 text-sm">Télécharger</a>
+                                        ${['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'].includes(doc.mime_type) ?
+                                            `<button onclick="previewDocument(${doc.id})" class="text-purple-600 hover:text-purple-800 text-sm underline">Prévisualiser</button>` :
+                                            ''
+                                        }
+                                        <a href="/document/${doc.id}/download" class="text-blue-600 hover:text-blue-800 text-sm underline">Télécharger</a>
                                     </div>
                                 </div>
                             `).join('')}
@@ -447,8 +467,8 @@
                     </div>
 
                     <div class="flex gap-3">
-                        <a href="/api/admin/student-applications/${app.id}/download-all" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                            Télécharger tout (ZIP)
+                        <a href="/student-applications/${app.id}/download-all" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            📦 Télécharger tout (ZIP)
                         </a>
                         <button onclick="closeDetailsModal()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
                             Fermer
@@ -466,6 +486,36 @@
 
     function closeDetailsModal() {
         document.getElementById('details-modal').classList.add('hidden');
+    }
+
+    function previewDocument(documentId) {
+        const previewContent = document.getElementById('preview-content');
+        const previewUrl = `/document/${documentId}/preview`;
+
+        // Check if it's a PDF or image
+        fetch(previewUrl)
+            .then(response => response.blob())
+            .then(blob => {
+                const url = URL.createObjectURL(blob);
+                const mimeType = blob.type;
+
+                if (mimeType === 'application/pdf') {
+                    previewContent.innerHTML = `<iframe src="${url}" class="w-full h-full" frameborder="0"></iframe>`;
+                } else if (mimeType.startsWith('image/')) {
+                    previewContent.innerHTML = `<img src="${url}" class="max-w-full max-h-full object-contain" alt="Preview">`;
+                }
+
+                document.getElementById('preview-modal').classList.remove('hidden');
+            })
+            .catch(error => {
+                console.error('Error loading preview:', error);
+                alert('Impossible de prévisualiser ce document');
+            });
+    }
+
+    function closePreview() {
+        document.getElementById('preview-modal').classList.add('hidden');
+        document.getElementById('preview-content').innerHTML = '';
     }
 
     async function deleteApplication(id) {
