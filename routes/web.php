@@ -69,3 +69,24 @@ Route::get('/admin/evaluations', function () {
 Route::get('/bourse', function () {
     return view('bourse');
 })->name('bourse');
+
+// Student Application Upload Routes
+Route::get('/student/upload/{token}', [App\Http\Controllers\StudentApplicationController::class, 'showUploadForm'])
+    ->name('student.upload.form');
+
+Route::post('/student/upload/{token}', [App\Http\Controllers\StudentApplicationController::class, 'uploadDocument'])
+    ->name('student.upload.document');
+
+Route::delete('/student/upload/{token}/document/{documentId}', [App\Http\Controllers\StudentApplicationController::class, 'deleteDocument'])
+    ->name('student.delete.document');
+
+Route::post('/student/upload/{token}/submit', [App\Http\Controllers\StudentApplicationController::class, 'submitApplication'])
+    ->name('student.submit.application');
+
+Route::get('/document/{documentId}/download', [App\Http\Controllers\StudentApplicationController::class, 'downloadDocument'])
+    ->name('document.download');
+
+// Admin Student Applications Routes
+Route::get('/admin/student-applications', function () {
+    return view('admin.student-applications');
+})->name('admin.student-applications');

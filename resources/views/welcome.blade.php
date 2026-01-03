@@ -4755,6 +4755,7 @@
                                     <input type="file" id="screenshot-upload" @change="handleScreenshotUpload($event)"
                                            accept="image/*" multiple class="hidden">
                                     <label for="screenshot-upload
+                                    
                                     "
                                            class="inline-flex items-center gap-1 px-2 py-1 bg-[#d4af37]/10 hover:bg-[#d4af37]/20 border border-[#d4af37]/30 rounded cursor-pointer transition-all text-[10px] font-medium text-[#0a0a0a]">
                                         <svg class="w-3 h-3 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">

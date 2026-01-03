@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\Admin\ContactRequestController as AdminContactRequestController;
 use App\Http\Controllers\Api\Admin\EvaluationController as AdminEvaluationController;
 use App\Http\Controllers\Api\Admin\EvaluationPdfController;
+use App\Http\Controllers\Api\Admin\StudentApplicationAdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -104,5 +105,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/evaluations/{id}/toggle-featured', [AdminEvaluationController::class, 'toggleFeatured']);
         Route::delete('/evaluations/{id}', [AdminEvaluationController::class, 'destroy']);
         Route::get('/evaluations/{id}/pdf', [EvaluationPdfController::class, 'generate']);
+
+        // Student Applications management
+        Route::get('/student-applications', [StudentApplicationAdminController::class, 'index']);
+        Route::get('/student-applications/stats', [StudentApplicationAdminController::class, 'stats']);
+        Route::get('/student-applications/{id}', [StudentApplicationAdminController::class, 'show']);
+        Route::post('/student-applications', [StudentApplicationAdminController::class, 'store']);
+        Route::put('/student-applications/{id}', [StudentApplicationAdminController::class, 'update']);
+        Route::delete('/student-applications/{id}', [StudentApplicationAdminController::class, 'destroy']);
+        Route::post('/student-applications/documents/{documentId}/approve', [StudentApplicationAdminController::class, 'approveDocument']);
+        Route::post('/student-applications/documents/{documentId}/reject', [StudentApplicationAdminController::class, 'rejectDocument']);
+        Route::get('/student-applications/{applicationId}/download-all', [App\Http\Controllers\StudentApplicationController::class, 'downloadAllDocuments']);
     });
 });
