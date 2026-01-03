@@ -427,7 +427,16 @@
 
     function animateValue(id, start, end, duration) {
         const obj = document.getElementById(id);
+        if (!obj) return;
+
+        // Ensure positive values
+        end = Math.max(0, end);
         const range = end - start;
+        if (range === 0) {
+            obj.textContent = end;
+            return;
+        }
+
         const increment = end > start ? 1 : -1;
         const stepTime = Math.abs(Math.floor(duration / range));
         let current = start;
