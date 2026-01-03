@@ -127,7 +127,7 @@
                                     </div>
                                 @else
                                     <div class="mt-3">
-                                        <label class="upload-zone block rounded-lg p-6 cursor-pointer hover:border-blue-400" onclick="document.getElementById('file-{{ $docType }}').click()">
+                                        <label for="file-{{ $docType }}" class="upload-zone block rounded-lg p-6 cursor-pointer hover:border-blue-400">
                                             <input type="file" id="file-{{ $docType }}" class="hidden" onchange="uploadFile('{{ $docType }}', this.files[0])" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
                                             <div class="text-center">
                                                 <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
