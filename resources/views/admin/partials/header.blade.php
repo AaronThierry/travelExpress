@@ -47,7 +47,11 @@
                 <div class="lg:hidden">
                     <button class="flex items-center gap-2 p-2 hover:bg-slate-100 rounded-lg transition-colors">
                         <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                            {{ substr(auth()->user()->name ?? 'A', 0, 1) }}
+                            @auth
+                                {{ substr(auth()->user()->name, 0, 1) }}
+                            @else
+                                A
+                            @endauth
                         </div>
                     </button>
                 </div>

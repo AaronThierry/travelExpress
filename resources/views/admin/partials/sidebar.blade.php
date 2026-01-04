@@ -70,20 +70,38 @@
         <div class="p-4 border-t border-slate-700/50">
             <div class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-xl hover:bg-slate-800 transition-colors">
                 <div class="w-11 h-11 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold shadow-lg">
-                    {{ substr(auth()->user()->name ?? 'A', 0, 1) }}
+                    @auth
+                        {{ substr(auth()->user()->name, 0, 1) }}
+                    @else
+                        A
+                    @endauth
                 </div>
                 <div class="flex-1 min-w-0">
-                    <div class="text-sm font-medium text-white truncate">{{ auth()->user()->name ?? 'Admin' }}</div>
-                    <div class="text-xs text-slate-400 truncate">{{ auth()->user()->email ?? 'admin@example.com' }}</div>
+                    <div class="text-sm font-medium text-white truncate">
+                        @auth
+                            {{ auth()->user()->name }}
+                        @else
+                            Admin
+                        @endauth
+                    </div>
+                    <div class="text-xs text-slate-400 truncate">
+                        @auth
+                            {{ auth()->user()->email }}
+                        @else
+                            admin@example.com
+                        @endauth
+                    </div>
                 </div>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="p-2 text-slate-400 hover:text-white hover:bg-slate-700/50 rounded-lg transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                        </svg>
-                    </button>
-                </form>
+                @auth
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="p-2 text-slate-400 hover:text-white hover:bg-slate-700/50 rounded-lg transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                            </svg>
+                        </button>
+                    </form>
+                @endauth
             </div>
         </div>
     </div>

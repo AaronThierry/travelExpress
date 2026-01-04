@@ -46,23 +46,43 @@ Route::get('/profile/edit', function () {
 
 // Admin routes
 Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
+    return view('admin.dashboard', [
+        'title' => 'Tableau de bord',
+        'subtitle' => 'Vue d\'ensemble de votre activité',
+        'showSearch' => false
+    ]);
 })->name('admin.dashboard');
 
 Route::get('/admin/users', function () {
-    return view('admin.users');
+    return view('admin.users', [
+        'title' => 'Utilisateurs',
+        'subtitle' => 'Gestion des utilisateurs',
+        'showSearch' => true
+    ]);
 })->name('admin.users');
 
 Route::get('/admin/testimonials', function () {
-    return view('admin.testimonials');
+    return view('admin.testimonials', [
+        'title' => 'Témoignages',
+        'subtitle' => 'Gestion des témoignages',
+        'showSearch' => true
+    ]);
 })->name('admin.testimonials');
 
 Route::get('/admin/contact-requests', function () {
-    return view('admin.contact-requests');
+    return view('admin.contact-requests', [
+        'title' => 'Demandes de contact',
+        'subtitle' => 'Gestion des demandes',
+        'showSearch' => true
+    ]);
 })->name('admin.contact-requests');
 
 Route::get('/admin/evaluations', function () {
-    return view('admin.evaluations');
+    return view('admin.evaluations', [
+        'title' => 'Évaluations',
+        'subtitle' => 'Gestion des évaluations',
+        'showSearch' => true
+    ]);
 })->name('admin.evaluations');
 
 // Bourse page
@@ -94,5 +114,9 @@ Route::get('/document/{documentId}/preview', [App\Http\Controllers\StudentApplic
 
 // Admin Student Applications Routes
 Route::get('/admin/student-applications', function () {
-    return view('admin.student-applications');
+    return view('admin.student-applications', [
+        'title' => 'Dossiers Étudiants',
+        'subtitle' => 'Gestion des candidatures',
+        'showSearch' => true
+    ]);
 })->name('admin.student-applications');
