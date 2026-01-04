@@ -76,7 +76,7 @@
         @include('admin.partials.sidebar')
 
         <!-- Main Content Area -->
-        <div class="lg:ml-72 min-h-screen flex flex-col">
+        <div class="main-content lg:ml-72 min-h-screen flex flex-col transition-all duration-300">
             <!-- Header -->
             @include('admin.partials.header', [
                 'title' => $title ?? 'Dashboard',
