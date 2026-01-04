@@ -64,7 +64,12 @@
 
         .fade-in-up {
             animation: fadeInUp 0.5s ease-out forwards;
-            opacity: 0;
+        }
+
+        @for $i from 1 through 10 {
+            .fade-in-up:nth-child(#{$i}) {
+                animation-delay: #{$i * 0.05}s;
+            }
         }
     </style>
 
@@ -90,15 +95,17 @@
             </main>
 
             <!-- Footer -->
-            <footer class="bg-white border-t border-slate-200 py-6 px-4 sm:px-6 lg:px-8 mt-auto">
+            <footer class="bg-white border-t border-slate-200 py-6 px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
                     <p class="text-sm text-slate-600">
                         © {{ date('Y') }} Travel Express. Tous droits réservés.
                     </p>
                     <div class="flex items-center gap-4 text-sm text-slate-600">
-                        <span class="text-slate-400">Version 2.0</span>
+                        <a href="#" class="hover:text-indigo-600 transition-colors">Documentation</a>
                         <span class="text-slate-300">|</span>
                         <a href="#" class="hover:text-indigo-600 transition-colors">Support</a>
+                        <span class="text-slate-300">|</span>
+                        <a href="#" class="hover:text-indigo-600 transition-colors">Confidentialité</a>
                     </div>
                 </div>
             </footer>
@@ -149,16 +156,6 @@
         function confirmAction(message) {
             return confirm(message);
         }
-
-        // Add fade-in animation to elements
-        document.addEventListener('DOMContentLoaded', () => {
-            const elements = document.querySelectorAll('.fade-in-up');
-            elements.forEach((el, index) => {
-                setTimeout(() => {
-                    el.style.opacity = '1';
-                }, index * 50);
-            });
-        });
     </script>
 
     @stack('scripts')
