@@ -76,7 +76,7 @@
         @include('admin.partials.sidebar')
 
         <!-- Main Content Area -->
-        <div class="main-content lg:ml-72 min-h-screen flex flex-col transition-all duration-300">
+        <div class="main-content min-h-screen flex flex-col transition-all duration-300" style="margin-left: 0;" id="main-content">
             <!-- Header -->
             @include('admin.partials.header', [
                 'title' => $title ?? 'Dashboard',
@@ -195,6 +195,26 @@
                     el.style.opacity = '1';
                 }, index * 50);
             });
+
+            // Set initial margin for main content based on screen size and sidebar state
+            const mainContent = document.getElementById('main-content');
+            if (mainContent && window.innerWidth >= 1024) {
+                const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                mainContent.style.marginLeft = isCollapsed ? '4.5rem' : '17rem';
+            }
+        });
+
+        // Handle responsive margin on resize
+        window.addEventListener('resize', () => {
+            const mainContent = document.getElementById('main-content');
+            if (mainContent) {
+                if (window.innerWidth >= 1024) {
+                    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                    mainContent.style.marginLeft = isCollapsed ? '4.5rem' : '17rem';
+                } else {
+                    mainContent.style.marginLeft = '0';
+                }
+            }
         });
     </script>
 
