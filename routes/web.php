@@ -120,3 +120,45 @@ Route::get('/admin/student-applications', function () {
         'showSearch' => true
     ]);
 })->name('admin.student-applications');
+
+// Admin API Routes (web-based, session auth - no token required)
+Route::prefix('admin/api')->middleware(['web', 'auth', 'admin'])->group(function () {
+    // Dashboard Stats
+    Route::get('/stats', [App\Http\Controllers\Api\Admin\DashboardController::class, 'stats'])
+        ->name('admin.api.stats');
+
+    // Testimonials
+    Route::get('/testimonials', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'index']);
+    Route::get('/testimonials/pending', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'pending']);
+    Route::post('/testimonials/{id}/approve', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'approve']);
+    Route::post('/testimonials/{id}/reject', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'reject']);
+    Route::post('/testimonials/{id}/unapprove', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'unapprove']);
+
+    // Users
+    Route::get('/users', [App\Http\Controllers\Api\Admin\UserController::class, 'index']);
+    Route::post('/users/{id}/toggle-admin', [App\Http\Controllers\Api\Admin\UserController::class, 'toggleAdmin']);
+    Route::delete('/users/{id}', [App\Http\Controllers\Api\Admin\UserController::class, 'destroy']);
+
+    // Contact Requests
+    Route::get('/contact-requests', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'index']);
+    Route::get('/contact-requests/stats', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'stats']);
+    Route::get('/contact-requests/{id}', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'show']);
+    Route::post('/contact-requests/{id}/status', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'updateStatus']);
+    Route::delete('/contact-requests/{id}', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'destroy']);
+
+    // Evaluations
+    Route::get('/evaluations', [App\Http\Controllers\Api\Admin\EvaluationController::class, 'index']);
+    Route::get('/evaluations/stats', [App\Http\Controllers\Api\Admin\EvaluationController::class, 'stats']);
+    Route::post('/evaluations/{id}/verify', [App\Http\Controllers\Api\Admin\EvaluationController::class, 'verify']);
+    Route::delete('/evaluations/{id}', [App\Http\Controllers\Api\Admin\EvaluationController::class, 'destroy']);
+
+    // Student Applications
+    Route::get('/student-applications', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'index']);
+    Route::get('/student-applications/stats', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'stats']);
+    Route::get('/student-applications/{id}', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'show']);
+    Route::post('/student-applications', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'store']);
+    Route::put('/student-applications/{id}', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'update']);
+    Route::delete('/student-applications/{id}', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'destroy']);
+    Route::post('/student-applications/documents/{documentId}/approve', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'approveDocument']);
+    Route::post('/student-applications/documents/{documentId}/reject', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'rejectDocument']);
+});

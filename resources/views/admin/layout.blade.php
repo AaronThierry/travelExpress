@@ -107,8 +107,37 @@
 
     <!-- Global Scripts -->
     <script>
-        // Global auth token for API calls
-        window.authToken = localStorage.getItem('auth_token') || document.querySelector('meta[name="csrf-token"]')?.content;
+        // CSRF Token for API calls
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+
+        // Helper function for API calls (uses session auth, no Bearer token needed)
+        async function apiCall(url, options = {}) {
+            const defaultOptions = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                credentials: 'same-origin'
+            };
+
+            const mergedOptions = {
+                ...defaultOptions,
+                ...options,
+                headers: {
+                    ...defaultOptions.headers,
+                    ...options.headers
+                }
+            };
+
+            const response = await fetch(url, mergedOptions);
+            if (!response.ok) {
+                const error = await response.json().catch(() => ({ message: 'Une erreur est survenue' }));
+                throw new Error(error.message || `HTTP ${response.status}`);
+            }
+            return response.json();
+        }
 
         // Show/hide loading state
         function setLoading(elementId, loading) {
@@ -125,13 +154,21 @@
         // Toast notification
         function showToast(message, type = 'success') {
             const toast = document.createElement('div');
-            toast.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-lg transform transition-all duration-300 translate-x-full ${
-                type === 'success' ? 'bg-green-600' :
-                type === 'error' ? 'bg-red-600' :
-                type === 'warning' ? 'bg-yellow-600' :
-                'bg-indigo-600'
+            toast.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-2xl transform transition-all duration-300 translate-x-full flex items-center gap-3 max-w-md ${
+                type === 'success' ? 'bg-gradient-to-r from-emerald-500 to-teal-600' :
+                type === 'error' ? 'bg-gradient-to-r from-red-500 to-rose-600' :
+                type === 'warning' ? 'bg-gradient-to-r from-amber-500 to-orange-600' :
+                'bg-gradient-to-r from-indigo-500 to-purple-600'
             } text-white font-medium`;
-            toast.textContent = message;
+
+            const icons = {
+                success: '<svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>',
+                error: '<svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>',
+                warning: '<svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>',
+                info: '<svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>'
+            };
+
+            toast.innerHTML = `${icons[type] || icons.info}<span>${message}</span>`;
 
             document.body.appendChild(toast);
 
@@ -142,7 +179,7 @@
             setTimeout(() => {
                 toast.classList.add('translate-x-full');
                 setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            }, 4000);
         }
 
         // Confirm dialog
