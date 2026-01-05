@@ -242,13 +242,15 @@
             buttonText.textContent = 'Connexion en cours...';
 
             try {
-                const response = await fetch('/api/login', {
+                // Use web route for session-based authentication
+                const response = await fetch('/web/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                     },
+                    credentials: 'same-origin',
                     body: JSON.stringify({
                         email: document.getElementById('email').value,
                         password: document.getElementById('password').value,

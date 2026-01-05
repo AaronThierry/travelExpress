@@ -102,9 +102,12 @@ class AuthController extends Controller
         $remember = $request->boolean('remember', false);
         $expirationDays = $remember ? self::TOKEN_REMEMBER_ME_DAYS : self::TOKEN_EXPIRATION_DAYS;
 
-        // Create new token
+        // Create new token for API
         $token = $user->createToken('auth_token')->plainTextToken;
         $expiresAt = Carbon::now()->addDays($expirationDays);
+
+        // Also create web session for admin panel access
+        Auth::login($user, $remember);
 
         return response()->json([
             'success' => true,
@@ -126,6 +129,11 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
+
+        // Also logout from web session
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return response()->json([
             'success' => true,

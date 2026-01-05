@@ -35,6 +35,15 @@ Route::get('/reset-password', function () {
     return view('auth.reset-password');
 })->name('password.reset');
 
+// Web-based login/logout (creates session for admin panel)
+Route::post('/web/login', [App\Http\Controllers\Api\AuthController::class, 'login'])->name('web.login');
+Route::post('/logout', function (\Illuminate\Http\Request $request) {
+    \Illuminate\Support\Facades\Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');
+
 // Profile routes
 Route::get('/profile', function () {
     return view('profile.show');
