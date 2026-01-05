@@ -44,46 +44,56 @@ Route::get('/profile/edit', function () {
     return view('profile.edit');
 })->name('profile.edit');
 
-// Admin routes
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard', [
-        'title' => 'Tableau de bord',
-        'subtitle' => 'Vue d\'ensemble de votre activité',
-        'showSearch' => false
-    ]);
-})->name('admin.dashboard');
+// Admin routes (protected by auth and admin middleware)
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard', [
+            'title' => 'Tableau de bord',
+            'subtitle' => 'Vue d\'ensemble de votre activité',
+            'showSearch' => false
+        ]);
+    })->name('admin.dashboard');
 
-Route::get('/admin/users', function () {
-    return view('admin.users', [
-        'title' => 'Utilisateurs',
-        'subtitle' => 'Gestion des utilisateurs',
-        'showSearch' => true
-    ]);
-})->name('admin.users');
+    Route::get('/users', function () {
+        return view('admin.users', [
+            'title' => 'Utilisateurs',
+            'subtitle' => 'Gestion des utilisateurs',
+            'showSearch' => true
+        ]);
+    })->name('admin.users');
 
-Route::get('/admin/testimonials', function () {
-    return view('admin.testimonials', [
-        'title' => 'Témoignages',
-        'subtitle' => 'Gestion des témoignages',
-        'showSearch' => true
-    ]);
-})->name('admin.testimonials');
+    Route::get('/testimonials', function () {
+        return view('admin.testimonials', [
+            'title' => 'Témoignages',
+            'subtitle' => 'Gestion des témoignages',
+            'showSearch' => true
+        ]);
+    })->name('admin.testimonials');
 
-Route::get('/admin/contact-requests', function () {
-    return view('admin.contact-requests', [
-        'title' => 'Demandes de contact',
-        'subtitle' => 'Gestion des demandes',
-        'showSearch' => true
-    ]);
-})->name('admin.contact-requests');
+    Route::get('/contact-requests', function () {
+        return view('admin.contact-requests', [
+            'title' => 'Demandes de contact',
+            'subtitle' => 'Gestion des demandes',
+            'showSearch' => true
+        ]);
+    })->name('admin.contact-requests');
 
-Route::get('/admin/evaluations', function () {
-    return view('admin.evaluations', [
-        'title' => 'Évaluations',
-        'subtitle' => 'Gestion des évaluations',
-        'showSearch' => true
-    ]);
-})->name('admin.evaluations');
+    Route::get('/evaluations', function () {
+        return view('admin.evaluations', [
+            'title' => 'Évaluations',
+            'subtitle' => 'Gestion des évaluations',
+            'showSearch' => true
+        ]);
+    })->name('admin.evaluations');
+
+    Route::get('/student-applications', function () {
+        return view('admin.student-applications', [
+            'title' => 'Dossiers Étudiants',
+            'subtitle' => 'Gestion des candidatures',
+            'showSearch' => true
+        ]);
+    })->name('admin.student-applications');
+});
 
 // Bourse page
 Route::get('/bourse', function () {
@@ -111,15 +121,6 @@ Route::get('/student-applications/{applicationId}/download-all', [App\Http\Contr
 
 Route::get('/document/{documentId}/preview', [App\Http\Controllers\StudentApplicationController::class, 'previewDocument'])
     ->name('document.preview');
-
-// Admin Student Applications Routes
-Route::get('/admin/student-applications', function () {
-    return view('admin.student-applications', [
-        'title' => 'Dossiers Étudiants',
-        'subtitle' => 'Gestion des candidatures',
-        'showSearch' => true
-    ]);
-})->name('admin.student-applications');
 
 // Admin API Routes (web-based, session auth - no token required)
 Route::prefix('admin/api')->middleware(['web', 'auth', 'admin'])->group(function () {

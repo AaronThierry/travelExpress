@@ -16,10 +16,16 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if (!$request->user() || !$request->user()->is_admin) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Accès non autorisé. Droits administrateur requis.'
-            ], 403);
+            // Return JSON for API/AJAX requests
+            if ($request->expectsJson() || $request->is('api/*') || $request->is('admin/api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Accès non autorisé. Droits administrateur requis.'
+                ], 403);
+            }
+
+            // Redirect to login for web requests
+            return redirect()->route('login')->with('error', 'Accès non autorisé. Droits administrateur requis.');
         }
 
         return $next($request);
