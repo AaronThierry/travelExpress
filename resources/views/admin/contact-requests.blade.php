@@ -205,13 +205,7 @@
 
     async function loadStats() {
         try {
-            const response = await fetch('/api/admin/contact-requests/stats', {
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
-                }
-            });
-            const result = await response.json();
+            const result = await apiCall('/admin/api/contact-requests/stats');
             if (result.success) {
                 document.getElementById('stat-total').textContent = result.data.total;
                 document.getElementById('stat-new').textContent = result.data.by_status.new;
@@ -236,13 +230,7 @@
         });
 
         try {
-            const response = await fetch(`/api/admin/contact-requests?${params}`, {
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
-                }
-            });
-            const result = await response.json();
+            const result = await apiCall(`/admin/api/contact-requests?${params}`);
 
             if (result.success) {
                 renderRequests(result.data);
@@ -337,14 +325,9 @@
 
     async function openWhatsApp(id) {
         try {
-            const response = await fetch(`/api/admin/contact-requests/${id}/contacted`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
-                }
+            const result = await apiCall(`/admin/api/contact-requests/${id}/contacted`, {
+                method: 'POST'
             });
-            const result = await response.json();
 
             if (result.success) {
                 window.open(result.whatsapp_link, '_blank');
@@ -358,13 +341,7 @@
 
     async function viewDetails(id) {
         try {
-            const response = await fetch(`/api/admin/contact-requests/${id}`, {
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
-                }
-            });
-            const result = await response.json();
+            const result = await apiCall(`/admin/api/contact-requests/${id}`);
 
             if (result.success) {
                 showDetailModal(result.data, result.whatsapp_link);
@@ -498,16 +475,10 @@
 
     async function updateStatus(id, status) {
         try {
-            const response = await fetch(`/api/admin/contact-requests/${id}/status`, {
+            const result = await apiCall(`/admin/api/contact-requests/${id}/status`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
                 body: JSON.stringify({ status })
             });
-            const result = await response.json();
 
             if (result.success) {
                 viewDetails(id);
@@ -522,16 +493,10 @@
     async function saveNotes(id) {
         const notes = document.getElementById('admin-notes').value;
         try {
-            const response = await fetch(`/api/admin/contact-requests/${id}/notes`, {
+            const result = await apiCall(`/admin/api/contact-requests/${id}/notes`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
                 body: JSON.stringify({ admin_notes: notes })
             });
-            const result = await response.json();
 
             if (result.success) {
                 alert('Notes enregistrées!');
@@ -545,14 +510,9 @@
         if (!confirm('Supprimer cette demande?')) return;
 
         try {
-            const response = await fetch(`/api/admin/contact-requests/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
-                }
+            const result = await apiCall(`/admin/api/contact-requests/${id}`, {
+                method: 'DELETE'
             });
-            const result = await response.json();
 
             if (result.success) {
                 closeModal();

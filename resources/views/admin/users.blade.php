@@ -81,18 +81,7 @@
         emptyEl.classList.add('hidden');
 
         try {
-            const response = await fetch('/api/admin/users', {
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Erreur lors du chargement des utilisateurs');
-            }
-
-            const result = await response.json();
+            const result = await apiCall('/admin/api/users');
             allUsers = result.data;
             filteredUsers = allUsers;
 
@@ -196,20 +185,9 @@
         if (!confirm(`Voulez-vous vraiment ${action} cet utilisateur ?`)) return;
 
         try {
-            const response = await fetch(`/api/admin/users/${userId}/toggle-admin`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
-                }
+            await apiCall(`/admin/api/users/${userId}/toggle-admin`, {
+                method: 'POST'
             });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.message || 'Erreur lors de la modification');
-            }
-
             loadUsers();
         } catch (error) {
             console.error('Error:', error);
@@ -221,20 +199,9 @@
         if (!confirm('Voulez-vous vraiment supprimer cet utilisateur ? Cette action est irréversible.')) return;
 
         try {
-            const response = await fetch(`/api/admin/users/${userId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
-                }
+            await apiCall(`/admin/api/users/${userId}`, {
+                method: 'DELETE'
             });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.message || 'Erreur lors de la suppression');
-            }
-
             loadUsers();
         } catch (error) {
             console.error('Error:', error);
