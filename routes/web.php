@@ -154,6 +154,8 @@ Route::prefix('admin/api')->middleware(['web', 'auth', 'admin'])->group(function
     Route::get('/contact-requests/stats', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'stats']);
     Route::get('/contact-requests/{id}', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'show']);
     Route::post('/contact-requests/{id}/status', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'updateStatus']);
+    Route::post('/contact-requests/{id}/notes', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'addNotes']);
+    Route::post('/contact-requests/{id}/contacted', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'markContacted']);
     Route::delete('/contact-requests/{id}', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'destroy']);
 
     // Evaluations
