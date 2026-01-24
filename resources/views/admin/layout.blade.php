@@ -6,71 +6,93 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? 'Admin Panel' }} - Travel Express</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <!-- Google Fonts -->
+    <!-- Preload critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"></noscript>
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        * {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f4e4bc;
+            --gold-dark: #b8960c;
+            --noir: #0a0a0a;
+            --noir-light: #1a1a1a;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-        }
+        * { font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
 
         body {
-            background-color: #f8fafc;
-            background-image:
-                radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
-                radial-gradient(at 80% 0%, rgba(139, 92, 246, 0.05) 0px, transparent 50%),
-                radial-gradient(at 0% 50%, rgba(236, 72, 153, 0.03) 0px, transparent 50%);
+            background-color: var(--noir);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
+        /* Loading overlay */
+        .page-loading {
+            position: fixed;
+            inset: 0;
+            background: var(--noir);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .page-loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(212, 175, 55, 0.1);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Elegant card */
         .elegant-card {
-            background: linear-gradient(145deg, #ffffff 0%, #fafbfc 100%);
+            background: linear-gradient(145deg, var(--noir-light) 0%, var(--noir) 100%);
             border-radius: 1rem;
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow:
-                0 2px 4px rgba(0, 0, 0, 0.02),
-                0 8px 16px rgba(0, 0, 0, 0.04),
-                0 16px 32px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(212, 175, 55, 0.1);
             transition: all 0.3s ease;
         }
 
         .elegant-card:hover {
-            border-color: rgba(99, 102, 241, 0.2);
-            box-shadow:
-                0 4px 8px rgba(0, 0, 0, 0.03),
-                0 12px 24px rgba(0, 0, 0, 0.05),
-                0 24px 48px rgba(0, 0, 0, 0.03);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Quick fade animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .fade-in-up {
-            animation: fadeInUp 0.5s ease-out forwards;
-            opacity: 0;
-        }
+        .fade-in { animation: fadeIn 0.3s ease forwards; }
     </style>
 
     @stack('styles')
 </head>
 <body class="antialiased">
+    <!-- Page Loading Overlay -->
+    <div id="page-loading" class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
     <div class="min-h-screen">
         <!-- Sidebar -->
         @include('admin.partials.sidebar')
@@ -90,15 +112,15 @@
             </main>
 
             <!-- Footer -->
-            <footer class="bg-white border-t border-slate-200 py-6 px-4 sm:px-6 lg:px-8 mt-auto">
+            <footer class="bg-[#0a0a0a] border-t border-[#d4af37]/10 py-4 px-4 sm:px-6 lg:px-8 mt-auto">
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p class="text-sm text-slate-600">
-                        © {{ date('Y') }} Travel Express. Tous droits réservés.
+                    <p class="text-sm text-gray-500">
+                        &copy; {{ date('Y') }} Travel Express. Tous droits reserves.
                     </p>
-                    <div class="flex items-center gap-4 text-sm text-slate-600">
-                        <span class="text-slate-400">Version 2.0</span>
-                        <span class="text-slate-300">|</span>
-                        <a href="#" class="hover:text-indigo-600 transition-colors">Support</a>
+                    <div class="flex items-center gap-4 text-sm text-gray-500">
+                        <span class="text-[#d4af37]">Version 2.0</span>
+                        <span class="text-gray-700">|</span>
+                        <a href="#" class="hover:text-[#d4af37] transition-colors">Support</a>
                     </div>
                 </div>
             </footer>
@@ -107,11 +129,35 @@
 
     <!-- Global Scripts -->
     <script>
+        // Hide loading overlay when page is ready
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('page-loading');
+            if (loader) {
+                loader.classList.add('hidden');
+                setTimeout(() => loader.remove(), 300);
+            }
+        });
+
         // CSRF Token for API calls
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
 
-        // Helper function for API calls (uses session auth, no Bearer token needed)
+        // Optimized API call helper with caching
+        const apiCache = new Map();
+        const CACHE_DURATION = 30000; // 30 seconds
+
         async function apiCall(url, options = {}) {
+            const cacheKey = `${options.method || 'GET'}_${url}`;
+            const useCache = !options.method || options.method === 'GET';
+
+            // Check cache for GET requests
+            if (useCache && apiCache.has(cacheKey)) {
+                const cached = apiCache.get(cacheKey);
+                if (Date.now() - cached.timestamp < CACHE_DURATION) {
+                    return cached.data;
+                }
+                apiCache.delete(cacheKey);
+            }
+
             const defaultOptions = {
                 headers: {
                     'Accept': 'application/json',
@@ -125,10 +171,7 @@
             const mergedOptions = {
                 ...defaultOptions,
                 ...options,
-                headers: {
-                    ...defaultOptions.headers,
-                    ...options.headers
-                }
+                headers: { ...defaultOptions.headers, ...options.headers }
             };
 
             const response = await fetch(url, mergedOptions);
@@ -136,85 +179,76 @@
                 const error = await response.json().catch(() => ({ message: 'Une erreur est survenue' }));
                 throw new Error(error.message || `HTTP ${response.status}`);
             }
-            return response.json();
+
+            const data = await response.json();
+
+            // Cache GET requests
+            if (useCache) {
+                apiCache.set(cacheKey, { data, timestamp: Date.now() });
+            }
+
+            return data;
         }
 
-        // Show/hide loading state
-        function setLoading(elementId, loading) {
-            const element = document.getElementById(elementId);
-            if (!element) return;
-
-            if (loading) {
-                element.classList.add('opacity-50', 'pointer-events-none');
-            } else {
-                element.classList.remove('opacity-50', 'pointer-events-none');
+        // Clear cache for specific URL pattern
+        function clearApiCache(pattern) {
+            if (!pattern) {
+                apiCache.clear();
+                return;
+            }
+            for (const key of apiCache.keys()) {
+                if (key.includes(pattern)) {
+                    apiCache.delete(key);
+                }
             }
         }
 
-        // Toast notification
+        // Toast notification (simplified)
         function showToast(message, type = 'success') {
-            const toast = document.createElement('div');
-            toast.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-2xl transform transition-all duration-300 translate-x-full flex items-center gap-3 max-w-md ${
-                type === 'success' ? 'bg-gradient-to-r from-emerald-500 to-teal-600' :
-                type === 'error' ? 'bg-gradient-to-r from-red-500 to-rose-600' :
-                type === 'warning' ? 'bg-gradient-to-r from-amber-500 to-orange-600' :
-                'bg-gradient-to-r from-indigo-500 to-purple-600'
-            } text-white font-medium`;
-
-            const icons = {
-                success: '<svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>',
-                error: '<svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>',
-                warning: '<svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>',
-                info: '<svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>'
+            const colors = {
+                success: 'from-emerald-500 to-emerald-700',
+                error: 'from-red-500 to-red-700',
+                warning: 'from-amber-500 to-amber-700',
+                info: 'from-[#d4af37] to-[#b8960c]'
             };
 
-            toast.innerHTML = `${icons[type] || icons.info}<span>${message}</span>`;
+            const toast = document.createElement('div');
+            toast.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-2xl bg-gradient-to-r ${colors[type] || colors.info} text-white font-medium transform transition-transform duration-300 translate-x-full`;
+            toast.textContent = message;
 
             document.body.appendChild(toast);
-
-            setTimeout(() => {
-                toast.classList.remove('translate-x-full');
-            }, 100);
+            requestAnimationFrame(() => toast.classList.remove('translate-x-full'));
 
             setTimeout(() => {
                 toast.classList.add('translate-x-full');
                 setTimeout(() => toast.remove(), 300);
-            }, 4000);
+            }, 3000);
         }
 
-        // Confirm dialog
-        function confirmAction(message) {
-            return confirm(message);
-        }
-
-        // Add fade-in animation to elements
+        // Set initial margin for main content
         document.addEventListener('DOMContentLoaded', () => {
-            const elements = document.querySelectorAll('.fade-in-up');
-            elements.forEach((el, index) => {
-                setTimeout(() => {
-                    el.style.opacity = '1';
-                }, index * 50);
-            });
-
-            // Set initial margin for main content based on screen size and sidebar state
             const mainContent = document.getElementById('main-content');
             if (mainContent && window.innerWidth >= 1024) {
                 const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-                mainContent.style.marginLeft = isCollapsed ? '4.5rem' : '17rem';
+                mainContent.style.marginLeft = isCollapsed ? '4.5rem' : '16rem';
             }
         });
 
-        // Handle responsive margin on resize
+        // Handle responsive margin on resize (debounced)
+        let resizeTimeout;
         window.addEventListener('resize', () => {
-            const mainContent = document.getElementById('main-content');
-            if (mainContent) {
-                if (window.innerWidth >= 1024) {
-                    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-                    mainContent.style.marginLeft = isCollapsed ? '4.5rem' : '17rem';
-                } else {
-                    mainContent.style.marginLeft = '0';
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const mainContent = document.getElementById('main-content');
+                if (mainContent) {
+                    if (window.innerWidth >= 1024) {
+                        const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                        mainContent.style.marginLeft = isCollapsed ? '4.5rem' : '16rem';
+                    } else {
+                        mainContent.style.marginLeft = '0';
+                    }
                 }
-            }
+            }, 100);
         });
     </script>
 
