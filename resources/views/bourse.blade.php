@@ -17,6 +17,7 @@
         .font-display { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; }
         .font-sans { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; }
     </style>
+    <script src="{{ asset('js/country-codes.js') }}"></script>
 </head>
 <body class="font-sans text-dark antialiased bg-gradient-to-br from-slate-50 via-white to-primary-50 min-h-screen" x-data="{
     moyenne: '',
@@ -487,21 +488,7 @@
                             selectedCode: '+226',
                             selectedIso: 'bf',
                             selectedCountry: 'Burkina Faso',
-                            countries: [
-                                { code: '+226', country: 'Burkina Faso', iso: 'bf' },
-                                { code: '+225', country: 'Côte d\'Ivoire', iso: 'ci' },
-                                { code: '+223', country: 'Mali', iso: 'ml' },
-                                { code: '+221', country: 'Sénégal', iso: 'sn' },
-                                { code: '+228', country: 'Togo', iso: 'tg' },
-                                { code: '+229', country: 'Bénin', iso: 'bj' },
-                                { code: '+227', country: 'Niger', iso: 'ne' },
-                                { code: '+237', country: 'Cameroun', iso: 'cm' },
-                                { code: '+33', country: 'France', iso: 'fr' },
-                                { code: '+49', country: 'Allemagne', iso: 'de' },
-                                { code: '+34', country: 'Espagne', iso: 'es' },
-                                { code: '+86', country: 'Chine', iso: 'cn' },
-                                { code: '+1', country: 'Canada/USA', iso: 'us' }
-                            ],
+                            countries: window.COUNTRY_PHONE_CODES || [],
                             get filteredCountries() {
                                 if (!this.search) return this.countries;
                                 const s = this.search.toLowerCase();
