@@ -178,6 +178,9 @@ server {
     server_name srv1176393.hstgr.cloud;
     root /var/www/travel_express/public;
 
+    # Taille max des uploads (important pour éviter erreur 413)
+    client_max_body_size 50M;
+
     add_header X-Frame-Options "SAMEORIGIN";
     add_header X-Content-Type-Options "nosniff";
 
@@ -197,6 +200,12 @@ server {
         fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         include fastcgi_params;
+
+        # Timeout et buffer pour gros uploads
+        fastcgi_read_timeout 300;
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 4 256k;
+        fastcgi_busy_buffers_size 256k;
     }
 
     location ~ /\.(?!well-known).* {
