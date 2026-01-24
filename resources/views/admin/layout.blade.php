@@ -147,7 +147,7 @@
 
         async function apiCall(url, options = {}) {
             const cacheKey = `${options.method || 'GET'}_${url}`;
-            const useCache = !options.method || options.method === 'GET';
+            const useCache = (!options.method || options.method === 'GET') && !options.noCache;
 
             // Check cache for GET requests
             if (useCache && apiCache.has(cacheKey)) {
@@ -168,10 +168,13 @@
                 credentials: 'same-origin'
             };
 
+            // Remove noCache from options before merging
+            const { noCache, ...restOptions } = options;
+
             const mergedOptions = {
                 ...defaultOptions,
-                ...options,
-                headers: { ...defaultOptions.headers, ...options.headers }
+                ...restOptions,
+                headers: { ...defaultOptions.headers, ...(restOptions.headers || {}) }
             };
 
             const response = await fetch(url, mergedOptions);
@@ -182,8 +185,8 @@
 
             const data = await response.json();
 
-            // Cache GET requests
-            if (useCache) {
+            // Cache GET requests only if we have data
+            if (useCache && data && (data.data?.length > 0 || data.data?.total > 0 || typeof data.data === 'object')) {
                 apiCache.set(cacheKey, { data, timestamp: Date.now() });
             }
 

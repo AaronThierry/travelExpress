@@ -177,9 +177,9 @@
         'cancelled': { label: 'Annulé', class: 'bg-red-500/20 text-red-400 border-red-500/30', icon: '❌' }
     };
 
-    async function loadStats() {
+    async function loadStats(fresh = false) {
         try {
-            const result = await apiCall('/admin/api/contact-requests/stats');
+            const result = await apiCall('/admin/api/contact-requests/stats', fresh ? { noCache: true } : {});
             if (result.success) {
                 document.getElementById('stat-total').textContent = result.data.total || 0;
                 document.getElementById('stat-new').textContent = result.data.by_status?.new || 0;
@@ -192,7 +192,7 @@
         }
     }
 
-    async function loadRequests(page = 1) {
+    async function loadRequests(page = 1, fresh = false) {
         currentPage = page;
         const params = new URLSearchParams({
             page, per_page: 15,
@@ -203,13 +203,14 @@
         });
 
         try {
-            const result = await apiCall(`/admin/api/contact-requests?${params}`);
+            const result = await apiCall(`/admin/api/contact-requests?${params}`, fresh ? { noCache: true } : {});
             if (result.success) {
                 renderRequests(result.data);
                 renderPagination(result.meta);
             }
         } catch (error) {
             console.error('Error loading requests:', error);
+            renderRequests([]);
         }
     }
 
@@ -515,10 +516,24 @@
         if (e.key === 'Escape') closeModal();
     });
 
-    // Initialize
-    Promise.all([loadStats(), loadRequests()]).then(() => {
-        document.getElementById('loading').classList.add('hidden');
-        document.getElementById('main-content').classList.remove('hidden');
-    });
+    // Initialize with fresh data (bypass cache)
+    async function init() {
+        try {
+            await Promise.all([loadStats(true), loadRequests(1, true)]);
+        } catch (error) {
+            console.error('Init error:', error);
+            document.getElementById('requests-list').innerHTML = `
+                <tr>
+                    <td colspan="6" class="px-4 py-12 text-center">
+                        <div class="text-red-400">Erreur de chargement: ${error.message}</div>
+                        <button onclick="init()" class="mt-4 px-4 py-2 bg-[#d4af37] text-black rounded-lg">Réessayer</button>
+                    </td>
+                </tr>`;
+        } finally {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+        }
+    }
+    init();
 </script>
 @endpush
