@@ -1,31 +1,43 @@
 @extends('admin.layout')
 
-@section('title', 'Gestion des dossiers étudiants')
+@section('title', 'Gestion des Dossiers Étudiants')
 
 @section('content')
-<div class="p-6">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-gray-900">Gestion des dossiers étudiants</h1>
-        <button onclick="showCreateModal()" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<div class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 p-6">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+        <div>
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 bg-clip-text text-transparent">
+                Gestion des Dossiers Étudiants
+            </h1>
+            <p class="text-gray-400 mt-1">Vue unifiée des dossiers initiaux et complémentaires</p>
+        </div>
+        <button onclick="showCreateModal()" class="group relative px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 text-black font-bold rounded-xl hover:from-amber-400 hover:to-yellow-500 transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center gap-2">
+            <svg class="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
-            Nouveau dossier
+            Nouveau Dossier
         </button>
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6" id="stats-container">
-        <!-- Stats will be loaded here -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8" id="stats-container">
+        <div class="animate-pulse bg-gray-800/50 rounded-2xl p-6 h-32"></div>
+        <div class="animate-pulse bg-gray-800/50 rounded-2xl p-6 h-32"></div>
+        <div class="animate-pulse bg-gray-800/50 rounded-2xl p-6 h-32"></div>
+        <div class="animate-pulse bg-gray-800/50 rounded-2xl p-6 h-32"></div>
+        <div class="animate-pulse bg-gray-800/50 rounded-2xl p-6 h-32"></div>
+        <div class="animate-pulse bg-gray-800/50 rounded-2xl p-6 h-32"></div>
     </div>
 
     <!-- Filters -->
-    <div class="bg-white rounded-lg shadow p-4 mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="bg-gray-800/40 backdrop-blur-sm border border-amber-500/20 rounded-2xl p-6 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+            <!-- Statut Dossier Initial -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Statut</label>
-                <select id="filter-status" onchange="loadApplications()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                    <option value="all">Tous les statuts</option>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Statut Initial</label>
+                <select id="filter-status" onchange="loadApplications()" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all">
+                    <option value="all">Tous</option>
                     <option value="pending">En attente</option>
                     <option value="incomplete">Incomplet</option>
                     <option value="complete">Complet</option>
@@ -34,94 +46,115 @@
                 </select>
             </div>
 
+            <!-- Statut Complémentaire -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Programme</label>
-                <select id="filter-program" onchange="loadApplications()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                    <option value="all">Tous les programmes</option>
-                    <option value="license">License</option>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Statut Complémentaire</label>
+                <select id="filter-complementary" onchange="loadApplications()" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all">
+                    <option value="all">Tous</option>
+                    <option value="not_started">Non démarré</option>
+                    <option value="in_progress">En cours</option>
+                    <option value="submitted">Soumis</option>
+                    <option value="approved">Approuvé</option>
+                    <option value="rejected">Rejeté</option>
+                </select>
+            </div>
+
+            <!-- Programme -->
+            <div>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Programme</label>
+                <select id="filter-program" onchange="loadApplications()" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all">
+                    <option value="all">Tous</option>
+                    <option value="license">Licence</option>
+                    <option value="master">Master</option>
+                </select>
+            </div>
+
+            <!-- Étape -->
+            <div>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Étape</label>
+                <select id="filter-step" onchange="loadApplications()" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all">
+                    <option value="all">Toutes</option>
+                    <option value="1">Dossier Initial</option>
+                    <option value="2">Complémentaire</option>
+                    <option value="3">Finalisation</option>
+                </select>
+            </div>
+
+            <!-- Recherche -->
+            <div>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Recherche</label>
+                <div class="relative">
+                    <input type="text" id="search" placeholder="Nom, email, université..." onkeyup="debounceSearch()" class="w-full px-4 py-3 pl-10 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all">
+                    <svg class="w-5 h-5 text-amber-500/50 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Tri -->
+            <div>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Tri</label>
+                <select id="sort-by" onchange="loadApplications()" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all">
+                    <option value="created_at">Date création</option>
+                    <option value="submitted_at">Date soumission</option>
+                    <option value="student_name">Nom</option>
+                    <option value="current_step">Étape</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Applications Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6" id="applications-container">
+        <!-- Applications will be loaded here -->
+    </div>
+
+    <!-- Pagination -->
+    <div id="pagination-container" class="mt-8 flex justify-center"></div>
+</div>
+
+<!-- Create Modal -->
+<div id="create-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-gradient-to-br from-gray-900 to-gray-800 border border-amber-500/30 rounded-2xl max-w-lg w-full p-8 shadow-2xl shadow-amber-500/10">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-amber-400">Nouveau Dossier</h2>
+            <button onclick="closeCreateModal()" class="text-gray-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <form id="create-form" onsubmit="createApplication(event)" class="space-y-5">
+            <div>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Programme *</label>
+                <select name="program_type" required class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500">
+                    <option value="">Sélectionnez un programme</option>
+                    <option value="license">Licence</option>
                     <option value="master">Master</option>
                 </select>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Recherche</label>
-                <input type="text" id="search" placeholder="Nom, email, passeport..." onkeyup="debounceSearch()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                <label class="block text-sm font-medium text-amber-400 mb-2">Nom complet *</label>
+                <input type="text" name="student_name" required class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500" placeholder="Jean Dupont">
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Tri</label>
-                <select id="sort-by" onchange="loadApplications()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                    <option value="created_at">Date de création</option>
-                    <option value="submitted_at">Date de soumission</option>
-                    <option value="student_name">Nom</option>
-                    <option value="status">Statut</option>
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <!-- Applications List -->
-    <div class="bg-white rounded-lg shadow">
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Étudiant</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Programme</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Progression</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200" id="applications-tbody">
-                    <!-- Applications will be loaded here -->
-                </tbody>
-            </table>
-        </div>
-        <div class="px-6 py-4 border-t border-gray-200" id="pagination-container">
-            <!-- Pagination will be loaded here -->
-        </div>
-    </div>
-</div>
-
-<!-- Create Application Modal -->
-<div id="create-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-    <div class="bg-white rounded-lg max-w-md w-full mx-4 p-6">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Créer un nouveau dossier</h2>
-
-        <form id="create-form" onsubmit="createApplication(event)">
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Programme</label>
-                    <select name="program_type" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">Sélectionnez un programme</option>
-                        <option value="license">License</option>
-                        <option value="master">Master</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Nom complet</label>
-                    <input type="text" name="student_name" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                    <input type="email" name="student_email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Téléphone (optionnel)</label>
-                    <input type="text" name="student_phone" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                </div>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Email *</label>
+                <input type="email" name="student_email" required class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500" placeholder="jean@example.com">
             </div>
 
-            <div class="mt-6 flex gap-3">
-                <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                    Créer et générer le lien
+            <div>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Téléphone</label>
+                <input type="text" name="student_phone" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500" placeholder="+33 6 12 34 56 78">
+            </div>
+
+            <div class="flex gap-3 pt-4">
+                <button type="submit" class="flex-1 px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 text-black font-bold rounded-xl hover:from-amber-400 hover:to-yellow-500 transition-all">
+                    Créer & Générer Lien
                 </button>
-                <button type="button" onclick="closeCreateModal()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">
+                <button type="button" onclick="closeCreateModal()" class="px-6 py-3 bg-gray-700 text-gray-300 rounded-xl hover:bg-gray-600 transition-all">
                     Annuler
                 </button>
             </div>
@@ -130,60 +163,145 @@
 </div>
 
 <!-- Link Modal -->
-<div id="link-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-    <div class="bg-white rounded-lg max-w-2xl w-full mx-4 p-6">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Lien d'upload généré</h2>
+<div id="link-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-gradient-to-br from-gray-900 to-gray-800 border border-amber-500/30 rounded-2xl max-w-2xl w-full p-8 shadow-2xl shadow-amber-500/10">
+        <div class="text-center mb-6">
+            <div class="w-16 h-16 bg-gradient-to-r from-amber-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-amber-400">Lien d'upload généré</h2>
+            <p class="text-gray-400 mt-2">Partagez ce lien avec l'étudiant</p>
+        </div>
 
-        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-            <p class="text-sm text-gray-700 mb-2">Envoyez ce lien à l'étudiant pour qu'il puisse uploader ses documents:</p>
+        <div class="bg-gray-900/80 border border-amber-500/20 rounded-xl p-4 mb-6">
             <div class="flex items-center gap-2">
-                <input type="text" id="upload-link" readonly class="flex-1 px-3 py-2 bg-white border border-gray-300 rounded-lg font-mono text-sm">
-                <button onclick="copyLink()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
+                <input type="text" id="upload-link" readonly class="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg font-mono text-sm text-amber-400">
+                <button onclick="copyLink()" class="px-4 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 text-black font-bold rounded-lg hover:from-amber-400 hover:to-yellow-500 transition-all whitespace-nowrap">
                     Copier
                 </button>
             </div>
         </div>
 
-        <div class="flex gap-3">
-            <button onclick="closeLinkModal()" class="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">
-                Fermer
-            </button>
+        <button onclick="closeLinkModal()" class="w-full px-6 py-3 bg-gray-700 text-gray-300 rounded-xl hover:bg-gray-600 transition-all">
+            Fermer
+        </button>
+    </div>
+</div>
+
+<!-- Details Modal -->
+<div id="details-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 overflow-y-auto">
+    <div class="min-h-screen py-8 px-4 flex items-start justify-center">
+        <div class="bg-gradient-to-br from-gray-900 to-gray-800 border border-amber-500/30 rounded-2xl max-w-5xl w-full shadow-2xl shadow-amber-500/10">
+            <div class="sticky top-0 bg-gray-900/95 backdrop-blur-sm border-b border-amber-500/20 rounded-t-2xl px-8 py-6 flex justify-between items-center z-10">
+                <h2 class="text-2xl font-bold text-amber-400">Détails du Dossier</h2>
+                <button onclick="closeDetailsModal()" class="text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="details-content" class="p-8">
+                <!-- Content loaded dynamically -->
+            </div>
         </div>
     </div>
 </div>
 
-<!-- View Details Modal -->
-<div id="details-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-y-auto">
-    <div class="bg-white rounded-lg max-w-4xl w-full mx-4 my-8 p-6">
-        <div class="flex justify-between items-start mb-6">
-            <h2 class="text-2xl font-bold text-gray-900">Détails du dossier</h2>
-            <button onclick="closeDetailsModal()" class="text-gray-400 hover:text-gray-600">
+<!-- Complementary Edit Modal -->
+<div id="complementary-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-gradient-to-br from-gray-900 to-gray-800 border border-amber-500/30 rounded-2xl max-w-2xl w-full p-8 my-8 shadow-2xl shadow-amber-500/10">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-amber-400">Dossier Complémentaire</h2>
+            <button onclick="closeComplementaryModal()" class="text-gray-400 hover:text-white transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
         </div>
 
-        <div id="details-content">
-            <!-- Content will be loaded here -->
-        </div>
+        <form id="complementary-form" onsubmit="saveComplementary(event)" class="space-y-5">
+            <input type="hidden" name="application_id" id="comp-app-id">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-amber-400 mb-2">Visa actuel</label>
+                    <input type="text" name="visa_current" id="comp-visa" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50" placeholder="Type de visa">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-amber-400 mb-2">Numéro chinois</label>
+                    <input type="text" name="numero_chinois" id="comp-numero" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50" placeholder="+86 ...">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-amber-400 mb-2">Université</label>
+                    <input type="text" name="university_name" id="comp-university" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50" placeholder="Nom de l'université">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-amber-400 mb-2">Filière</label>
+                    <input type="text" name="field_of_study" id="comp-field" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50" placeholder="Ex: Informatique">
+                </div>
+            </div>
+
+            <div>
+                <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" name="casier_judiciaire_valide" id="comp-casier" class="w-5 h-5 rounded border-amber-500/30 bg-gray-900 text-amber-500 focus:ring-amber-500/50">
+                    <span class="text-white">Casier judiciaire validé</span>
+                </label>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Informations complémentaires</label>
+                <textarea name="complement_application" id="comp-notes" rows="3" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50" placeholder="Notes additionnelles..."></textarea>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Statut complémentaire</label>
+                <select name="complementary_status" id="comp-status" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white focus:ring-2 focus:ring-amber-500/50">
+                    <option value="not_started">Non démarré</option>
+                    <option value="in_progress">En cours</option>
+                    <option value="submitted">Soumis</option>
+                    <option value="approved">Approuvé</option>
+                    <option value="rejected">Rejeté</option>
+                </select>
+            </div>
+
+            <div class="flex gap-3 pt-4">
+                <button type="submit" class="flex-1 px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 text-black font-bold rounded-xl hover:from-amber-400 hover:to-yellow-500 transition-all">
+                    Enregistrer
+                </button>
+                <button type="button" onclick="closeComplementaryModal()" class="px-6 py-3 bg-gray-700 text-gray-300 rounded-xl hover:bg-gray-600 transition-all">
+                    Annuler
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
 <!-- Preview Modal -->
-<div id="preview-modal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4">
-    <div class="relative w-full h-full max-w-6xl max-h-[90vh] bg-white rounded-lg overflow-hidden">
+<div id="preview-modal" class="hidden fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4">
+    <div class="relative w-full h-full max-w-6xl max-h-[90vh] bg-gray-900 rounded-2xl overflow-hidden border border-amber-500/30">
         <div class="absolute top-4 right-4 z-10">
-            <button onclick="closePreview()" class="bg-white rounded-full p-2 shadow-lg hover:bg-gray-100">
-                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button onclick="closePreview()" class="bg-gray-800 hover:bg-gray-700 text-white rounded-full p-3 shadow-lg transition-all">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
         </div>
         <div id="preview-content" class="w-full h-full flex items-center justify-center">
-            <!-- Preview content will be loaded here -->
+            <!-- Preview content -->
         </div>
     </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="hidden fixed bottom-6 right-6 bg-gray-800 border border-amber-500/30 rounded-xl px-6 py-4 shadow-2xl z-50 flex items-center gap-3">
+    <span id="toast-message" class="text-white"></span>
 </div>
 
 <script>
@@ -191,11 +309,22 @@
     let searchTimeout;
     const authToken = window.authToken || localStorage.getItem('auth_token');
 
-    // Load initial data
     document.addEventListener('DOMContentLoaded', () => {
         loadStats();
         loadApplications();
     });
+
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        toastMessage.textContent = message;
+        toast.classList.remove('hidden');
+        toast.classList.add(type === 'success' ? 'border-green-500/50' : 'border-red-500/50');
+        setTimeout(() => {
+            toast.classList.add('hidden');
+            toast.classList.remove('border-green-500/50', 'border-red-500/50');
+        }, 3000);
+    }
 
     function debounceSearch() {
         clearTimeout(searchTimeout);
@@ -213,25 +342,79 @@
                     'Accept': 'application/json'
                 }
             });
-
             const stats = await response.json();
 
             document.getElementById('stats-container').innerHTML = `
-                <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-6 text-white">
-                    <div class="text-3xl font-bold">${stats.total}</div>
-                    <div class="text-blue-100">Total dossiers</div>
+                <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-amber-500/20 rounded-2xl p-5 hover:border-amber-500/40 transition-all group">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-amber-500/20 rounded-xl flex items-center justify-center group-hover:bg-amber-500/30 transition-all">
+                            <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-bold text-white mb-1">${stats.total}</div>
+                    <div class="text-sm text-gray-400">Total Dossiers</div>
                 </div>
-                <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg p-6 text-white">
-                    <div class="text-3xl font-bold">${stats.incomplete}</div>
-                    <div class="text-yellow-100">Incomplets</div>
+
+                <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-blue-500/20 rounded-2xl p-5 hover:border-blue-500/40 transition-all group">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center group-hover:bg-blue-500/30 transition-all">
+                            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-bold text-white mb-1">${stats.step_1}</div>
+                    <div class="text-sm text-gray-400">Étape 1 - Initial</div>
                 </div>
-                <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg p-6 text-white">
-                    <div class="text-3xl font-bold">${stats.complete}</div>
-                    <div class="text-green-100">Complets</div>
+
+                <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-purple-500/20 rounded-2xl p-5 hover:border-purple-500/40 transition-all group">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center group-hover:bg-purple-500/30 transition-all">
+                            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-bold text-white mb-1">${stats.step_2}</div>
+                    <div class="text-sm text-gray-400">Étape 2 - Complémentaire</div>
                 </div>
-                <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg p-6 text-white">
-                    <div class="text-3xl font-bold">${stats.approved}</div>
-                    <div class="text-purple-100">Approuvés</div>
+
+                <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-green-500/20 rounded-2xl p-5 hover:border-green-500/40 transition-all group">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center group-hover:bg-green-500/30 transition-all">
+                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-bold text-white mb-1">${stats.approved}</div>
+                    <div class="text-sm text-gray-400">Approuvés</div>
+                </div>
+
+                <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-emerald-500/20 rounded-2xl p-5 hover:border-emerald-500/40 transition-all group">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center group-hover:bg-emerald-500/30 transition-all">
+                            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-bold text-white mb-1">${stats.fully_complete}</div>
+                    <div class="text-sm text-gray-400">100% Complets</div>
+                </div>
+
+                <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-yellow-500/20 rounded-2xl p-5 hover:border-yellow-500/40 transition-all group">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-yellow-500/20 rounded-xl flex items-center justify-center group-hover:bg-yellow-500/30 transition-all">
+                            <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-bold text-white mb-1">${stats.incomplete}</div>
+                    <div class="text-sm text-gray-400">Incomplets</div>
                 </div>
             `;
         } catch (error) {
@@ -241,14 +424,18 @@
 
     async function loadApplications() {
         const status = document.getElementById('filter-status').value;
+        const compStatus = document.getElementById('filter-complementary').value;
         const program = document.getElementById('filter-program').value;
+        const step = document.getElementById('filter-step').value;
         const search = document.getElementById('search').value;
         const sortBy = document.getElementById('sort-by').value;
 
         const params = new URLSearchParams({
             page: currentPage,
             status: status,
+            complementary_status: compStatus,
             program_type: program,
+            current_step: step,
             search: search,
             sort_by: sortBy,
             sort_order: 'desc'
@@ -263,90 +450,180 @@
             });
 
             const data = await response.json();
+            const container = document.getElementById('applications-container');
 
-            // Render applications
-            const tbody = document.getElementById('applications-tbody');
             if (data.data.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="px-6 py-8 text-center text-gray-500">
-                            Aucun dossier trouvé
-                        </td>
-                    </tr>
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-16">
+                        <div class="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-10 h-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-400">Aucun dossier trouvé</h3>
+                        <p class="text-gray-500 mt-2">Modifiez vos filtres ou créez un nouveau dossier</p>
+                    </div>
                 `;
                 return;
             }
 
-            tbody.innerHTML = data.data.map(app => `
-                <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-4">
-                        <div class="font-medium text-gray-900">${app.student_name}</div>
-                        <div class="text-sm text-gray-500">${app.student_email}</div>
-                    </td>
-                    <td class="px-6 py-4">
-                        <span class="px-2 py-1 text-xs font-medium rounded ${app.program_type === 'master' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'}">
-                            ${app.program_type === 'master' ? 'Master' : 'License'}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="flex items-center gap-2">
-                            <div class="flex-1 bg-gray-200 rounded-full h-2">
-                                <div class="bg-blue-600 h-2 rounded-full" style="width: ${app.completion_percentage || 0}%"></div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-700">${app.completion_percentage || 0}%</span>
-                        </div>
-                    </td>
-                    <td class="px-6 py-4">
-                        <span class="px-2 py-1 text-xs font-medium rounded ${getStatusClass(app.status)}">
-                            ${getStatusLabel(app.status)}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 text-sm text-gray-500">
-                        ${new Date(app.created_at).toLocaleDateString('fr-FR')}
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="flex gap-2">
-                            <button onclick="viewDetails(${app.id})" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                                Voir
-                            </button>
-                            <button onclick="copyUploadLink('${app.upload_link}')" class="text-purple-600 hover:text-purple-800 text-sm font-medium">
-                                Lien
-                            </button>
-                            <button onclick="deleteApplication(${app.id})" class="text-red-600 hover:text-red-800 text-sm font-medium">
-                                Supprimer
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
+            container.innerHTML = data.data.map(app => renderApplicationCard(app)).join('');
 
+            // Render pagination
+            renderPagination(data);
         } catch (error) {
             console.error('Error loading applications:', error);
         }
     }
 
-    function getStatusClass(status) {
-        const classes = {
-            'pending': 'bg-gray-100 text-gray-800',
-            'incomplete': 'bg-yellow-100 text-yellow-800',
-            'complete': 'bg-blue-100 text-blue-800',
-            'approved': 'bg-green-100 text-green-800',
-            'rejected': 'bg-red-100 text-red-800'
+    function renderApplicationCard(app) {
+        const statusColors = {
+            'pending': 'bg-gray-500/20 text-gray-300 border-gray-500/30',
+            'incomplete': 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
+            'complete': 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+            'approved': 'bg-green-500/20 text-green-300 border-green-500/30',
+            'rejected': 'bg-red-500/20 text-red-300 border-red-500/30'
         };
-        return classes[status] || classes.pending;
+
+        const compStatusColors = {
+            'not_started': 'bg-gray-500/20 text-gray-300',
+            'in_progress': 'bg-blue-500/20 text-blue-300',
+            'submitted': 'bg-yellow-500/20 text-yellow-300',
+            'approved': 'bg-green-500/20 text-green-300',
+            'rejected': 'bg-red-500/20 text-red-300'
+        };
+
+        const statusInfo = app.status_info || { label: app.status, color: 'gray' };
+        const compStatusInfo = app.complementary_status_info || { label: 'Non démarré', color: 'gray' };
+
+        return `
+            <div class="bg-gradient-to-br from-gray-800/60 to-gray-900/60 border border-amber-500/20 rounded-2xl overflow-hidden hover:border-amber-500/40 transition-all group">
+                <!-- Header -->
+                <div class="p-5 border-b border-gray-700/50">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition-colors">${app.student_name}</h3>
+                            <p class="text-sm text-gray-400">${app.student_email}</p>
+                        </div>
+                        <span class="px-3 py-1 text-xs font-bold rounded-full ${app.program_type === 'master' ? 'bg-purple-500/20 text-purple-300' : 'bg-blue-500/20 text-blue-300'}">
+                            ${app.program_type === 'master' ? 'Master' : 'Licence'}
+                        </span>
+                    </div>
+
+                    <!-- Step Indicator -->
+                    <div class="flex items-center gap-2 mt-4">
+                        <div class="flex-1 flex items-center">
+                            <div class="w-8 h-8 rounded-full ${app.current_step >= 1 ? 'bg-amber-500 text-black' : 'bg-gray-700 text-gray-400'} flex items-center justify-center text-sm font-bold">1</div>
+                            <div class="flex-1 h-1 mx-1 ${app.current_step >= 2 ? 'bg-amber-500' : 'bg-gray-700'}"></div>
+                            <div class="w-8 h-8 rounded-full ${app.current_step >= 2 ? 'bg-amber-500 text-black' : 'bg-gray-700 text-gray-400'} flex items-center justify-center text-sm font-bold">2</div>
+                            <div class="flex-1 h-1 mx-1 ${app.current_step >= 3 ? 'bg-amber-500' : 'bg-gray-700'}"></div>
+                            <div class="w-8 h-8 rounded-full ${app.current_step >= 3 ? 'bg-amber-500 text-black' : 'bg-gray-700 text-gray-400'} flex items-center justify-center text-sm font-bold">3</div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 text-center mt-2">${app.current_step_label || 'Étape ' + app.current_step}</p>
+                </div>
+
+                <!-- Progress Bars -->
+                <div class="p-5 space-y-4">
+                    <!-- Initial Dossier Progress -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-gray-400">Dossier Initial</span>
+                            <span class="text-sm font-bold text-amber-400">${app.completion_percentage || 0}%</span>
+                        </div>
+                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-amber-500 to-yellow-500 rounded-full transition-all duration-500" style="width: ${app.completion_percentage || 0}%"></div>
+                        </div>
+                        <div class="flex justify-between items-center mt-1">
+                            <span class="px-2 py-0.5 text-xs font-medium rounded ${statusColors[app.status] || statusColors.pending}">${statusInfo.label}</span>
+                        </div>
+                    </div>
+
+                    <!-- Complementary Dossier Progress -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-gray-400">Dossier Complémentaire</span>
+                            <span class="text-sm font-bold text-purple-400">${app.complementary_completion_percentage || 0}%</span>
+                        </div>
+                        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-500" style="width: ${app.complementary_completion_percentage || 0}%"></div>
+                        </div>
+                        <div class="flex justify-between items-center mt-1">
+                            <span class="px-2 py-0.5 text-xs font-medium rounded ${compStatusColors[app.complementary_status] || compStatusColors.not_started}">${compStatusInfo.label}</span>
+                        </div>
+                    </div>
+
+                    <!-- Overall Progress -->
+                    <div class="pt-3 border-t border-gray-700/50">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-white">Progression Globale</span>
+                            <span class="text-sm font-bold text-emerald-400">${app.overall_completion_percentage || 0}%</span>
+                        </div>
+                        <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full transition-all duration-500" style="width: ${app.overall_completion_percentage || 0}%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="px-5 py-4 bg-gray-900/50 border-t border-gray-700/50 flex flex-wrap gap-2">
+                    <button onclick="viewDetails(${app.id})" class="flex-1 px-3 py-2 bg-amber-500/20 text-amber-400 rounded-lg hover:bg-amber-500/30 transition-all text-sm font-medium">
+                        Détails
+                    </button>
+                    <button onclick="editComplementary(${app.id})" class="flex-1 px-3 py-2 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30 transition-all text-sm font-medium">
+                        Complémentaire
+                    </button>
+                    <button onclick="copyUploadLink('${app.upload_link}')" class="px-3 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition-all text-sm" title="Copier lien">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                        </svg>
+                    </button>
+                    <button onclick="deleteApplication(${app.id})" class="px-3 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-all text-sm" title="Supprimer">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        `;
     }
 
-    function getStatusLabel(status) {
-        const labels = {
-            'pending': 'En attente',
-            'incomplete': 'Incomplet',
-            'complete': 'Complet',
-            'approved': 'Approuvé',
-            'rejected': 'Rejeté'
-        };
-        return labels[status] || status;
+    function renderPagination(data) {
+        if (data.last_page <= 1) {
+            document.getElementById('pagination-container').innerHTML = '';
+            return;
+        }
+
+        let html = '<div class="flex items-center gap-2">';
+
+        if (data.current_page > 1) {
+            html += `<button onclick="goToPage(${data.current_page - 1})" class="px-4 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 transition-all">Précédent</button>`;
+        }
+
+        for (let i = 1; i <= data.last_page; i++) {
+            if (i === data.current_page) {
+                html += `<button class="px-4 py-2 bg-amber-500 text-black font-bold rounded-lg">${i}</button>`;
+            } else if (i === 1 || i === data.last_page || (i >= data.current_page - 2 && i <= data.current_page + 2)) {
+                html += `<button onclick="goToPage(${i})" class="px-4 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 transition-all">${i}</button>`;
+            } else if (i === data.current_page - 3 || i === data.current_page + 3) {
+                html += `<span class="px-2 text-gray-500">...</span>`;
+            }
+        }
+
+        if (data.current_page < data.last_page) {
+            html += `<button onclick="goToPage(${data.current_page + 1})" class="px-4 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 transition-all">Suivant</button>`;
+        }
+
+        html += '</div>';
+        document.getElementById('pagination-container').innerHTML = html;
     }
 
+    function goToPage(page) {
+        currentPage = page;
+        loadApplications();
+    }
+
+    // Modal Functions
     function showCreateModal() {
         document.getElementById('create-modal').classList.remove('hidden');
     }
@@ -380,12 +657,13 @@
                 document.getElementById('link-modal').classList.remove('hidden');
                 loadStats();
                 loadApplications();
+                showToast('Dossier créé avec succès');
             } else {
-                alert('Erreur lors de la création du dossier');
+                showToast('Erreur lors de la création', 'error');
             }
         } catch (error) {
-            console.error('Error creating application:', error);
-            alert('Une erreur est survenue');
+            console.error('Error:', error);
+            showToast('Une erreur est survenue', 'error');
         }
     }
 
@@ -397,12 +675,12 @@
         const link = document.getElementById('upload-link');
         link.select();
         document.execCommand('copy');
-        alert('Lien copié dans le presse-papiers!');
+        showToast('Lien copié!');
     }
 
     function copyUploadLink(link) {
         navigator.clipboard.writeText(link).then(() => {
-            alert('Lien copié dans le presse-papiers!');
+            showToast('Lien copié!');
         });
     }
 
@@ -418,59 +696,143 @@
             const data = await response.json();
             const app = data.application;
             const docs = data.required_documents;
+            const compDocs = data.complementary_documents;
+
+            const statusColors = {
+                'pending': 'bg-gray-500/20 text-gray-300',
+                'incomplete': 'bg-yellow-500/20 text-yellow-300',
+                'complete': 'bg-blue-500/20 text-blue-300',
+                'approved': 'bg-green-500/20 text-green-300',
+                'rejected': 'bg-red-500/20 text-red-300'
+            };
 
             const content = `
-                <div class="space-y-6">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
-                            <div class="text-gray-900">${app.student_name}</div>
+                <div class="space-y-8">
+                    <!-- Student Info -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-gray-800/50 rounded-xl p-4">
+                            <label class="text-xs text-gray-500 uppercase tracking-wide">Nom</label>
+                            <div class="text-white font-medium mt-1">${app.student_name}</div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <div class="text-gray-900">${app.student_email}</div>
+                        <div class="bg-gray-800/50 rounded-xl p-4">
+                            <label class="text-xs text-gray-500 uppercase tracking-wide">Email</label>
+                            <div class="text-white font-medium mt-1">${app.student_email}</div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Programme</label>
-                            <div class="text-gray-900">${app.program_type === 'master' ? 'Master' : 'License'}</div>
+                        <div class="bg-gray-800/50 rounded-xl p-4">
+                            <label class="text-xs text-gray-500 uppercase tracking-wide">Programme</label>
+                            <div class="text-white font-medium mt-1">${app.program_type === 'master' ? 'Master' : 'Licence'}</div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Statut</label>
-                            <span class="px-2 py-1 text-xs font-medium rounded ${getStatusClass(app.status)}">
-                                ${getStatusLabel(app.status)}
-                            </span>
+                        <div class="bg-gray-800/50 rounded-xl p-4">
+                            <label class="text-xs text-gray-500 uppercase tracking-wide">Étape actuelle</label>
+                            <div class="text-amber-400 font-medium mt-1">${data.current_step_label}</div>
                         </div>
                     </div>
 
+                    ${app.university_name || app.numero_chinois ? `
+                    <!-- Complementary Info -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        ${app.university_name ? `<div class="bg-gray-800/50 rounded-xl p-4">
+                            <label class="text-xs text-gray-500 uppercase tracking-wide">Université</label>
+                            <div class="text-white font-medium mt-1">${app.university_name}</div>
+                        </div>` : ''}
+                        ${app.field_of_study ? `<div class="bg-gray-800/50 rounded-xl p-4">
+                            <label class="text-xs text-gray-500 uppercase tracking-wide">Filière</label>
+                            <div class="text-white font-medium mt-1">${app.field_of_study}</div>
+                        </div>` : ''}
+                        ${app.visa_current ? `<div class="bg-gray-800/50 rounded-xl p-4">
+                            <label class="text-xs text-gray-500 uppercase tracking-wide">Visa</label>
+                            <div class="text-white font-medium mt-1">${app.visa_current}</div>
+                        </div>` : ''}
+                        ${app.numero_chinois ? `<div class="bg-gray-800/50 rounded-xl p-4">
+                            <label class="text-xs text-gray-500 uppercase tracking-wide">N° Chinois</label>
+                            <div class="text-white font-medium mt-1">${app.numero_chinois}</div>
+                        </div>` : ''}
+                    </div>
+                    ` : ''}
+
+                    <!-- Initial Documents -->
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-3">Documents (${app.documents.length})</h3>
+                        <h3 class="text-lg font-bold text-amber-400 mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            Documents Initiaux (${data.initial_docs.length})
+                        </h3>
                         <div class="space-y-2">
-                            ${app.documents.map(doc => `
-                                <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                            ${data.initial_docs.length > 0 ? data.initial_docs.map(doc => `
+                                <div class="flex items-center justify-between p-4 bg-gray-800/50 rounded-xl border border-gray-700/50 hover:border-amber-500/30 transition-all">
                                     <div class="flex-1">
-                                        <div class="font-medium text-gray-900">${docs[doc.document_type] || doc.document_type}</div>
+                                        <div class="font-medium text-white">${docs[doc.document_type] || doc.document_type}</div>
                                         <div class="text-sm text-gray-500">${doc.original_filename} (${doc.file_size_human})</div>
                                     </div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="px-2 py-1 text-xs font-medium rounded ${getStatusClass(doc.status)}">
-                                            ${getStatusLabel(doc.status)}
-                                        </span>
-                                        ${['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'].includes(doc.mime_type) ?
-                                            `<button onclick="previewDocument(${doc.id})" class="text-purple-600 hover:text-purple-800 text-sm underline">Prévisualiser</button>` :
-                                            ''
-                                        }
-                                        <a href="/document/${doc.id}/download" class="text-blue-600 hover:text-blue-800 text-sm underline">Télécharger</a>
+                                    <div class="flex items-center gap-3">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full ${statusColors[doc.status]}">${doc.status}</span>
+                                        <button onclick="previewDocument(${doc.id})" class="text-purple-400 hover:text-purple-300 transition-colors">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                            </svg>
+                                        </button>
+                                        <a href="/document/${doc.id}/download" class="text-amber-400 hover:text-amber-300 transition-colors">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                            </svg>
+                                        </a>
                                     </div>
                                 </div>
-                            `).join('')}
+                            `).join('') : '<p class="text-gray-500 text-center py-4">Aucun document initial uploadé</p>'}
                         </div>
                     </div>
 
-                    <div class="flex gap-3">
-                        <a href="/student-applications/${app.id}/download-all" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                            📦 Télécharger tout (ZIP)
+                    <!-- Complementary Documents -->
+                    <div>
+                        <h3 class="text-lg font-bold text-purple-400 mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                            </svg>
+                            Documents Complémentaires (${data.complementary_docs.length})
+                        </h3>
+                        <div class="space-y-2">
+                            ${data.complementary_docs.length > 0 ? data.complementary_docs.map(doc => `
+                                <div class="flex items-center justify-between p-4 bg-gray-800/50 rounded-xl border border-gray-700/50 hover:border-purple-500/30 transition-all">
+                                    <div class="flex-1">
+                                        <div class="font-medium text-white">${compDocs[doc.document_type] || doc.document_type}</div>
+                                        <div class="text-sm text-gray-500">${doc.original_filename} (${doc.file_size_human})</div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full ${statusColors[doc.status]}">${doc.status}</span>
+                                        <button onclick="previewDocument(${doc.id})" class="text-purple-400 hover:text-purple-300 transition-colors">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                            </svg>
+                                        </button>
+                                        <a href="/document/${doc.id}/download" class="text-amber-400 hover:text-amber-300 transition-colors">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            `).join('') : '<p class="text-gray-500 text-center py-4">Aucun document complémentaire uploadé</p>'}
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-wrap gap-3 pt-4 border-t border-gray-700/50">
+                        <a href="/student-applications/${app.id}/download-all" class="px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 text-black font-bold rounded-xl hover:from-amber-400 hover:to-yellow-500 transition-all flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            Télécharger tout (ZIP)
                         </a>
-                        <button onclick="closeDetailsModal()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                        <button onclick="editComplementary(${app.id})" class="px-6 py-3 bg-purple-500/20 text-purple-400 rounded-xl hover:bg-purple-500/30 transition-all flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                            Éditer Complémentaire
+                        </button>
+                        <button onclick="closeDetailsModal()" class="px-6 py-3 bg-gray-700 text-gray-300 rounded-xl hover:bg-gray-600 transition-all">
                             Fermer
                         </button>
                     </div>
@@ -480,7 +842,8 @@
             document.getElementById('details-content').innerHTML = content;
             document.getElementById('details-modal').classList.remove('hidden');
         } catch (error) {
-            console.error('Error loading details:', error);
+            console.error('Error:', error);
+            showToast('Erreur lors du chargement', 'error');
         }
     }
 
@@ -488,11 +851,81 @@
         document.getElementById('details-modal').classList.add('hidden');
     }
 
+    async function editComplementary(id) {
+        try {
+            const response = await fetch(`/api/admin/student-applications/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Accept': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+            const app = data.application;
+
+            document.getElementById('comp-app-id').value = app.id;
+            document.getElementById('comp-visa').value = app.visa_current || '';
+            document.getElementById('comp-numero').value = app.numero_chinois || '';
+            document.getElementById('comp-university').value = app.university_name || '';
+            document.getElementById('comp-field').value = app.field_of_study || '';
+            document.getElementById('comp-casier').checked = app.casier_judiciaire_valide || false;
+            document.getElementById('comp-notes').value = app.complement_application || '';
+            document.getElementById('comp-status').value = app.complementary_status || 'not_started';
+
+            document.getElementById('complementary-modal').classList.remove('hidden');
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('Erreur lors du chargement', 'error');
+        }
+    }
+
+    function closeComplementaryModal() {
+        document.getElementById('complementary-modal').classList.add('hidden');
+    }
+
+    async function saveComplementary(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const id = formData.get('application_id');
+        const data = {
+            visa_current: formData.get('visa_current'),
+            numero_chinois: formData.get('numero_chinois'),
+            university_name: formData.get('university_name'),
+            field_of_study: formData.get('field_of_study'),
+            casier_judiciaire_valide: formData.get('casier_judiciaire_valide') === 'on',
+            complement_application: formData.get('complement_application'),
+            complementary_status: formData.get('complementary_status')
+        };
+
+        try {
+            const response = await fetch(`/api/admin/student-applications/${id}/complementary`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                closeComplementaryModal();
+                loadStats();
+                loadApplications();
+                showToast('Dossier complémentaire mis à jour');
+            } else {
+                showToast('Erreur lors de la mise à jour', 'error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('Une erreur est survenue', 'error');
+        }
+    }
+
     function previewDocument(documentId) {
         const previewContent = document.getElementById('preview-content');
         const previewUrl = `/document/${documentId}/preview`;
 
-        // Check if it's a PDF or image
         fetch(previewUrl)
             .then(response => response.blob())
             .then(blob => {
@@ -508,8 +941,8 @@
                 document.getElementById('preview-modal').classList.remove('hidden');
             })
             .catch(error => {
-                console.error('Error loading preview:', error);
-                alert('Impossible de prévisualiser ce document');
+                console.error('Error:', error);
+                showToast('Impossible de prévisualiser', 'error');
             });
     }
 
@@ -519,7 +952,7 @@
     }
 
     async function deleteApplication(id) {
-        if (!confirm('Êtes-vous sûr de vouloir supprimer ce dossier?')) return;
+        if (!confirm('Êtes-vous sûr de vouloir supprimer ce dossier? Cette action est irréversible.')) return;
 
         try {
             const response = await fetch(`/api/admin/student-applications/${id}`, {
@@ -533,11 +966,13 @@
             if (response.ok) {
                 loadStats();
                 loadApplications();
+                showToast('Dossier supprimé');
             } else {
-                alert('Erreur lors de la suppression');
+                showToast('Erreur lors de la suppression', 'error');
             }
         } catch (error) {
-            console.error('Error deleting application:', error);
+            console.error('Error:', error);
+            showToast('Une erreur est survenue', 'error');
         }
     }
 </script>

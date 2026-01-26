@@ -17,6 +17,18 @@ class StudentApplication extends Model
         'student_email',
         'student_phone',
         'passport_number',
+        'dossier_type',
+        'visa_current',
+        'casier_judiciaire_valide',
+        'bilan_sante_chinois_path',
+        'complement_application',
+        'numero_chinois',
+        'complementary_status',
+        'complementary_submitted_at',
+        'current_step',
+        'university_name',
+        'field_of_study',
+        'admission_year',
         'status',
         'admin_notes',
         'submitted_at',
@@ -27,9 +39,24 @@ class StudentApplication extends Model
     protected $casts = [
         'submitted_at' => 'datetime',
         'reviewed_at' => 'datetime',
+        'complementary_submitted_at' => 'datetime',
+        'casier_judiciaire_valide' => 'boolean',
+        'current_step' => 'integer',
+        'admission_year' => 'integer',
     ];
 
-    // Required documents by program type
+    // Constantes pour les types de dossier
+    const TYPE_NOUVEAU = 'nouveau';
+    const TYPE_COMPLEMENTAIRE = 'complementaire';
+
+    // Constantes pour les statuts complémentaires
+    const COMP_STATUS_NOT_STARTED = 'not_started';
+    const COMP_STATUS_IN_PROGRESS = 'in_progress';
+    const COMP_STATUS_SUBMITTED = 'submitted';
+    const COMP_STATUS_APPROVED = 'approved';
+    const COMP_STATUS_REJECTED = 'rejected';
+
+    // Documents requis pour le dossier initial (nouveau)
     public static function getRequiredDocuments(string $programType): array
     {
         $license = [
@@ -56,6 +83,18 @@ class StudentApplication extends Model
         ];
 
         return $programType === 'master' ? $master : $license;
+    }
+
+    // Documents requis pour le dossier complémentaire
+    public static function getComplementaryDocuments(): array
+    {
+        return [
+            'visa_chinois' => 'Visa chinois actuel',
+            'bilan_sante_chinois' => 'Bilan de santé format chinois',
+            'casier_judiciaire_traduit' => 'Casier judiciaire traduit en chinois',
+            'attestation_hebergement' => 'Attestation d\'hébergement (optionnel)',
+            'justificatif_ressources' => 'Justificatif de ressources financières (optionnel)',
+        ];
     }
 
     // Relationships
@@ -87,7 +126,7 @@ class StudentApplication extends Model
         return url("/student/upload/{$this->unique_token}");
     }
 
-    // Check if application is complete
+    // Check if initial application is complete
     public function getIsCompleteAttribute(): bool
     {
         $requiredDocs = self::getRequiredDocuments($this->program_type);
@@ -106,7 +145,7 @@ class StudentApplication extends Model
         return true;
     }
 
-    // Get completion percentage
+    // Get completion percentage for initial dossier
     public function getCompletionPercentageAttribute(): int
     {
         $requiredDocs = self::getRequiredDocuments($this->program_type);
@@ -119,5 +158,128 @@ class StudentApplication extends Model
         $uploadedCount = count(array_intersect(array_keys($requiredDocs), $uploadedDocs));
 
         return (int) (($uploadedCount / count($requiredDocs)) * 100);
+    }
+
+    // Check if complementary dossier is complete
+    public function getIsComplementaryCompleteAttribute(): bool
+    {
+        // Check required fields
+        if (empty($this->visa_current)) return false;
+        if (!$this->casier_judiciaire_valide) return false;
+        if (empty($this->bilan_sante_chinois_path)) return false;
+        if (empty($this->numero_chinois)) return false;
+
+        // Check required complementary documents
+        $compDocs = self::getComplementaryDocuments();
+        $uploadedDocs = $this->documents()->pluck('document_type')->toArray();
+
+        foreach (array_keys($compDocs) as $docType) {
+            // Skip optional documents
+            if (in_array($docType, ['attestation_hebergement', 'justificatif_ressources'])) {
+                continue;
+            }
+            if (!in_array($docType, $uploadedDocs)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Get completion percentage for complementary dossier
+    public function getComplementaryCompletionPercentageAttribute(): int
+    {
+        $total = 5; // visa_current, casier_judiciaire_valide, bilan_sante_chinois, numero_chinois + required docs
+        $completed = 0;
+
+        if (!empty($this->visa_current)) $completed++;
+        if ($this->casier_judiciaire_valide) $completed++;
+        if (!empty($this->bilan_sante_chinois_path)) $completed++;
+        if (!empty($this->numero_chinois)) $completed++;
+
+        // Add required complementary documents
+        $compDocs = self::getComplementaryDocuments();
+        $requiredCompDocs = array_filter($compDocs, function($key) {
+            return !in_array($key, ['attestation_hebergement', 'justificatif_ressources']);
+        }, ARRAY_FILTER_USE_KEY);
+
+        $total += count($requiredCompDocs);
+        $uploadedDocs = $this->documents()->pluck('document_type')->toArray();
+        $completed += count(array_intersect(array_keys($requiredCompDocs), $uploadedDocs));
+
+        return $total > 0 ? (int) (($completed / $total) * 100) : 0;
+    }
+
+    // Get overall completion percentage (both dossiers combined)
+    public function getOverallCompletionPercentageAttribute(): int
+    {
+        $initialCompletion = $this->completion_percentage;
+        $compCompletion = $this->complementary_completion_percentage;
+
+        // Initial dossier counts as 60%, complementary as 40%
+        return (int) (($initialCompletion * 0.6) + ($compCompletion * 0.4));
+    }
+
+    // Get current step label
+    public function getCurrentStepLabelAttribute(): string
+    {
+        return match($this->current_step) {
+            1 => 'Dossier Initial',
+            2 => 'Dossier Complémentaire',
+            3 => 'Finalisation',
+            default => 'En attente',
+        };
+    }
+
+    // Get status label with color
+    public function getStatusInfoAttribute(): array
+    {
+        return match($this->status) {
+            'pending' => ['label' => 'En attente', 'color' => 'yellow', 'icon' => 'clock'],
+            'incomplete' => ['label' => 'Incomplet', 'color' => 'orange', 'icon' => 'exclamation'],
+            'complete' => ['label' => 'Complet', 'color' => 'blue', 'icon' => 'check'],
+            'approved' => ['label' => 'Approuvé', 'color' => 'green', 'icon' => 'check-circle'],
+            'rejected' => ['label' => 'Rejeté', 'color' => 'red', 'icon' => 'x-circle'],
+            default => ['label' => $this->status, 'color' => 'gray', 'icon' => 'question'],
+        };
+    }
+
+    // Get complementary status info
+    public function getComplementaryStatusInfoAttribute(): array
+    {
+        return match($this->complementary_status) {
+            'not_started' => ['label' => 'Non démarré', 'color' => 'gray', 'icon' => 'minus'],
+            'in_progress' => ['label' => 'En cours', 'color' => 'blue', 'icon' => 'refresh'],
+            'submitted' => ['label' => 'Soumis', 'color' => 'yellow', 'icon' => 'clock'],
+            'approved' => ['label' => 'Approuvé', 'color' => 'green', 'icon' => 'check-circle'],
+            'rejected' => ['label' => 'Rejeté', 'color' => 'red', 'icon' => 'x-circle'],
+            default => ['label' => $this->complementary_status ?? 'Non démarré', 'color' => 'gray', 'icon' => 'question'],
+        };
+    }
+
+    // Scope for filtering by dossier type
+    public function scopeNouveau($query)
+    {
+        return $query->where('dossier_type', self::TYPE_NOUVEAU);
+    }
+
+    public function scopeComplementaire($query)
+    {
+        return $query->where('dossier_type', self::TYPE_COMPLEMENTAIRE);
+    }
+
+    // Scope for filtering by complementary status
+    public function scopeComplementaryStatus($query, $status)
+    {
+        return $query->where('complementary_status', $status);
+    }
+
+    // Check if student has both dossier types
+    public function getHasComplementaryDataAttribute(): bool
+    {
+        return $this->complementary_status !== self::COMP_STATUS_NOT_STARTED
+            || !empty($this->visa_current)
+            || !empty($this->numero_chinois)
+            || !empty($this->bilan_sante_chinois_path);
     }
 }

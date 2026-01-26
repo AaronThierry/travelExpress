@@ -115,5 +115,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/student-applications/{id}', [StudentApplicationAdminController::class, 'destroy']);
         Route::post('/student-applications/documents/{documentId}/approve', [StudentApplicationAdminController::class, 'approveDocument']);
         Route::post('/student-applications/documents/{documentId}/reject', [StudentApplicationAdminController::class, 'rejectDocument']);
+
+        // Complementary dossier routes
+        Route::put('/student-applications/{id}/complementary', [StudentApplicationAdminController::class, 'updateComplementary']);
+        Route::post('/student-applications/{id}/complementary/upload', [StudentApplicationAdminController::class, 'uploadComplementaryFile']);
+        Route::post('/student-applications/{id}/advance-step', [StudentApplicationAdminController::class, 'advanceStep']);
+        Route::post('/student-applications/bulk-update', [StudentApplicationAdminController::class, 'bulkUpdateStatus']);
     });
 });
