@@ -391,7 +391,7 @@
                 </div>
 
                 <!-- Enhanced Mobile Menu Button -->
-                <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2.5 mr-1 text-dark hover:bg-gray-100 rounded-xl transition-colors">
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="xl:hidden p-2.5 mr-1 text-dark hover:bg-gray-100 rounded-xl transition-colors">
                     <div class="burger-icon" :class="{ 'burger-open': mobileMenuOpen }">
                         <div class="burger-line"></div>
                         <div class="burger-line"></div>
