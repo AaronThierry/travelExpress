@@ -39,92 +39,140 @@ class EvaluationController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:100',
-            'last_name' => 'required|string|max:100',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:30',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+        try {
+            $validated = $request->validate([
+                'first_name' => 'required|string|max:100',
+                'last_name' => 'required|string|max:100',
+                'email' => 'required|email|max:255',
+                'phone' => 'nullable|string|max:30',
+                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
 
-            'university' => 'required|string|max:255',
-            'country_of_study' => 'required|string|max:100',
-            'study_level' => ['required', Rule::in([
-                'licence_1', 'licence_2', 'licence_3',
-                'master_1', 'master_2',
-                'doctorat', 'formation_professionnelle', 'autre'
-            ])],
-            'field_of_study' => 'required|string|max:255',
-            'start_year' => 'nullable|integer|min:2000|max:' . (date('Y') + 2),
+                'university' => 'required|string|max:255',
+                'country_of_study' => 'required|string|max:100',
+                'study_level' => ['required', Rule::in([
+                    'licence_1', 'licence_2', 'licence_3',
+                    'master_1', 'master_2',
+                    'doctorat', 'formation_professionnelle', 'autre'
+                ])],
+                'field_of_study' => 'required|string|max:255',
+                'start_year' => 'nullable|integer|min:2000|max:' . (date('Y') + 2),
 
-            'service_used' => ['nullable', Rule::in([
-                'etudes', 'business', 'tourisme', 'visa_seul', 'autre'
-            ])],
-            'project_story' => 'required|string|min:50|max:2000',
+                'service_used' => ['nullable', Rule::in([
+                    'etudes', 'business', 'tourisme', 'visa_seul', 'autre'
+                ])],
+                'project_story' => 'required|string|min:50|max:5000',
 
-            'discovery_source' => ['required', Rule::in([
-                'siao', 'ambassadeur_la_bobolaise', 'ambassadeur_ley_ley', 'ambassadeur_autre',
-                'facebook', 'tiktok', 'instagram', 'youtube',
-                'bouche_a_oreille', 'site_web', 'evenement', 'autre'
-            ])],
-            'discovery_source_detail' => 'nullable|string|max:255',
-            'ambassador_direct_contact' => 'nullable|boolean',
-            'conversation_screenshots.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+                'discovery_source' => ['required', Rule::in([
+                    'siao', 'ambassadeur_la_bobolaise', 'ambassadeur_ley_ley', 'ambassadeur_autre',
+                    'facebook', 'tiktok', 'instagram', 'youtube',
+                    'bouche_a_oreille', 'site_web', 'evenement', 'autre'
+                ])],
+                'discovery_source_detail' => 'nullable|string|max:255',
+                'ambassador_direct_contact' => 'nullable',
+                'conversation_screenshots' => 'nullable|array|max:5',
+                'conversation_screenshots.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
 
-            'rating' => 'required|integer|min:1|max:5',
-            'rating_accompagnement' => 'nullable|integer|min:1|max:5',
-            'rating_communication' => 'nullable|integer|min:1|max:5',
-            'rating_delais' => 'nullable|integer|min:1|max:5',
-            'rating_rapport_qualite_prix' => 'nullable|integer|min:1|max:5',
+                'rating' => 'required|integer|min:1|max:5',
+                'rating_accompagnement' => 'nullable|integer|min:1|max:5',
+                'rating_communication' => 'nullable|integer|min:1|max:5',
+                'rating_delais' => 'nullable|integer|min:1|max:5',
+                'rating_rapport_qualite_prix' => 'nullable|integer|min:1|max:5',
 
-            'would_recommend' => 'boolean',
-            'comment' => 'nullable|string|max:2000',
+                'would_recommend' => 'nullable',
+                'comment' => 'nullable|string|max:2000',
 
-            'public_testimonial' => 'nullable|string|max:1000',
-            'allow_public_display' => 'boolean',
-            'allow_photo_display' => 'boolean',
+                'public_testimonial' => 'nullable|string|max:1000',
+                'allow_public_display' => 'nullable',
+                'allow_photo_display' => 'nullable',
 
-            'signature' => 'required|string', // Base64 signature data
-        ]);
+                'signature' => 'required|string',
+            ], [
+                'first_name.required' => 'Le prénom est obligatoire.',
+                'last_name.required' => 'Le nom est obligatoire.',
+                'email.required' => 'L\'adresse email est obligatoire.',
+                'email.email' => 'L\'adresse email n\'est pas valide.',
+                'university.required' => 'Le nom de l\'université est obligatoire.',
+                'country_of_study.required' => 'Le pays d\'études est obligatoire.',
+                'study_level.required' => 'Le niveau d\'études est obligatoire.',
+                'study_level.in' => 'Le niveau d\'études sélectionné n\'est pas valide.',
+                'field_of_study.required' => 'La filière d\'études est obligatoire.',
+                'project_story.required' => 'Veuillez raconter votre parcours.',
+                'project_story.min' => 'Votre récit doit contenir au moins 50 caractères.',
+                'discovery_source.required' => 'Veuillez indiquer comment vous avez connu Travel Express.',
+                'discovery_source.in' => 'La source de découverte sélectionnée n\'est pas valide.',
+                'rating.required' => 'La note globale est obligatoire.',
+                'rating.min' => 'La note doit être au minimum 1.',
+                'rating.max' => 'La note doit être au maximum 5.',
+                'signature.required' => 'Votre signature est obligatoire.',
+                'conversation_screenshots.*.image' => 'Les captures d\'écran doivent être des images.',
+                'conversation_screenshots.*.max' => 'Chaque capture d\'écran ne doit pas dépasser 5 Mo.',
+                'conversation_screenshots.max' => 'Vous ne pouvez pas télécharger plus de 5 captures.',
+            ]);
 
-        // Handle photo upload
-        if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('evaluations', 'public');
-            $validated['photo'] = $path;
-        }
-
-        // Handle conversation screenshots upload
-        if ($request->hasFile('conversation_screenshots')) {
-            $screenshots = [];
-            foreach ($request->file('conversation_screenshots') as $screenshot) {
-                $path = $screenshot->store('evaluations/screenshots', 'public');
-                $screenshots[] = $path;
+            // Handle photo upload
+            if ($request->hasFile('photo')) {
+                $path = $request->file('photo')->store('evaluations', 'public');
+                $validated['photo'] = $path;
             }
-            $validated['conversation_screenshots'] = $screenshots;
+
+            // Handle conversation screenshots upload
+            if ($request->hasFile('conversation_screenshots')) {
+                $screenshots = [];
+                foreach ($request->file('conversation_screenshots') as $screenshot) {
+                    if ($screenshot && $screenshot->isValid()) {
+                        $path = $screenshot->store('evaluations/screenshots', 'public');
+                        $screenshots[] = $path;
+                    }
+                }
+                $validated['conversation_screenshots'] = $screenshots;
+            }
+
+            // Link to user if authenticated
+            if (auth('sanctum')->check()) {
+                $validated['user_id'] = auth('sanctum')->id();
+            }
+
+            // Convert string boolean values
+            $validated['would_recommend'] = filter_var($validated['would_recommend'] ?? true, FILTER_VALIDATE_BOOLEAN);
+            $validated['allow_public_display'] = filter_var($validated['allow_public_display'] ?? false, FILTER_VALIDATE_BOOLEAN);
+            $validated['allow_photo_display'] = filter_var($validated['allow_photo_display'] ?? false, FILTER_VALIDATE_BOOLEAN);
+            $validated['ambassador_direct_contact'] = isset($validated['ambassador_direct_contact'])
+                ? filter_var($validated['ambassador_direct_contact'], FILTER_VALIDATE_BOOLEAN)
+                : null;
+
+            // Set defaults
+            $validated['service_used'] = $validated['service_used'] ?? 'etudes';
+
+            // Set signed_at timestamp if signature provided
+            if (!empty($validated['signature'])) {
+                $validated['signed_at'] = now();
+            }
+
+            $evaluation = Evaluation::create($validated);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Merci pour votre évaluation ! Elle sera vérifiée par notre équipe.',
+                'data' => $evaluation,
+            ], 201);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur de validation.',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            \Log::error('Evaluation submission error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request' => $request->except(['signature', 'conversation_screenshots'])
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Une erreur est survenue lors de l\'enregistrement. Veuillez réessayer.',
+            ], 500);
         }
-
-        // Link to user if authenticated
-        if (auth('sanctum')->check()) {
-            $validated['user_id'] = auth('sanctum')->id();
-        }
-
-        // Set defaults
-        $validated['would_recommend'] = $validated['would_recommend'] ?? true;
-        $validated['allow_public_display'] = $validated['allow_public_display'] ?? false;
-        $validated['allow_photo_display'] = $validated['allow_photo_display'] ?? false;
-        $validated['service_used'] = $validated['service_used'] ?? 'etudes';
-
-        // Set signed_at timestamp if signature provided
-        if (!empty($validated['signature'])) {
-            $validated['signed_at'] = now();
-        }
-
-        $evaluation = Evaluation::create($validated);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Merci pour votre évaluation ! Elle sera vérifiée par notre équipe.',
-            'data' => $evaluation,
-        ], 201);
     }
 
     /**

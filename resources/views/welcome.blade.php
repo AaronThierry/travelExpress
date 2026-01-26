@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Travel Express - Votre partenaire pour réaliser vos projets à l'international. Études, travail et business en Chine, Espagne et Allemagne. Accompagnement personnalisé.">
     <title>Travel Express - Études, Travail & Business à l'International</title>
 
@@ -141,6 +142,11 @@
                 this.testimonialModalOpen = true;
             }, 500);
         }
+
+        // Listen for evaluation modal close event
+        window.addEventListener('close-evaluation-modal', () => {
+            this.evaluationModalOpen = false;
+        });
     },
     openTestimonialModal() {
         const token = localStorage.getItem('auth_token');
@@ -4027,19 +4033,19 @@
                     this.error = null;
 
                     const formData = new FormData();
-                    formData.append('first_name', this.firstName);
-                    formData.append('last_name', this.lastName);
-                    formData.append('email', this.email);
-                    formData.append('phone', this.phone);
-                    formData.append('university', this.university);
-                    formData.append('country_of_study', this.countryOfStudy);
+                    formData.append('first_name', this.firstName.trim());
+                    formData.append('last_name', this.lastName.trim());
+                    formData.append('email', this.email.trim());
+                    formData.append('phone', this.phone || '');
+                    formData.append('university', this.university.trim());
+                    formData.append('country_of_study', this.countryOfStudy.trim());
                     formData.append('study_level', this.studyLevel);
-                    formData.append('field_of_study', this.fieldOfStudy);
+                    formData.append('field_of_study', this.fieldOfStudy.trim());
                     if (this.startYear) formData.append('start_year', this.startYear);
-                    formData.append('service_used', this.serviceUsed);
-                    formData.append('project_story', this.projectStory);
+                    formData.append('service_used', this.serviceUsed || 'etudes');
+                    formData.append('project_story', this.projectStory.trim());
                     formData.append('discovery_source', this.discoverySource);
-                    if (this.discoverySourceDetail) formData.append('discovery_source_detail', this.discoverySourceDetail);
+                    if (this.discoverySourceDetail) formData.append('discovery_source_detail', this.discoverySourceDetail.trim());
 
                     // Données ambassadrice
                     if (this.isAmbassadorSelected) {
@@ -4061,26 +4067,54 @@
                     formData.append('signature', this.signatureData);
 
                     try {
-                        const token = localStorage.getItem('auth_token');
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                        const authToken = localStorage.getItem('auth_token');
+
                         const headers = {
-                            'Accept': 'application/json'
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
                         };
-                        if (token) headers['Authorization'] = 'Bearer ' + token;
+
+                        if (csrfToken) headers['X-CSRF-TOKEN'] = csrfToken;
+                        if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
 
                         const response = await fetch('/api/evaluations', {
                             method: 'POST',
                             headers: headers,
-                            body: formData
+                            body: formData,
+                            credentials: 'same-origin'
                         });
 
+                        // Handle different error scenarios
                         if (!response.ok) {
                             let errorMessage = 'Une erreur est survenue.';
-                            try {
-                                const result = await response.json();
-                                errorMessage = result.message || errorMessage;
-                            } catch (e) {
-                                errorMessage = `Erreur ${response.status}: ${response.statusText}`;
+
+                            if (response.status === 413) {
+                                errorMessage = 'Les fichiers sont trop volumineux. Réduisez la taille des images.';
+                            } else if (response.status === 422) {
+                                // Validation errors
+                                try {
+                                    const result = await response.json();
+                                    if (result.errors) {
+                                        const firstError = Object.values(result.errors)[0];
+                                        errorMessage = Array.isArray(firstError) ? firstError[0] : firstError;
+                                    } else if (result.message) {
+                                        errorMessage = result.message;
+                                    }
+                                } catch (e) {
+                                    errorMessage = 'Erreur de validation. Vérifiez vos données.';
+                                }
+                            } else if (response.status === 500) {
+                                errorMessage = 'Erreur serveur. Veuillez réessayer plus tard.';
+                            } else {
+                                try {
+                                    const result = await response.json();
+                                    errorMessage = result.message || `Erreur ${response.status}`;
+                                } catch (e) {
+                                    errorMessage = `Erreur ${response.status}: ${response.statusText}`;
+                                }
                             }
+
                             this.error = errorMessage;
                             return;
                         }
@@ -4090,14 +4124,17 @@
 
                         // Fermer la modale après 3 secondes
                         setTimeout(() => {
-                            this.showModal = false;
-                            // Réinitialiser le formulaire
+                            window.dispatchEvent(new CustomEvent('close-evaluation-modal'));
                             this.resetForm();
                         }, 3000);
 
                     } catch (e) {
                         console.error('Erreur lors de la soumission:', e);
-                        this.error = 'Erreur de connexion. Veuillez réessayer.';
+                        if (e.name === 'TypeError' && e.message.includes('Failed to fetch')) {
+                            this.error = 'Erreur de connexion. Vérifiez votre connexion internet.';
+                        } else {
+                            this.error = 'Erreur inattendue. Veuillez réessayer.';
+                        }
                     } finally {
                         this.submitting = false;
                     }
