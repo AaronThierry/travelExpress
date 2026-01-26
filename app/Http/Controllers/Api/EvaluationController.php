@@ -6,10 +6,36 @@ use App\Http\Controllers\Controller;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class EvaluationController extends Controller
 {
+    /**
+     * Get the actual columns of evaluations table.
+     */
+    private function getTableColumns(): array
+    {
+        static $columns = null;
+        if ($columns === null) {
+            $columns = Schema::getColumnListing('evaluations');
+        }
+        return $columns;
+    }
+
+    /**
+     * Check if discovery_source is ENUM type (not migrated yet).
+     */
+    private function isDiscoverySourceEnum(): bool
+    {
+        try {
+            $column = DB::selectOne("SHOW COLUMNS FROM evaluations WHERE Field = 'discovery_source'");
+            return $column && str_starts_with($column->Type, 'enum');
+        } catch (\Exception $e) {
+            return true; // Assume enum if check fails
+        }
+    }
     /**
      * Get public evaluations (for display on website).
      */
@@ -85,7 +111,7 @@ class EvaluationController extends Controller
                 'allow_public_display' => 'nullable',
                 'allow_photo_display' => 'nullable',
 
-                'signature' => 'required|string',
+                'signature' => 'nullable|string',
             ], [
                 'first_name.required' => 'Le prénom est obligatoire.',
                 'last_name.required' => 'Le nom est obligatoire.',
@@ -108,6 +134,16 @@ class EvaluationController extends Controller
                 'conversation_screenshots.*.max' => 'Chaque capture d\'écran ne doit pas dépasser 5 Mo.',
                 'conversation_screenshots.max' => 'Vous ne pouvez pas télécharger plus de 5 captures.',
             ]);
+
+            // Check if signature is required (only if column exists in DB)
+            $tableColumns = $this->getTableColumns();
+            if (in_array('signature', $tableColumns) && empty($validated['signature'])) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Erreur de validation.',
+                    'errors' => ['signature' => ['Votre signature est obligatoire.']],
+                ], 422);
+            }
 
             // Handle photo upload
             if ($request->hasFile('photo')) {
@@ -143,9 +179,37 @@ class EvaluationController extends Controller
             // Set defaults
             $validated['service_used'] = $validated['service_used'] ?? 'etudes';
 
-            // Set signed_at timestamp if signature provided
-            if (!empty($validated['signature'])) {
-                $validated['signed_at'] = now();
+            // Get actual table columns to handle missing migrations
+            $tableColumns = $this->getTableColumns();
+
+            // Handle signature fields - only if columns exist
+            if (in_array('signature', $tableColumns)) {
+                if (!empty($validated['signature']) && in_array('signed_at', $tableColumns)) {
+                    $validated['signed_at'] = now();
+                }
+            } else {
+                // Remove signature fields if columns don't exist
+                unset($validated['signature']);
+                unset($validated['signed_at']);
+            }
+
+            // Handle ambassador fields - only if columns exist
+            if (!in_array('ambassador_direct_contact', $tableColumns)) {
+                unset($validated['ambassador_direct_contact']);
+            }
+            if (!in_array('conversation_screenshots', $tableColumns)) {
+                unset($validated['conversation_screenshots']);
+            }
+
+            // Handle discovery_source ENUM compatibility
+            // If 'siao' is selected but DB still has ENUM without 'siao', map to 'evenement'
+            if (isset($validated['discovery_source']) && $validated['discovery_source'] === 'siao') {
+                if ($this->isDiscoverySourceEnum()) {
+                    // SIAO is a salon/event, so map to 'evenement'
+                    $validated['discovery_source'] = 'evenement';
+                    // Store the original value in detail field
+                    $validated['discovery_source_detail'] = 'SIAO - ' . ($validated['discovery_source_detail'] ?? '');
+                }
             }
 
             $evaluation = Evaluation::create($validated);
