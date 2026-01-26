@@ -1,5 +1,9 @@
 import './bootstrap';
 import Alpine from 'alpinejs';
+import collapse from '@alpinejs/collapse';
+
+// Register Alpine plugins
+Alpine.plugin(collapse);
 
 // Evaluation Form Component
 Alpine.data('evaluationForm', () => ({
