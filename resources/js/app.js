@@ -520,10 +520,11 @@ Alpine.data('evaluationForm', () => ({
             const result = await response.json();
             this.success = true;
 
+            // Fermer rapidement après succès (1.5s pour voir le message)
             setTimeout(() => {
                 window.dispatchEvent(new CustomEvent('close-evaluation-modal'));
                 this.resetForm();
-            }, 3000);
+            }, 1500);
 
         } catch (e) {
             console.error('Erreur lors de la soumission:', e);
