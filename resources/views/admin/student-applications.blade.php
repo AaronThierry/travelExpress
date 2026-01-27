@@ -126,28 +126,48 @@
         </div>
 
         <form id="create-form" onsubmit="createApplication(event)" class="space-y-5">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-amber-400 mb-2">Type de dossier *</label>
+                    <select name="dossier_type" required class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500">
+                        <option value="nouveau">Dossier Initial (Nouveau)</option>
+                        <option value="complementaire">Dossier Complémentaire</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-amber-400 mb-2">Programme *</label>
+                    <select name="program_type" required class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500">
+                        <option value="">Sélectionnez</option>
+                        <option value="license">Licence</option>
+                        <option value="master">Master</option>
+                    </select>
+                </div>
+            </div>
+
             <div>
-                <label class="block text-sm font-medium text-amber-400 mb-2">Programme *</label>
-                <select name="program_type" required class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500">
-                    <option value="">Sélectionnez un programme</option>
-                    <option value="license">Licence</option>
-                    <option value="master">Master</option>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Nom complet (optionnel)</label>
+                <input type="text" name="student_name" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500" placeholder="Sera rempli par l'étudiant">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Email (optionnel)</label>
+                <input type="email" name="student_email" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500" placeholder="Sera rempli par l'étudiant">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Téléphone (optionnel)</label>
+                <input type="text" name="student_phone" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500" placeholder="Sera rempli par l'étudiant">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-amber-400 mb-2">Validité du lien (jours)</label>
+                <select name="expires_in_days" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500">
+                    <option value="30">30 jours</option>
+                    <option value="60">60 jours</option>
+                    <option value="90">90 jours</option>
+                    <option value="180">6 mois</option>
+                    <option value="365">1 an</option>
                 </select>
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-amber-400 mb-2">Nom complet *</label>
-                <input type="text" name="student_name" required class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500" placeholder="Jean Dupont">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-amber-400 mb-2">Email *</label>
-                <input type="email" name="student_email" required class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500" placeholder="jean@example.com">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-amber-400 mb-2">Téléphone</label>
-                <input type="text" name="student_phone" class="w-full px-4 py-3 bg-gray-900/80 border border-amber-500/30 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500" placeholder="+33 6 12 34 56 78">
             </div>
 
             <div class="flex gap-3 pt-4">
@@ -171,20 +191,36 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
             </div>
-            <h2 class="text-2xl font-bold text-amber-400">Lien d'upload généré</h2>
-            <p class="text-gray-400 mt-2">Partagez ce lien avec l'étudiant</p>
+            <h2 class="text-2xl font-bold text-amber-400">Dossier créé avec succès!</h2>
+            <p class="text-gray-400 mt-2">Envoyez ce lien à l'étudiant pour qu'il puisse remplir son dossier</p>
         </div>
 
-        <div class="bg-gray-900/80 border border-amber-500/20 rounded-xl p-4 mb-6">
-            <div class="flex items-center gap-2">
-                <input type="text" id="upload-link" readonly class="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg font-mono text-sm text-amber-400">
-                <button onclick="copyLink()" class="px-4 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 text-black font-bold rounded-lg hover:from-amber-400 hover:to-yellow-500 transition-all whitespace-nowrap">
-                    Copier
-                </button>
+        <div class="space-y-4">
+            <!-- Student Form URL -->
+            <div class="bg-gray-900/80 border border-amber-500/20 rounded-xl p-4">
+                <label class="block text-sm font-medium text-amber-400 mb-2">Lien du formulaire étudiant</label>
+                <div class="flex items-center gap-2">
+                    <input type="text" id="student-form-url" readonly class="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg font-mono text-sm text-amber-400">
+                    <button onclick="copyStudentFormUrl()" class="px-4 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 text-black font-bold rounded-lg hover:from-amber-400 hover:to-yellow-500 transition-all whitespace-nowrap">
+                        Copier
+                    </button>
+                </div>
+                <p class="text-xs text-gray-500 mt-2" id="link-expiry-info">Expire le: --</p>
+            </div>
+
+            <!-- Instructions -->
+            <div class="bg-blue-900/20 border border-blue-500/30 rounded-xl p-4">
+                <h4 class="text-sm font-medium text-blue-400 mb-2">Instructions</h4>
+                <ul class="text-sm text-gray-400 space-y-1">
+                    <li>1. Copiez le lien ci-dessus</li>
+                    <li>2. Envoyez-le à l'étudiant par email ou WhatsApp</li>
+                    <li>3. L'étudiant pourra remplir ses informations et uploader ses documents</li>
+                    <li>4. Vous recevrez une notification quand le dossier sera soumis</li>
+                </ul>
             </div>
         </div>
 
-        <button onclick="closeLinkModal()" class="w-full px-6 py-3 bg-gray-700 text-gray-300 rounded-xl hover:bg-gray-600 transition-all">
+        <button onclick="closeLinkModal()" class="w-full mt-6 px-6 py-3 bg-gray-700 text-gray-300 rounded-xl hover:bg-gray-600 transition-all">
             Fermer
         </button>
     </div>
@@ -336,9 +372,8 @@
 
     async function loadStats() {
         try {
-            const response = await fetch('/api/admin/student-applications/stats', {
+            const response = await fetch('/admin/api/student-applications/stats', {
                 headers: {
-                    'Authorization': `Bearer ${authToken}`,
                     'Accept': 'application/json'
                 }
             });
@@ -442,9 +477,8 @@
         });
 
         try {
-            const response = await fetch(`/api/admin/student-applications?${params}`, {
+            const response = await fetch(`/admin/api/student-applications?${params}`, {
                 headers: {
-                    'Authorization': `Bearer ${authToken}`,
                     'Accept': 'application/json'
                 }
             });
@@ -573,7 +607,7 @@
                     <button onclick="editComplementary(${app.id})" class="flex-1 px-3 py-2 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30 transition-all text-sm font-medium">
                         Complémentaire
                     </button>
-                    <button onclick="copyUploadLink('${app.upload_link}')" class="px-3 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition-all text-sm" title="Copier lien">
+                    <button onclick="showLinkForApp(${app.id}, '${app.student_form_url || app.upload_link}')" class="px-3 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-all text-sm" title="Voir/Copier lien étudiant">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
                         </svg>
@@ -639,12 +673,12 @@
         const data = Object.fromEntries(formData);
 
         try {
-            const response = await fetch('/api/admin/student-applications', {
+            const response = await fetch('/admin/api/student-applications', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${authToken}`,
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
                 },
                 body: JSON.stringify(data)
             });
@@ -653,13 +687,15 @@
 
             if (response.ok) {
                 closeCreateModal();
-                document.getElementById('upload-link').value = result.upload_link;
+                // Show the student form URL
+                document.getElementById('student-form-url').value = result.student_form_url || result.upload_link;
+                document.getElementById('link-expiry-info').textContent = result.token_expires_at ? `Expire le: ${result.token_expires_at}` : 'Lien permanent';
                 document.getElementById('link-modal').classList.remove('hidden');
                 loadStats();
                 loadApplications();
                 showToast('Dossier créé avec succès');
             } else {
-                showToast('Erreur lors de la création', 'error');
+                showToast(result.message || 'Erreur lors de la création', 'error');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -671,11 +707,15 @@
         document.getElementById('link-modal').classList.add('hidden');
     }
 
-    function copyLink() {
-        const link = document.getElementById('upload-link');
+    function copyStudentFormUrl() {
+        const link = document.getElementById('student-form-url');
         link.select();
-        document.execCommand('copy');
-        showToast('Lien copié!');
+        navigator.clipboard.writeText(link.value).then(() => {
+            showToast('Lien copié dans le presse-papier!');
+        }).catch(() => {
+            document.execCommand('copy');
+            showToast('Lien copié!');
+        });
     }
 
     function copyUploadLink(link) {
@@ -684,11 +724,40 @@
         });
     }
 
+    async function regenerateToken(appId) {
+        if (!confirm('Régénérer le lien invalidera l\'ancien. Continuer?')) return;
+
+        try {
+            const response = await fetch(`/admin/api/student-applications/${appId}/regenerate-token`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                },
+                body: JSON.stringify({ expires_in_days: 30 })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                document.getElementById('student-form-url').value = result.data.student_form_url;
+                document.getElementById('link-expiry-info').textContent = `Expire le: ${result.data.expires_at}`;
+                document.getElementById('link-modal').classList.remove('hidden');
+                showToast('Nouveau lien généré!');
+            } else {
+                showToast('Erreur lors de la régénération', 'error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('Une erreur est survenue', 'error');
+        }
+    }
+
     async function viewDetails(id) {
         try {
-            const response = await fetch(`/api/admin/student-applications/${id}`, {
+            const response = await fetch(`/admin/api/student-applications/${id}`, {
                 headers: {
-                    'Authorization': `Bearer ${authToken}`,
                     'Accept': 'application/json'
                 }
             });
@@ -853,9 +922,8 @@
 
     async function editComplementary(id) {
         try {
-            const response = await fetch(`/api/admin/student-applications/${id}`, {
+            const response = await fetch(`/admin/api/student-applications/${id}`, {
                 headers: {
-                    'Authorization': `Bearer ${authToken}`,
                     'Accept': 'application/json'
                 }
             });
@@ -898,12 +966,12 @@
         };
 
         try {
-            const response = await fetch(`/api/admin/student-applications/${id}/complementary`, {
+            const response = await fetch(`/admin/api/student-applications/${id}/complementary`, {
                 method: 'PUT',
                 headers: {
-                    'Authorization': `Bearer ${authToken}`,
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
                 },
                 body: JSON.stringify(data)
             });
@@ -955,11 +1023,11 @@
         if (!confirm('Êtes-vous sûr de vouloir supprimer ce dossier? Cette action est irréversible.')) return;
 
         try {
-            const response = await fetch(`/api/admin/student-applications/${id}`, {
+            const response = await fetch(`/admin/api/student-applications/${id}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
                 }
             });
 
@@ -973,6 +1041,17 @@
         } catch (error) {
             console.error('Error:', error);
             showToast('Une erreur est survenue', 'error');
+        }
+    }
+
+    function showLinkForApp(appId, link) {
+        if (link && link !== 'null' && link !== 'undefined') {
+            document.getElementById('student-form-url').value = link;
+            document.getElementById('link-expiry-info').innerHTML = `<button onclick="regenerateToken(${appId})" class="text-amber-400 hover:text-amber-300 underline">Régénérer le lien</button>`;
+            document.getElementById('link-modal').classList.remove('hidden');
+        } else {
+            // Generate token if not exists
+            regenerateToken(appId);
         }
     }
 </script>

@@ -12,6 +12,9 @@ class StudentApplication extends Model
 
     protected $fillable = [
         'unique_token',
+        'access_token',
+        'token_expires_at',
+        'student_submitted_at',
         'program_type',
         'student_name',
         'student_email',
@@ -40,6 +43,8 @@ class StudentApplication extends Model
         'submitted_at' => 'datetime',
         'reviewed_at' => 'datetime',
         'complementary_submitted_at' => 'datetime',
+        'student_submitted_at' => 'datetime',
+        'token_expires_at' => 'datetime',
         'casier_judiciaire_valide' => 'boolean',
         'current_step' => 'integer',
         'admission_year' => 'integer',
@@ -281,5 +286,68 @@ class StudentApplication extends Model
             || !empty($this->visa_current)
             || !empty($this->numero_chinois)
             || !empty($this->bilan_sante_chinois_path);
+    }
+
+    // Generate new access token for student
+    public function generateAccessToken(int $expiresInDays = 30): string
+    {
+        $this->access_token = Str::random(64);
+        $this->token_expires_at = now()->addDays($expiresInDays);
+        $this->save();
+
+        return $this->access_token;
+    }
+
+    // Check if access token is valid
+    public function isTokenValid(): bool
+    {
+        if (empty($this->access_token)) {
+            return false;
+        }
+
+        if ($this->token_expires_at && $this->token_expires_at->isPast()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // Get public form URL for student
+    public function getStudentFormUrlAttribute(): ?string
+    {
+        if (empty($this->access_token)) {
+            return null;
+        }
+
+        return url("/dossier/{$this->access_token}");
+    }
+
+    // Find application by access token
+    public static function findByToken(string $token): ?self
+    {
+        return static::where('access_token', $token)
+            ->where(function ($query) {
+                $query->whereNull('token_expires_at')
+                    ->orWhere('token_expires_at', '>', now());
+            })
+            ->first();
+    }
+
+    // Scope for applications with valid tokens
+    public function scopeWithValidToken($query)
+    {
+        return $query->whereNotNull('access_token')
+            ->where(function ($q) {
+                $q->whereNull('token_expires_at')
+                    ->orWhere('token_expires_at', '>', now());
+            });
+    }
+
+    // Mark as submitted by student
+    public function markAsSubmittedByStudent(): void
+    {
+        $this->student_submitted_at = now();
+        $this->status = 'pending';
+        $this->save();
     }
 }

@@ -107,6 +107,10 @@ class StudentApplicationAdminController extends Controller
             'current_step_label' => $application->current_step_label,
             'status_info' => $application->status_info,
             'complementary_status_info' => $application->complementary_status_info,
+            'student_form_url' => $application->student_form_url,
+            'upload_link' => $application->upload_link,
+            'token_expires_at' => $application->token_expires_at?->format('d/m/Y H:i'),
+            'is_token_valid' => $application->isTokenValid(),
         ]);
     }
 
@@ -117,23 +121,33 @@ class StudentApplicationAdminController extends Controller
     {
         $validated = $request->validate([
             'program_type' => 'required|in:license,master',
-            'student_name' => 'required|string|max:255',
-            'student_email' => 'required|email|max:255',
+            'student_name' => 'nullable|string|max:255',
+            'student_email' => 'nullable|email|max:255',
             'student_phone' => 'nullable|string|max:20',
             'dossier_type' => 'nullable|in:nouveau,complementaire',
+            'expires_in_days' => 'nullable|integer|min:1|max:365',
         ]);
 
         $validated['dossier_type'] = $validated['dossier_type'] ?? 'nouveau';
-        $validated['current_step'] = 1;
-        $validated['complementary_status'] = 'not_started';
+        $validated['current_step'] = $validated['dossier_type'] === 'complementaire' ? 2 : 1;
+        $validated['complementary_status'] = $validated['dossier_type'] === 'complementaire' ? 'in_progress' : 'not_started';
+
+        // Remove expires_in_days from validated data before create
+        $expiresInDays = $validated['expires_in_days'] ?? 30;
+        unset($validated['expires_in_days']);
 
         $application = StudentApplication::create($validated);
+
+        // Generate access token
+        $application->generateAccessToken($expiresInDays);
 
         return response()->json([
             'success' => true,
             'message' => 'Dossier créé avec succès',
-            'application' => $application,
-            'upload_link' => $application->upload_link
+            'application' => $application->fresh(),
+            'upload_link' => $application->upload_link,
+            'student_form_url' => $application->student_form_url,
+            'token_expires_at' => $application->token_expires_at?->format('d/m/Y H:i'),
         ], 201);
     }
 
@@ -429,6 +443,58 @@ class StudentApplicationAdminController extends Controller
         return response()->json([
             'success' => true,
             'message' => count($validated['ids']) . ' dossiers mis à jour'
+        ]);
+    }
+
+    /**
+     * Generate access token for student
+     */
+    public function generateToken(Request $request, $id)
+    {
+        $application = StudentApplication::findOrFail($id);
+
+        $validated = $request->validate([
+            'expires_in_days' => 'nullable|integer|min:1|max:365',
+        ]);
+
+        $expiresInDays = $validated['expires_in_days'] ?? 30;
+        $token = $application->generateAccessToken($expiresInDays);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Lien généré avec succès',
+            'data' => [
+                'access_token' => $token,
+                'student_form_url' => $application->student_form_url,
+                'expires_at' => $application->token_expires_at->format('d/m/Y H:i'),
+                'expires_in_days' => $expiresInDays,
+            ]
+        ]);
+    }
+
+    /**
+     * Regenerate access token (invalidates old one)
+     */
+    public function regenerateToken(Request $request, $id)
+    {
+        $application = StudentApplication::findOrFail($id);
+
+        $validated = $request->validate([
+            'expires_in_days' => 'nullable|integer|min:1|max:365',
+        ]);
+
+        $expiresInDays = $validated['expires_in_days'] ?? 30;
+        $token = $application->generateAccessToken($expiresInDays);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Nouveau lien généré avec succès. L\'ancien lien est maintenant invalide.',
+            'data' => [
+                'access_token' => $token,
+                'student_form_url' => $application->student_form_url,
+                'expires_at' => $application->token_expires_at->format('d/m/Y H:i'),
+                'expires_in_days' => $expiresInDays,
+            ]
         ]);
     }
 }

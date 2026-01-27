@@ -109,7 +109,7 @@ Route::get('/bourse', function () {
     return view('bourse');
 })->name('bourse');
 
-// Student Application Upload Routes
+// Student Application Upload Routes (legacy - unique_token)
 Route::get('/student/upload/{token}', [App\Http\Controllers\StudentApplicationController::class, 'showUploadForm'])
     ->name('student.upload.form');
 
@@ -121,6 +121,27 @@ Route::delete('/student/upload/{token}/document/{documentId}', [App\Http\Control
 
 Route::post('/student/upload/{token}/submit', [App\Http\Controllers\StudentApplicationController::class, 'submitApplication'])
     ->name('student.submit.application');
+
+// Student Application Routes (new - access_token)
+Route::prefix('dossier')->group(function () {
+    Route::get('/{token}', [App\Http\Controllers\StudentApplicationController::class, 'showUploadForm'])
+        ->name('dossier.form');
+
+    Route::post('/{token}/info', [App\Http\Controllers\StudentApplicationController::class, 'updateInfo'])
+        ->name('dossier.update.info');
+
+    Route::post('/{token}/upload', [App\Http\Controllers\StudentApplicationController::class, 'uploadDocument'])
+        ->name('dossier.upload');
+
+    Route::delete('/{token}/document/{documentId}', [App\Http\Controllers\StudentApplicationController::class, 'deleteDocument'])
+        ->name('dossier.delete.document');
+
+    Route::post('/{token}/submit', [App\Http\Controllers\StudentApplicationController::class, 'submitApplication'])
+        ->name('dossier.submit');
+
+    Route::get('/{token}/status', [App\Http\Controllers\StudentApplicationController::class, 'getStatus'])
+        ->name('dossier.status');
+});
 
 Route::get('/document/{documentId}/download', [App\Http\Controllers\StudentApplicationController::class, 'downloadDocument'])
     ->name('document.download');
@@ -173,4 +194,14 @@ Route::prefix('admin/api')->middleware(['web', 'auth', 'admin'])->group(function
     Route::delete('/student-applications/{id}', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'destroy']);
     Route::post('/student-applications/documents/{documentId}/approve', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'approveDocument']);
     Route::post('/student-applications/documents/{documentId}/reject', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'rejectDocument']);
+
+    // Token management
+    Route::post('/student-applications/{id}/generate-token', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'generateToken']);
+    Route::post('/student-applications/{id}/regenerate-token', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'regenerateToken']);
+
+    // Complementary dossier routes
+    Route::put('/student-applications/{id}/complementary', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'updateComplementary']);
+    Route::post('/student-applications/{id}/complementary/upload', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'uploadComplementaryFile']);
+    Route::post('/student-applications/{id}/advance-step', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'advanceStep']);
+    Route::post('/student-applications/bulk-update', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'bulkUpdateStatus']);
 });
