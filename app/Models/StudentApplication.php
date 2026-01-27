@@ -100,7 +100,6 @@ class StudentApplication extends Model
             'passeport_complet' => 'Passport (Scan en intégralité)',
             'certificat_langue' => 'Certificat de langue',
             'certificat_etude_chinois' => 'Certificat d\'étude chinois (Study certificate)',
-            'justificatif_ressources' => 'Justificatif de ressources financières (optionnel)',
         ];
     }
 
@@ -181,10 +180,6 @@ class StudentApplication extends Model
         $uploadedDocs = $this->documents()->pluck('document_type')->toArray();
 
         foreach (array_keys($compDocs) as $docType) {
-            // Skip optional documents
-            if (in_array($docType, ['justificatif_ressources'])) {
-                continue;
-            }
             if (!in_array($docType, $uploadedDocs)) {
                 return false;
             }
@@ -204,15 +199,11 @@ class StudentApplication extends Model
         if (!empty($this->bilan_sante_chinois_path)) $completed++;
         if (!empty($this->numero_chinois)) $completed++;
 
-        // Add required complementary documents (exclude optional ones)
+        // Add complementary documents
         $compDocs = self::getComplementaryDocuments();
-        $requiredCompDocs = array_filter($compDocs, function($key) {
-            return !in_array($key, ['justificatif_ressources']);
-        }, ARRAY_FILTER_USE_KEY);
-
-        $total += count($requiredCompDocs);
+        $total += count($compDocs);
         $uploadedDocs = $this->documents()->pluck('document_type')->toArray();
-        $completed += count(array_intersect(array_keys($requiredCompDocs), $uploadedDocs));
+        $completed += count(array_intersect(array_keys($compDocs), $uploadedDocs));
 
         return $total > 0 ? (int) (($completed / $total) * 100) : 0;
     }
