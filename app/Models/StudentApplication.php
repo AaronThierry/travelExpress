@@ -100,6 +100,7 @@ class StudentApplication extends Model
             'passeport_complet' => 'Passport (Scan en intégralité)',
             'certificat_langue' => 'Certificat de langue',
             'certificat_etude_chinois' => 'Certificat d\'étude chinois (Study certificate)',
+            'formulaire_inscription' => 'Formulaire d\'inscription (avec adresse et téléphone chinois)',
         ];
     }
 
