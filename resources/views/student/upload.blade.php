@@ -381,7 +381,7 @@
                 @foreach($requiredDocuments as $docType => $docLabel)
                     @php
                         $uploaded = $uploadedDocuments->get($docType);
-                        $isOptional = in_array($docType, ['visite_medicale', 'test_anglais']);
+                        $isOptional = in_array($docType, ['certificat_anglais', 'test_csca']);
                     @endphp
                     <div class="doc-item" data-doc-type="{{ $docType }}">
                         <div class="flex flex-col md:flex-row md:items-center gap-4">

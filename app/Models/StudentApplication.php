@@ -67,24 +67,30 @@ class StudentApplication extends Model
         $license = [
             'photo_identite' => 'Photo d\'identité (35mm x 45mm)',
             'passeport' => 'Passeport (page d\'information)',
-            'diplomes_bac' => 'Diplômes et relevés de note du BAC',
+            'diplome_attestation' => 'Diplôme ou attestation',
+            'releve_notes' => 'Relevé de notes du dernier diplôme',
             'casier_judiciaire' => 'Casier judiciaire valable',
-            'visite_medicale' => 'Visite médicale (optionnel)',
+            'visite_medicale' => 'Visite Médicale',
+            'dernier_bulletin' => 'Dernier bulletin',
             'formulaire_candidature' => 'Formulaire de candidature',
-            'carte_identite_parent' => 'Copie carte d\'identité du père ou de la mère'
+            'carte_identite_parent' => 'Copie carte d\'identité du père ou de la mère',
+            'certificat_anglais' => 'Certificat d\'anglais (optionnel)',
+            'test_csca' => 'Test CSCA (optionnel)',
         ];
 
         $master = [
             'photo_identite' => 'Photo d\'identité (35mm x 45mm)',
             'passeport' => 'Passeport (page d\'information)',
-            'bulletin_license' => 'Bulletin de la License',
-            'diplomes_license' => 'Diplômes de License',
+            'diplome_attestation' => 'Diplôme ou attestation',
+            'releve_notes' => 'Relevé de notes du dernier diplôme',
             'casier_judiciaire' => 'Casier judiciaire valable',
-            'visite_medicale' => 'Visite médicale (optionnel)',
-            'test_anglais' => 'Test d\'Anglais (optionnel)',
+            'visite_medicale' => 'Visite Médicale',
+            'dernier_bulletin' => 'Dernier bulletin',
             'formulaire_candidature' => 'Formulaire de candidature',
             'plan_etude' => 'Plan d\'étude',
-            'lettres_motivation' => 'Deux lettres de motivation'
+            'lettres_motivation' => 'Deux lettres de motivation',
+            'certificat_anglais' => 'Certificat d\'anglais (optionnel)',
+            'test_csca' => 'Test CSCA (optionnel)',
         ];
 
         return $programType === 'master' ? $master : $license;
@@ -141,7 +147,7 @@ class StudentApplication extends Model
 
         foreach (array_keys($requiredDocs) as $docType) {
             // Skip optional documents
-            if (in_array($docType, ['visite_medicale', 'test_anglais'])) {
+            if (in_array($docType, ['certificat_anglais', 'test_csca'])) {
                 continue;
             }
             if (!in_array($docType, $uploadedDocs)) {
@@ -158,7 +164,7 @@ class StudentApplication extends Model
         $requiredDocs = self::getRequiredDocuments($this->program_type);
         // Remove optional documents from calculation
         $requiredDocs = array_filter($requiredDocs, function($key) {
-            return !in_array($key, ['visite_medicale', 'test_anglais']);
+            return !in_array($key, ['certificat_anglais', 'test_csca']);
         }, ARRAY_FILTER_USE_KEY);
 
         $uploadedDocs = $this->documents()->pluck('document_type')->toArray();
