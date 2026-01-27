@@ -369,10 +369,10 @@
             <!-- Tabs -->
             <div class="tabs">
                 <button class="tab" :class="{ active: activeTab === 'initial' }" @click="activeTab = 'initial'">
-                    Dossier Initial ({{ Object.keys(requiredDocuments).length }})
+                    Dossier Initial ({{ count($requiredDocuments) }})
                 </button>
                 <button class="tab" :class="{ active: activeTab === 'complementary' }" @click="activeTab = 'complementary'">
-                    Dossier Complémentaire ({{ Object.keys(complementaryDocuments).length }})
+                    Dossier Complémentaire ({{ count($complementaryDocuments) }})
                 </button>
             </div>
 
