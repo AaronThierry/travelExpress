@@ -76,6 +76,9 @@ class StudentApplication extends Model
             'carte_identite_parent' => 'Copie carte d\'identité du père ou de la mère',
             'certificat_anglais' => 'Certificat d\'anglais (optionnel)',
             'test_csca' => 'Test CSCA (optionnel)',
+            'plan_etude' => 'Plan d\'étude (optionnel)',
+            'lettre_motivation' => 'Lettre de motivation (optionnel)',
+            'capacite_financiere' => 'Capacité financière (optionnel)',
         ];
 
         $master = [
@@ -87,10 +90,12 @@ class StudentApplication extends Model
             'visite_medicale' => 'Visite Médicale',
             'dernier_bulletin' => 'Dernier bulletin',
             'formulaire_candidature' => 'Formulaire de candidature',
-            'plan_etude' => 'Plan d\'étude',
-            'lettres_motivation' => 'Deux lettres de motivation',
+            'carte_identite_parent' => 'Copie carte d\'identité du père ou de la mère',
             'certificat_anglais' => 'Certificat d\'anglais (optionnel)',
             'test_csca' => 'Test CSCA (optionnel)',
+            'plan_etude' => 'Plan d\'étude (optionnel)',
+            'lettre_motivation' => 'Lettre de motivation (optionnel)',
+            'capacite_financiere' => 'Capacité financière (optionnel)',
         ];
 
         return $programType === 'master' ? $master : $license;
@@ -147,7 +152,7 @@ class StudentApplication extends Model
 
         foreach (array_keys($requiredDocs) as $docType) {
             // Skip optional documents
-            if (in_array($docType, ['certificat_anglais', 'test_csca'])) {
+            if (in_array($docType, ['certificat_anglais', 'test_csca', 'plan_etude', 'lettre_motivation', 'capacite_financiere'])) {
                 continue;
             }
             if (!in_array($docType, $uploadedDocs)) {
@@ -164,7 +169,7 @@ class StudentApplication extends Model
         $requiredDocs = self::getRequiredDocuments($this->program_type);
         // Remove optional documents from calculation
         $requiredDocs = array_filter($requiredDocs, function($key) {
-            return !in_array($key, ['certificat_anglais', 'test_csca']);
+            return !in_array($key, ['certificat_anglais', 'test_csca', 'plan_etude', 'lettre_motivation', 'capacite_financiere']);
         }, ARRAY_FILTER_USE_KEY);
 
         $uploadedDocs = $this->documents()->pluck('document_type')->toArray();
