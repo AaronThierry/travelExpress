@@ -449,7 +449,7 @@
                 @foreach($complementaryDocuments as $docType => $docLabel)
                     @php
                         $uploaded = $uploadedDocuments->get($docType);
-                        $isOptional = in_array($docType, ['attestation_hebergement', 'justificatif_ressources']);
+                        $isOptional = in_array($docType, ['justificatif_ressources']);
                     @endphp
                     <div class="doc-item" data-doc-type="{{ $docType }}">
                         <div class="flex flex-col md:flex-row md:items-center gap-4">

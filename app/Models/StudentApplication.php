@@ -96,8 +96,10 @@ class StudentApplication extends Model
         return [
             'visa_chinois' => 'Visa chinois actuel',
             'bilan_sante_chinois' => 'Bilan de santé format chinois',
-            'casier_judiciaire_traduit' => 'Casier judiciaire traduit en chinois',
-            'attestation_hebergement' => 'Attestation d\'hébergement (optionnel)',
+            'casier_judiciaire_chinois' => 'Casier judiciaire (chinois ou national)',
+            'passeport_complet' => 'Passport (Scan en intégralité)',
+            'certificat_langue' => 'Certificat de langue',
+            'certificat_etude_chinois' => 'Certificat d\'étude chinois (Study certificate)',
             'justificatif_ressources' => 'Justificatif de ressources financières (optionnel)',
         ];
     }
@@ -180,7 +182,7 @@ class StudentApplication extends Model
 
         foreach (array_keys($compDocs) as $docType) {
             // Skip optional documents
-            if (in_array($docType, ['attestation_hebergement', 'justificatif_ressources'])) {
+            if (in_array($docType, ['justificatif_ressources'])) {
                 continue;
             }
             if (!in_array($docType, $uploadedDocs)) {
@@ -194,7 +196,7 @@ class StudentApplication extends Model
     // Get completion percentage for complementary dossier
     public function getComplementaryCompletionPercentageAttribute(): int
     {
-        $total = 5; // visa_current, casier_judiciaire_valide, bilan_sante_chinois, numero_chinois + required docs
+        $total = 4; // visa_current, casier_judiciaire_valide, bilan_sante_chinois, numero_chinois
         $completed = 0;
 
         if (!empty($this->visa_current)) $completed++;
@@ -202,10 +204,10 @@ class StudentApplication extends Model
         if (!empty($this->bilan_sante_chinois_path)) $completed++;
         if (!empty($this->numero_chinois)) $completed++;
 
-        // Add required complementary documents
+        // Add required complementary documents (exclude optional ones)
         $compDocs = self::getComplementaryDocuments();
         $requiredCompDocs = array_filter($compDocs, function($key) {
-            return !in_array($key, ['attestation_hebergement', 'justificatif_ressources']);
+            return !in_array($key, ['justificatif_ressources']);
         }, ARRAY_FILTER_USE_KEY);
 
         $total += count($requiredCompDocs);
