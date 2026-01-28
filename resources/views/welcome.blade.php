@@ -333,15 +333,13 @@
                                             </a>
                                         </template>
 
-                                        <!-- Roles & Permissions (only for admins) -->
-                                        <template x-if="isAdmin()">
-                                            <a href="/admin/roles" class="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors group mt-1">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                                                </svg>
-                                                <span class="font-medium">Rôles & Permissions</span>
-                                            </a>
-                                        </template>
+                                        <!-- Roles & Permissions (visible for all logged-in users) -->
+                                        <a href="/admin/roles" class="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors group mt-1">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                            </svg>
+                                            <span class="font-medium">Rôles & Permissions</span>
+                                        </a>
 
                                         <a href="/profile" class="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-colors group">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -504,15 +502,13 @@
                                     <span class="font-medium">Dashboard Admin</span>
                                 </a>
                             </template>
-                            <!-- Roles & Permissions (if admin) -->
-                            <template x-if="isAdmin()">
-                                <a href="/admin/roles" @click="mobileMenuOpen = false" class="flex items-center space-x-3 py-2.5 px-4 text-gray-600 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition-all text-sm">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                                    </svg>
-                                    <span class="font-medium">Rôles & Permissions</span>
-                                </a>
-                            </template>
+                            <!-- Roles & Permissions (visible for all logged-in users) -->
+                            <a href="/admin/roles" @click="mobileMenuOpen = false" class="flex items-center space-x-3 py-2.5 px-4 text-gray-600 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition-all text-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                                <span class="font-medium">Rôles & Permissions</span>
+                            </a>
                             <a href="/profile" @click="mobileMenuOpen = false" class="flex items-center space-x-3 py-2.5 px-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
