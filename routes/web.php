@@ -102,6 +102,14 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
             'showSearch' => true
         ]);
     })->name('admin.student-applications');
+
+    Route::get('/roles', function () {
+        return view('admin.roles', [
+            'title' => 'Rôles & Permissions',
+            'subtitle' => 'Gestion des accès',
+            'showSearch' => true
+        ]);
+    })->name('admin.roles');
 });
 
 // Bourse page
@@ -204,4 +212,24 @@ Route::prefix('admin/api')->middleware(['web', 'auth', 'admin'])->group(function
     Route::post('/student-applications/{id}/complementary/upload', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'uploadComplementaryFile']);
     Route::post('/student-applications/{id}/advance-step', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'advanceStep']);
     Route::post('/student-applications/bulk-update', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'bulkUpdateStatus']);
+
+    // Roles Management
+    Route::get('/roles', [App\Http\Controllers\Api\Admin\RoleController::class, 'index']);
+    Route::get('/roles/permissions', [App\Http\Controllers\Api\Admin\RoleController::class, 'permissions']);
+    Route::get('/roles/{id}', [App\Http\Controllers\Api\Admin\RoleController::class, 'show']);
+    Route::post('/roles', [App\Http\Controllers\Api\Admin\RoleController::class, 'store']);
+    Route::put('/roles/{id}', [App\Http\Controllers\Api\Admin\RoleController::class, 'update']);
+    Route::delete('/roles/{id}', [App\Http\Controllers\Api\Admin\RoleController::class, 'destroy']);
+    Route::post('/roles/assign', [App\Http\Controllers\Api\Admin\RoleController::class, 'assignToUser']);
+    Route::post('/roles/remove', [App\Http\Controllers\Api\Admin\RoleController::class, 'removeFromUser']);
+    Route::put('/users/{userId}/roles', [App\Http\Controllers\Api\Admin\RoleController::class, 'syncUserRoles']);
+
+    // Permissions Management
+    Route::get('/permissions', [App\Http\Controllers\Api\Admin\PermissionController::class, 'index']);
+    Route::get('/permissions/grouped', [App\Http\Controllers\Api\Admin\PermissionController::class, 'grouped']);
+    Route::get('/permissions/modules', [App\Http\Controllers\Api\Admin\PermissionController::class, 'modules']);
+    Route::post('/permissions', [App\Http\Controllers\Api\Admin\PermissionController::class, 'store']);
+    Route::post('/permissions/bulk', [App\Http\Controllers\Api\Admin\PermissionController::class, 'bulkCreate']);
+    Route::put('/permissions/{id}', [App\Http\Controllers\Api\Admin\PermissionController::class, 'update']);
+    Route::delete('/permissions/{id}', [App\Http\Controllers\Api\Admin\PermissionController::class, 'destroy']);
 });
