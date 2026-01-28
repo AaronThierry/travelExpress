@@ -25,7 +25,6 @@ class RoleController extends Controller
                     'name' => $role->name,
                     'slug' => $role->slug,
                     'description' => $role->description,
-                    'color' => $role->color,
                     'is_system' => $role->is_system,
                     'users_count' => $role->users_count,
                     'permissions_count' => $role->permissions_count,
@@ -53,7 +52,6 @@ class RoleController extends Controller
                 'name' => $role->name,
                 'slug' => $role->slug,
                 'description' => $role->description,
-                'color' => $role->color,
                 'is_system' => $role->is_system,
                 'permissions' => $role->permissions->pluck('slug')->toArray(),
                 'created_at' => $role->created_at->format('d M Y'),
@@ -70,7 +68,6 @@ class RoleController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:roles,slug',
             'description' => 'nullable|string|max:1000',
-            'color' => 'nullable|string|max:20',
             'permissions' => 'nullable|array',
             'permissions.*' => 'string|exists:permissions,slug',
         ], [
@@ -82,7 +79,6 @@ class RoleController extends Controller
             'name' => $validated['name'],
             'slug' => $validated['slug'] ?? Str::slug($validated['name']),
             'description' => $validated['description'] ?? null,
-            'color' => $validated['color'] ?? '#6B7280',
             'is_system' => false,
         ]);
 
@@ -116,7 +112,6 @@ class RoleController extends Controller
             'name' => 'sometimes|string|max:255',
             'slug' => ['sometimes', 'string', 'max:255', Rule::unique('roles')->ignore($role->id)],
             'description' => 'nullable|string|max:1000',
-            'color' => 'nullable|string|max:20',
             'permissions' => 'nullable|array',
             'permissions.*' => 'string|exists:permissions,slug',
         ]);
@@ -126,13 +121,11 @@ class RoleController extends Controller
                 'name' => $validated['name'] ?? $role->name,
                 'slug' => $validated['slug'] ?? $role->slug,
                 'description' => $validated['description'] ?? $role->description,
-                'color' => $validated['color'] ?? $role->color,
             ]);
         } else {
-            // For system roles, only allow description and color changes
+            // For system roles, only allow description changes
             $role->update([
                 'description' => $validated['description'] ?? $role->description,
-                'color' => $validated['color'] ?? $role->color,
             ]);
         }
 

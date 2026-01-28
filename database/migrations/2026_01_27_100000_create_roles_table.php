@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->string('color')->default('#6B7280'); // For UI display
             $table->boolean('is_system')->default(false); // System roles cannot be deleted
             $table->timestamps();
         });

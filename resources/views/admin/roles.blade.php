@@ -155,16 +155,6 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-300 mb-2">Couleur</label>
-                <div class="flex gap-3">
-                    <input type="color" id="role-color" value="#6B7280" class="w-12 h-12 rounded-lg cursor-pointer border border-[#d4af37]/20">
-                    <input type="text" id="role-color-text" value="#6B7280"
-                        class="flex-1 px-4 py-3 bg-[#0a0a0a] border border-[#d4af37]/20 rounded-xl text-white placeholder-gray-500 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/50 outline-none transition-all"
-                        placeholder="#6B7280">
-                </div>
-            </div>
-
-            <div>
                 <label class="block text-sm font-medium text-gray-300 mb-3">Permissions</label>
                 <div id="role-permissions" class="space-y-4 max-h-64 overflow-y-auto pr-2">
                     <!-- Permissions grouped by module -->
@@ -294,8 +284,8 @@
             <div class="elegant-card p-5 hover:border-[#d4af37]/40 transition-all">
                 <div class="flex items-start justify-between mb-4">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background-color: ${role.color}20; border: 1px solid ${role.color}40">
-                            <svg class="w-5 h-5" style="color: ${role.color}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-[#d4af37]/10 border border-[#d4af37]/30">
+                            <svg class="w-5 h-5 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                             </svg>
                         </div>
@@ -478,8 +468,6 @@
         document.getElementById('role-name').value = '';
         document.getElementById('role-slug').value = '';
         document.getElementById('role-description').value = '';
-        document.getElementById('role-color').value = '#6B7280';
-        document.getElementById('role-color-text').value = '#6B7280';
 
         loadPermissionsForModal(roleId);
 
@@ -503,8 +491,6 @@
                 document.getElementById('role-name').value = role.name;
                 document.getElementById('role-slug').value = role.slug;
                 document.getElementById('role-description').value = role.description || '';
-                document.getElementById('role-color').value = role.color;
-                document.getElementById('role-color-text').value = role.color;
                 rolePermissions = role.permissions || [];
             }
 
@@ -566,7 +552,6 @@
         const name = document.getElementById('role-name').value;
         const slug = document.getElementById('role-slug').value;
         const description = document.getElementById('role-description').value;
-        const color = document.getElementById('role-color').value;
 
         const selectedPermissions = Array.from(document.querySelectorAll('.perm-checkbox:checked')).map(cb => cb.value);
 
@@ -574,7 +559,6 @@
             name,
             slug: slug || undefined,
             description,
-            color,
             permissions: selectedPermissions
         };
 
@@ -650,7 +634,6 @@
                     <p class="text-sm font-medium text-white">${escapeHtml(role.name)}</p>
                     <p class="text-xs text-gray-500">${escapeHtml(role.description || '')}</p>
                 </div>
-                <div class="w-3 h-3 rounded-full" style="background-color: ${role.color}"></div>
             </label>
         `).join('');
 
@@ -702,16 +685,6 @@
         div.textContent = text;
         return div.innerHTML;
     }
-
-    // Color input sync
-    document.getElementById('role-color').addEventListener('input', function() {
-        document.getElementById('role-color-text').value = this.value;
-    });
-    document.getElementById('role-color-text').addEventListener('input', function() {
-        if (/^#[0-9A-Fa-f]{6}$/.test(this.value)) {
-            document.getElementById('role-color').value = this.value;
-        }
-    });
 
     // Search and filter listeners
     document.getElementById('permission-search').addEventListener('input', function() {
