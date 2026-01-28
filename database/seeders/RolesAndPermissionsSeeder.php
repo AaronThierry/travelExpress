@@ -533,14 +533,9 @@ class RolesAndPermissionsSeeder extends Seeder
         );
 
         // ==========================================
-        // USER - Permissions minimales
+        // USER - Aucune permission admin (pas d'accès au dashboard)
         // ==========================================
-        $userPermissions = [
-            'dashboard-view',
-        ];
-        $roles[Role::USER]->permissions()->sync(
-            Permission::whereIn('slug', $userPermissions)->pluck('id')->toArray()
-        );
+        $roles[Role::USER]->permissions()->sync([]);
     }
 
     /**
