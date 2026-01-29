@@ -15,7 +15,13 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->user() || !$request->user()->is_admin) {
+        $user = $request->user();
+
+        // Check: user must be logged in AND have admin access
+        // Admin access = is_admin flag (legacy) OR has dashboard-view permission (RBAC)
+        $hasAccess = $user && ($user->is_admin || $user->hasPermission('dashboard-view'));
+
+        if (!$hasAccess) {
             // Return JSON for API/AJAX requests
             if ($request->expectsJson() || $request->is('api/*') || $request->is('admin/api/*')) {
                 return response()->json([
