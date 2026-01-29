@@ -19,7 +19,7 @@
     </div>
 
     <!-- Main Content -->
-    <div id="main-content" class="hidden space-y-6">
+    <div id="content-area" class="hidden space-y-6">
         <!-- Stats Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             <div class="elegant-card p-4">
@@ -531,7 +531,7 @@
                 </tr>`;
         } finally {
             document.getElementById('loading').classList.add('hidden');
-            document.getElementById('main-content').classList.remove('hidden');
+            document.getElementById('content-area').classList.remove('hidden');
         }
     }
     init();
