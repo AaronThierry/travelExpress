@@ -445,9 +445,9 @@
                 </td>
                 <td class="px-6 py-4">
                     <div class="flex flex-wrap gap-1">
-                        ${user.is_admin
-                            ? '<span class="px-2 py-1 text-xs font-medium rounded-full bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30">Admin</span>'
-                            : '<span class="px-2 py-1 text-xs font-medium rounded-full bg-gray-800 text-gray-400 border border-gray-700">Utilisateur</span>'
+                        ${(user.roles && user.roles.length > 0)
+                            ? user.roles.map(role => `<span class="px-2 py-1 text-xs font-medium rounded-full bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30">${escapeHtml(role.name)}</span>`).join('')
+                            : '<span class="px-2 py-1 text-xs font-medium rounded-full bg-gray-800 text-gray-400 border border-gray-700">Aucun rôle</span>'
                         }
                     </div>
                 </td>
@@ -625,11 +625,15 @@
         document.getElementById('user-roles-id').value = userId;
         document.getElementById('user-roles-name').textContent = userName;
 
+        // Find the user's current roles
+        const user = allUsers.find(u => u.id === userId);
+        const userRoleSlugs = (user && user.role_slugs) ? user.role_slugs : [];
+
         const listEl = document.getElementById('user-roles-list');
         listEl.innerHTML = allRoles.map(role => `
             <label class="flex items-center gap-3 p-3 rounded-xl border border-[#d4af37]/20 hover:bg-[#d4af37]/5 cursor-pointer transition-colors">
                 <input type="checkbox" class="user-role-checkbox w-4 h-4 rounded border-[#d4af37]/30 text-[#d4af37] focus:ring-[#d4af37]/50"
-                    value="${role.slug}">
+                    value="${role.slug}" ${userRoleSlugs.includes(role.slug) ? 'checked' : ''}>
                 <div class="flex-1">
                     <p class="text-sm font-medium text-white">${escapeHtml(role.name)}</p>
                     <p class="text-xs text-gray-500">${escapeHtml(role.description || '')}</p>
@@ -657,6 +661,10 @@
             });
             showToast('Rôles mis à jour avec succès', 'success');
             closeUserRolesModal();
+            // Refresh users list to show updated roles
+            clearApiCache('/admin/api/users');
+            allUsers = [];
+            loadUsersForRoles();
         } catch (error) {
             console.error('Error:', error);
             showToast(error.message || 'Erreur lors de la mise à jour', 'error');

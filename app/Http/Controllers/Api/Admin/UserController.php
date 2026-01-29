@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::latest()
+        $users = User::with('roles')->latest()
             ->get()
             ->map(function ($user) {
                 return [
@@ -23,6 +23,14 @@ class UserController extends Controller
                     'country' => $user->country,
                     'position' => $user->position,
                     'is_admin' => $user->is_admin,
+                    'roles' => $user->roles->map(function ($role) {
+                        return [
+                            'id' => $role->id,
+                            'name' => $role->name,
+                            'slug' => $role->slug,
+                        ];
+                    }),
+                    'role_slugs' => $user->roles->pluck('slug')->toArray(),
                     'created_at' => $user->created_at->format('d M Y'),
                 ];
             });
