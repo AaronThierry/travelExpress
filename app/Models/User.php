@@ -109,6 +109,11 @@ class User extends Authenticatable
             return true;
         }
 
+        // Legacy: is_admin users have all permissions (backward compatibility)
+        if ($this->is_admin) {
+            return true;
+        }
+
         foreach ($this->roles as $role) {
             if ($role->hasPermission($permission)) {
                 return true;

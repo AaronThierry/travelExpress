@@ -61,7 +61,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
             'subtitle' => 'Vue d\'ensemble de votre activité',
             'showSearch' => false
         ]);
-    })->name('admin.dashboard');
+    })->name('admin.dashboard')->middleware('permission:dashboard-view');
 
     Route::get('/users', function () {
         return view('admin.users', [
@@ -69,7 +69,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
             'subtitle' => 'Gestion des utilisateurs',
             'showSearch' => true
         ]);
-    })->name('admin.users');
+    })->name('admin.users')->middleware('permission:users-view');
 
     Route::get('/testimonials', function () {
         return view('admin.testimonials', [
@@ -77,7 +77,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
             'subtitle' => 'Gestion des témoignages',
             'showSearch' => true
         ]);
-    })->name('admin.testimonials');
+    })->name('admin.testimonials')->middleware('permission:testimonials-view');
 
     Route::get('/contact-requests', function () {
         return view('admin.contact-requests', [
@@ -85,7 +85,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
             'subtitle' => 'Gestion des demandes',
             'showSearch' => true
         ]);
-    })->name('admin.contact-requests');
+    })->name('admin.contact-requests')->middleware('permission:contacts-view');
 
     Route::get('/evaluations', function () {
         return view('admin.evaluations', [
@@ -93,7 +93,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
             'subtitle' => 'Gestion des évaluations',
             'showSearch' => true
         ]);
-    })->name('admin.evaluations');
+    })->name('admin.evaluations')->middleware('permission:evaluations-view');
 
     Route::get('/student-applications', function () {
         return view('admin.student-applications', [
@@ -101,7 +101,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
             'subtitle' => 'Gestion des candidatures',
             'showSearch' => true
         ]);
-    })->name('admin.student-applications');
+    })->name('admin.student-applications')->middleware('permission:applications-view');
 
     Route::get('/roles', function () {
         return view('admin.roles', [
@@ -109,7 +109,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
             'subtitle' => 'Gestion des accès',
             'showSearch' => true
         ]);
-    })->name('admin.roles');
+    })->name('admin.roles')->middleware('permission:roles-view');
 });
 
 // Mon dossier page
@@ -169,72 +169,84 @@ Route::get('/document/{documentId}/preview', [App\Http\Controllers\StudentApplic
 Route::prefix('admin/api')->middleware(['web', 'auth', 'admin'])->group(function () {
     // Dashboard Stats
     Route::get('/stats', [App\Http\Controllers\Api\Admin\DashboardController::class, 'stats'])
-        ->name('admin.api.stats');
+        ->name('admin.api.stats')->middleware('permission:dashboard-stats');
 
     // Testimonials
-    Route::get('/testimonials', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'index']);
-    Route::get('/testimonials/pending', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'pending']);
-    Route::post('/testimonials/{id}/approve', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'approve']);
-    Route::post('/testimonials/{id}/reject', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'reject']);
-    Route::post('/testimonials/{id}/unapprove', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'unapprove']);
+    Route::middleware('permission:testimonials-view')->group(function () {
+        Route::get('/testimonials', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'index']);
+        Route::get('/testimonials/pending', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'pending']);
+    });
+    Route::post('/testimonials/{id}/approve', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'approve'])->middleware('permission:testimonials-approve');
+    Route::post('/testimonials/{id}/reject', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'reject'])->middleware('permission:testimonials-reject');
+    Route::post('/testimonials/{id}/unapprove', [App\Http\Controllers\Api\Admin\TestimonialController::class, 'unapprove'])->middleware('permission:testimonials-unapprove');
 
     // Users
-    Route::get('/users', [App\Http\Controllers\Api\Admin\UserController::class, 'index']);
-    Route::post('/users/{id}/toggle-admin', [App\Http\Controllers\Api\Admin\UserController::class, 'toggleAdmin']);
-    Route::delete('/users/{id}', [App\Http\Controllers\Api\Admin\UserController::class, 'destroy']);
+    Route::get('/users', [App\Http\Controllers\Api\Admin\UserController::class, 'index'])->middleware('permission:users-view');
+    Route::post('/users/{id}/toggle-admin', [App\Http\Controllers\Api\Admin\UserController::class, 'toggleAdmin'])->middleware('permission:users-toggle-admin');
+    Route::delete('/users/{id}', [App\Http\Controllers\Api\Admin\UserController::class, 'destroy'])->middleware('permission:users-delete');
 
     // Contact Requests
-    Route::get('/contact-requests', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'index']);
-    Route::get('/contact-requests/stats', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'stats']);
-    Route::get('/contact-requests/{id}', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'show']);
-    Route::post('/contact-requests/{id}/status', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'updateStatus']);
-    Route::post('/contact-requests/{id}/notes', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'addNotes']);
-    Route::post('/contact-requests/{id}/contacted', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'markContacted']);
-    Route::delete('/contact-requests/{id}', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'destroy']);
+    Route::middleware('permission:contacts-view')->group(function () {
+        Route::get('/contact-requests', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'index']);
+        Route::get('/contact-requests/stats', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'stats']);
+        Route::get('/contact-requests/{id}', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'show']);
+    });
+    Route::post('/contact-requests/{id}/status', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'updateStatus'])->middleware('permission:contacts-update-status');
+    Route::post('/contact-requests/{id}/notes', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'addNotes'])->middleware('permission:contacts-add-notes');
+    Route::post('/contact-requests/{id}/contacted', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'markContacted'])->middleware('permission:contacts-mark-contacted');
+    Route::delete('/contact-requests/{id}', [App\Http\Controllers\Api\Admin\ContactRequestController::class, 'destroy'])->middleware('permission:contacts-delete');
 
     // Evaluations
-    Route::get('/evaluations', [App\Http\Controllers\Api\Admin\EvaluationController::class, 'index']);
-    Route::get('/evaluations/stats', [App\Http\Controllers\Api\Admin\EvaluationController::class, 'stats']);
-    Route::post('/evaluations/{id}/verify', [App\Http\Controllers\Api\Admin\EvaluationController::class, 'verify']);
-    Route::delete('/evaluations/{id}', [App\Http\Controllers\Api\Admin\EvaluationController::class, 'destroy']);
+    Route::middleware('permission:evaluations-view')->group(function () {
+        Route::get('/evaluations', [App\Http\Controllers\Api\Admin\EvaluationController::class, 'index']);
+        Route::get('/evaluations/stats', [App\Http\Controllers\Api\Admin\EvaluationController::class, 'stats']);
+    });
+    Route::post('/evaluations/{id}/verify', [App\Http\Controllers\Api\Admin\EvaluationController::class, 'verify'])->middleware('permission:evaluations-verify');
+    Route::delete('/evaluations/{id}', [App\Http\Controllers\Api\Admin\EvaluationController::class, 'destroy'])->middleware('permission:evaluations-delete');
 
     // Student Applications
-    Route::get('/student-applications', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'index']);
-    Route::get('/student-applications/stats', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'stats']);
-    Route::get('/student-applications/{id}', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'show']);
-    Route::post('/student-applications', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'store']);
-    Route::put('/student-applications/{id}', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'update']);
-    Route::delete('/student-applications/{id}', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'destroy']);
-    Route::post('/student-applications/documents/{documentId}/approve', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'approveDocument']);
-    Route::post('/student-applications/documents/{documentId}/reject', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'rejectDocument']);
+    Route::middleware('permission:applications-view')->group(function () {
+        Route::get('/student-applications', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'index']);
+        Route::get('/student-applications/stats', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'stats']);
+        Route::get('/student-applications/{id}', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'show']);
+    });
+    Route::post('/student-applications', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'store'])->middleware('permission:applications-create');
+    Route::put('/student-applications/{id}', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'update'])->middleware('permission:applications-edit');
+    Route::delete('/student-applications/{id}', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'destroy'])->middleware('permission:applications-delete');
+    Route::post('/student-applications/documents/{documentId}/approve', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'approveDocument'])->middleware('permission:applications-approve-docs');
+    Route::post('/student-applications/documents/{documentId}/reject', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'rejectDocument'])->middleware('permission:applications-reject-docs');
 
     // Token management
-    Route::post('/student-applications/{id}/generate-token', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'generateToken']);
-    Route::post('/student-applications/{id}/regenerate-token', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'regenerateToken']);
+    Route::post('/student-applications/{id}/generate-token', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'generateToken'])->middleware('permission:applications-generate-links');
+    Route::post('/student-applications/{id}/regenerate-token', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'regenerateToken'])->middleware('permission:applications-regenerate-tokens');
 
     // Complementary dossier routes
-    Route::put('/student-applications/{id}/complementary', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'updateComplementary']);
-    Route::post('/student-applications/{id}/complementary/upload', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'uploadComplementaryFile']);
-    Route::post('/student-applications/{id}/advance-step', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'advanceStep']);
-    Route::post('/student-applications/bulk-update', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'bulkUpdateStatus']);
+    Route::put('/student-applications/{id}/complementary', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'updateComplementary'])->middleware('permission:applications-manage-complementary');
+    Route::post('/student-applications/{id}/complementary/upload', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'uploadComplementaryFile'])->middleware('permission:applications-manage-complementary');
+    Route::post('/student-applications/{id}/advance-step', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'advanceStep'])->middleware('permission:applications-advance-step');
+    Route::post('/student-applications/bulk-update', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'bulkUpdateStatus'])->middleware('permission:applications-bulk-update');
 
     // Roles Management
-    Route::get('/roles', [App\Http\Controllers\Api\Admin\RoleController::class, 'index']);
-    Route::get('/roles/permissions', [App\Http\Controllers\Api\Admin\RoleController::class, 'permissions']);
-    Route::get('/roles/{id}', [App\Http\Controllers\Api\Admin\RoleController::class, 'show']);
-    Route::post('/roles', [App\Http\Controllers\Api\Admin\RoleController::class, 'store']);
-    Route::put('/roles/{id}', [App\Http\Controllers\Api\Admin\RoleController::class, 'update']);
-    Route::delete('/roles/{id}', [App\Http\Controllers\Api\Admin\RoleController::class, 'destroy']);
-    Route::post('/roles/assign', [App\Http\Controllers\Api\Admin\RoleController::class, 'assignToUser']);
-    Route::post('/roles/remove', [App\Http\Controllers\Api\Admin\RoleController::class, 'removeFromUser']);
-    Route::put('/users/{userId}/roles', [App\Http\Controllers\Api\Admin\RoleController::class, 'syncUserRoles']);
+    Route::middleware('permission:roles-view')->group(function () {
+        Route::get('/roles', [App\Http\Controllers\Api\Admin\RoleController::class, 'index']);
+        Route::get('/roles/permissions', [App\Http\Controllers\Api\Admin\RoleController::class, 'permissions']);
+        Route::get('/roles/{id}', [App\Http\Controllers\Api\Admin\RoleController::class, 'show']);
+    });
+    Route::post('/roles', [App\Http\Controllers\Api\Admin\RoleController::class, 'store'])->middleware('permission:roles-create');
+    Route::put('/roles/{id}', [App\Http\Controllers\Api\Admin\RoleController::class, 'update'])->middleware('permission:roles-edit');
+    Route::delete('/roles/{id}', [App\Http\Controllers\Api\Admin\RoleController::class, 'destroy'])->middleware('permission:roles-delete');
+    Route::post('/roles/assign', [App\Http\Controllers\Api\Admin\RoleController::class, 'assignToUser'])->middleware('permission:users-assign-roles');
+    Route::post('/roles/remove', [App\Http\Controllers\Api\Admin\RoleController::class, 'removeFromUser'])->middleware('permission:users-assign-roles');
+    Route::put('/users/{userId}/roles', [App\Http\Controllers\Api\Admin\RoleController::class, 'syncUserRoles'])->middleware('permission:users-assign-roles');
 
     // Permissions Management
-    Route::get('/permissions', [App\Http\Controllers\Api\Admin\PermissionController::class, 'index']);
-    Route::get('/permissions/grouped', [App\Http\Controllers\Api\Admin\PermissionController::class, 'grouped']);
-    Route::get('/permissions/modules', [App\Http\Controllers\Api\Admin\PermissionController::class, 'modules']);
-    Route::post('/permissions', [App\Http\Controllers\Api\Admin\PermissionController::class, 'store']);
-    Route::post('/permissions/bulk', [App\Http\Controllers\Api\Admin\PermissionController::class, 'bulkCreate']);
-    Route::put('/permissions/{id}', [App\Http\Controllers\Api\Admin\PermissionController::class, 'update']);
-    Route::delete('/permissions/{id}', [App\Http\Controllers\Api\Admin\PermissionController::class, 'destroy']);
+    Route::middleware('permission:permissions-view')->group(function () {
+        Route::get('/permissions', [App\Http\Controllers\Api\Admin\PermissionController::class, 'index']);
+        Route::get('/permissions/grouped', [App\Http\Controllers\Api\Admin\PermissionController::class, 'grouped']);
+        Route::get('/permissions/modules', [App\Http\Controllers\Api\Admin\PermissionController::class, 'modules']);
+    });
+    Route::post('/permissions', [App\Http\Controllers\Api\Admin\PermissionController::class, 'store'])->middleware('permission:permissions-create');
+    Route::post('/permissions/bulk', [App\Http\Controllers\Api\Admin\PermissionController::class, 'bulkCreate'])->middleware('permission:permissions-create');
+    Route::put('/permissions/{id}', [App\Http\Controllers\Api\Admin\PermissionController::class, 'update'])->middleware('permission:permissions-edit');
+    Route::delete('/permissions/{id}', [App\Http\Controllers\Api\Admin\PermissionController::class, 'destroy'])->middleware('permission:permissions-delete');
 });

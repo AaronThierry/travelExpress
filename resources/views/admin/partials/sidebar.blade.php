@@ -41,6 +41,7 @@
 
         <!-- Navigation -->
         <nav class="flex-1 px-3 pb-4 space-y-1 overflow-y-auto custom-scrollbar">
+            @if(auth()->check() && auth()->user()->hasPermission('dashboard-view'))
             <a href="{{ route('admin.dashboard') }}" class="nav-link group {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" title="Tableau de bord">
                 <div class="nav-icon-wrapper">
                     <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -49,7 +50,9 @@
                 </div>
                 <span class="sidebar-text nav-text">Tableau de bord</span>
             </a>
+            @endif
 
+            @if(auth()->check() && auth()->user()->hasPermission('applications-view'))
             <a href="{{ route('admin.student-applications') }}" class="nav-link group {{ request()->routeIs('admin.student-applications') ? 'active' : '' }}" title="Dossiers Etudiants">
                 <div class="nav-icon-wrapper">
                     <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -59,7 +62,9 @@
                 </div>
                 <span class="sidebar-text nav-text">Dossiers Etudiants</span>
             </a>
+            @endif
 
+            @if(auth()->check() && auth()->user()->hasPermission('evaluations-view'))
             <a href="{{ route('admin.evaluations') }}" class="nav-link group {{ request()->routeIs('admin.evaluations') ? 'active' : '' }}" title="Evaluations">
                 <div class="nav-icon-wrapper">
                     <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,7 +73,9 @@
                 </div>
                 <span class="sidebar-text nav-text">Evaluations</span>
             </a>
+            @endif
 
+            @if(auth()->check() && auth()->user()->hasPermission('testimonials-view'))
             <a href="{{ route('admin.testimonials') }}" class="nav-link group {{ request()->routeIs('admin.testimonials') ? 'active' : '' }}" title="Temoignages">
                 <div class="nav-icon-wrapper">
                     <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,7 +84,9 @@
                 </div>
                 <span class="sidebar-text nav-text">Temoignages</span>
             </a>
+            @endif
 
+            @if(auth()->check() && auth()->user()->hasPermission('contacts-view'))
             <a href="{{ route('admin.contact-requests') }}" class="nav-link group {{ request()->routeIs('admin.contact-requests') ? 'active' : '' }}" title="Demandes de contact">
                 <div class="nav-icon-wrapper">
                     <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,7 +95,9 @@
                 </div>
                 <span class="sidebar-text nav-text">Demandes de contact</span>
             </a>
+            @endif
 
+            @if(auth()->check() && auth()->user()->hasPermission('users-view'))
             <a href="{{ route('admin.users') }}" class="nav-link group {{ request()->routeIs('admin.users') ? 'active' : '' }}" title="Utilisateurs">
                 <div class="nav-icon-wrapper">
                     <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,7 +106,9 @@
                 </div>
                 <span class="sidebar-text nav-text">Utilisateurs</span>
             </a>
+            @endif
 
+            @if(auth()->check() && auth()->user()->hasPermission('roles-view'))
             <a href="{{ route('admin.roles') }}" class="nav-link group {{ request()->routeIs('admin.roles') ? 'active' : '' }}" title="Roles & Permissions">
                 <div class="nav-icon-wrapper">
                     <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,6 +117,7 @@
                 </div>
                 <span class="sidebar-text nav-text">Roles & Permissions</span>
             </a>
+            @endif
         </nav>
 
         <!-- User Profile Section -->
