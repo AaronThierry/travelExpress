@@ -68,6 +68,55 @@ Route::middleware('auth:sanctum')->group(function () {
     // Evaluations - protected routes
     Route::get('/evaluations/my', [EvaluationController::class, 'myEvaluation']);
 
+    // Mon dossier - get user's application(s) by email
+    Route::get('/my-dossier', function (Request $request) {
+        $user = $request->user();
+        $applications = \App\Models\StudentApplication::with('documents')
+            ->where('student_email', $user->email)
+            ->latest()
+            ->get()
+            ->map(function ($app) {
+                return [
+                    'id' => $app->id,
+                    'student_name' => $app->student_name,
+                    'student_email' => $app->student_email,
+                    'program_type' => $app->program_type,
+                    'status' => $app->status,
+                    'status_info' => $app->status_info,
+                    'current_step' => $app->current_step,
+                    'current_step_label' => $app->current_step_label,
+                    'dossier_type' => $app->dossier_type,
+                    'completion_percentage' => $app->completion_percentage,
+                    'complementary_status' => $app->complementary_status,
+                    'complementary_status_info' => $app->complementary_status_info,
+                    'complementary_completion_percentage' => $app->complementary_completion_percentage,
+                    'university_name' => $app->university_name,
+                    'field_of_study' => $app->field_of_study,
+                    'admission_year' => $app->admission_year,
+                    'submitted_at' => $app->submitted_at?->format('d/m/Y H:i'),
+                    'student_submitted_at' => $app->student_submitted_at?->format('d/m/Y H:i'),
+                    'created_at' => $app->created_at->format('d/m/Y'),
+                    'documents' => $app->documents->map(function ($doc) {
+                        return [
+                            'id' => $doc->id,
+                            'document_type' => $doc->document_type,
+                            'original_filename' => $doc->original_filename,
+                            'file_size_human' => $doc->file_size_human,
+                            'mime_type' => $doc->mime_type,
+                            'status' => $doc->status,
+                            'rejection_reason' => $doc->rejection_reason,
+                            'uploaded_at' => $doc->created_at->format('d/m/Y H:i'),
+                        ];
+                    }),
+                ];
+            });
+
+        return response()->json([
+            'success' => true,
+            'data' => $applications,
+        ]);
+    });
+
     // Admin routes (authentication + admin role required)
     Route::middleware('admin')->prefix('admin')->group(function () {
         // Dashboard

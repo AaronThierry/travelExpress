@@ -112,6 +112,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     })->name('admin.roles');
 });
 
+// Mon dossier page
+Route::get('/mon-dossier', function () {
+    return view('mon-dossier');
+})->name('mon-dossier');
+
 // Bourse page
 Route::get('/bourse', function () {
     return view('bourse');
