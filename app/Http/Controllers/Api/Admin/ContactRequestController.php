@@ -136,7 +136,7 @@ class ContactRequestController extends Controller
         }
 
         $request->validate([
-            'admin_notes' => 'required|string|max:2000',
+            'admin_notes' => 'nullable|string|max:2000',
         ]);
 
         $contactRequest->admin_notes = $request->admin_notes;
