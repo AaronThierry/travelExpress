@@ -25,23 +25,29 @@ class EvaluationController extends Controller
     }
 
     /**
-     * Check if discovery_source is ENUM type (not migrated yet).
+     * Check if discovery_source ENUM includes 'siao' value.
+     * Returns true only if we're certain 'siao' is supported.
      */
-    private function isDiscoverySourceEnum(): bool
+    private function doesEnumSupportSiao(): bool
     {
         try {
-            // Check database driver
             $driver = DB::connection()->getDriverName();
 
             if ($driver === 'mysql') {
                 $column = DB::selectOne("SHOW COLUMNS FROM evaluations WHERE Field = 'discovery_source'");
-                return $column && str_starts_with($column->Type, 'enum');
+                if ($column && str_starts_with($column->Type, 'enum')) {
+                    // Check if 'siao' is in the enum values
+                    return str_contains($column->Type, "'siao'");
+                }
+                // Not an enum, assume VARCHAR supports any value
+                return true;
             }
 
-            // For other databases (PostgreSQL, SQLite), assume it's VARCHAR/TEXT (not enum)
-            return false;
+            // For other databases, assume they support any value
+            return true;
         } catch (\Exception $e) {
-            return false; // Assume not enum if check fails, allowing all values
+            // If check fails, assume 'siao' is NOT supported (safe fallback)
+            return false;
         }
     }
     /**
@@ -219,9 +225,9 @@ class EvaluationController extends Controller
             }
 
             // Handle discovery_source ENUM compatibility
-            // If 'siao' is selected but DB still has ENUM without 'siao', map to 'evenement'
+            // If 'siao' is selected but DB doesn't support it, map to 'evenement'
             if (isset($validated['discovery_source']) && $validated['discovery_source'] === 'siao') {
-                if ($this->isDiscoverySourceEnum()) {
+                if (!$this->doesEnumSupportSiao()) {
                     // SIAO is a salon/event, so map to 'evenement'
                     $validated['discovery_source'] = 'evenement';
                     // Store the original value in detail field
