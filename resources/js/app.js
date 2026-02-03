@@ -134,15 +134,21 @@ Alpine.data('evaluationForm', () => ({
             fetch('/api/user', {
                 headers: { 'Authorization': 'Bearer ' + token }
             })
-            .then(r => r.json())
+            .then(r => {
+                if (r.status === 401) {
+                    localStorage.removeItem('auth_token');
+                    return null;
+                }
+                return r.json();
+            })
             .then(data => {
-                if (data.name) {
+                if (data && data.name) {
                     const parts = data.name.split(' ');
                     this.firstName = parts[0] || '';
                     this.lastName = parts.slice(1).join(' ') || '';
                 }
-                if (data.email) this.email = data.email;
-                if (data.phone) this.phone = data.phone;
+                if (data && data.email) this.email = data.email;
+                if (data && data.phone) this.phone = data.phone;
             })
             .catch(() => {});
         }

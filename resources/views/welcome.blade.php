@@ -3249,9 +3249,12 @@
                                 if (this.user.avatar) {
                                     this.avatarPreview = '/storage/' + this.user.avatar;
                                 }
+                            } else if (response.status === 401) {
+                                // Token expired or invalid, clean up
+                                localStorage.removeItem('auth_token');
                             }
                         } catch (e) {
-                            console.error('Erreur chargement utilisateur:', e);
+                            // Network error, ignore silently
                         }
                     }
                     this.loading = false;

@@ -41,23 +41,32 @@ class EvaluationController extends Controller
      */
     public function index(Request $request)
     {
-        $evaluations = Evaluation::public()
-            ->with('user:id,name,avatar')
-            ->select([
-                'id', 'user_id', 'first_name', 'last_name', 'photo',
-                'university', 'country_of_study', 'study_level', 'field_of_study',
-                'rating', 'public_testimonial', 'allow_photo_display',
-                'is_featured', 'created_at'
-            ])
-            ->orderByDesc('is_featured')
-            ->orderByDesc('created_at')
-            ->limit($request->get('limit', 10))
-            ->get();
+        try {
+            $evaluations = Evaluation::public()
+                ->with('user:id,name,avatar')
+                ->select([
+                    'id', 'user_id', 'first_name', 'last_name', 'photo',
+                    'university', 'country_of_study', 'study_level', 'field_of_study',
+                    'rating', 'public_testimonial', 'allow_photo_display',
+                    'is_featured', 'created_at'
+                ])
+                ->orderByDesc('is_featured')
+                ->orderByDesc('created_at')
+                ->limit($request->get('limit', 10))
+                ->get();
 
-        return response()->json([
-            'success' => true,
-            'data' => $evaluations,
-        ]);
+            return response()->json([
+                'success' => true,
+                'data' => $evaluations,
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Evaluations index error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => true,
+                'data' => [],
+            ]);
+        }
     }
 
     /**
