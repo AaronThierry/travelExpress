@@ -30,10 +30,18 @@ class EvaluationController extends Controller
     private function isDiscoverySourceEnum(): bool
     {
         try {
-            $column = DB::selectOne("SHOW COLUMNS FROM evaluations WHERE Field = 'discovery_source'");
-            return $column && str_starts_with($column->Type, 'enum');
+            // Check database driver
+            $driver = DB::connection()->getDriverName();
+
+            if ($driver === 'mysql') {
+                $column = DB::selectOne("SHOW COLUMNS FROM evaluations WHERE Field = 'discovery_source'");
+                return $column && str_starts_with($column->Type, 'enum');
+            }
+
+            // For other databases (PostgreSQL, SQLite), assume it's VARCHAR/TEXT (not enum)
+            return false;
         } catch (\Exception $e) {
-            return true; // Assume enum if check fails
+            return false; // Assume not enum if check fails, allowing all values
         }
     }
     /**
@@ -241,9 +249,14 @@ class EvaluationController extends Controller
                 'request' => $request->except(['signature', 'conversation_screenshots'])
             ]);
 
+            // Return more details in development, generic message in production
+            $errorMessage = config('app.debug')
+                ? 'Erreur: ' . $e->getMessage()
+                : 'Une erreur est survenue lors de l\'enregistrement. Veuillez réessayer.';
+
             return response()->json([
                 'success' => false,
-                'message' => 'Une erreur est survenue lors de l\'enregistrement. Veuillez réessayer.',
+                'message' => $errorMessage,
             ], 500);
         }
     }
