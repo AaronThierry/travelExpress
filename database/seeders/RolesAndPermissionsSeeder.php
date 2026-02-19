@@ -420,6 +420,12 @@ class RolesAndPermissionsSeeder extends Seeder
                 'is_system' => true,
             ],
             [
+                'name' => 'Communicateur',
+                'slug' => 'communicateur',
+                'description' => 'Accès au tableau de bord, témoignages et demandes de contact',
+                'is_system' => true,
+            ],
+            [
                 'name' => 'Modérateur',
                 'slug' => Role::MODERATOR,
                 'description' => 'Modération du contenu et gestion des demandes',
@@ -531,6 +537,32 @@ class RolesAndPermissionsSeeder extends Seeder
         $roles[Role::MODERATOR]->permissions()->sync(
             Permission::whereIn('slug', $moderatorPermissions)->pluck('id')->toArray()
         );
+
+        // ==========================================
+        // COMMUNICATEUR - Dashboard, Témoignages et Demandes de contact
+        // ==========================================
+        $communicateurPermissions = [
+            // Dashboard
+            'dashboard-view',
+            'dashboard-stats',
+            // Témoignages (gestion complète)
+            'testimonials-view',
+            'testimonials-approve',
+            'testimonials-reject',
+            'testimonials-unapprove',
+            // Demandes de contact (gestion complète)
+            'contacts-view',
+            'contacts-show',
+            'contacts-update-status',
+            'contacts-add-notes',
+            'contacts-mark-contacted',
+            'contacts-stats',
+        ];
+        if (isset($roles['communicateur'])) {
+            $roles['communicateur']->permissions()->sync(
+                Permission::whereIn('slug', $communicateurPermissions)->pluck('id')->toArray()
+            );
+        }
 
         // ==========================================
         // USER - Aucune permission admin (pas d'accès au dashboard)
