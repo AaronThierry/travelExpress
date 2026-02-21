@@ -385,9 +385,6 @@
                 <button class="tab" :class="{ active: activeTab === 'complementary' }" @click="activeTab = 'complementary'">
                     Dossier Complémentaire ({{ count($complementaryDocuments) }})
                 </button>
-                <button class="tab" :class="{ active: activeTab === 'visa' }" @click="activeTab = 'visa'">
-                    Dossier Visa ({{ count($visaDocuments) }})
-                </button>
             </div>
 
             <!-- Initial Documents -->
@@ -526,31 +523,87 @@
                 @endforeach
             </div>
 
-            <!-- Visa Documents -->
-            <div x-show="activeTab === 'visa'" class="space-y-4">
+        </div>
+
+        <!-- ====================================================== -->
+        <!-- Dossier Visa - Section indépendante                     -->
+        <!-- ====================================================== -->
+        <div class="card rounded-2xl p-8 mt-8" style="border-color: rgba(59, 130, 246, 0.3);">
+            <!-- Header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <h2 class="text-xl font-bold flex items-center gap-3" style="color: #60a5fa;">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3);">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #60a5fa;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                        </svg>
+                    </div>
+                    Dossier Visa
+                </h2>
+
+                @php
+                    $visaUploaded = 0;
+                    $visaRequired = 0;
+                    foreach($visaDocuments as $vDocType => $vDocLabel) {
+                        $isOpt = in_array($vDocType, \App\Models\StudentApplication::getOptionalVisaDocuments());
+                        if (!$isOpt) $visaRequired++;
+                        if ($uploadedDocuments->has($vDocType)) $visaUploaded++;
+                    }
+                @endphp
+                <div class="flex items-center gap-3">
+                    <span class="text-sm" style="color: #93c5fd;">
+                        {{ $visaUploaded }} / {{ count($visaDocuments) }} documents uploadés
+                    </span>
+                    <span class="px-3 py-1 rounded-full text-xs font-medium"
+                          style="{{ $visaUploaded >= $visaRequired ? 'background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3);' : 'background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3);' }}">
+                        {{ $visaUploaded >= $visaRequired ? 'Complet' : 'En cours' }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-6 p-4 rounded-xl" style="background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2);">
+                <p class="text-sm" style="color: #93c5fd;">
+                    Ces documents sont nécessaires pour la constitution de votre dossier visa.
+                    Les documents marqués <strong>Optionnel</strong> ne sont pas obligatoires mais peuvent renforcer votre dossier.
+                </p>
+            </div>
+
+            <!-- Visa Documents List -->
+            <div class="space-y-4">
                 @foreach($visaDocuments as $docType => $docLabel)
                     @php
                         $uploaded = $uploadedDocuments->get($docType);
                         $isOptional = in_array($docType, \App\Models\StudentApplication::getOptionalVisaDocuments());
                     @endphp
-                    <div class="doc-item" data-doc-type="{{ $docType }}">
+                    <div class="doc-item" data-doc-type="{{ $docType }}"
+                         style="border-color: {{ $uploaded ? 'rgba(34,197,94,0.25)' : 'rgba(59,130,246,0.15)' }};">
                         <div class="flex flex-col md:flex-row md:items-center gap-4">
                             <div class="flex-1">
-                                <div class="flex items-center gap-2">
-                                    <h3 class="font-semibold text-white">{{ $isOptional ? str_replace(' (optionnel)', '', $docLabel) : $docLabel }}</h3>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <!-- Status icon -->
+                                    @if($uploaded)
+                                        <svg class="w-5 h-5 flex-shrink-0 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    @else
+                                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: rgba(59,130,246,0.5);">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                        </svg>
+                                    @endif
+
+                                    <h3 class="font-semibold text-white">
+                                        {{ $isOptional ? str_replace(' (optionnel)', '', $docLabel) : $docLabel }}
+                                    </h3>
                                     @if($isOptional)
-                                        <span class="text-xs px-2 py-1 bg-gray-700 text-gray-300 rounded">Optionnel</span>
+                                        <span class="text-xs px-2 py-1 rounded" style="background: rgba(107,114,128,0.4); color: #9ca3af;">Optionnel</span>
+                                    @else
+                                        <span class="text-xs px-2 py-1 rounded" style="background: rgba(59,130,246,0.15); color: #93c5fd;">Requis</span>
                                     @endif
                                 </div>
 
                                 @if($uploaded)
-                                    <div class="mt-2 flex flex-wrap items-center gap-3">
-                                        <div class="flex items-center gap-2 text-sm text-gray-400">
-                                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                            </svg>
-                                            <span>{{ $uploaded->original_filename }}</span>
-                                        </div>
+                                    <div class="mt-2 flex flex-wrap items-center gap-3 ml-7">
+                                        <span class="text-sm text-gray-400">{{ $uploaded->original_filename }}</span>
 
                                         @if($uploaded->status === 'approved')
                                             <span class="text-xs px-2 py-1 bg-green-900/50 text-green-400 rounded border border-green-700">Approuvé</span>
@@ -562,16 +615,17 @@
                                     </div>
 
                                     @if($uploaded->status === 'rejected' && $uploaded->rejection_reason)
-                                        <p class="text-sm text-red-400 mt-2 bg-red-900/20 p-2 rounded">
+                                        <p class="text-sm text-red-400 mt-2 ml-7 bg-red-900/20 p-2 rounded">
                                             Raison: {{ $uploaded->rejection_reason }}
                                         </p>
                                     @endif
                                 @endif
                             </div>
 
-                            <div class="flex gap-2">
+                            <div class="flex gap-2 flex-shrink-0">
                                 @if($uploaded)
-                                    <a href="{{ route('document.download', $uploaded->id) }}" class="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 border border-blue-500/30 rounded-lg hover:bg-blue-500/10 transition">
+                                    <a href="{{ route('document.download', $uploaded->id) }}"
+                                       class="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 border border-blue-500/30 rounded-lg hover:bg-blue-500/10 transition">
                                         Télécharger
                                     </a>
                                     @if($uploaded->status !== 'approved')
@@ -583,8 +637,13 @@
                                 @endif
 
                                 @if(!$uploaded || $uploaded->status === 'rejected')
-                                    <label class="btn-gold px-4 py-2 rounded-lg cursor-pointer text-sm">
-                                        <input type="file" class="hidden" @change="uploadFile('{{ $docType }}', $event.target.files[0])" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                                    <label class="px-4 py-2 rounded-lg cursor-pointer text-sm font-medium transition"
+                                           style="background: rgba(59,130,246,0.2); color: #60a5fa; border: 1px solid rgba(59,130,246,0.4);"
+                                           onmouseover="this.style.background='rgba(59,130,246,0.35)'"
+                                           onmouseout="this.style.background='rgba(59,130,246,0.2)'">
+                                        <input type="file" class="hidden"
+                                               @change="uploadFile('{{ $docType }}', $event.target.files[0])"
+                                               accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
                                         {{ $uploaded ? 'Remplacer' : 'Uploader' }}
                                     </label>
                                 @endif
@@ -593,31 +652,31 @@
                     </div>
                 @endforeach
             </div>
+        </div>
 
-            <!-- Submit Button -->
-            <div class="mt-8 pt-6 border-t border-gray-800">
-                @if(!$application->student_submitted_at)
-                    <button @click="submitApplication"
-                            class="w-full btn-gold py-4 rounded-xl text-lg font-bold"
-                            :disabled="submitting">
-                        <span x-show="!submitting" class="flex items-center justify-center gap-2">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/>
-                            </svg>
-                            Soumettre mon dossier
-                        </span>
-                        <span x-show="submitting">Soumission en cours...</span>
-                    </button>
-                @else
-                    <div class="text-center p-6 bg-green-900/20 border border-green-700 rounded-xl">
-                        <svg class="w-12 h-12 mx-auto text-green-500 mb-3" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        <!-- Submit Button -->
+        <div class="mt-8">
+            @if(!$application->student_submitted_at)
+                <button @click="submitApplication"
+                        class="w-full btn-gold py-4 rounded-xl text-lg font-bold"
+                        :disabled="submitting">
+                    <span x-show="!submitting" class="flex items-center justify-center gap-2">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/>
                         </svg>
-                        <p class="text-green-400 font-semibold">Dossier soumis le {{ $application->student_submitted_at->format('d/m/Y à H:i') }}</p>
-                        <p class="text-gray-400 text-sm mt-2">Vous recevrez une notification par email dès que votre dossier sera examiné.</p>
-                    </div>
-                @endif
-            </div>
+                        Soumettre mon dossier
+                    </span>
+                    <span x-show="submitting">Soumission en cours...</span>
+                </button>
+            @else
+                <div class="text-center p-6 bg-green-900/20 border border-green-700 rounded-xl">
+                    <svg class="w-12 h-12 mx-auto text-green-500 mb-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <p class="text-green-400 font-semibold">Dossier soumis le {{ $application->student_submitted_at->format('d/m/Y à H:i') }}</p>
+                    <p class="text-gray-400 text-sm mt-2">Vous recevrez une notification par email dès que votre dossier sera examiné.</p>
+                </div>
+            @endif
         </div>
 
         <!-- Footer -->
