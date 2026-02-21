@@ -128,17 +128,28 @@
 
         .tabs {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             margin-bottom: 1.5rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            flex-wrap: nowrap;
+        }
+
+        .tabs::-webkit-scrollbar {
+            display: none;
         }
 
         .tab {
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1rem;
             color: rgba(255, 255, 255, 0.6);
             border-bottom: 2px solid transparent;
             cursor: pointer;
             transition: all 0.3s;
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-size: 0.875rem;
         }
 
         .tab:hover {
