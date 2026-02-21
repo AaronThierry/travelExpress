@@ -888,38 +888,77 @@
                         </div>
                     </div>
 
-                    <!-- Visa Documents -->
-                    <div>
-                        <h3 class="text-lg font-bold text-blue-400 mb-4 flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                            </svg>
-                            Documents Visa (${data.visa_docs ? data.visa_docs.length : 0})
-                        </h3>
-                        <div class="space-y-2">
-                            ${data.visa_docs && data.visa_docs.length > 0 ? data.visa_docs.map(doc => `
-                                <div class="flex items-center justify-between p-4 bg-gray-800/50 rounded-xl border border-gray-700/50 hover:border-blue-500/30 transition-all">
-                                    <div class="flex-1">
-                                        <div class="font-medium text-white">${visaDocs[doc.document_type] || doc.document_type}</div>
-                                        <div class="text-sm text-gray-500">${doc.original_filename} (${doc.file_size_human})</div>
+                    <!-- Visa Documents - Section indépendante -->
+                    <div class="rounded-2xl p-6" style="background: rgba(30,40,70,0.5); border: 1px solid rgba(59,130,246,0.3);">
+                        <!-- Visa Header -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                            <h3 class="text-lg font-bold flex items-center gap-3" style="color: #60a5fa;">
+                                <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.35);">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #60a5fa;">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                                    </svg>
+                                </div>
+                                Dossier Visa
+                            </h3>
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm" style="color: #93c5fd;">
+                                    ${data.visa_docs ? data.visa_docs.length : 0} / ${Object.keys(visaDocs).length} documents
+                                </span>
+                                <span class="px-3 py-1 rounded-full text-xs font-semibold"
+                                      style="${(data.visa_docs && data.visa_docs.length >= Object.keys(visaDocs).filter(k => !['autorisation_parentale'].includes(k)).length && data.visa_docs.length > 0) ? 'background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.3)' : 'background:rgba(59,130,246,0.15);color:#93c5fd;border:1px solid rgba(59,130,246,0.3)'}">
+                                    ${(data.visa_docs && data.visa_docs.length >= Object.keys(visaDocs).filter(k => !['autorisation_parentale'].includes(k)).length && data.visa_docs.length > 0) ? 'Complet' : 'En cours'}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Visa Documents required list (all types, including not-yet-uploaded) -->
+                        <div class="space-y-2 mb-4">
+                            ${Object.entries(visaDocs).map(([docType, docLabel]) => {
+                                const isOptional = ['autorisation_parentale'].includes(docType);
+                                const uploadedDoc = data.visa_docs ? data.visa_docs.find(d => d.document_type === docType) : null;
+                                const cleanLabel = docLabel.replace(' (optionnel)', '');
+                                return `
+                                <div class="flex items-center justify-between p-4 rounded-xl transition-all"
+                                     style="${uploadedDoc ? 'background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2)' : 'background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.15)'}">
+                                    <div class="flex items-center gap-3 flex-1 min-w-0">
+                                        ${uploadedDoc
+                                            ? `<svg class="w-5 h-5 flex-shrink-0 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>`
+                                            : `<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:rgba(59,130,246,0.45)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`
+                                        }
+                                        <div class="min-w-0">
+                                            <div class="flex items-center gap-2 flex-wrap">
+                                                <span class="font-medium text-white text-sm">${cleanLabel}</span>
+                                                <span class="text-xs px-2 py-0.5 rounded flex-shrink-0"
+                                                      style="${isOptional ? 'background:rgba(107,114,128,0.3);color:#9ca3af' : 'background:rgba(59,130,246,0.15);color:#93c5fd'}">
+                                                    ${isOptional ? 'Optionnel' : 'Requis'}
+                                                </span>
+                                            </div>
+                                            ${uploadedDoc ? `<div class="text-xs text-gray-500 mt-0.5 truncate">${uploadedDoc.original_filename} (${uploadedDoc.file_size_human})</div>` : '<div class="text-xs mt-0.5" style="color:rgba(59,130,246,0.5)">Non uploadé</div>'}
+                                        </div>
                                     </div>
-                                    <div class="flex items-center gap-3">
-                                        <span class="px-3 py-1 text-xs font-medium rounded-full ${statusColors[doc.status]}">${doc.status}</span>
-                                        <button onclick="previewDocument(${doc.id})" class="text-blue-400 hover:text-blue-300 transition-colors">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    ${uploadedDoc ? `
+                                    <div class="flex items-center gap-2 flex-shrink-0 ml-3">
+                                        <span class="px-2 py-1 text-xs font-medium rounded-full ${statusColors[uploadedDoc.status]}">${uploadedDoc.status}</span>
+                                        <button onclick="previewDocument(${uploadedDoc.id})" class="p-1.5 rounded-lg hover:bg-blue-500/20 transition-colors" style="color:#60a5fa;" title="Aperçu">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                             </svg>
                                         </button>
-                                        <a href="/document/${doc.id}/download" class="text-amber-400 hover:text-amber-300 transition-colors">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <a href="/document/${uploadedDoc.id}/download" class="p-1.5 rounded-lg hover:bg-amber-500/20 transition-colors" style="color:#f59e0b;" title="Télécharger">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                                             </svg>
                                         </a>
-                                    </div>
-                                </div>
-                            `).join('') : '<p class="text-gray-500 text-center py-4">Aucun document visa uploadé</p>'}
+                                    </div>` : ''}
+                                </div>`;
+                            }).join('')}
                         </div>
+
+                        ${(!data.visa_docs || data.visa_docs.length === 0) ? `
+                        <p class="text-center text-sm py-2" style="color:rgba(59,130,246,0.6);">
+                            Aucun document visa uploadé par l'étudiant
+                        </p>` : ''}
                     </div>
 
                     <!-- Actions -->
