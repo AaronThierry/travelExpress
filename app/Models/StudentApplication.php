@@ -115,6 +115,23 @@ class StudentApplication extends Model
         ];
     }
 
+    // Documents requis pour le dossier visa
+    public static function getVisaDocuments(): array
+    {
+        return [
+            'releve_bancaire' => 'Relevé bancaire',
+            'certificat_prise_en_charge' => 'Certificat de prise en charge',
+            'copie_legalisee_garant' => 'Copie légalisée du garant financier',
+            'autorisation_parentale' => 'Autorisation parentale (optionnel)',
+        ];
+    }
+
+    // Documents visa optionnels
+    public static function getOptionalVisaDocuments(): array
+    {
+        return ['autorisation_parentale'];
+    }
+
     // Relationships
     public function documents()
     {

@@ -766,6 +766,7 @@
             const app = data.application;
             const docs = data.required_documents;
             const compDocs = data.complementary_documents;
+            const visaDocs = data.visa_documents || {};
 
             const statusColors = {
                 'pending': 'bg-gray-500/20 text-gray-300',
@@ -884,6 +885,40 @@
                                     </div>
                                 </div>
                             `).join('') : '<p class="text-gray-500 text-center py-4">Aucun document complémentaire uploadé</p>'}
+                        </div>
+                    </div>
+
+                    <!-- Visa Documents -->
+                    <div>
+                        <h3 class="text-lg font-bold text-blue-400 mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                            </svg>
+                            Documents Visa (${data.visa_docs ? data.visa_docs.length : 0})
+                        </h3>
+                        <div class="space-y-2">
+                            ${data.visa_docs && data.visa_docs.length > 0 ? data.visa_docs.map(doc => `
+                                <div class="flex items-center justify-between p-4 bg-gray-800/50 rounded-xl border border-gray-700/50 hover:border-blue-500/30 transition-all">
+                                    <div class="flex-1">
+                                        <div class="font-medium text-white">${visaDocs[doc.document_type] || doc.document_type}</div>
+                                        <div class="text-sm text-gray-500">${doc.original_filename} (${doc.file_size_human})</div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full ${statusColors[doc.status]}">${doc.status}</span>
+                                        <button onclick="previewDocument(${doc.id})" class="text-blue-400 hover:text-blue-300 transition-colors">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                            </svg>
+                                        </button>
+                                        <a href="/document/${doc.id}/download" class="text-amber-400 hover:text-amber-300 transition-colors">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            `).join('') : '<p class="text-gray-500 text-center py-4">Aucun document visa uploadé</p>'}
                         </div>
                     </div>
 

@@ -30,12 +30,14 @@ class StudentApplicationController extends Controller
 
         $requiredDocuments = StudentApplication::getRequiredDocuments($application->program_type);
         $complementaryDocuments = StudentApplication::getComplementaryDocuments();
+        $visaDocuments = StudentApplication::getVisaDocuments();
         $uploadedDocuments = $application->documents->keyBy('document_type');
 
         return view('student.upload', compact(
             'application',
             'requiredDocuments',
             'complementaryDocuments',
+            'visaDocuments',
             'uploadedDocuments'
         ));
     }
@@ -67,10 +69,11 @@ class StudentApplicationController extends Controller
         $documentType = $request->document_type;
         $file = $request->file('file');
 
-        // Check if document type is valid for initial or complementary dossier
+        // Check if document type is valid for initial, complementary or visa dossier
         $requiredDocs = StudentApplication::getRequiredDocuments($application->program_type);
         $complementaryDocs = StudentApplication::getComplementaryDocuments();
-        $allValidDocs = array_merge($requiredDocs, $complementaryDocs);
+        $visaDocs = StudentApplication::getVisaDocuments();
+        $allValidDocs = array_merge($requiredDocs, $complementaryDocs, $visaDocs);
 
         if (!array_key_exists($documentType, $allValidDocs)) {
             return response()->json(['error' => 'Type de document invalide'], 422);

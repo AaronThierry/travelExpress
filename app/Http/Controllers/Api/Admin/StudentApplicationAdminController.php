@@ -83,6 +83,7 @@ class StudentApplicationAdminController extends Controller
 
         $requiredDocuments = StudentApplication::getRequiredDocuments($application->program_type);
         $complementaryDocuments = StudentApplication::getComplementaryDocuments();
+        $visaDocuments = StudentApplication::getVisaDocuments();
 
         // Separate documents by type
         $initialDocs = $application->documents->filter(function($doc) use ($requiredDocuments) {
@@ -93,12 +94,18 @@ class StudentApplicationAdminController extends Controller
             return array_key_exists($doc->document_type, $complementaryDocuments);
         });
 
+        $visaDocs = $application->documents->filter(function($doc) use ($visaDocuments) {
+            return array_key_exists($doc->document_type, $visaDocuments);
+        });
+
         return response()->json([
             'application' => $application,
             'required_documents' => $requiredDocuments,
             'complementary_documents' => $complementaryDocuments,
+            'visa_documents' => $visaDocuments,
             'initial_docs' => $initialDocs->values(),
             'complementary_docs' => $compDocs->values(),
+            'visa_docs' => $visaDocs->values(),
             'completion_percentage' => $application->completion_percentage,
             'complementary_completion_percentage' => $application->complementary_completion_percentage,
             'overall_completion_percentage' => $application->overall_completion_percentage,
