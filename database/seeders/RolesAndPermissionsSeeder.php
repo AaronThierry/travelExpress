@@ -356,6 +356,40 @@ class RolesAndPermissionsSeeder extends Seeder
             ],
 
             // ==========================================
+            // DOSSIERS VISA
+            // ==========================================
+            [
+                'name' => 'Voir les dossiers visa',
+                'slug' => 'visa-view',
+                'module' => 'visa',
+                'description' => 'Permet de consulter la liste des dossiers visa'
+            ],
+            [
+                'name' => 'Créer un dossier visa',
+                'slug' => 'visa-create',
+                'module' => 'visa',
+                'description' => 'Permet de créer un nouveau dossier visa'
+            ],
+            [
+                'name' => 'Modifier un dossier visa',
+                'slug' => 'visa-edit',
+                'module' => 'visa',
+                'description' => 'Permet de modifier les informations d\'un dossier visa'
+            ],
+            [
+                'name' => 'Supprimer un dossier visa',
+                'slug' => 'visa-delete',
+                'module' => 'visa',
+                'description' => 'Permet de supprimer un dossier visa'
+            ],
+            [
+                'name' => 'Approuver/Rejeter les documents visa',
+                'slug' => 'visa-approve',
+                'module' => 'visa',
+                'description' => 'Permet d\'approuver ou rejeter les documents d\'un dossier visa'
+            ],
+
+            // ==========================================
             // PARAMÈTRES (Settings)
             // ==========================================
             [
@@ -493,6 +527,12 @@ class RolesAndPermissionsSeeder extends Seeder
             'applications-manage-complementary',
             'applications-advance-step',
             'applications-bulk-update',
+            // Visa
+            'visa-view',
+            'visa-create',
+            'visa-edit',
+            'visa-delete',
+            'visa-approve',
             // Évaluations (consultation)
             'evaluations-view',
             'evaluations-stats',

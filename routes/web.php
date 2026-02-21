@@ -103,6 +103,14 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         ]);
     })->name('admin.student-applications')->middleware('permission:applications-view');
 
+    Route::get('/visa-applications', function () {
+        return view('admin.visa-applications', [
+            'title'      => 'Dossiers Visa',
+            'subtitle'   => 'Gestion des dossiers de visa',
+            'showSearch' => true
+        ]);
+    })->name('admin.visa-applications')->middleware('permission:visa-view');
+
     Route::get('/roles', function () {
         return view('admin.roles', [
             'title' => 'Rôles & Permissions',
@@ -165,6 +173,25 @@ Route::get('/student-applications/{applicationId}/download-all', [App\Http\Contr
 Route::get('/document/{documentId}/preview', [App\Http\Controllers\StudentApplicationController::class, 'previewDocument'])
     ->name('document.preview');
 
+// ─── Visa Dossier Routes (student-facing, token-based) ─────────────────────
+Route::prefix('visa')->group(function () {
+    Route::get('/{token}', [App\Http\Controllers\VisaApplicationController::class, 'show'])
+        ->name('visa.form');
+    Route::post('/{token}/info', [App\Http\Controllers\VisaApplicationController::class, 'updateInfo'])
+        ->name('visa.update.info');
+    Route::post('/{token}/upload', [App\Http\Controllers\VisaApplicationController::class, 'uploadDocument'])
+        ->name('visa.upload');
+    Route::delete('/{token}/document/{documentId}', [App\Http\Controllers\VisaApplicationController::class, 'deleteDocument'])
+        ->name('visa.delete.document');
+    Route::post('/{token}/submit', [App\Http\Controllers\VisaApplicationController::class, 'submit'])
+        ->name('visa.submit');
+});
+
+Route::get('/visa-document/{documentId}/download', [App\Http\Controllers\VisaApplicationController::class, 'downloadDocument'])
+    ->name('visa.document.download');
+Route::get('/visa-document/{documentId}/preview', [App\Http\Controllers\VisaApplicationController::class, 'previewDocument'])
+    ->name('visa.document.preview');
+
 // Admin API Routes (web-based, session auth - no token required)
 Route::prefix('admin/api')->middleware(['web', 'auth', 'admin'])->group(function () {
     // Dashboard Stats
@@ -225,6 +252,19 @@ Route::prefix('admin/api')->middleware(['web', 'auth', 'admin'])->group(function
     Route::post('/student-applications/{id}/complementary/upload', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'uploadComplementaryFile'])->middleware('permission:applications-manage-complementary');
     Route::post('/student-applications/{id}/advance-step', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'advanceStep'])->middleware('permission:applications-advance-step');
     Route::post('/student-applications/bulk-update', [App\Http\Controllers\Api\Admin\StudentApplicationAdminController::class, 'bulkUpdateStatus'])->middleware('permission:applications-bulk-update');
+
+    // ─── Visa Applications ──────────────────────────────────────────────
+    Route::middleware('permission:visa-view')->group(function () {
+        Route::get('/visa-applications', [App\Http\Controllers\Api\Admin\VisaApplicationAdminController::class, 'index']);
+        Route::get('/visa-applications/stats', [App\Http\Controllers\Api\Admin\VisaApplicationAdminController::class, 'stats']);
+        Route::get('/visa-applications/{id}', [App\Http\Controllers\Api\Admin\VisaApplicationAdminController::class, 'show']);
+    });
+    Route::post('/visa-applications', [App\Http\Controllers\Api\Admin\VisaApplicationAdminController::class, 'store'])->middleware('permission:visa-create');
+    Route::put('/visa-applications/{id}', [App\Http\Controllers\Api\Admin\VisaApplicationAdminController::class, 'update'])->middleware('permission:visa-edit');
+    Route::delete('/visa-applications/{id}', [App\Http\Controllers\Api\Admin\VisaApplicationAdminController::class, 'destroy'])->middleware('permission:visa-delete');
+    Route::post('/visa-applications/{id}/generate-token', [App\Http\Controllers\Api\Admin\VisaApplicationAdminController::class, 'generateToken'])->middleware('permission:visa-edit');
+    Route::post('/visa-applications/documents/{documentId}/approve', [App\Http\Controllers\Api\Admin\VisaApplicationAdminController::class, 'approveDocument'])->middleware('permission:visa-approve');
+    Route::post('/visa-applications/documents/{documentId}/reject', [App\Http\Controllers\Api\Admin\VisaApplicationAdminController::class, 'rejectDocument'])->middleware('permission:visa-approve');
 
     // Roles Management
     Route::middleware('permission:roles-view')->group(function () {

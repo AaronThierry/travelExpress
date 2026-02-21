@@ -64,6 +64,17 @@
             </a>
             @endif
 
+            @if(auth()->check() && auth()->user()->hasPermission('visa-view'))
+            <a href="{{ route('admin.visa-applications') }}" class="nav-link group {{ request()->routeIs('admin.visa-applications') ? 'active' : '' }}" title="Dossiers Visa">
+                <div class="nav-icon-wrapper">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                    </svg>
+                </div>
+                <span class="sidebar-text nav-text">Dossiers Visa</span>
+            </a>
+            @endif
+
             @if(auth()->check() && auth()->user()->hasPermission('evaluations-view'))
             <a href="{{ route('admin.evaluations') }}" class="nav-link group {{ request()->routeIs('admin.evaluations') ? 'active' : '' }}" title="Evaluations">
                 <div class="nav-icon-wrapper">
