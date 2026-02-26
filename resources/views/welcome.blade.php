@@ -338,12 +338,73 @@
         /* Progress bar */
         #temoignages .bg-gradient-to-r { background: linear-gradient(to right, #9A7C00, #D4AF37) !important; }
 
-        /* ── FAQ cards ───────────────────────────────────────────── */
-        #faq .bg-white, #faq .bg-gray-50 {
-            background-color: #111 !important;
+        /* ── FAQ section ─────────────────────────────────────────── */
+        #faq { background: #0a0a0a !important; }
+
+        /* Filter tabs bar */
+        #faq .bg-white.rounded-xl,
+        #faq .bg-white.rounded-2xl,
+        #faq [class*="rounded-xl"][class*="bg-white"],
+        #faq [class*="rounded-2xl"][class*="bg-white"] {
+            background-color: #131313 !important;
+            border-color: rgba(212,175,55,0.16) !important;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5) !important;
+        }
+        /* Inactive filter tab */
+        #faq button[class*="text-slate-6"] {
+            color: rgba(255,255,255,0.65) !important;
+        }
+        #faq button[class*="hover:bg-slate"] {
+            /* handled via hover state */
+        }
+
+        /* FAQ item card */
+        #faq .bg-white.rounded-xl,
+        #faq .bg-white.rounded-2xl,
+        #faq [class*="bg-white"][class*="rounded"] {
+            background-color: #131313 !important;
             border-color: rgba(212,175,55,0.12) !important;
         }
-        #faq .border-gray-100 { border-color: rgba(212,175,55,0.1) !important; }
+        #faq [class*="border-slate-1"] { border-color: rgba(212,175,55,0.12) !important; }
+        #faq [class*="shadow-slate"]   { box-shadow: 0 4px 16px rgba(0,0,0,0.5) !important; }
+        #faq [class*="ring-primary-"]  { --tw-ring-color: rgba(212,175,55,0.3) !important; }
+
+        /* Icon container (closed state) */
+        #faq [class*="from-slate-100"] {
+            background: #1e1a0e !important;
+            border: 1px solid rgba(212,175,55,0.15) !important;
+        }
+        /* Toggle chevron button (closed) */
+        #faq [class*="bg-slate-100"] {
+            background-color: #1e1a0e !important;
+        }
+        #faq [class*="bg-primary-100"] {
+            background-color: rgba(212,175,55,0.15) !important;
+        }
+
+        /* Category badge */
+        #faq span[class*="bg-slate-100"] {
+            background-color: rgba(212,175,55,0.1) !important;
+            color: var(--gold) !important;
+            border: 1px solid rgba(212,175,55,0.22) !important;
+        }
+
+        /* Answer separator line */
+        #faq [class*="from-primary-200"] {
+            background: linear-gradient(to right, rgba(212,175,55,0.3), rgba(212,175,55,0.1), transparent) !important;
+        }
+
+        /* Question text */
+        #faq h3[class*="text-slate-8"] { color: #ffffff !important; }
+        #faq [class*="text-slate-6"]   { color: rgba(255,255,255,0.75) !important; }
+        #faq [class*="text-slate-4"]   { color: rgba(255,255,255,0.45) !important; }
+
+        /* Hover state bg */
+        #faq [class*="hover:border-primary"] { border-color: rgba(212,175,55,0.3) !important; }
+
+        /* Decoration blobs */
+        #faq [class*="bg-primary-500\/5"],
+        #faq [class*="bg-accent-500\/5"] { background-color: rgba(212,175,55,0.03) !important; }
 
         /* ── Map section ──────────────────────────────────────────── */
         #localisation { background: #080808 !important; }
