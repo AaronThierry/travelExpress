@@ -340,8 +340,50 @@
         #temoignages [class*="bg-primary-"] { background-color: var(--gold) !important; }
         #temoignages [class*="bg-slate-"]   { background-color: rgba(255,255,255,0.2) !important; }
 
-        /* Progress bar */
-        #temoignages .bg-gradient-to-r { background: linear-gradient(to right, #9A7C00, #D4AF37) !important; }
+        /* Progress bar (only the animated bar inside dots) */
+        #temoignages .progress-bar { background: linear-gradient(to right, #9A7C00, #D4AF37) !important; }
+
+        /* Travel route container → dark subtle */
+        #temoignages .bg-gradient-to-r.from-slate-50 {
+            background: rgba(255,255,255,0.04) !important;
+            border-color: rgba(212,175,55,0.12) !important;
+        }
+        /* Departure flag box (white square) */
+        #temoignages .bg-white.shadow-sm.border.border-slate-200 {
+            background-color: #1e1a0e !important;
+            border-color: rgba(212,175,55,0.2) !important;
+            box-shadow: none !important;
+        }
+        /* Center airplane circle */
+        #temoignages .bg-white.rounded-full.shadow-md {
+            background-color: #1e1a0e !important;
+            border-color: rgba(212,175,55,0.3) !important;
+        }
+        /* Route separator line → gold */
+        #temoignages .bg-gradient-to-r.from-slate-300 {
+            background: linear-gradient(to right, rgba(212,175,55,0.3), #D4AF37, rgba(212,175,55,0.3)) !important;
+        }
+        /* Route left dot → muted, right dot → gold */
+        #temoignages .bg-slate-400 { background-color: rgba(212,175,55,0.4) !important; }
+
+        /* "Expérience vécue" badge */
+        #temoignages .bg-primary-50.rounded-full {
+            background-color: rgba(212,175,55,0.1) !important;
+            border: 1px solid rgba(212,175,55,0.25) !important;
+        }
+        /* Quote text */
+        #temoignages .text-slate-600 { color: rgba(255,255,255,0.78) !important; }
+
+        /* CTA bottom card → dark gold */
+        #temoignages .bg-gradient-to-br.from-slate-900 {
+            background: linear-gradient(135deg, #0d0d0d, #141008) !important;
+            border: 1px solid rgba(212,175,55,0.15) !important;
+        }
+        /* Green "formulaire" button → gold */
+        #temoignages .from-emerald-600, #temoignages .to-teal-600 {
+            --tw-gradient-from: #9A7C00 !important;
+            --tw-gradient-to: #D4AF37 !important;
+        }
 
         /* ── FAQ section ─────────────────────────────────────────── */
         #faq { background: #0a0a0a !important; }
