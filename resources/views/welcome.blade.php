@@ -1045,7 +1045,7 @@
     </header>
 
     <!-- Hero Section - Modern with Image Slider -->
-    <section class="relative min-h-[85vh] flex items-center overflow-hidden pt-[100px] lg:pt-[108px]"
+    <section class="relative min-h-screen flex items-center overflow-hidden pt-[100px] lg:pt-[108px]"
              x-data="{
                 currentSlide: 0,
                 slides: [
@@ -1162,44 +1162,45 @@
         </div>
 
         <!-- Content -->
-        <div class="relative z-20 w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-8 sm:py-12">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="relative z-20 w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-16 sm:py-24">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <!-- Left Column - Text Content -->
                 <div class="text-left space-y-8 fade-in-up">
                     <!-- Badge -->
-                    <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2">
-                        <div class="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></div>
-                        <span class="text-white/90 text-sm font-semibold">🌍 Études • Travail • Business</span>
+                    <div class="inline-flex items-center space-x-2 rounded-full px-5 py-2.5 backdrop-blur-md" style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.35);">
+                        <div class="w-2.5 h-2.5 rounded-full animate-pulse" style="background:#D4AF37;box-shadow:0 0 8px rgba(212,175,55,0.7);"></div>
+                        <span class="text-sm font-semibold tracking-wide" style="color:#F0D060;">🌍 Études • Travail • Business</span>
                     </div>
 
                     <!-- Main Heading -->
-                    <h1 class="text-2xl md:text-4xl xl:text-5xl font-display font-black text-white leading-tight">
+                    <h1 class="text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl font-display font-black text-white leading-[1.08] tracking-tight">
                         Vos projets
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-400 via-accent-500 to-primary-400 animate-gradient">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-400 via-accent-500 to-primary-400 animate-gradient block">
                             à l'international
                         </span>
+                        <span class="block text-white/90">réalisés.</span>
                     </h1>
 
                     <!-- Subheading -->
-                    <p class="text-base md:text-lg text-white/80 leading-relaxed max-w-lg">
-                        Accompagnement personnalisé en <span class="text-accent-400 font-semibold">Chine</span>, <span class="text-accent-400 font-semibold">Espagne</span> et <span class="text-accent-400 font-semibold">Allemagne</span>.
+                    <p class="text-lg md:text-xl text-white/75 leading-relaxed max-w-xl">
+                        Études, travail, business — accompagnement de A à Z en <span class="font-semibold" style="color:#D4AF37;">Chine</span>, <span class="font-semibold" style="color:#D4AF37;">Espagne</span> et <span class="font-semibold" style="color:#D4AF37;">Allemagne</span>.
                     </p>
 
                     <!-- CTA Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-3 pt-3">
-                        <a href="#contact" class="group relative px-5 py-2.5 bg-gradient-to-r from-accent-600 to-accent-500 text-white text-sm font-semibold rounded-lg shadow-xl hover:shadow-accent-600/50 transform hover:scale-105 transition-all duration-300 overflow-hidden">
-                            <span class="relative z-10 flex items-center justify-center space-x-2">
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                        <a href="#contact" class="group relative px-8 py-4 text-base font-bold rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden" style="background:linear-gradient(135deg,#B8960C,#D4AF37,#F0D060);color:#080808;box-shadow:0 8px 32px rgba(212,175,55,0.4);">
+                            <span class="relative z-10 flex items-center justify-center space-x-2.5">
                                 <span>Démarrer mon projet</span>
-                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                 </svg>
                             </span>
-                            <div class="absolute inset-0 bg-gradient-to-r from-accent-700 to-accent-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background:linear-gradient(135deg,#9A7C00,#B8960C);"></div>
                         </a>
-                        <a href="#programmes" class="group px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/30 text-white text-sm font-semibold rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300">
-                            <span class="flex items-center justify-center space-x-2">
+                        <a href="#programmes" class="group px-8 py-4 backdrop-blur-md text-white text-base font-semibold rounded-xl transition-all duration-300" style="border:1.5px solid rgba(212,175,55,0.35);background:rgba(212,175,55,0.06);" onmouseover="this.style.background='rgba(212,175,55,0.15)';this.style.borderColor='rgba(212,175,55,0.6)';" onmouseout="this.style.background='rgba(212,175,55,0.06)';this.style.borderColor='rgba(212,175,55,0.35)';">
+                            <span class="flex items-center justify-center space-x-2.5">
                                 <span>Nos programmes</span>
-                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </span>
@@ -1207,64 +1208,74 @@
                     </div>
 
                     <!-- Trust Indicators -->
-                    <div class="flex items-center space-x-6 pt-8 border-t border-white/20">
-                        <div class="flex items-center space-x-2">
-                            <svg class="w-5 h-5 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <span class="text-white/90 font-semibold">4.9/5</span>
-                            <span class="text-white/60 text-sm">(250+ avis)</span>
+                    <div class="flex flex-wrap items-center gap-6 pt-8" style="border-top:1px solid rgba(212,175,55,0.2);">
+                        <div class="flex items-center space-x-2.5">
+                            <div class="flex items-center space-x-0.5">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" style="color:#D4AF37;">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-white font-bold text-lg" style="color:#F0D060;">4.9/5</span>
+                            <span class="text-white/55 text-sm">— 250+ avis</span>
                         </div>
-                        <div class="flex items-center space-x-2">
-                            <svg class="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-px h-5 bg-white/15"></div>
+                        <div class="flex items-center space-x-2.5">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:#D4AF37;">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                             <span class="text-white/90 font-semibold">+10 ans d'expérience</span>
+                        </div>
+                        <div class="w-px h-5 bg-white/15 hidden sm:block"></div>
+                        <div class="flex items-center space-x-2.5 hidden sm:flex">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:#D4AF37;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"></path>
+                            </svg>
+                            <span class="text-white/90 font-semibold">3 destinations</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Right Column - Stats Cards -->
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-5">
                     <!-- Card 1 -->
-                    <div class="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/20 rounded-xl p-3 flex flex-col items-center justify-center hover:from-white/20 hover:to-white/10 hover:scale-[1.02] hover:border-accent-400/50 transition-all duration-500 group cursor-pointer">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-accent-500/30">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="backdrop-blur-xl rounded-2xl p-6 flex flex-col items-center justify-center hover:scale-[1.03] transition-all duration-500 group cursor-pointer" style="background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.2);" onmouseover="this.style.background='rgba(212,175,55,0.12)';this.style.borderColor='rgba(212,175,55,0.5)';" onmouseout="this.style.background='rgba(212,175,55,0.06)';this.style.borderColor='rgba(212,175,55,0.2)';">
+                        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(135deg,#B8960C,#D4AF37);box-shadow:0 8px 24px rgba(212,175,55,0.3);">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             </svg>
                         </div>
-                        <div class="text-2xl font-black text-white group-hover:text-accent-400 transition-colors duration-300">500+</div>
-                        <div class="text-white/60 text-[10px] font-semibold uppercase tracking-wider">Clients</div>
+                        <div class="text-3xl font-black mb-1" style="color:#F0D060;">500+</div>
+                        <div class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.5);">Clients</div>
                     </div>
                     <!-- Card 2 -->
-                    <div class="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/20 rounded-xl p-3 flex flex-col items-center justify-center hover:from-white/20 hover:to-white/10 hover:scale-[1.02] hover:border-primary-400/50 transition-all duration-500 group cursor-pointer">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary-500/30">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="backdrop-blur-xl rounded-2xl p-6 flex flex-col items-center justify-center hover:scale-[1.03] transition-all duration-500 group cursor-pointer" style="background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.2);" onmouseover="this.style.background='rgba(212,175,55,0.12)';this.style.borderColor='rgba(212,175,55,0.5)';" onmouseout="this.style.background='rgba(212,175,55,0.06)';this.style.borderColor='rgba(212,175,55,0.2)';">
+                        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(135deg,#B8960C,#D4AF37);box-shadow:0 8px 24px rgba(212,175,55,0.3);">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <div class="text-2xl font-black text-white group-hover:text-primary-400 transition-colors duration-300">3</div>
-                        <div class="text-white/60 text-[10px] font-semibold uppercase tracking-wider">Destinations</div>
+                        <div class="text-3xl font-black mb-1" style="color:#F0D060;">3</div>
+                        <div class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.5);">Destinations</div>
                     </div>
                     <!-- Card 3 -->
-                    <div class="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/20 rounded-xl p-3 flex flex-col items-center justify-center hover:from-white/20 hover:to-white/10 hover:scale-[1.02] hover:border-accent-400/50 transition-all duration-500 group cursor-pointer">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-accent-500/30">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="backdrop-blur-xl rounded-2xl p-6 flex flex-col items-center justify-center hover:scale-[1.03] transition-all duration-500 group cursor-pointer" style="background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.2);" onmouseover="this.style.background='rgba(212,175,55,0.12)';this.style.borderColor='rgba(212,175,55,0.5)';" onmouseout="this.style.background='rgba(212,175,55,0.06)';this.style.borderColor='rgba(212,175,55,0.2)';">
+                        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(135deg,#B8960C,#D4AF37);box-shadow:0 8px 24px rgba(212,175,55,0.3);">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <div class="text-2xl font-black text-white group-hover:text-accent-400 transition-colors duration-300">10+</div>
-                        <div class="text-white/60 text-[10px] font-semibold uppercase tracking-wider">Ans d'exp.</div>
+                        <div class="text-3xl font-black mb-1" style="color:#F0D060;">10+</div>
+                        <div class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.5);">Ans d'exp.</div>
                     </div>
                     <!-- Card 4 -->
-                    <div class="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/20 rounded-xl p-3 flex flex-col items-center justify-center hover:from-white/20 hover:to-white/10 hover:scale-[1.02] hover:border-primary-400/50 transition-all duration-500 group cursor-pointer">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary-500/30">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="backdrop-blur-xl rounded-2xl p-6 flex flex-col items-center justify-center hover:scale-[1.03] transition-all duration-500 group cursor-pointer" style="background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.2);" onmouseover="this.style.background='rgba(212,175,55,0.12)';this.style.borderColor='rgba(212,175,55,0.5)';" onmouseout="this.style.background='rgba(212,175,55,0.06)';this.style.borderColor='rgba(212,175,55,0.2)';">
+                        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(135deg,#B8960C,#D4AF37);box-shadow:0 8px 24px rgba(212,175,55,0.3);">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <div class="text-2xl font-black text-white group-hover:text-primary-400 transition-colors duration-300">100%</div>
-                        <div class="text-white/60 text-[10px] font-semibold uppercase tracking-wider">Personnalisé</div>
+                        <div class="text-3xl font-black mb-1" style="color:#F0D060;">100%</div>
+                        <div class="text-xs font-semibold uppercase tracking-widest" style="color:rgba(255,255,255,0.5);">Personnalisé</div>
                     </div>
                 </div>
             </div>
@@ -1275,33 +1286,36 @@
             <div class="w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24">
                 <div class="flex items-center justify-between">
                     <!-- Slider Dots -->
-                    <div class="flex items-center space-x-3">
+                    <div class="flex items-center space-x-2.5">
                         <template x-for="(slide, index) in slides" :key="index">
                             <button @click="goToSlide(index)"
                                     class="group relative focus:outline-none"
                                     :aria-label="'Aller à la diapositive ' + (index + 1)">
-                                <div class="w-2 h-2 rounded-full transition-all duration-300"
-                                     :class="currentSlide === index ? 'bg-white w-8 h-2' : 'bg-white/40 hover:bg-white/60'"></div>
-                                <div x-show="currentSlide === index"
-                                     x-transition
-                                     class="absolute inset-0 -m-1 border-2 border-white/40 rounded-full animate-ping"></div>
+                                <div class="h-2 rounded-full transition-all duration-400"
+                                     :style="currentSlide === index ? 'width:28px;background:#D4AF37;box-shadow:0 0 8px rgba(212,175,55,0.6);' : 'width:8px;background:rgba(212,175,55,0.3);'"></div>
                             </button>
                         </template>
                     </div>
 
                     <!-- Navigation Arrows -->
-                    <div class="flex items-center space-x-3">
+                    <div class="flex items-center space-x-2">
                         <button @click="prevSlide()"
-                                class="p-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:bg-white/20 hover:scale-110 active:scale-95 transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-white/50"
+                                class="p-3 backdrop-blur-md rounded-full hover:scale-110 active:scale-95 transition-all duration-300 focus:outline-none"
+                                style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);"
+                                onmouseover="this.style.background='rgba(212,175,55,0.22)';this.style.borderColor='rgba(212,175,55,0.7)';"
+                                onmouseout="this.style.background='rgba(212,175,55,0.1)';this.style.borderColor='rgba(212,175,55,0.3)';"
                                 aria-label="Image précédente">
-                            <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:#D4AF37;">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
                             </svg>
                         </button>
                         <button @click="nextSlide()"
-                                class="p-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:bg-white/20 hover:scale-110 active:scale-95 transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-white/50"
+                                class="p-3 backdrop-blur-md rounded-full hover:scale-110 active:scale-95 transition-all duration-300 focus:outline-none"
+                                style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);"
+                                onmouseover="this.style.background='rgba(212,175,55,0.22)';this.style.borderColor='rgba(212,175,55,0.7)';"
+                                onmouseout="this.style.background='rgba(212,175,55,0.1)';this.style.borderColor='rgba(212,175,55,0.3)';"
                                 aria-label="Image suivante">
-                            <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:#D4AF37;">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                             </svg>
                         </button>
@@ -1309,8 +1323,8 @@
 
                     <!-- Scroll Indicator (Hidden on Mobile) -->
                     <div class="hidden md:flex flex-col items-center space-y-2 animate-bounce">
-                        <span class="text-white/60 text-xs font-semibold uppercase tracking-wider">Défiler</span>
-                        <svg class="w-5 h-5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <span class="text-xs font-semibold uppercase tracking-wider" style="color:rgba(212,175,55,0.7);">Défiler</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:#D4AF37;">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                         </svg>
                     </div>
