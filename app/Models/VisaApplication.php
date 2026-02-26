@@ -37,7 +37,7 @@ class VisaApplication extends Model
     const DOCUMENTS = [
         'releve_bancaire'            => 'Relevé bancaire',
         'certificat_prise_en_charge' => 'Certificat de prise en charge',
-        'copie_legalisee_garant'     => 'Copie légalisée du garant financier',
+        'copie_legalisee_garant'     => 'Copie légalisée de la CNIB du garant financier',
         'autorisation_parentale'     => 'Autorisation parentale (optionnel)',
     ];
 
