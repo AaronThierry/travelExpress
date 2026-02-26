@@ -10,7 +10,7 @@
     <!-- Google Fonts - Premium Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 
     <style>
-        .font-display { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; }
-        .font-sans { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; }
+        .font-display { font-family: 'Cinzel', Georgia, 'Times New Roman', serif; }
+        .font-sans    { font-family: 'DM Sans', Verdana, sans-serif; }
         .font-elegant { font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif; }
 
         /* Custom Leaflet Popup */
@@ -113,6 +113,272 @@
             transform: translateY(0);
         }
 
+        /* ═══════════════════════════════════════════════════════
+           GOLD & BLACK LUXURY THEME — Travel Express
+           Full palette override on top of Tailwind utilities
+        ═══════════════════════════════════════════════════════ */
+
+        /* ── Tokens ──────────────────────────────────────────────── */
+        :root {
+            --gold:          #D4AF37;
+            --gold-bright:   #F0D060;
+            --gold-dark:     #9A7C00;
+            --gold-border:   rgba(212,175,55,0.22);
+            --gold-glow:     rgba(212,175,55,0.28);
+            --ink:           #080808;
+            --ink-2:         #101010;
+            --ink-3:         #181818;
+            --parchment:     #f5f0e8;
+            --parchment-dim: rgba(245,240,232,0.62);
+        }
+
+        /* ── Base ─────────────────────────────────────────────────── */
+        html, body { background-color: var(--ink) !important; color: var(--parchment) !important; }
+        h1,h2,h3,h4,h5 { font-family: 'Cinzel', Georgia, serif !important; }
+        body, p, span, a, li, td, input, textarea, select, button { font-family: 'DM Sans', Verdana, sans-serif; }
+
+        /* ── Background remapping ─────────────────────────────────── */
+        .bg-white  { background-color: var(--ink-2)  !important; }
+        .bg-gray-50 { background-color: #111 !important; }
+        .bg-gray-100 { background-color: var(--ink-3) !important; }
+        .bg-gray-200 { background-color: #222 !important; }
+        .bg-slate-50 { background-color: #111 !important; }
+
+        /* Light section gradient backgrounds → dark */
+        .bg-gradient-to-b.from-gray-50.to-white,
+        .bg-gradient-to-b.from-white.to-slate-50,
+        .bg-gradient-to-b.from-slate-50 { background: linear-gradient(to bottom, #0a0a0a, #101010) !important; }
+
+        /* ── Text color remapping ─────────────────────────────────── */
+        .text-dark, .text-gray-900, .text-gray-800, .text-gray-700 { color: var(--parchment) !important; }
+        .text-gray-600 { color: rgba(245,240,232,0.68) !important; }
+        .text-gray-500 { color: rgba(245,240,232,0.48) !important; }
+        .text-gray-400 { color: rgba(245,240,232,0.38) !important; }
+        .text-gray     { color: rgba(245,240,232,0.6)  !important; }
+        .text-black    { color: var(--parchment) !important; }
+
+        /* Primary & accent → gold */
+        [class*="text-primary"] { color: var(--gold) !important; }
+        [class*="text-accent"]  { color: var(--gold) !important; }
+
+        /* ── Primary/Accent bg → Gold ─────────────────────────────── */
+        [class*="bg-primary-600"], [class*="bg-primary-700"], [class*="bg-primary-500"] { background-color: var(--gold-dark) !important; }
+        [class*="bg-accent-500"],  [class*="bg-accent-600"]  { background-color: var(--gold)      !important; }
+        [class*="bg-primary-100"], [class*="bg-primary-50"], [class*="bg-accent-50"]   { background-color: rgba(212,175,55,0.08) !important; }
+
+        /* Gradient stops → Gold */
+        [class*="from-primary"], [class*="from-accent"] { --tw-gradient-from: #B8960C !important; }
+        [class*="to-primary"],   [class*="to-accent"]   { --tw-gradient-to:   #D4AF37 !important; }
+        [class*="via-primary"],  [class*="via-accent"]  { --tw-gradient-stops: var(--tw-gradient-from), #D4AF37, var(--tw-gradient-to) !important; }
+
+        /* Gradient text for section headings */
+        .text-transparent.bg-clip-text.bg-gradient-to-r {
+            background-image: linear-gradient(135deg, #B8960C, #D4AF37, #F0D060) !important;
+            -webkit-background-clip: text !important; background-clip: text !important;
+        }
+
+        /* ── Borders ─────────────────────────────────────────────── */
+        .border-gray-100, .border-gray-200 { border-color: rgba(212,175,55,0.14) !important; }
+        [class*="border-primary"], [class*="border-accent"] { border-color: rgba(212,175,55,0.4) !important; }
+
+        /* ── Top info bar → dark gold ─────────────────────────────── */
+        .bg-gradient-to-r.from-primary-600.via-primary-700.to-accent-600 {
+            background: linear-gradient(to right, #0c0c0c, #181410, #0c0c0c) !important;
+            border-bottom: 1px solid rgba(212,175,55,0.18) !important;
+        }
+
+        /* ── Fixed header → dark ──────────────────────────────────── */
+        header.fixed,
+        header .bg-white\/95 { background-color: rgba(6,6,6,0.97) !important; backdrop-filter: blur(20px); }
+        header .border-b     { border-color: rgba(212,175,55,0.15) !important; }
+
+        /* Nav hover underline → gold */
+        nav a div.bg-gradient-to-r { background: var(--gold) !important; }
+
+        /* ── Hero CTA primary button → gold ──────────────────────── */
+        a[href="#contact"].group,
+        a[href="#contact"] {
+            background: linear-gradient(135deg, #B8960C 0%, #D4AF37 50%, #C9A227 100%) !important;
+            background-image: linear-gradient(135deg, #B8960C 0%, #D4AF37 50%, #C9A227 100%) !important;
+            color: #050505 !important;
+            box-shadow: 0 8px 28px rgba(212,175,55,0.32) !important;
+        }
+        a[href="#contact"].group *, a[href="#contact"] * { color: #050505 !important; }
+        a[href="#contact"].group svg { stroke: #050505 !important; }
+        a[href="#contact"].group .absolute { background-image: linear-gradient(135deg, #9A7C00 0%, #B8960C 100%) !important; }
+
+        /* ── Feature cards (Pourquoi section) ────────────────────── */
+        .group.relative.bg-white.rounded-2xl {
+            background-color: #111 !important;
+            border-color: rgba(212,175,55,0.12) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+        }
+        .group.relative.bg-white.rounded-2xl:hover {
+            border-color: rgba(212,175,55,0.35) !important;
+            box-shadow: 0 20px 50px rgba(212,175,55,0.09), 0 0 0 1px rgba(212,175,55,0.15) !important;
+        }
+        /* Feature hover overlay background */
+        .bg-gradient-to-br.from-primary-50,
+        .bg-gradient-to-br.from-accent-50 {
+            background: linear-gradient(135deg, rgba(212,175,55,0.05), transparent) !important;
+        }
+        /* Feature icon background blobs */
+        .bg-gradient-to-br.from-primary-500.to-primary-600,
+        .bg-gradient-to-br.from-accent-500.to-accent-600 {
+            background: linear-gradient(135deg, #9A7C00, #D4AF37) !important;
+            box-shadow: 0 8px 20px rgba(212,175,55,0.3) !important;
+        }
+
+        /* ── Generic white cards ──────────────────────────────────── */
+        .rounded-2xl.bg-white, .rounded-xl.bg-white, .rounded-3xl.bg-white,
+        .rounded-2xl.shadow-lg.bg-white { background-color: #111 !important; }
+
+        /* ── Backdrop cards (hero stats) ──────────────────────────── */
+        .backdrop-blur-xl.border.border-white\/20 { border-color: rgba(212,175,55,0.2) !important; }
+
+        /* ── Pourquoi section decorative blobs ────────────────────── */
+        [class*="bg-primary-200\/20"], [class*="bg-accent-200\/20"] {
+            background-color: rgba(212,175,55,0.06) !important;
+        }
+
+        /* ── Section badges (chip pill) ──────────────────────────── */
+        .inline-flex.items-center.space-x-2.bg-primary-100,
+        .inline-flex.items-center.bg-primary-100 {
+            background-color: rgba(212,175,55,0.09) !important;
+            border: 1px solid rgba(212,175,55,0.25) !important;
+        }
+
+        /* ── Shadows → gold-tinted ────────────────────────────────── */
+        .hover\:shadow-2xl:hover { box-shadow: 0 25px 50px rgba(212,175,55,0.1), 0 0 0 1px rgba(212,175,55,0.08) !important; }
+        [class*="shadow-primary"], [class*="shadow-accent"] { box-shadow: 0 8px 20px rgba(212,175,55,0.3) !important; }
+
+        /* ── Process steps ────────────────────────────────────────── */
+        [class*="bg-primary-600"].rounded-full,
+        [class*="bg-accent-600"].rounded-full  { box-shadow: 0 0 0 4px rgba(212,175,55,0.2) !important; }
+
+        /* ── Testimonial & FAQ cards ─────────────────────────────── */
+        #temoignages .bg-white, #temoignages .bg-gray-50,
+        #faq .bg-white, #faq .bg-gray-50 {
+            background-color: #111 !important;
+            border-color: rgba(212,175,55,0.12) !important;
+        }
+        #faq .border-gray-100 { border-color: rgba(212,175,55,0.1) !important; }
+
+        /* ── Map section ──────────────────────────────────────────── */
+        #localisation { background: #080808 !important; }
+        .leaflet-popup-content-wrapper { background: #141414 !important; border: 1px solid rgba(212,175,55,0.3) !important; color: var(--parchment) !important; }
+        .leaflet-popup-tip { background: #141414 !important; }
+
+        /* ── Footer → deep black gold ─────────────────────────────── */
+        footer { background-color: #040404 !important; }
+        footer .bg-gradient-to-br { background: #040404 !important; }
+        footer .border-t, footer .border-white\/10 { border-color: rgba(212,175,55,0.1) !important; }
+        footer .text-white { color: var(--parchment) !important; }
+        footer .text-gray-400, footer .text-gray-500 { color: rgba(245,240,232,0.4) !important; }
+        footer a:hover { color: var(--gold) !important; }
+        footer .bg-white\/10 { background-color: rgba(212,175,55,0.08) !important; border-color: rgba(212,175,55,0.2) !important; }
+
+        /* ── Newsletter section in footer ────────────────────────── */
+        footer .bg-gradient-to-r { background: linear-gradient(to right, #0c0c0c, #1a1508, #0c0c0c) !important; }
+
+        /* ── Forms (contact section) ─────────────────────────────── */
+        input:not([type="checkbox"]):not([type="radio"]),
+        textarea, select {
+            background-color: #181818 !important;
+            border-color: rgba(212,175,55,0.2) !important;
+            color: var(--parchment) !important;
+        }
+        input::placeholder, textarea::placeholder { color: rgba(245,240,232,0.28) !important; }
+        input:focus, textarea:focus, select:focus {
+            border-color: rgba(212,175,55,0.5) !important;
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.07) !important;
+        }
+
+        /* ── Mobile menu ──────────────────────────────────────────── */
+        nav .absolute.bg-white, .mobile-menu-bg {
+            background-color: rgba(6,6,6,0.98) !important;
+            border-color: rgba(212,175,55,0.15) !important;
+        }
+
+        /* ── User dropdown ────────────────────────────────────────── */
+        .absolute.bg-white.rounded-2xl.shadow-2xl {
+            background-color: #101010 !important;
+            border-color: rgba(212,175,55,0.15) !important;
+        }
+
+        /* ── Scroll to top ────────────────────────────────────────── */
+        #scroll-to-top {
+            background: linear-gradient(135deg, #9A7C00, #D4AF37) !important;
+            box-shadow: 0 5px 20px rgba(212,175,55,0.35) !important;
+        }
+
+        /* ── Modal backdrops ──────────────────────────────────────── */
+        .fixed.inset-0.bg-black\/50, .fixed.inset-0[class*="bg-black"] { background-color: rgba(0,0,0,0.88) !important; }
+        [class*="modal"] .bg-white, .rounded-2xl.shadow-2xl.bg-white { background-color: #101010 !important; }
+
+        /* ── Evaluation form steps (already has Black & Gold theme) ─ */
+        /* Keep existing dark theme for evaluation modal */
+
+        /* ── Misc white elements ──────────────────────────────────── */
+        .divide-gray-100 > * + * { border-color: rgba(212,175,55,0.1) !important; }
+        .border-b.border-gray-100 { border-color: rgba(212,175,55,0.1) !important; }
+        .hover\:bg-gray-50:hover  { background-color: rgba(212,175,55,0.06) !important; }
+        .hover\:bg-gray-100:hover { background-color: rgba(212,175,55,0.08) !important; }
+
+        /* ── Login button ─────────────────────────────────────────── */
+        a[href*="login"].bg-gradient-to-r,
+        a[href*="login"][class*="bg-gradient"] {
+            background: linear-gradient(135deg, #9A7C00, #D4AF37) !important;
+            color: #050505 !important;
+        }
+        a[href*="register"].border { border-color: rgba(212,175,55,0.4) !important; color: var(--gold) !important; }
+
+        /* ── Slate-based dark sections → black-gold ─────────────────── */
+        .bg-gradient-to-b.from-slate-50,
+        .bg-gradient-to-b.from-slate-100,
+        .bg-gradient-to-b.from-white.via-slate-50\/50.to-white {
+            background: #0a0a0a !important;
+        }
+        .bg-gradient-to-b.from-slate-50.via-white.to-slate-50,
+        .bg-gradient-to-b.from-slate-50.via-white.to-slate-50 {
+            background: #0a0a0a !important;
+        }
+        /* Slate-900 gradients already dark — add subtle gold border */
+        .bg-gradient-to-br.from-slate-900,
+        .bg-gradient-to-br.from-slate-900.via-slate-800.to-slate-900 {
+            background: linear-gradient(135deg, #0c0c0c, #111, #0c0c0c) !important;
+        }
+        /* Slate-100 card hover */
+        [class*="from-slate-100"], [class*="from-slate-50"] {
+            --tw-gradient-from: #111 !important;
+        }
+        [class*="to-slate-50"], [class*="to-slate-100"] {
+            --tw-gradient-to: #181818 !important;
+        }
+        /* FAQ expand state */
+        #faq [class*="from-slate-100"] {
+            background: rgba(212,175,55,0.04) !important;
+        }
+        /* Contact info dark card → gold-tinted */
+        #contact .bg-gradient-to-br.from-slate-900 {
+            background: linear-gradient(135deg, #0c0c0c, #141008, #0c0c0c) !important;
+            border: 1px solid rgba(212,175,55,0.14) !important;
+        }
+        /* Programme country cards → match dark theme */
+        #programmes .border-white\/10 { border-color: rgba(212,175,55,0.12) !important; }
+        #programmes [class*="group-hover:border-red"],
+        #programmes [class*="group-hover:border-orange"],
+        #programmes [class*="group-hover:border-yellow"] { --hover-border: rgba(212,175,55,0.4); }
+        /* Localisation map section extra */
+        #localisation .bg-gradient-to-b { background: #080808 !important; }
+        /* Grain overlay ─────────────────────────────────────────── */
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.45;
+        }
+
         /* Disable touch highlight/ring on mobile for signature canvas */
         #signature-canvas {
             -webkit-tap-highlight-color: transparent;
@@ -126,7 +392,7 @@
     </style>
     <script src="{{ asset('js/country-codes.js') }}"></script>
 </head>
-<body class="font-sans text-dark antialiased bg-white overflow-x-hidden w-full max-w-none m-0 p-0" x-data="{
+<body class="font-sans antialiased overflow-x-hidden w-full max-w-none m-0 p-0" style="background:#080808;color:#f5f0e8;" x-data="{
     mobileMenuOpen: false,
     activeCountry: 'china',
     testimonialModalOpen: false,
@@ -647,7 +913,7 @@
             </div>
 
             <!-- Animated Gradient Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-r from-primary-600/30 via-transparent to-accent-600/30 z-10"></div>
+            <div class="absolute inset-0 z-10" style="background: linear-gradient(to right, rgba(8,8,8,0.72) 0%, rgba(212,175,55,0.06) 50%, rgba(8,8,8,0.55) 100%);"></div>
 
             <!-- Pattern Overlay -->
             <div class="absolute inset-0 z-10 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
@@ -956,7 +1222,7 @@
     </section>
 
     <!-- Destinations Section - Futuristic World Map Design -->
-    <section id="programmes" class="relative py-20 overflow-hidden" style="background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0d0d1f 100%);">
+    <section id="programmes" class="relative py-20 overflow-hidden" style="background: linear-gradient(135deg, #080808 0%, #120f08 50%, #080808 100%);">
 
         <!-- Animated Stars Background -->
         <div class="absolute inset-0 overflow-hidden">
@@ -1716,7 +1982,7 @@
                 box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
             }
             .quote-gradient {
-                background: linear-gradient(135deg, rgba(0,113,227,0.1), rgba(255,149,0,0.1));
+                background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(240,208,96,0.05));
             }
             .progress-bar {
                 animation: progress 5s linear infinite;
@@ -4466,12 +4732,12 @@
                 className: 'custom-marker',
                 html: `
                     <div style="position: relative;">
-                        <div style="background: linear-gradient(135deg, #0071e3, #0077ED); width: 50px; height: 50px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,113,227,0.4);">
-                            <svg style="transform: rotate(45deg); width: 24px; height: 24px; color: white;" fill="currentColor" viewBox="0 0 24 24">
+                        <div style="background: linear-gradient(135deg, #9A7C00, #D4AF37); width: 50px; height: 50px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(212,175,55,0.45);">
+                            <svg style="transform: rotate(45deg); width: 24px; height: 24px; color: #080808;" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                             </svg>
                         </div>
-                        <div style="position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px; background: #0071e3; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                        <div style="position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px; background: #D4AF37; border-radius: 50%; animation: pulse 2s infinite;"></div>
                     </div>
                 `,
                 iconSize: [50, 60],
@@ -4484,22 +4750,22 @@
 
             // Contenu du popup
             const popupContent = `
-                <div style="padding: 16px; font-family: 'Poppins', sans-serif;">
+                <div style="padding: 16px; font-family: 'DM Sans', Verdana, sans-serif;">
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #0071e3, #0077ED); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                            <svg style="width: 24px; height: 24px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #9A7C00, #D4AF37); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                            <svg style="width: 24px; height: 24px; color: #080808;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
                         <div>
-                            <h3 style="font-weight: 700; font-size: 16px; color: #1e293b; margin: 0;">Travel Express</h3>
-                            <p style="font-size: 12px; color: #64748b; margin: 2px 0 0 0; line-height: 1.4;">8GX6+C57, Rue 30.200, Sanyiri<br>Ouagadougou, Burkina Faso</p>
+                            <h3 style="font-weight: 700; font-size: 16px; color: #f5f0e8; margin: 0;">Travel Express</h3>
+                            <p style="font-size: 12px; color: rgba(245,240,232,0.5); margin: 2px 0 0 0; line-height: 1.4;">8GX6+C57, Rue 30.200, Sanyiri<br>Ouagadougou, Burkina Faso</p>
                         </div>
                     </div>
                     <div style="display: flex; gap: 8px;">
                         <a href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving"
                            target="_blank"
-                           style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 16px; background: linear-gradient(135deg, #0071e3, #0077ED); color: white; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s;">
+                           style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 16px; background: linear-gradient(135deg, #9A7C00, #D4AF37); color: #080808; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s;">
                             <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
                             </svg>
