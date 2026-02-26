@@ -91,7 +91,7 @@
         .ornament {
             display: flex; align-items: center; gap: 14px;
             color: var(--gold); font-family: 'Cinzel', serif;
-            font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+            font-size: 0.76rem; letter-spacing: 0.2em; font-weight: 600; text-transform: uppercase;
         }
         .ornament::before, .ornament::after {
             content: ''; flex: 1; height: 1px;
@@ -108,8 +108,8 @@
         }
         .section-label {
             font-family: 'Cinzel', serif;
-            font-size: 0.62rem; letter-spacing: 0.22em;
-            text-transform: uppercase; color: var(--gold);
+            font-size: 0.76rem; letter-spacing: 0.2em;
+            font-weight: 600; text-transform: uppercase; color: var(--gold);
         }
         .muted { color: var(--parchment-dim); }
         .text-gold { color: var(--gold); }
@@ -134,8 +134,8 @@
         /* ─── Badge ──────────────────────────────────────────────────── */
         .badge {
             display: inline-flex; align-items: center; gap: 5px;
-            padding: 3px 12px; border-radius: 100px;
-            font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em;
+            padding: 4px 12px; border-radius: 100px;
+            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em;
             border: 1px solid; white-space: nowrap;
         }
         .badge-gold   { color: var(--gold);    border-color: rgba(212,175,55,0.4);  background: rgba(212,175,55,0.07); }
@@ -156,7 +156,7 @@
         /* ─── Form inputs ────────────────────────────────────────────── */
         .field-label {
             font-family: 'Cinzel', serif;
-            font-size: 0.6rem; letter-spacing: 0.2em;
+            font-size: 0.72rem; letter-spacing: 0.18em; font-weight: 600;
             text-transform: uppercase; color: var(--gold);
             display: block; margin-bottom: 8px;
         }
@@ -166,7 +166,7 @@
             border: 1px solid rgba(212,175,55,0.18);
             border-radius: 10px;
             color: var(--parchment);
-            font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+            font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500;
             transition: all 0.25s; outline: none;
         }
         .field-input:focus {
@@ -182,7 +182,7 @@
             padding: 12px 26px; border-radius: 10px; border: none; cursor: pointer;
             background: linear-gradient(135deg, #B8960C 0%, #D4AF37 45%, #C9A227 100%);
             color: #080808; font-family: 'Cinzel', serif;
-            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+            font-size: 0.84rem; font-weight: 700; letter-spacing: 0.12em;
             text-transform: uppercase; transition: all 0.3s;
             position: relative; overflow: hidden;
         }
@@ -202,7 +202,7 @@
             padding: 8px 15px; border-radius: 8px; cursor: pointer;
             background: transparent;
             border: 1px solid rgba(212,175,55,0.3);
-            color: var(--gold); font-size: 0.78rem; font-weight: 500;
+            color: var(--gold); font-size: 0.9rem; font-weight: 600;
             transition: all 0.22s; text-decoration: none; white-space: nowrap;
         }
         .btn-ghost-gold:hover { background: rgba(212,175,55,0.09); border-color: rgba(212,175,55,0.55); }
@@ -212,7 +212,7 @@
             padding: 8px 15px; border-radius: 8px; cursor: pointer;
             background: transparent;
             border: 1px solid rgba(252,165,165,0.22);
-            color: var(--ruby); font-size: 0.78rem; font-weight: 500;
+            color: var(--ruby); font-size: 0.9rem; font-weight: 600;
             transition: all 0.22s; white-space: nowrap;
         }
         .btn-ghost-red:hover { background: rgba(252,165,165,0.07); border-color: rgba(252,165,165,0.45); }
@@ -222,7 +222,7 @@
             padding: 9px 16px; border-radius: 8px; cursor: pointer;
             background: rgba(212,175,55,0.08);
             border: 1px solid rgba(212,175,55,0.28);
-            color: var(--gold); font-size: 0.78rem; font-weight: 500;
+            color: var(--gold); font-size: 0.9rem; font-weight: 600;
             transition: all 0.25s; white-space: nowrap;
         }
         .btn-upload-label:hover { background: rgba(212,175,55,0.16); border-color: rgba(212,175,55,0.6); transform: translateY(-1px); }
@@ -254,17 +254,17 @@
             flex-wrap: wrap; margin-bottom: 4px;
         }
         .doc-name-text {
-            font-size: 0.88rem; font-weight: 500;
+            font-size: 1rem; font-weight: 600;
             color: var(--parchment);
         }
         .doc-meta {
             display: flex; align-items: center; gap: 8px;
             margin-top: 6px; flex-wrap: wrap;
         }
-        .doc-filename { font-size: 0.75rem; color: var(--parchment-dim); font-style: italic; }
+        .doc-filename { font-size: 0.86rem; font-weight: 500; color: var(--parchment-dim); font-style: italic; }
         .doc-rejection {
             margin-top: 8px;
-            font-size: 0.78rem; color: var(--ruby);
+            font-size: 0.88rem; font-weight: 500; color: var(--ruby);
             padding: 7px 12px;
             background: rgba(252,165,165,0.06);
             border-left: 2px solid rgba(252,165,165,0.35);
@@ -359,10 +359,10 @@
             <span>✦</span> Travel Express <span>✦</span>
         </div>
 
-        <h1 class="display-serif" style="font-size:clamp(1.8rem,5vw,2.6rem); font-weight:900; line-height:1.1; color:var(--parchment);">
+        <h1 class="display-serif" style="font-size:clamp(2rem,5vw,2.9rem); font-weight:900; line-height:1.1; color:var(--parchment);">
             Dossier <span class="text-gold">Visa</span>
         </h1>
-        <p class="muted" style="margin-top:10px; font-size:0.85rem; letter-spacing:0.04em;">
+        <p class="muted" style="margin-top:10px; font-size:0.95rem; font-weight:500; letter-spacing:0.04em;">
             Complétez votre dossier pour initier votre demande de visa
         </p>
     </header>
@@ -384,7 +384,7 @@
                     </div>
                     <div>
                         <p class="section-label" style="margin-bottom:5px;">Titulaire du dossier</p>
-                        <p class="display-serif" style="font-size:1.1rem; font-weight:600; color:var(--parchment);">
+                        <p class="display-serif" style="font-size:1.25rem; font-weight:700; color:var(--parchment);">
                             {{ $visa->student_name ?? 'Non renseigné' }}
                         </p>
                     </div>
@@ -406,15 +406,15 @@
                 $uploadedCount = $uploadedDocuments->count();
             @endphp
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                <p class="section-label" style="font-size:0.58rem;">Progression du dossier</p>
-                <p id="visa-percentage" class="text-gold display-serif" style="font-size:0.95rem; font-weight:700;">
+                <p class="section-label">Progression du dossier</p>
+                <p id="visa-percentage" class="text-gold display-serif" style="font-size:1.1rem; font-weight:700;">
                     {{ $visa->completion_percentage }}%
                 </p>
             </div>
             <div class="progress-track">
                 <div class="progress-fill" id="visa-progress" style="width:{{ $visa->completion_percentage }}%"></div>
             </div>
-            <p class="muted" style="font-size:0.75rem; margin-top:7px; text-align:right;">
+            <p class="muted" style="font-size:0.88rem; font-weight:500; margin-top:7px; text-align:right;">
                 {{ $uploadedCount }} / {{ count($documents) }} documents soumis
             </p>
         </div>
@@ -466,7 +466,7 @@
     <div class="card rise" style="animation-delay:0.18s; margin-bottom:1.25rem;">
         <div class="card-body">
             <p class="section-label" style="margin-bottom:4px;">Documents à fournir</p>
-            <p class="muted" style="font-size:0.8rem; margin-bottom:1.5rem;">
+            <p class="muted" style="font-size:0.92rem; font-weight:500; margin-bottom:1.5rem;">
                 PDF, JPG, PNG, DOC acceptés · 10 Mo maximum par fichier
             </p>
 
@@ -509,9 +509,9 @@
                                 <span class="doc-name-text">{{ $cleanLabel }}</span>
 
                                 @if($isOptional)
-                                    <span class="badge badge-gray" style="font-size:0.62rem; padding:2px 9px;">Optionnel</span>
+                                    <span class="badge badge-gray" style="font-size:0.72rem; padding:3px 10px;">Optionnel</span>
                                 @else
-                                    <span class="badge badge-gold" style="font-size:0.62rem; padding:2px 9px;">Requis</span>
+                                    <span class="badge badge-gold" style="font-size:0.72rem; padding:3px 10px;">Requis</span>
                                 @endif
                             </div>
 
@@ -519,11 +519,11 @@
                                 <div class="doc-meta">
                                     <span class="doc-filename">{{ $uploaded->original_filename }}</span>
                                     @if($uploaded->status === 'approved')
-                                        <span class="badge badge-green" style="font-size:0.62rem; padding:2px 9px;">Approuvé</span>
+                                        <span class="badge badge-green" style="font-size:0.72rem; padding:3px 10px;">Approuvé</span>
                                     @elseif($uploaded->status === 'rejected')
-                                        <span class="badge badge-red" style="font-size:0.62rem; padding:2px 9px;">Rejeté</span>
+                                        <span class="badge badge-red" style="font-size:0.72rem; padding:3px 10px;">Rejeté</span>
                                     @else
-                                        <span class="badge badge-gold" style="font-size:0.62rem; padding:2px 9px;">En révision</span>
+                                        <span class="badge badge-gold" style="font-size:0.72rem; padding:3px 10px;">En révision</span>
                                     @endif
                                 </div>
 
@@ -578,10 +578,10 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"
                       d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
             </svg>
-            <p class="display-serif text-gold" style="font-size:0.9rem; letter-spacing:0.07em; margin-bottom:8px;">
+            <p class="display-serif text-gold" style="font-size:1.05rem; font-weight:700; letter-spacing:0.07em; margin-bottom:8px;">
                 Prêt à soumettre votre dossier ?
             </p>
-            <p class="muted" style="font-size:0.82rem; max-width:380px; margin:0 auto 2rem; line-height:1.6;">
+            <p class="muted" style="font-size:0.95rem; font-weight:500; max-width:380px; margin:0 auto 2rem; line-height:1.6;">
                 Assurez-vous que tous les documents requis sont uploadés avant de soumettre. Notre équipe examinera votre dossier et vous contactera.
             </p>
             <button @click="submitDossier" class="btn-gold btn-pulse"
@@ -600,10 +600,10 @@
                  style="margin:0 auto 1rem; display:block; opacity:0.9;">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            <p class="display-serif" style="font-size:0.95rem; color:var(--emerald); letter-spacing:0.05em; margin-bottom:6px;">
+            <p class="display-serif" style="font-size:1.1rem; font-weight:700; color:var(--emerald); letter-spacing:0.05em; margin-bottom:6px;">
                 Dossier soumis avec succès
             </p>
-            <p class="muted" style="font-size:0.82rem;">
+            <p class="muted" style="font-size:0.92rem; font-weight:500;">
                 Soumis le {{ $visa->student_submitted_at->format('d/m/Y à H:i') }}
                 · Notre équipe vous contactera prochainement.
             </p>
@@ -629,8 +629,8 @@
             </svg>
         </div>
         <div>
-            <p class="display-serif text-gold" style="font-size:0.78rem; margin-bottom:3px;" x-text="toast.title"></p>
-            <p class="muted" style="font-size:0.78rem; line-height:1.4;" x-text="toast.message"></p>
+            <p class="display-serif text-gold" style="font-size:0.88rem; font-weight:700; margin-bottom:3px;" x-text="toast.title"></p>
+            <p class="muted" style="font-size:0.86rem; font-weight:500; line-height:1.4;" x-text="toast.message"></p>
         </div>
     </div>
 </div>
