@@ -511,11 +511,95 @@
             background: linear-gradient(135deg, #0c0c0c, #141008, #0c0c0c) !important;
             border: 1px solid rgba(212,175,55,0.14) !important;
         }
-        /* Programme country cards → match dark theme */
-        #programmes .border-white\/10 { border-color: rgba(212,175,55,0.12) !important; }
+        /* ── Programmes section — full gold harmonization ─────────── */
+
+        /* Background orbs → gold */
+        #programmes [class*="from-blue-5"][class*="to-purple"],
+        #programmes [class*="from-cyan-"][class*="to-pink"],
+        #programmes [class*="from-indigo-"] {
+            background: radial-gradient(circle, rgba(212,175,55,0.08), transparent) !important;
+        }
+        /* Decorative star dots → gold tint */
+        #programmes [class*="bg-blue-3"],
+        #programmes [class*="bg-purple-3"],
+        #programmes [class*="bg-cyan-3"],
+        #programmes [class*="bg-pink-3"] {
+            background-color: rgba(212,175,55,0.6) !important;
+        }
+
+        /* Section badge pill */
+        #programmes .bg-white\/5 { background-color: rgba(212,175,55,0.07) !important; }
+        #programmes [class*="shadow-purple"] { box-shadow: 0 4px 20px rgba(212,175,55,0.12) !important; }
+
+        /* Card hover glow → gold */
+        #programmes [class*="from-red-5"][class*="to-yellow"],
+        #programmes [class*="from-orange-5"][class*="to-red"],
+        #programmes [class*="from-gray-5"][class*="to-yellow"],
+        #programmes [class*="from-blue-5"][class*="to-indigo"] {
+            background: radial-gradient(circle, rgba(212,175,55,0.25), transparent) !important;
+        }
+
+        /* Card borders hover → gold */
         #programmes [class*="group-hover:border-red"],
         #programmes [class*="group-hover:border-orange"],
-        #programmes [class*="group-hover:border-yellow"] { --hover-border: rgba(212,175,55,0.4); }
+        #programmes [class*="group-hover:border-yellow"],
+        #programmes [class*="group-hover:border-blue"],
+        #programmes [class*="group-hover:border-gray"] {
+            border-color: rgba(212,175,55,0.45) !important;
+        }
+
+        /* Country flag badge (top-left of image) */
+        #programmes [class*="from-red-6"],
+        #programmes [class*="from-blue-6"],
+        #programmes .bg-blue-600 {
+            background: linear-gradient(135deg, #9A7C00, #D4AF37) !important;
+        }
+
+        /* EU badge */
+        #programmes .bg-blue-600 { background: rgba(212,175,55,0.2) !important; border: 1px solid rgba(212,175,55,0.4) !important; }
+
+        /* Premium star icon */
+        #programmes .bg-yellow-500 { background: linear-gradient(135deg, #9A7C00, #D4AF37) !important; box-shadow: 0 4px 12px rgba(212,175,55,0.4) !important; }
+        #programmes .text-yellow-900 { color: #080808 !important; }
+
+        /* Program badges — unify all colors to gold tint */
+        #programmes span[class*="bg-red-5"],
+        #programmes span[class*="bg-yellow-5"],
+        #programmes span[class*="bg-orange-5"],
+        #programmes span[class*="bg-purple-5"],
+        #programmes span[class*="bg-pink-5"],
+        #programmes span[class*="bg-blue-5"],
+        #programmes span[class*="bg-cyan-5"],
+        #programmes span[class*="bg-emerald-5"],
+        #programmes span[class*="bg-teal-5"],
+        #programmes span[class*="bg-green-5"],
+        #programmes span[class*="bg-indigo-5"] {
+            background-color: rgba(212,175,55,0.1) !important;
+            border-color: rgba(212,175,55,0.28) !important;
+            color: rgba(212,175,55,0.85) !important;
+        }
+
+        /* Check icons → gold */
+        #programmes .text-green-400 { color: #D4AF37 !important; }
+
+        /* Stats numbers */
+        #programmes .text-yellow-400 { color: #D4AF37 !important; }
+        #programmes .text-white.text-xl { color: #ffffff !important; }
+
+        /* CTA Buttons → gold */
+        #programmes a[href="#contact"] .absolute[class*="from-red"],
+        #programmes a[href="#contact"] .absolute[class*="from-orange"],
+        #programmes a[href="#contact"] .absolute[class*="from-blue"],
+        #programmes a[href="#contact"] .absolute[class*="from-gray"],
+        #programmes a[href="#contact"] .absolute[class*="from-black"],
+        #programmes a[href="#contact"] > .absolute:first-child {
+            background: linear-gradient(135deg, #9A7C00 0%, #D4AF37 50%, #C9A227 100%) !important;
+        }
+        #programmes a[href="#contact"] {
+            box-shadow: 0 4px 20px rgba(212,175,55,0.25) !important;
+        }
+        #programmes a[href="#contact"] .text-white { color: #080808 !important; }
+        #programmes a[href="#contact"] svg { stroke: #080808 !important; }
         /* Localisation map section extra */
         #localisation .bg-gradient-to-b { background: #080808 !important; }
         /* Grain overlay ─────────────────────────────────────────── */
@@ -1394,21 +1478,21 @@
 
             <!-- Section Header with Glow Effect -->
             <div class="text-center mb-16 scroll-reveal">
-                <div class="inline-flex items-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-xl rounded-full mb-8 border border-white/10 shadow-lg shadow-purple-500/10">
-                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <span class="text-sm font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Explorez le monde avec nous</span>
+                <div class="inline-flex items-center gap-2 px-6 py-3 backdrop-blur-xl rounded-full mb-8" style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.25);">
+                    <div class="w-2 h-2 rounded-full animate-pulse" style="background:#D4AF37;"></div>
+                    <span class="text-sm font-medium" style="color:#D4AF37;">Explorez le monde avec nous</span>
                 </div>
                 <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6 leading-tight">
                     Votre passeport vers
                     <span class="relative inline-block">
-                        <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">l'international</span>
+                        <span style="color:#D4AF37;">l'international</span>
                         <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none">
-                            <path d="M1 5.5C47.6667 2.16667 141 -2.4 199 5.5" stroke="url(#gradient)" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M1 5.5C47.6667 2.16667 141 -2.4 199 5.5" stroke="url(#gold-line)" stroke-width="3" stroke-linecap="round"/>
                             <defs>
-                                <linearGradient id="gradient" x1="0" y1="0" x2="200" y2="0">
-                                    <stop offset="0%" stop-color="#22d3ee"/>
-                                    <stop offset="50%" stop-color="#3b82f6"/>
-                                    <stop offset="100%" stop-color="#a855f7"/>
+                                <linearGradient id="gold-line" x1="0" y1="0" x2="200" y2="0">
+                                    <stop offset="0%" stop-color="#9A7C00"/>
+                                    <stop offset="50%" stop-color="#D4AF37"/>
+                                    <stop offset="100%" stop-color="#F0D060"/>
                                 </linearGradient>
                             </defs>
                         </svg>
