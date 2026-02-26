@@ -157,9 +157,26 @@
         .text-gray     { color: rgba(255,255,255,0.78) !important; }
         .text-black    { color: #ffffff !important; }
 
+        /* Slate text → white */
+        .text-slate-900, .text-slate-800, .text-slate-700 { color: #ffffff !important; }
+        .text-slate-600 { color: rgba(255,255,255,0.85) !important; }
+        .text-slate-500 { color: rgba(255,255,255,0.65) !important; }
+        .text-slate-400 { color: rgba(255,255,255,0.50) !important; }
+
         /* Primary & accent → gold */
         [class*="text-primary"] { color: var(--gold) !important; }
         [class*="text-accent"]  { color: var(--gold) !important; }
+
+        /* Non-gold gradient text → force gold */
+        [class*="from-blue-"],[class*="to-blue-"]   { --tw-gradient-from: #B8960C !important; --tw-gradient-to: #D4AF37 !important; }
+        [class*="from-purple-"],[class*="to-purple-"],
+        [class*="via-purple-"]                       { --tw-gradient-from: #B8960C !important; --tw-gradient-to: #D4AF37 !important; }
+        [class*="from-indigo-"],[class*="to-indigo-"]{ --tw-gradient-from: #9A7C00 !important; --tw-gradient-to: #D4AF37 !important; }
+        /* Amber/orange stats can stay warm but shift to gold */
+        [class*="from-amber-"],[class*="to-amber-"]  { --tw-gradient-from: #C9A227 !important; --tw-gradient-to: #F0D060 !important; }
+        [class*="from-orange-"],[class*="to-orange-"]{ --tw-gradient-from: #B8960C !important; --tw-gradient-to: #D4AF37 !important; }
+        /* Amber text */
+        [class*="text-amber-"] { color: var(--gold) !important; }
 
         /* ── Primary/Accent bg → Gold ─────────────────────────────── */
         [class*="bg-primary-600"], [class*="bg-primary-700"], [class*="bg-primary-500"] { background-color: var(--gold-dark) !important; }
@@ -256,8 +273,72 @@
         [class*="bg-primary-600"].rounded-full,
         [class*="bg-accent-600"].rounded-full  { box-shadow: 0 0 0 4px rgba(212,175,55,0.2) !important; }
 
-        /* ── Testimonial & FAQ cards ─────────────────────────────── */
-        #temoignages .bg-white, #temoignages .bg-gray-50,
+        /* ── Slate borders → gold ─────────────────────────────────── */
+        .border-slate-100, .border-slate-200 { border-color: rgba(212,175,55,0.14) !important; }
+        .border-slate-300 { border-color: rgba(212,175,55,0.25) !important; }
+
+        /* ── Testimonial section ──────────────────────────────────── */
+        #temoignages { background: #0a0a0a !important; }
+
+        /* Stat cards */
+        #temoignages .bg-white.rounded-xl,
+        #temoignages .bg-white.rounded-2xl {
+            background-color: #131313 !important;
+            border-color: rgba(212,175,55,0.16) !important;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5) !important;
+        }
+        #temoignages .bg-white.rounded-xl:hover,
+        #temoignages .bg-white.rounded-2xl:hover {
+            border-color: rgba(212,175,55,0.35) !important;
+            box-shadow: 0 12px 36px rgba(212,175,55,0.1) !important;
+        }
+
+        /* Testimonial cards */
+        #temoignages .testimonial-card-premium {
+            background-color: #131313 !important;
+            border-color: rgba(212,175,55,0.15) !important;
+        }
+        #temoignages .testimonial-card-premium.active {
+            border-color: rgba(212,175,55,0.35) !important;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 0 1px rgba(212,175,55,0.2) !important;
+        }
+
+        /* Nav arrows */
+        #temoignages button.bg-white\/90,
+        #temoignages button[class*="bg-white"] {
+            background-color: rgba(20,16,8,0.9) !important;
+            border-color: rgba(212,175,55,0.25) !important;
+            color: var(--gold) !important;
+        }
+        #temoignages button[class*="bg-white"]:hover {
+            background-color: rgba(30,22,5,0.98) !important;
+            border-color: rgba(212,175,55,0.5) !important;
+        }
+
+        /* Verified badge */
+        #temoignages .bg-green-50 {
+            background-color: rgba(212,175,55,0.08) !important;
+            border-color: rgba(212,175,55,0.2) !important;
+        }
+        #temoignages .text-green-600 { color: var(--gold) !important; }
+
+        /* Empty stars */
+        #temoignages .text-slate-200 { color: rgba(255,255,255,0.18) !important; }
+
+        /* Quote icon area */
+        #temoignages .text-slate-900 { color: #ffffff !important; }
+        #temoignages .text-slate-700 { color: rgba(255,255,255,0.9) !important; }
+        #temoignages .text-slate-500 { color: rgba(255,255,255,0.62) !important; }
+        #temoignages .text-slate-400 { color: rgba(255,255,255,0.45) !important; }
+
+        /* Dot indicators */
+        #temoignages [class*="bg-primary-"] { background-color: var(--gold) !important; }
+        #temoignages [class*="bg-slate-"]   { background-color: rgba(255,255,255,0.2) !important; }
+
+        /* Progress bar */
+        #temoignages .bg-gradient-to-r { background: linear-gradient(to right, #9A7C00, #D4AF37) !important; }
+
+        /* ── FAQ cards ───────────────────────────────────────────── */
         #faq .bg-white, #faq .bg-gray-50 {
             background-color: #111 !important;
             border-color: rgba(212,175,55,0.12) !important;
