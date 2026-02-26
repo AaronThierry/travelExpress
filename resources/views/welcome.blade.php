@@ -150,12 +150,12 @@
         .bg-gradient-to-b.from-slate-50 { background: linear-gradient(to bottom, #0a0a0a, #101010) !important; }
 
         /* ── Text color remapping ─────────────────────────────────── */
-        .text-dark, .text-gray-900, .text-gray-800, .text-gray-700 { color: var(--parchment) !important; }
-        .text-gray-600 { color: rgba(245,240,232,0.68) !important; }
-        .text-gray-500 { color: rgba(245,240,232,0.48) !important; }
-        .text-gray-400 { color: rgba(245,240,232,0.38) !important; }
-        .text-gray     { color: rgba(245,240,232,0.6)  !important; }
-        .text-black    { color: var(--parchment) !important; }
+        .text-dark, .text-gray-900, .text-gray-800, .text-gray-700 { color: #ffffff !important; }
+        .text-gray-600 { color: rgba(255,255,255,0.85) !important; }
+        .text-gray-500 { color: rgba(255,255,255,0.72) !important; }
+        .text-gray-400 { color: rgba(255,255,255,0.58) !important; }
+        .text-gray     { color: rgba(255,255,255,0.78) !important; }
+        .text-black    { color: #ffffff !important; }
 
         /* Primary & accent → gold */
         [class*="text-primary"] { color: var(--gold) !important; }
@@ -273,8 +273,8 @@
         footer { background-color: #040404 !important; }
         footer .bg-gradient-to-br { background: #040404 !important; }
         footer .border-t, footer .border-white\/10 { border-color: rgba(212,175,55,0.1) !important; }
-        footer .text-white { color: var(--parchment) !important; }
-        footer .text-gray-400, footer .text-gray-500 { color: rgba(245,240,232,0.4) !important; }
+        footer .text-white { color: #ffffff !important; }
+        footer .text-gray-400, footer .text-gray-500 { color: rgba(255,255,255,0.55) !important; }
         footer a:hover { color: var(--gold) !important; }
         footer .bg-white\/10 { background-color: rgba(212,175,55,0.08) !important; border-color: rgba(212,175,55,0.2) !important; }
 
