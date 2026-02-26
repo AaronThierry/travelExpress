@@ -188,10 +188,15 @@
         [class*="to-primary"],   [class*="to-accent"]   { --tw-gradient-to:   #D4AF37 !important; }
         [class*="via-primary"],  [class*="via-accent"]  { --tw-gradient-stops: var(--tw-gradient-from), #D4AF37, var(--tw-gradient-to) !important; }
 
-        /* Gradient text for section headings */
-        .text-transparent.bg-clip-text.bg-gradient-to-r {
+        /* Gradient text for section headings — force transparent color so gradient shows */
+        .text-transparent.bg-clip-text.bg-gradient-to-r,
+        .bg-clip-text.text-transparent,
+        [class*="bg-clip-text"][class*="text-transparent"] {
             background-image: linear-gradient(135deg, #B8960C, #D4AF37, #F0D060) !important;
-            -webkit-background-clip: text !important; background-clip: text !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            color: transparent !important;
+            -webkit-text-fill-color: transparent !important;
         }
 
         /* ── Borders ─────────────────────────────────────────────── */
@@ -2146,37 +2151,37 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header Premium -->
             <div class="text-center mb-16 scroll-reveal">
-                <div class="inline-flex items-center gap-3 px-5 py-2.5 bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-100 rounded-full mb-8">
+                <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full mb-8" style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);">
                     <div class="relative">
-                        <span class="w-2.5 h-2.5 bg-green-500 rounded-full animate-ping absolute"></span>
-                        <span class="w-2.5 h-2.5 bg-green-500 rounded-full relative"></span>
+                        <span class="w-2 h-2 rounded-full animate-ping absolute" style="background:#D4AF37;opacity:0.7;"></span>
+                        <span class="w-2 h-2 rounded-full relative block" style="background:#D4AF37;"></span>
                     </div>
-                    <span class="text-primary-700 text-sm font-bold tracking-wide uppercase">+500 Étudiants Accompagnés</span>
+                    <span class="text-sm font-bold tracking-widest uppercase" style="color:#D4AF37;">+500 Étudiants Accompagnés</span>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-display font-extrabold text-slate-900 mb-6 tracking-tight">
-                    Ils ont réalisé leur <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 via-purple-600 to-accent-500">rêve</span>
+                <h2 class="text-4xl md:text-5xl font-display font-extrabold mb-4 tracking-tight" style="color:#ffffff;">
+                    Ils ont réalisé leur <span style="color:#D4AF37;">rêve</span>
                 </h2>
-                <p class="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium">
+                <p class="text-lg max-w-2xl mx-auto leading-relaxed" style="color:rgba(255,255,255,0.65);">
                     Découvrez les parcours inspirants de ceux qui nous ont fait confiance
                 </p>
             </div>
 
-            <!-- Stats Premium -->
-            <div class="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8 mb-10 sm:mb-16 max-w-3xl mx-auto scroll-reveal-stagger">
-                <div class="text-center p-3 sm:p-4 md:p-6 bg-white rounded-xl sm:rounded-2xl shadow-lg shadow-primary-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent">98%</div>
-                    <div class="text-slate-500 text-[10px] sm:text-xs md:text-sm font-semibold mt-1 sm:mt-2 uppercase tracking-wider">Satisfaction</div>
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-3 sm:gap-6 mb-12 sm:mb-16 max-w-2xl mx-auto scroll-reveal-stagger">
+                <div class="text-center py-5 px-3 rounded-2xl transition-all duration-300 hover:-translate-y-1" style="background:#131313;border:1px solid rgba(212,175,55,0.2);box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+                    <div class="text-3xl sm:text-4xl font-display font-extrabold" style="color:#D4AF37;">98%</div>
+                    <div class="text-[11px] sm:text-xs font-semibold mt-2 uppercase tracking-widest" style="color:rgba(255,255,255,0.5);">Satisfaction</div>
                 </div>
-                <div class="text-center p-3 sm:p-4 md:p-6 bg-white rounded-xl sm:rounded-2xl shadow-lg shadow-amber-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="flex items-baseline justify-center gap-0.5 sm:gap-1">
-                        <span class="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">4.9</span>
-                        <span class="text-base sm:text-lg md:text-xl text-amber-500">/5</span>
+                <div class="text-center py-5 px-3 rounded-2xl transition-all duration-300 hover:-translate-y-1" style="background:#131313;border:1px solid rgba(212,175,55,0.2);box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+                    <div class="flex items-baseline justify-center gap-0.5">
+                        <span class="text-3xl sm:text-4xl font-display font-extrabold" style="color:#D4AF37;">4.9</span>
+                        <span class="text-base font-semibold" style="color:rgba(212,175,55,0.6);">/5</span>
                     </div>
-                    <div class="text-slate-500 text-[10px] sm:text-xs md:text-sm font-semibold mt-1 sm:mt-2 uppercase tracking-wider">Note</div>
+                    <div class="text-[11px] sm:text-xs font-semibold mt-2 uppercase tracking-widest" style="color:rgba(255,255,255,0.5);">Note</div>
                 </div>
-                <div class="text-center p-3 sm:p-4 md:p-6 bg-white rounded-xl sm:rounded-2xl shadow-lg shadow-emerald-500/10 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">50+</div>
-                    <div class="text-slate-500 text-[10px] sm:text-xs md:text-sm font-semibold mt-1 sm:mt-2 uppercase tracking-wider">Universités</div>
+                <div class="text-center py-5 px-3 rounded-2xl transition-all duration-300 hover:-translate-y-1" style="background:#131313;border:1px solid rgba(212,175,55,0.2);box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+                    <div class="text-3xl sm:text-4xl font-display font-extrabold" style="color:#D4AF37;">50+</div>
+                    <div class="text-[11px] sm:text-xs font-semibold mt-2 uppercase tracking-widest" style="color:rgba(255,255,255,0.5);">Universités</div>
                 </div>
             </div>
 
