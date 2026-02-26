@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\VisaApplication;
 use App\Models\VisaDocument;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class VisaApplicationAdminController extends Controller
@@ -54,11 +55,29 @@ class VisaApplicationAdminController extends Controller
         $visa = VisaApplication::create($validated);
         $visa->generateAccessToken(60);
 
+        $emailSent = false;
+        if (!empty($visa->student_email)) {
+            try {
+                Mail::send('emails.visa-dossier-link', [
+                    'visa'      => $visa,
+                    'accessUrl' => $visa->student_form_url,
+                    'expiresAt' => $visa->token_expires_at?->format('d/m/Y'),
+                ], function ($message) use ($visa) {
+                    $message->to($visa->student_email, $visa->student_name ?? $visa->student_email)
+                            ->subject('Votre dossier visa — Travel Express');
+                });
+                $emailSent = true;
+            } catch (\Exception $e) {
+                // Email failure does not block creation
+            }
+        }
+
         return response()->json([
             'success'    => true,
-            'message'    => 'Dossier visa créé avec succès.',
+            'message'    => 'Dossier visa créé avec succès.' . ($emailSent ? ' Un e-mail a été envoyé à l\'étudiant.' : ''),
             'data'       => $visa,
             'access_url' => $visa->student_form_url,
+            'email_sent' => $emailSent,
         ], 201);
     }
 
