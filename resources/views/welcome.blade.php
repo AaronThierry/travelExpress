@@ -506,11 +506,22 @@
         #faq [class*="from-slate-100"] {
             background: rgba(212,175,55,0.04) !important;
         }
-        /* Contact info dark card → gold-tinted */
+        /* ── Contact section ─────────────────────────────────────── */
+        #contact { background: #080808 !important; }
+        #contact label { color: rgba(255,255,255,0.82) !important; }
+        #contact .text-slate-700 { color: rgba(255,255,255,0.82) !important; }
+        #contact .text-red-500 { color: #D4AF37 !important; }
+        #contact .h-px.bg-slate-200 { background-color: rgba(212,175,55,0.2) !important; }
+        #contact #contact-success .bg-green-50 { background: rgba(212,175,55,0.1) !important; border: 1px solid rgba(212,175,55,0.3) !important; }
+        #contact #contact-success .text-green-700 { color: #D4AF37 !important; }
+        /* Stats bar */
         #contact .bg-gradient-to-br.from-slate-900 {
             background: linear-gradient(135deg, #0c0c0c, #141008, #0c0c0c) !important;
             border: 1px solid rgba(212,175,55,0.14) !important;
         }
+        #contact .border-white\/10 { border-color: rgba(212,175,55,0.12) !important; }
+        #contact .bg-white\/10 { background-color: rgba(212,175,55,0.08) !important; border: 1px solid rgba(212,175,55,0.15) !important; }
+        #contact [class*="shadow-primary"] { box-shadow: 0 4px 20px rgba(212,175,55,0.15) !important; }
         /* ── Programmes section — full gold harmonization ─────────── */
 
         /* Background orbs → gold */
@@ -2772,131 +2783,109 @@
                 <!-- Left Side - Info Cards -->
                 <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 order-2 lg:order-1">
                     <!-- Card 1 - Nos Services -->
-                    <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-4 sm:p-5 text-white flex flex-col relative overflow-hidden min-h-0">
-                        <!-- Decorative -->
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-primary-500/10 rounded-full blur-3xl"></div>
+                    <div class="rounded-2xl p-4 sm:p-5 text-white flex flex-col relative overflow-hidden min-h-0" style="background:linear-gradient(135deg,#0e0b06,#1a1508,#0e0b06);border:1px solid rgba(212,175,55,0.2);">
+                        <!-- Decorative glow -->
+                        <div class="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl" style="background:rgba(212,175,55,0.07);"></div>
 
                         <!-- Header -->
                         <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#9A7C00,#D4AF37);box-shadow:0 4px 14px rgba(212,175,55,0.3);">
+                                <svg class="w-4 h-4 sm:w-5 sm:h-5" style="color:#080808;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                                 </svg>
                             </div>
                             <div class="min-w-0">
-                                <h3 class="text-base sm:text-lg font-display font-bold truncate">Nos Services</h3>
-                                <p class="text-slate-400 text-[11px] sm:text-xs truncate">Solutions complètes</p>
+                                <h3 class="text-base sm:text-lg font-display font-bold truncate" style="color:#ffffff;">Nos Services</h3>
+                                <p class="text-[11px] sm:text-xs truncate" style="color:rgba(212,175,55,0.6);">Solutions complètes</p>
                             </div>
                         </div>
 
                         <!-- Services List -->
                         <div class="space-y-2 sm:space-y-2.5 flex-1">
+                            @foreach(['Études à l\'étranger','Accompagnement visa','Voyages d\'affaires','Billets & Hébergement'] as $service)
                             <div class="flex items-center gap-2">
-                                <div class="w-5 h-5 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                <div class="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.3);">
+                                    <svg class="w-3 h-3" style="color:#D4AF37;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                                     </svg>
                                 </div>
-                                <p class="font-medium text-xs sm:text-sm text-white truncate">Études à l'étranger</p>
+                                <p class="font-medium text-xs sm:text-sm truncate" style="color:rgba(255,255,255,0.85);">{{ $service }}</p>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-5 h-5 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                    </svg>
-                                </div>
-                                <p class="font-medium text-xs sm:text-sm text-white truncate">Accompagnement visa</p>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-5 h-5 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                    </svg>
-                                </div>
-                                <p class="font-medium text-xs sm:text-sm text-white truncate">Voyages d'affaires</p>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-5 h-5 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                    </svg>
-                                </div>
-                                <p class="font-medium text-xs sm:text-sm text-white truncate">Billets & Hébergement</p>
-                            </div>
+                            @endforeach
                         </div>
 
                         <!-- Stats -->
-                        <div class="grid grid-cols-2 gap-2 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-white/10">
+                        <div class="grid grid-cols-2 gap-2 mt-3 sm:mt-4 pt-3 sm:pt-4" style="border-top:1px solid rgba(212,175,55,0.15);">
                             <div class="text-center">
-                                <div class="text-lg sm:text-xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">500+</div>
-                                <p class="text-slate-500 text-[9px] sm:text-[10px] font-medium">Clients satisfaits</p>
+                                <div class="text-lg sm:text-xl font-display font-black" style="color:#D4AF37;">500+</div>
+                                <p class="text-[9px] sm:text-[10px] font-medium" style="color:rgba(255,255,255,0.45);">Clients satisfaits</p>
                             </div>
                             <div class="text-center">
-                                <div class="text-lg sm:text-xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-blue-400">5 ans</div>
-                                <p class="text-slate-500 text-[9px] sm:text-[10px] font-medium">D'expérience</p>
+                                <div class="text-lg sm:text-xl font-display font-black" style="color:#D4AF37;">5 ans</div>
+                                <p class="text-[9px] sm:text-[10px] font-medium" style="color:rgba(255,255,255,0.45);">D'expérience</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Card 2 - Contact Direct -->
-                    <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-lg shadow-slate-200/50 border border-slate-100 flex flex-col overflow-hidden min-h-0">
+                    <div class="rounded-2xl p-4 sm:p-5 flex flex-col overflow-hidden min-h-0" style="background:linear-gradient(135deg,#0e0b06,#1a1508,#0e0b06);border:1px solid rgba(212,175,55,0.2);">
                         <!-- Header -->
                         <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                            <div class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-md shadow-green-500/20 flex-shrink-0">
-                                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#9A7C00,#D4AF37);box-shadow:0 4px 14px rgba(212,175,55,0.3);">
+                                <svg class="w-4 h-4 sm:w-5 sm:h-5" style="color:#080808;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                                 </svg>
                             </div>
                             <div class="min-w-0">
-                                <h4 class="font-display font-bold text-slate-900 text-sm sm:text-base truncate">Contactez-nous</h4>
-                                <p class="text-slate-500 text-[11px] sm:text-xs truncate">Réponse sous 24h</p>
+                                <h4 class="font-display font-bold text-sm sm:text-base truncate" style="color:#ffffff;">Contactez-nous</h4>
+                                <p class="text-[11px] sm:text-xs truncate" style="color:rgba(212,175,55,0.6);">Réponse sous 24h</p>
                             </div>
                         </div>
 
                         <!-- Contact Options -->
                         <div class="space-y-2 sm:space-y-3 flex-1">
-                            <a href="https://wa.me/22665604592" target="_blank" class="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 rounded-xl transition-all group border border-green-100">
+                            <a href="https://wa.me/22665604592" target="_blank" class="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-xl transition-all group" style="background:rgba(212,175,55,0.07);border:1px solid rgba(212,175,55,0.18);" onmouseover="this.style.background='rgba(212,175,55,0.13)'" onmouseout="this.style.background='rgba(212,175,55,0.07)'">
                                 <div class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-md shadow-green-500/25 group-hover:scale-105 transition-transform flex-shrink-0">
                                     <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                                     </svg>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="font-bold text-slate-900 text-xs sm:text-sm">WhatsApp</p>
-                                    <p class="text-green-600 font-semibold text-[11px] sm:text-xs truncate">+226 65 60 45 92</p>
+                                    <p class="font-bold text-xs sm:text-sm" style="color:#ffffff;">WhatsApp</p>
+                                    <p class="font-semibold text-[11px] sm:text-xs truncate" style="color:#D4AF37;">+226 65 60 45 92</p>
                                 </div>
-                                <svg class="w-4 h-4 text-green-500 group-hover:translate-x-1 transition-transform flex-shrink-0 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform flex-shrink-0 hidden sm:block" style="color:rgba(212,175,55,0.6);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                 </svg>
                             </a>
 
-                            <a href="mailto:armel.bakoua@travel-express.bf" class="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gradient-to-r from-primary-50 to-blue-50 hover:from-primary-100 hover:to-blue-100 rounded-xl transition-all group border border-primary-100">
-                                <div class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-md shadow-primary-500/25 group-hover:scale-105 transition-transform flex-shrink-0">
-                                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <a href="mailto:armel.bakoua@travel-express.bf" class="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-xl transition-all group" style="background:rgba(212,175,55,0.07);border:1px solid rgba(212,175,55,0.18);" onmouseover="this.style.background='rgba(212,175,55,0.13)'" onmouseout="this.style.background='rgba(212,175,55,0.07)'">
+                                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform flex-shrink-0" style="background:linear-gradient(135deg,#9A7C00,#D4AF37);box-shadow:0 4px 12px rgba(212,175,55,0.25);">
+                                    <svg class="w-4 h-4 sm:w-5 sm:h-5" style="color:#080808;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                                     </svg>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="font-bold text-slate-900 text-xs sm:text-sm">Email</p>
-                                    <p class="text-primary-600 font-semibold text-[11px] sm:text-xs truncate">armel.bakoua@travels.express</p>
+                                    <p class="font-bold text-xs sm:text-sm" style="color:#ffffff;">Email</p>
+                                    <p class="font-semibold text-[11px] sm:text-xs truncate" style="color:#D4AF37;">armel.bakoua@travels.express</p>
                                 </div>
-                                <svg class="w-4 h-4 text-primary-500 group-hover:translate-x-1 transition-transform flex-shrink-0 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform flex-shrink-0 hidden sm:block" style="color:rgba(212,175,55,0.6);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                 </svg>
                             </a>
                         </div>
 
                         <!-- Location -->
-                        <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-100 flex items-center gap-2 sm:gap-3">
-                            <div class="w-8 h-8 sm:w-9 sm:h-9 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 flex items-center gap-2 sm:gap-3" style="border-top:1px solid rgba(212,175,55,0.15);">
+                            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.2);">
+                                <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" style="color:#D4AF37;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 </svg>
                             </div>
                             <div class="min-w-0">
-                                <p class="font-semibold text-slate-900 text-xs sm:text-sm truncate">Ouagadougou, Burkina Faso</p>
-                                <p class="text-slate-500 text-[10px] sm:text-xs truncate">Lun-Ven: 9h-18h | Sam: 10h-14h</p>
+                                <p class="font-semibold text-xs sm:text-sm truncate" style="color:#ffffff;">Ouagadougou, Burkina Faso</p>
+                                <p class="text-[10px] sm:text-xs truncate" style="color:rgba(255,255,255,0.45);">Lun-Ven: 9h-18h | Sam: 10h-14h</p>
                             </div>
                         </div>
                     </div>
@@ -2904,7 +2893,7 @@
 
                 <!-- Right Side - Form -->
                 <div class="lg:col-span-3 flex order-1 lg:order-2 min-w-0">
-                    <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-lg shadow-slate-200/50 border border-slate-100 flex-1 overflow-hidden min-w-0 w-full">
+                    <div class="rounded-2xl p-4 sm:p-6 flex-1 overflow-hidden min-w-0 w-full" style="background:linear-gradient(135deg,#0e0b06,#1a1508,#0e0b06);border:1px solid rgba(212,175,55,0.2);box-shadow:0 8px 32px rgba(0,0,0,0.6);">
                         <!-- Success Message -->
                         <div id="contact-success" class="hidden">
                             <div class="text-center py-12">
