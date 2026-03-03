@@ -4678,6 +4678,37 @@
                             </div>
                         </div>
 
+                        <!-- Question TikTok : quelle chaîne ? -->
+                        <div x-show="discoverySource === 'tiktok'" x-transition class="bg-gradient-to-br from-[#d4af37]/10 to-[#0a0a0a]/5 rounded p-2.5 border border-[#d4af37]/30">
+                            <label class="block text-[10px] font-semibold text-[#0a0a0a] mb-2">
+                                📱 C'est la vidéo de quelle chaîne TikTok ? *
+                            </label>
+                            <div class="grid grid-cols-3 gap-1.5">
+                                <label class="cursor-pointer">
+                                    <input type="radio" x-model="tiktokChannel" value="travel_express" class="peer sr-only">
+                                    <div class="p-2 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">✈️</span>
+                                        <span class="text-[9px] font-semibold block">Travel</span>
+                                        <span class="text-[9px] font-semibold block leading-tight">Express</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" x-model="tiktokChannel" value="leyley" class="peer sr-only">
+                                    <div class="p-2 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">👨‍💼</span>
+                                        <span class="text-[9px] font-semibold block">Leyley</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" x-model="tiktokChannel" value="la_bobolaise" class="peer sr-only">
+                                    <div class="p-2 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all hover:border-gray-300">
+                                        <span class="text-xl block mb-0.5">👩‍💼</span>
+                                        <span class="text-[9px] font-semibold block leading-tight">La Bobolaise</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
                         <div x-show="discoverySource === 'ambassadeur_autre' || discoverySource === 'autre'" x-transition>
                             <label class="block text-xs font-semibold text-[#0a0a0a] mb-1.5">Précisez</label>
                             <input type="text" x-model="discoverySourceDetail" placeholder="Nom ou source..."

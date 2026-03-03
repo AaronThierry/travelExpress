@@ -30,6 +30,7 @@ Alpine.data('evaluationForm', () => ({
     projectStory: '',
     discoverySource: '',
     discoverySourceDetail: '',
+    tiktokChannel: '',
     ambassadorDirectContact: null,
     conversationScreenshots: [],
     screenshotPreviews: [],
@@ -454,6 +455,7 @@ Alpine.data('evaluationForm', () => ({
         formData.append('project_story', this.projectStory.trim());
         formData.append('discovery_source', this.discoverySource);
         if (this.discoverySourceDetail) formData.append('discovery_source_detail', this.discoverySourceDetail.trim());
+        if (this.discoverySource === 'tiktok' && this.tiktokChannel) formData.append('tiktok_channel', this.tiktokChannel);
 
         if (this.isAmbassadorSelected) {
             if (this.ambassadorDirectContact !== null) {
@@ -561,6 +563,7 @@ Alpine.data('evaluationForm', () => ({
         this.projectStory = '';
         this.discoverySource = '';
         this.discoverySourceDetail = '';
+        this.tiktokChannel = '';
         this.ambassadorDirectContact = null;
         this.conversationScreenshots = [];
         this.screenshotPreviews = [];
