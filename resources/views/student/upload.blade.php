@@ -378,25 +378,12 @@
             </h2>
 
             <!-- Tabs -->
-            @php
-                $visaUploadedCount = 0;
-                foreach(array_keys($visaDocuments) as $vt) {
-                    if ($uploadedDocuments->has($vt)) $visaUploadedCount++;
-                }
-            @endphp
             <div class="tabs">
                 <button class="tab" :class="{ active: activeTab === 'initial' }" @click="activeTab = 'initial'">
                     Dossier Initial ({{ count($requiredDocuments) }})
                 </button>
                 <button class="tab" :class="{ active: activeTab === 'complementary' }" @click="activeTab = 'complementary'">
                     Dossier Complémentaire ({{ count($complementaryDocuments) }})
-                </button>
-                <button class="tab" :class="{ active: activeTab === 'visa' }" @click="activeTab = 'visa'"
-                        style="position: relative;">
-                    Dossier Visa ({{ count($visaDocuments) }})
-                    @if($visaUploadedCount > 0)
-                        <span style="position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%;background:#60a5fa;"></span>
-                    @endif
                 </button>
             </div>
 
@@ -527,111 +514,6 @@
                                 @if(!$uploaded || $uploaded->status === 'rejected')
                                     <label class="btn-gold px-4 py-2 rounded-lg cursor-pointer text-sm">
                                         <input type="file" class="hidden" @change="uploadFile('{{ $docType }}', $event.target.files[0])" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                                        {{ $uploaded ? 'Remplacer' : 'Uploader' }}
-                                    </label>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <!-- Visa Documents Tab -->
-            <div x-show="activeTab === 'visa'" class="space-y-4">
-
-                @php
-                    $visaUploaded = 0;
-                    $visaRequired = 0;
-                    foreach($visaDocuments as $vDocType => $vDocLabel) {
-                        $isOpt = in_array($vDocType, \App\Models\StudentApplication::getOptionalVisaDocuments());
-                        if (!$isOpt) $visaRequired++;
-                        if ($uploadedDocuments->has($vDocType)) $visaUploaded++;
-                    }
-                @endphp
-
-                <!-- Description -->
-                <div class="mb-2 p-4 rounded-xl" style="background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2);">
-                    <div class="flex items-center justify-between flex-wrap gap-2">
-                        <p class="text-sm" style="color: #93c5fd;">
-                            Ces documents sont nécessaires pour la constitution de votre dossier visa.
-                            Les documents marqués <strong>Optionnel</strong> ne sont pas obligatoires.
-                        </p>
-                        <span class="px-3 py-1 rounded-full text-xs font-medium flex-shrink-0"
-                              style="{{ $visaUploaded >= $visaRequired ? 'background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3);' : 'background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3);' }}">
-                            {{ $visaUploaded }} / {{ $visaRequired }} requis · {{ $visaUploaded >= $visaRequired ? 'Complet' : 'En cours' }}
-                        </span>
-                    </div>
-                </div>
-
-                @foreach($visaDocuments as $docType => $docLabel)
-                    @php
-                        $uploaded = $uploadedDocuments->get($docType);
-                        $isOptional = in_array($docType, \App\Models\StudentApplication::getOptionalVisaDocuments());
-                    @endphp
-                    <div class="doc-item" data-doc-type="{{ $docType }}"
-                         style="border-color: {{ $uploaded ? 'rgba(34,197,94,0.25)' : 'rgba(59,130,246,0.15)' }};">
-                        <div class="flex flex-col md:flex-row md:items-center gap-4">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-2 flex-wrap">
-                                    @if($uploaded)
-                                        <svg class="w-5 h-5 flex-shrink-0 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                        </svg>
-                                    @else
-                                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: rgba(59,130,246,0.5);">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                        </svg>
-                                    @endif
-                                    <h3 class="font-semibold text-white">
-                                        {{ $isOptional ? str_replace(' (optionnel)', '', $docLabel) : $docLabel }}
-                                    </h3>
-                                    @if($isOptional)
-                                        <span class="text-xs px-2 py-1 rounded" style="background: rgba(107,114,128,0.4); color: #9ca3af;">Optionnel</span>
-                                    @else
-                                        <span class="text-xs px-2 py-1 rounded" style="background: rgba(59,130,246,0.15); color: #93c5fd;">Requis</span>
-                                    @endif
-                                </div>
-
-                                @if($uploaded)
-                                    <div class="mt-2 flex flex-wrap items-center gap-3 ml-7">
-                                        <span class="text-sm text-gray-400">{{ $uploaded->original_filename }}</span>
-                                        @if($uploaded->status === 'approved')
-                                            <span class="text-xs px-2 py-1 bg-green-900/50 text-green-400 rounded border border-green-700">Approuvé</span>
-                                        @elseif($uploaded->status === 'rejected')
-                                            <span class="text-xs px-2 py-1 bg-red-900/50 text-red-400 rounded border border-red-700">Rejeté</span>
-                                        @else
-                                            <span class="text-xs px-2 py-1 bg-yellow-900/50 text-yellow-400 rounded border border-yellow-700">En révision</span>
-                                        @endif
-                                    </div>
-                                    @if($uploaded->status === 'rejected' && $uploaded->rejection_reason)
-                                        <p class="text-sm text-red-400 mt-2 ml-7 bg-red-900/20 p-2 rounded">
-                                            Raison: {{ $uploaded->rejection_reason }}
-                                        </p>
-                                    @endif
-                                @endif
-                            </div>
-
-                            <div class="flex gap-2 flex-shrink-0">
-                                @if($uploaded)
-                                    <a href="{{ route('document.download', $uploaded->id) }}"
-                                       class="px-3 py-2 text-sm text-blue-400 hover:text-blue-300 border border-blue-500/30 rounded-lg hover:bg-blue-500/10 transition">
-                                        Télécharger
-                                    </a>
-                                    @if($uploaded->status !== 'approved')
-                                        <button @click="deleteDocument('{{ $docType }}', {{ $uploaded->id }})"
-                                                class="px-3 py-2 text-sm text-red-400 hover:text-red-300 border border-red-500/30 rounded-lg hover:bg-red-500/10 transition">
-                                            Supprimer
-                                        </button>
-                                    @endif
-                                @endif
-                                @if(!$uploaded || $uploaded->status === 'rejected')
-                                    <label class="px-4 py-2 rounded-lg cursor-pointer text-sm font-medium transition"
-                                           style="background: rgba(59,130,246,0.2); color: #60a5fa; border: 1px solid rgba(59,130,246,0.4);"
-                                           onmouseover="this.style.background='rgba(59,130,246,0.35)'"
-                                           onmouseout="this.style.background='rgba(59,130,246,0.2)'">
-                                        <input type="file" class="hidden"
-                                               @change="uploadFile('{{ $docType }}', $event.target.files[0])"
-                                               accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
                                         {{ $uploaded ? 'Remplacer' : 'Uploader' }}
                                     </label>
                                 @endif
