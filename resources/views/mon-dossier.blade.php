@@ -485,25 +485,14 @@
                                     </div>
                                 </div>
 
-                                <!-- Progress bars -->
-                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
-                                    <div>
-                                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-                                            <span class="label-text">Dossier Initial</span>
-                                            <span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:var(--gold);" x-text="app.completion_percentage + '%'"></span>
-                                        </div>
-                                        <div class="prog-track">
-                                            <div class="prog-fill" :style="'width:' + app.completion_percentage + '%'"></div>
-                                        </div>
+                                <!-- Progress bar complémentaire uniquement -->
+                                <div>
+                                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                                        <span class="label-text">Progression complémentaire</span>
+                                        <span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:var(--gold);" x-text="app.complementary_completion_percentage + '%'"></span>
                                     </div>
-                                    <div>
-                                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-                                            <span class="label-text">Complémentaire</span>
-                                            <span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:var(--gold);" x-text="app.complementary_completion_percentage + '%'"></span>
-                                        </div>
-                                        <div class="prog-track">
-                                            <div class="prog-fill" :style="'width:' + app.complementary_completion_percentage + '%'"></div>
-                                        </div>
+                                    <div class="prog-track">
+                                        <div class="prog-fill" :style="'width:' + app.complementary_completion_percentage + '%'"></div>
                                     </div>
                                 </div>
                             </div>
@@ -516,67 +505,12 @@
                                 <div class="section-icon">
                                     <svg style="width:16px;height:16px;color:var(--gold)" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                 </div>
-                                <h3 class="section-title">Documents requis</h3>
-                                <span class="pill pill-gold" style="margin-left:auto;font-size:0.65rem;" x-text="app.documents.length + ' uploadé(s)'"></span>
+                                <h3 class="section-title">Dossier Complémentaire</h3>
+                                <span class="pill pill-gold" style="margin-left:auto;font-size:0.65rem;" x-text="app.documents.filter(d=>d.is_complementary).length + '/' + Object.keys(app.complementary_documents).length + ' docs'"></span>
                             </div>
 
-                            <!-- Tabs -->
-                            <div class="tab-bar" style="margin-bottom:1.75rem;">
-                                <button class="tab-btn" :class="{ active: activeTab[appIdx] === 'initial' }" @click="activeTab[appIdx] = 'initial'">
-                                    Dossier Initial
-                                    <span style="opacity:0.5;margin-left:0.3rem;" x-text="'(' + Object.keys(app.required_documents).length + ')'"></span>
-                                </button>
-                                <button class="tab-btn" :class="{ active: activeTab[appIdx] === 'comp' }" @click="activeTab[appIdx] = 'comp'">
-                                    Complémentaire
-                                    <span style="opacity:0.5;margin-left:0.3rem;" x-text="'(' + Object.keys(app.complementary_documents).length + ')'"></span>
-                                </button>
-                            </div>
-
-                            <!-- Initial tab -->
-                            <div x-show="activeTab[appIdx] === 'initial'" style="display:flex;flex-direction:column;gap:0.75rem;">
-                                <template x-for="(label, docType) in app.required_documents" :key="docType">
-                                    <div class="doc-row" :class="{ 'doc-done': getDoc(app, docType) }">
-                                        <!-- Info -->
-                                        <div style="flex:1;min-width:0;">
-                                            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
-                                                <template x-if="getDoc(app, docType)">
-                                                    <svg style="width:15px;height:15px;color:#4ade80;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                                </template>
-                                                <template x-if="!getDoc(app, docType)">
-                                                    <svg style="width:15px;height:15px;color:var(--text-faint);flex-shrink:0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                                </template>
-                                                <span style="font-size:0.875rem;font-weight:500;color:var(--text);" x-text="label"></span>
-                                            </div>
-                                            <template x-if="getDoc(app, docType)">
-                                                <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.35rem;margin-left:1.4rem;flex-wrap:wrap;">
-                                                    <span style="font-size:0.75rem;color:var(--text-muted);" x-text="getDoc(app, docType).original_filename"></span>
-                                                    <span class="doc-status doc-status-approved">
-                                                        <svg style="width:8px;height:8px" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4"/></svg>
-                                                        Validé
-                                                    </span>
-                                                </div>
-                                            </template>
-                                        </div>
-                                        <!-- Actions -->
-                                        <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
-                                            <template x-if="getDoc(app, docType)">
-                                                <a :href="'/document/' + getDoc(app, docType).id + '/download'" class="btn-ghost" target="_blank">
-                                                    <svg style="width:13px;height:13px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                                                    Télécharger
-                                                </a>
-                                            </template>
-                                            <label class="btn-gold cursor-pointer" :style="uploading[app.id + '_' + docType] ? 'opacity:0.6;pointer-events:none' : ''">
-                                                <input type="file" style="display:none" @change="uploadDoc(app, docType, $event.target.files[0])" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                                                <svg style="width:12px;height:12px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                                                <span x-text="uploading[app.id + '_' + docType] ? 'Upload…' : (getDoc(app, docType) ? 'Remplacer' : 'Uploader')"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </template>
-                            </div>
-
-                            <!-- Complementary tab -->
-                            <div x-show="activeTab[appIdx] === 'comp'" style="display:flex;flex-direction:column;gap:0.75rem;">
+                            <!-- Complémentaire uniquement -->
+                            <div style="display:flex;flex-direction:column;gap:0.75rem;">
 
                                 <!-- Auto-validation badge -->
                                 <div style="display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1rem;background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.2);border-radius:0.625rem;margin-bottom:0.5rem;">
@@ -659,7 +593,6 @@
                 isLoggedIn:   false,
                 userEmail:    '',
                 applications: [],
-                activeTab:    {},
                 uploading:    {},
                 error:        null,
                 toast:        { show: false, type: 'success', title: '', message: '' },
@@ -700,11 +633,6 @@
                         const data       = await res.json();
                         this.isLoggedIn  = true;
                         this.applications = data.data || [];
-
-                        // Default tab for each application
-                        this.applications.forEach((app, i) => {
-                            this.activeTab[i] = 'initial';
-                        });
 
                         const userData = localStorage.getItem('user');
                         if (userData) this.userEmail = JSON.parse(userData).email || '';
