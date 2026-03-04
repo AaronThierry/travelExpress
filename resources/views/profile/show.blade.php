@@ -4,365 +4,867 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Mon Profil - Travel Express</title>
+    <title>Mon Profil — Travel Express</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        .font-display { font-family: 'Montserrat', sans-serif; }
-        .font-sans { font-family: 'Poppins', sans-serif; }
-        body { font-family: 'Poppins', sans-serif; }
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E8C85A;
+            --gold-dim: #8B6914;
+            --black: #0a0a0a;
+            --surface: #111111;
+            --surface2: #1a1a1a;
+            --border: rgba(201,168,76,0.15);
+            --border-strong: rgba(201,168,76,0.35);
+            --text-primary: #f5f0e8;
+            --text-muted: rgba(245,240,232,0.55);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--black);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        /* Header */
+        .lux-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-strong);
+        }
+
+        .lux-header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            height: 70px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .lux-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .lux-logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #000;
+        }
+
+        .lux-logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .lux-logo-sub {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: block;
+            margin-top: -2px;
+        }
+
+        .lux-nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-gold {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.25rem;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+
+        .btn-gold:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.25rem;
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-strong);
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Main layout */
+        .lux-main {
+            position: relative;
+            z-index: 1;
+            padding-top: 70px;
+        }
+
+        /* Hero banner */
+        .profile-hero {
+            position: relative;
+            background: linear-gradient(180deg, #111 0%, var(--black) 100%);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            padding: 3rem 2rem 0;
+        }
+
+        .profile-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .hero-bg-decor {
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-end;
+            gap: 2.5rem;
+            padding-bottom: 2.5rem;
+        }
+
+        /* Avatar ring */
+        .avatar-ring {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .avatar-ring::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), transparent, var(--gold));
+            z-index: 0;
+        }
+
+        .avatar-inner {
+            position: relative;
+            z-index: 1;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--surface2);
+            border: 3px solid var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-initials {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .avatar-status {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            width: 18px;
+            height: 18px;
+            background: #22c55e;
+            border-radius: 50%;
+            border: 2px solid var(--black);
+            z-index: 2;
+        }
+
+        .hero-info { flex: 1; }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 0.01em;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: 0.4rem;
+        }
+
+        .hero-location {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+
+        .stat-pill {
+            text-align: center;
+            padding: 0.75rem 1.25rem;
+            background: rgba(201,168,76,0.08);
+            border: 1px solid var(--border-strong);
+            border-radius: 12px;
+        }
+
+        .stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        /* Content layout */
+        .content-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 4rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 1.75rem;
+        }
+
+        /* Cards */
+        .lux-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: rgba(201,168,76,0.12);
+            border: 1px solid var(--border-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 0.85rem;
+        }
+
+        .card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+        }
+
+        .card-body { padding: 1.5rem; }
+
+        /* Progress bar */
+        .progress-track {
+            height: 4px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+            border-radius: 4px;
+            transition: width 1s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        /* Info rows */
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.9rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .info-row:last-child { border-bottom: none; }
+
+        .info-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(201,168,76,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .info-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+
+        .info-value a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .info-value a:hover { text-decoration: underline; }
+
+        /* Bio */
+        .bio-text {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: rgba(245,240,232,0.75);
+            font-weight: 300;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            background: rgba(201,168,76,0.08);
+            border: 1px solid var(--border-strong);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+
+        .tag:hover {
+            background: rgba(201,168,76,0.2);
+            color: var(--gold);
+        }
+
+        /* Social buttons */
+        .social-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .social-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+        /* Grid info */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+        }
+
+        .info-cell {
+            background: var(--surface);
+            padding: 1.1rem 1.25rem;
+        }
+
+        .sidebar-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+        .main-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+
+        /* Gold divider */
+        .gold-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0;
+        }
+
+        /* Loading */
+        .lux-spinner {
+            width: 44px;
+            height: 44px;
+            border: 2px solid rgba(201,168,76,0.2);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loading-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            gap: 1rem;
+        }
+
+        .loading-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .content-wrap {
+                grid-template-columns: 1fr;
+            }
+            .hero-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .hero-stats {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .lux-header-inner { padding: 0 1rem; }
+            .profile-hero { padding: 2rem 1rem 0; }
+            .content-wrap { padding: 1.5rem 1rem 3rem; }
+            .hero-stats { gap: 0.6rem; }
+            .info-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
-<body class="font-sans text-dark antialiased bg-gray-light" x-data="{
-    mobileMenuOpen: false,
-    user: null,
-    init() {
-        const userData = localStorage.getItem('user');
-        if (userData) this.user = JSON.parse(userData);
-    },
-    logout() {
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('user');
-        window.location.href = '/';
-    },
-    getInitials(name) {
-        return name ? name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) : '';
-    }
-}">
+<body>
 
-    <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-2xl border-b border-black/[0.08] shadow-sm">
-        <div class="bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600 text-white py-1.5 hidden lg:block">
-            <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
-                <div class="flex items-center justify-between text-xs">
-                    <div class="flex items-center space-x-6">
-                        <a href="tel:+221771234567" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-                            <i class="fas fa-phone text-xs"></i>
-                            <span class="font-medium">+221 77 123 45 67</span>
-                        </a>
-                        <a href="mailto:contact@travelexpress.com" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-                            <i class="fas fa-envelope text-xs"></i>
-                            <span class="font-medium">contact@travelexpress.com</span>
-                        </a>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <span class="flex items-center space-x-2">
-                            <i class="fas fa-clock text-xs"></i>
-                            <span class="font-medium">Lun-Ven: 9h-18h | Sam: 10h-14h</span>
-                        </span>
-                    </div>
+    <!-- HEADER -->
+    <header class="lux-header">
+        <div class="lux-header-inner">
+            <a href="/" class="lux-logo">
+                <div class="lux-logo-icon"><i class="fas fa-globe"></i></div>
+                <div>
+                    <span class="lux-logo-text">Travel Express</span>
+                    <span class="lux-logo-sub">Study Abroad</span>
                 </div>
-            </div>
-        </div>
+            </a>
 
-        <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
-            <nav class="flex items-center justify-between h-[70px]">
-                <a href="/" class="flex items-center space-x-3 group">
-                    <div class="w-11 h-11 bg-gradient-to-br from-primary-600 to-accent-600 rounded-xl flex items-center justify-center shadow-lg">
-                        <i class="fas fa-globe text-white text-lg"></i>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-xl font-display font-extrabold text-dark">Travel Express</span>
-                        <span class="text-[9px] font-bold text-primary-600 tracking-widest uppercase">Study Abroad</span>
-                    </div>
+            <div class="lux-nav-actions">
+                <a href="/" class="btn-ghost" style="display:none;align-items:center;gap:0.4rem;" id="btn-back">
+                    <i class="fas fa-arrow-left" style="font-size:0.75rem;"></i> Retour
                 </a>
-
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="/#programmes" class="text-sm font-semibold text-gray-600 hover:text-dark transition-colors">Programmes</a>
-                    <a href="/#pourquoi" class="text-sm font-semibold text-gray-600 hover:text-dark transition-colors">Avantages</a>
-                    <a href="/#processus" class="text-sm font-semibold text-gray-600 hover:text-dark transition-colors">Processus</a>
-                    <a href="/#contact" class="text-sm font-semibold text-gray-600 hover:text-dark transition-colors">Contact</a>
-                </div>
-
-                <div class="flex items-center space-x-4">
-                    <a href="/profile/edit" class="hidden sm:flex items-center space-x-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold text-sm transition-colors">
-                        <i class="fas fa-pen"></i>
-                        <span>Modifier</span>
-                    </a>
-                    <button @click="logout()" class="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-semibold text-sm transition-colors">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span class="hidden sm:inline">Déconnexion</span>
-                    </button>
-                </div>
-            </nav>
+                <a href="/profile/edit" class="btn-gold">
+                    <i class="fas fa-pen-to-square" style="font-size:0.75rem;"></i> Modifier
+                </a>
+                <button onclick="doLogout()" class="btn-ghost">
+                    <i class="fas fa-right-from-bracket" style="font-size:0.75rem;"></i>
+                    <span class="hidden sm:inline">Déconnexion</span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="pt-[120px] lg:pt-[140px] pb-16">
-        <div id="profile-content" class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
-            <div class="flex flex-col items-center justify-center min-h-[50vh]">
-                <div class="w-12 h-12 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
-                <p class="mt-4 text-gray-500 font-medium">Chargement du profil...</p>
+    <!-- MAIN -->
+    <main class="lux-main">
+        <div id="loading-screen" class="loading-wrap">
+            <div class="lux-spinner"></div>
+            <p class="loading-text">Chargement du profil…</p>
+        </div>
+
+        <div id="profile-root" style="display:none;">
+            <!-- Profile hero (populated by JS) -->
+            <div id="profile-hero-wrap"></div>
+
+            <!-- Content grid -->
+            <div class="content-wrap">
+                <div class="sidebar-stack" id="sidebar-col"></div>
+                <div class="main-stack" id="main-col"></div>
             </div>
         </div>
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-12">
-        <div class="w-full px-6 lg:px-12 xl:px-16 2xl:px-24">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-br from-primary-400 to-primary-600 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-globe text-white"></i>
-                        </div>
-                        <span class="text-xl font-display font-bold">Travel Express</span>
-                    </div>
-                    <p class="text-gray-400 text-sm mb-4">Votre partenaire de confiance pour vos études à l'étranger.</p>
-                    <div class="flex space-x-3">
-                        <a href="#" class="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary-600 transition-colors">
-                            <i class="fab fa-facebook-f text-sm"></i>
-                        </a>
-                        <a href="#" class="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary-600 transition-colors">
-                            <i class="fab fa-instagram text-sm"></i>
-                        </a>
-                        <a href="#" class="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary-600 transition-colors">
-                            <i class="fab fa-linkedin-in text-sm"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="font-display font-bold mb-4">Liens rapides</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="/#programmes" class="text-gray-400 hover:text-white transition-colors">Nos programmes</a></li>
-                        <li><a href="/#pourquoi" class="text-gray-400 hover:text-white transition-colors">Pourquoi nous</a></li>
-                        <li><a href="/#processus" class="text-gray-400 hover:text-white transition-colors">Notre processus</a></li>
-                        <li><a href="/#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-display font-bold mb-4">Destinations</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Chine</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Espagne</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Allemagne</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bourses d'études</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-display font-bold mb-4">Contact</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li class="flex items-center space-x-2">
-                            <i class="fas fa-envelope"></i>
-                            <span>contact@travelexpress.com</span>
-                        </li>
-                        <li class="flex items-center space-x-2">
-                            <i class="fas fa-phone"></i>
-                            <span>+221 77 123 45 67</span>
-                        </li>
-                        <li class="flex items-center space-x-2">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Dakar, Sénégal</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="pt-8 border-t border-white/10 text-center text-sm text-gray-400">
-                <p>© 2025 Travel Express. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
 
     <script>
         const authToken = localStorage.getItem('auth_token');
         if (!authToken) window.location.href = '/login';
 
+        document.getElementById('btn-back').style.display = 'inline-flex';
+
+        function doLogout() {
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user');
+            window.location.href = '/';
+        }
+
+        function esc(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
         async function loadProfile() {
             try {
-                const response = await fetch('/api/profile', {
-                    headers: {
-                        'Authorization': `Bearer ${authToken}`,
-                        'Accept': 'application/json'
-                    }
+                const res = await fetch('/api/profile', {
+                    headers: { 'Authorization': `Bearer ${authToken}`, 'Accept': 'application/json' }
                 });
-
-                const data = await response.json();
-                if (response.ok) {
-                    displayProfile(data.data);
-                } else if (response.status === 401) {
+                if (res.status === 401) {
                     localStorage.removeItem('auth_token');
-                    localStorage.removeItem('user');
                     window.location.href = '/login';
+                    return;
                 }
-            } catch (error) {
-                console.error('Erreur:', error);
+                const data = await res.json();
+                if (data.data) render(data.data);
+            } catch (e) {
+                console.error(e);
             }
         }
 
-        function displayProfile(user) {
-            const initials = user.name ? user.name.split(' ').map(n => n[0]).join('').toUpperCase() : '';
+        function render(u) {
+            document.getElementById('loading-screen').style.display = 'none';
+            document.getElementById('profile-root').style.display = 'block';
 
-            // Correction de l'URL de l'avatar
-            let avatarHtml = '';
-            if (user.avatar) {
-                const avatarUrl = user.avatar.startsWith('http') ? user.avatar : `/storage/${user.avatar}`;
-                avatarHtml = `<img src="${avatarUrl}" alt="${user.name}" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-xl">`;
-            } else {
-                avatarHtml = `<div class="w-32 h-32 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center border-4 border-white shadow-xl">
-                    <span class="text-4xl font-bold text-white font-display">${initials}</span>
-                </div>`;
-            }
+            const initials = u.name
+                ? u.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)
+                : '?';
 
-            const fields = ['name', 'email', 'phone', 'bio', 'country', 'whatsapp', 'date_of_birth', 'gender', 'nationality', 'language', 'interests', 'linkedin', 'twitter', 'instagram', 'company', 'position', 'location', 'website'];
-            const filledFields = fields.filter(f => user[f] && user[f] !== '').length;
-            const completionPercentage = Math.round((filledFields / fields.length) * 100);
-            const interests = user.interests ? user.interests.split(',').map(i => i.trim()).filter(i => i) : [];
+            const avatarHtml = u.avatar
+                ? `<img src="${u.avatar.startsWith('http') ? u.avatar : '/storage/' + u.avatar}"
+                         alt="${esc(u.name)}"
+                         style="width:100%;height:100%;object-fit:cover;">`
+                : `<span class="avatar-initials">${esc(initials)}</span>`;
 
-            const content = `
-                <!-- Profile Header -->
-                <div class="bg-gradient-to-r from-primary-600 via-primary-700 to-dark rounded-2xl p-8 mb-8 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                    <div class="relative z-10 flex flex-col md:flex-row items-center md:items-end gap-6">
-                        <div class="relative">
-                            ${avatarHtml}
-                            <div class="absolute bottom-1 right-1 w-8 h-8 bg-green-500 rounded-full border-3 border-white flex items-center justify-center">
-                                <i class="fas fa-check text-white text-xs"></i>
-                            </div>
+            // Completion calc
+            const fields = ['name','email','phone','bio','country','whatsapp','date_of_birth','gender','nationality','language','interests','linkedin','twitter','instagram','company','position','location','website'];
+            const filled = fields.filter(f => u[f] && u[f] !== '').length;
+            const pct = Math.round((filled / fields.length) * 100);
+
+            const interests = u.interests ? u.interests.split(',').map(i => i.trim()).filter(i => i) : [];
+
+            // ── HERO ──
+            document.getElementById('profile-hero-wrap').innerHTML = `
+                <div class="profile-hero">
+                    <div class="hero-bg-decor"></div>
+                    <div class="hero-inner">
+                        <div class="avatar-ring">
+                            <div class="avatar-inner">${avatarHtml}</div>
+                            <div class="avatar-status"></div>
                         </div>
 
-                        <div class="text-center md:text-left flex-1">
-                            <h1 class="text-3xl font-display font-bold text-white mb-1">${user.name}</h1>
-                            ${user.position ? `<p class="text-primary-200 font-medium text-lg">${user.position}</p>` : ''}
-                            ${user.location ? `<p class="text-white/70 flex items-center justify-center md:justify-start gap-2 mt-2"><i class="fas fa-map-marker-alt text-accent-400"></i>${user.location}</p>` : ''}
+                        <div class="hero-info">
+                            <h1 class="hero-title">${esc(u.name)}</h1>
+                            ${u.position ? `<p class="hero-subtitle">${esc(u.position)}</p>` : ''}
+                            ${u.location ? `<p class="hero-location"><i class="fas fa-location-dot" style="color:var(--gold);font-size:0.7rem;"></i>${esc(u.location)}</p>` : ''}
                         </div>
 
-                        <div class="flex gap-3">
-                            <div class="text-center px-5 py-3 bg-white/10 rounded-xl backdrop-blur-sm">
-                                <div class="text-2xl font-bold text-white font-display">${filledFields}</div>
-                                <div class="text-xs text-primary-200 uppercase">Infos</div>
+                        <div class="hero-stats">
+                            <div class="stat-pill">
+                                <span class="stat-value">${filled}</span>
+                                <span class="stat-label">Infos</span>
                             </div>
-                            <div class="text-center px-5 py-3 bg-white/10 rounded-xl backdrop-blur-sm">
-                                <div class="text-2xl font-bold text-white font-display">${interests.length}</div>
-                                <div class="text-xs text-primary-200 uppercase">Intérêts</div>
-                            </div>
-                            <div class="text-center px-5 py-3 bg-white/10 rounded-xl backdrop-blur-sm">
-                                <div class="text-2xl font-bold text-green-400 font-display">${completionPercentage}%</div>
-                                <div class="text-xs text-primary-200 uppercase">Complet</div>
+                            ${interests.length > 0 ? `
+                            <div class="stat-pill">
+                                <span class="stat-value">${interests.length}</span>
+                                <span class="stat-label">Intérêts</span>
+                            </div>` : ''}
+                            <div class="stat-pill">
+                                <span class="stat-value" style="color:${pct === 100 ? '#22c55e' : 'var(--gold)'};">${pct}%</span>
+                                <span class="stat-label">Profil</span>
                             </div>
                         </div>
+                    </div>
+                    <div class="gold-line"></div>
+                </div>
+            `;
+
+            // ── SIDEBAR ──
+            let sidebar = '';
+
+            // Completion card
+            sidebar += `
+                <div class="lux-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-chart-pie"></i></div>
+                        <span class="card-title">Complétude</span>
+                    </div>
+                    <div class="card-body">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
+                            <span style="font-size:0.82rem;color:var(--text-muted);">Profil rempli</span>
+                            <span style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);">${pct}%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="prog-bar" style="width:0%"></div>
+                        </div>
+                        ${pct < 100 ? `<p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;">
+                            <a href="/profile/edit" style="color:var(--gold);text-decoration:none;font-weight:500;">Compléter le profil →</a>
+                        </p>` : `<p style="font-size:0.78rem;color:#22c55e;margin-top:0.75rem;display:flex;align-items:center;gap:0.4rem;"><i class="fas fa-check-circle"></i> Profil complet</p>`}
                     </div>
                 </div>
+            `;
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Sidebar -->
-                    <div class="space-y-6">
-                        <!-- Completion Card -->
-                        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                            <div class="flex justify-between items-center mb-3">
-                                <span class="font-semibold text-gray-700">Profil complété</span>
-                                <span class="font-bold text-primary-600">${completionPercentage}%</span>
-                            </div>
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-primary-500 to-accent-500 rounded-full transition-all duration-1000" style="width: ${completionPercentage}%"></div>
-                            </div>
-                            ${completionPercentage < 100 ? `<p class="text-sm text-gray-500 mt-3"><a href="/profile/edit" class="text-primary-600 hover:underline font-medium">Compléter votre profil</a></p>` : ''}
-                        </div>
-
-                        <!-- Contact Card -->
-                        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                            <h3 class="font-display font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                <span class="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center"><i class="fas fa-address-book text-primary-600 text-sm"></i></span>
-                                Contact
-                            </h3>
-                            <div class="space-y-3">
-                                <a href="mailto:${user.email}" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                                    <span class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center"><i class="fas fa-envelope text-white"></i></span>
-                                    <div class="min-w-0 flex-1">
-                                        <div class="text-xs text-gray-500">Email</div>
-                                        <div class="text-sm font-semibold text-gray-900 truncate">${user.email}</div>
-                                    </div>
-                                </a>
-                                ${user.phone ? `
-                                <a href="tel:${user.phone}" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                                    <span class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center"><i class="fas fa-phone text-white"></i></span>
-                                    <div class="min-w-0 flex-1">
-                                        <div class="text-xs text-gray-500">Téléphone</div>
-                                        <div class="text-sm font-semibold text-gray-900">${user.phone}</div>
-                                    </div>
-                                </a>` : ''}
-                                ${user.whatsapp ? `
-                                <a href="https://wa.me/${user.whatsapp.replace(/[^0-9]/g, '')}" target="_blank" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                                    <span class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center"><i class="fab fa-whatsapp text-white text-lg"></i></span>
-                                    <div class="min-w-0 flex-1">
-                                        <div class="text-xs text-gray-500">WhatsApp</div>
-                                        <div class="text-sm font-semibold text-gray-900">${user.whatsapp}</div>
-                                    </div>
-                                </a>` : ''}
-                            </div>
-                        </div>
-
-                        ${user.linkedin || user.twitter || user.instagram ? `
-                        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                            <h3 class="font-display font-bold text-gray-900 mb-4">Réseaux sociaux</h3>
-                            <div class="flex gap-3">
-                                ${user.linkedin ? `<a href="${user.linkedin}" target="_blank" class="w-11 h-11 bg-blue-700 rounded-xl flex items-center justify-center text-white hover:scale-110 transition-transform"><i class="fab fa-linkedin-in"></i></a>` : ''}
-                                ${user.twitter ? `<a href="${user.twitter}" target="_blank" class="w-11 h-11 bg-sky-500 rounded-xl flex items-center justify-center text-white hover:scale-110 transition-transform"><i class="fab fa-twitter"></i></a>` : ''}
-                                ${user.instagram ? `<a href="${user.instagram}" target="_blank" class="w-11 h-11 bg-gradient-to-br from-pink-500 to-orange-400 rounded-xl flex items-center justify-center text-white hover:scale-110 transition-transform"><i class="fab fa-instagram"></i></a>` : ''}
-                            </div>
-                        </div>` : ''}
+            // Contact card
+            sidebar += `
+                <div class="lux-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-address-card"></i></div>
+                        <span class="card-title">Contact</span>
                     </div>
-
-                    <!-- Main Content -->
-                    <div class="lg:col-span-2 space-y-6">
-                        ${user.bio ? `
-                        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                            <h3 class="font-display font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                <span class="w-8 h-8 bg-accent-100 rounded-lg flex items-center justify-center"><i class="fas fa-user text-accent-600 text-sm"></i></span>
-                                À propos
-                            </h3>
-                            <p class="text-gray-600 leading-relaxed">${user.bio}</p>
-                        </div>` : ''}
-
-                        ${interests.length > 0 ? `
-                        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                            <h3 class="font-display font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                <span class="w-8 h-8 bg-pink-100 rounded-lg flex items-center justify-center"><i class="fas fa-heart text-pink-600 text-sm"></i></span>
-                                Centres d'intérêt
-                            </h3>
-                            <div class="flex flex-wrap gap-2">
-                                ${interests.map(i => `<span class="px-4 py-2 bg-gray-100 hover:bg-primary-600 hover:text-white rounded-full text-sm font-medium text-gray-700 transition-colors cursor-default">${i}</span>`).join('')}
-                            </div>
-                        </div>` : ''}
-
-                        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                            <h3 class="font-display font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                <span class="w-8 h-8 bg-cyan-100 rounded-lg flex items-center justify-center"><i class="fas fa-id-card text-cyan-600 text-sm"></i></span>
-                                Informations personnelles
-                            </h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                ${user.country ? `<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"><span class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center"><i class="fas fa-globe text-blue-600"></i></span><div><div class="text-xs text-gray-500">Pays</div><div class="font-semibold text-gray-900">${user.country}</div></div></div>` : ''}
-                                ${user.nationality ? `<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"><span class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center"><i class="fas fa-flag text-purple-600"></i></span><div><div class="text-xs text-gray-500">Nationalité</div><div class="font-semibold text-gray-900">${user.nationality}</div></div></div>` : ''}
-                                ${user.date_of_birth ? `<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"><span class="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center"><i class="fas fa-birthday-cake text-pink-600"></i></span><div><div class="text-xs text-gray-500">Date de naissance</div><div class="font-semibold text-gray-900">${new Date(user.date_of_birth).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</div></div></div>` : ''}
-                                ${user.gender ? `<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"><span class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center"><i class="fas fa-venus-mars text-green-600"></i></span><div><div class="text-xs text-gray-500">Genre</div><div class="font-semibold text-gray-900">${user.gender === 'male' ? 'Homme' : user.gender === 'female' ? 'Femme' : 'Autre'}</div></div></div>` : ''}
-                                ${user.language ? `<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"><span class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center"><i class="fas fa-language text-yellow-600"></i></span><div><div class="text-xs text-gray-500">Langue</div><div class="font-semibold text-gray-900">${user.language.toUpperCase()}</div></div></div>` : ''}
+                    <div class="card-body" style="padding-top:0.5rem;padding-bottom:0.5rem;">
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <div class="info-label">Email</div>
+                                <div class="info-value"><a href="mailto:${esc(u.email)}">${esc(u.email)}</a></div>
                             </div>
                         </div>
-
-                        ${user.company || user.position || user.website ? `
-                        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                            <h3 class="font-display font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                <span class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center"><i class="fas fa-briefcase text-orange-600 text-sm"></i></span>
-                                Informations professionnelles
-                            </h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                ${user.company ? `<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"><span class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center"><i class="fas fa-building text-orange-600"></i></span><div><div class="text-xs text-gray-500">Entreprise</div><div class="font-semibold text-gray-900">${user.company}</div></div></div>` : ''}
-                                ${user.position ? `<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"><span class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center"><i class="fas fa-user-tie text-amber-600"></i></span><div><div class="text-xs text-gray-500">Poste</div><div class="font-semibold text-gray-900">${user.position}</div></div></div>` : ''}
-                                ${user.website ? `<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg sm:col-span-2"><span class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center"><i class="fas fa-globe text-blue-600"></i></span><div class="flex-1 min-w-0"><div class="text-xs text-gray-500">Site web</div><a href="${user.website}" target="_blank" class="font-semibold text-primary-600 hover:underline truncate block">${user.website}</a></div></div>` : ''}
+                        ${u.phone ? `
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <div class="info-label">Téléphone</div>
+                                <div class="info-value"><a href="tel:${esc(u.phone)}">${esc(u.phone)}</a></div>
+                            </div>
+                        </div>` : ''}
+                        ${u.whatsapp ? `
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fab fa-whatsapp" style="color:#25D366;"></i></div>
+                            <div>
+                                <div class="info-label">WhatsApp</div>
+                                <div class="info-value"><a href="https://wa.me/${u.whatsapp.replace(/[^0-9]/g,'')}" target="_blank">${esc(u.whatsapp)}</a></div>
                             </div>
                         </div>` : ''}
                     </div>
                 </div>
             `;
 
-            document.getElementById('profile-content').innerHTML = content;
+            // Social
+            if (u.linkedin || u.twitter || u.instagram) {
+                sidebar += `
+                    <div class="lux-card">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-share-nodes"></i></div>
+                            <span class="card-title">Réseaux</span>
+                        </div>
+                        <div class="card-body" style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+                            ${u.linkedin ? `<a href="${esc(u.linkedin)}" target="_blank" class="social-btn" style="background:#0A66C2;"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                            ${u.twitter ? `<a href="${esc(u.twitter)}" target="_blank" class="social-btn" style="background:#1DA1F2;"><i class="fab fa-twitter"></i></a>` : ''}
+                            ${u.instagram ? `<a href="${esc(u.instagram)}" target="_blank" class="social-btn" style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);"><i class="fab fa-instagram"></i></a>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // ── MAIN COL ──
+            let main = '';
+
+            // Bio
+            if (u.bio) {
+                main += `
+                    <div class="lux-card">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-feather-pointed"></i></div>
+                            <span class="card-title">À propos</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="bio-text">${esc(u.bio)}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Interests
+            if (interests.length > 0) {
+                main += `
+                    <div class="lux-card">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-sparkles" style="color:var(--gold);"></i></div>
+                            <span class="card-title">Centres d'intérêt</span>
+                        </div>
+                        <div class="card-body" style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+                            ${interests.map(i => `<span class="tag">${esc(i)}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Personal info
+            const personalItems = [
+                u.country         && { icon:'fa-globe',           label:'Pays',             val: u.country },
+                u.nationality     && { icon:'fa-flag',            label:'Nationalité',      val: u.nationality },
+                u.date_of_birth   && { icon:'fa-cake-candles',    label:'Date de naissance',val: new Date(u.date_of_birth).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) },
+                u.gender          && { icon:'fa-venus-mars',      label:'Genre',            val: u.gender==='male'?'Homme':u.gender==='female'?'Femme':'Autre' },
+                u.language        && { icon:'fa-language',        label:'Langue',           val: u.language.toUpperCase() },
+                u.passport_number && { icon:'fa-passport',        label:'Passeport',        val: u.passport_number },
+            ].filter(Boolean);
+
+            if (personalItems.length > 0) {
+                main += `
+                    <div class="lux-card">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-id-card"></i></div>
+                            <span class="card-title">Informations personnelles</span>
+                        </div>
+                        <div class="info-grid">
+                            ${personalItems.map(item => `
+                            <div class="info-cell">
+                                <div class="info-label" style="margin-bottom:0.3rem;">${esc(item.label)}</div>
+                                <div class="info-value">${esc(item.val)}</div>
+                            </div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Professional
+            if (u.company || u.position || u.website) {
+                const proItems = [
+                    u.company  && { icon:'fa-building',     label:'Organisation', val: u.company },
+                    u.position && { icon:'fa-user-tie',     label:'Poste',        val: u.position },
+                    u.website  && { icon:'fa-link',         label:'Site web',     val: u.website, link: u.website },
+                ].filter(Boolean);
+
+                main += `
+                    <div class="lux-card">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-briefcase"></i></div>
+                            <span class="card-title">Informations professionnelles</span>
+                        </div>
+                        <div class="info-grid">
+                            ${proItems.map(item => `
+                            <div class="info-cell">
+                                <div class="info-label" style="margin-bottom:0.3rem;">${esc(item.label)}</div>
+                                <div class="info-value">${item.link ? `<a href="${esc(item.link)}" target="_blank">${esc(item.val)}</a>` : esc(item.val)}</div>
+                            </div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Quick actions card
+            main += `
+                <div class="lux-card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-bolt"></i></div>
+                        <span class="card-title">Actions rapides</span>
+                    </div>
+                    <div class="card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+                        <a href="/profile/edit" class="btn-gold" style="justify-content:center;padding:0.75rem;">
+                            <i class="fas fa-pen-to-square"></i> Modifier le profil
+                        </a>
+                        <a href="/mon-dossier" class="btn-ghost" style="justify-content:center;padding:0.75rem;">
+                            <i class="fas fa-folder-open"></i> Mon dossier
+                        </a>
+                        <a href="/" class="btn-ghost" style="justify-content:center;padding:0.75rem;">
+                            <i class="fas fa-house"></i> Accueil
+                        </a>
+                        <button onclick="doLogout()" class="btn-ghost" style="justify-content:center;padding:0.75rem;">
+                            <i class="fas fa-right-from-bracket"></i> Déconnexion
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('sidebar-col').innerHTML = sidebar;
+            document.getElementById('main-col').innerHTML = main;
+
+            // Animate progress bar
+            setTimeout(() => {
+                const bar = document.getElementById('prog-bar');
+                if (bar) bar.style.width = pct + '%';
+            }, 200);
         }
 
         loadProfile();
