@@ -62,9 +62,9 @@
         /* ── Layout ───────────────────────────────────────────────── */
         .page-wrap {
             position: relative; z-index: 1;
-            max-width: 860px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 2.5rem 1.25rem 4rem;
+            padding: 3rem 1.75rem 5rem;
         }
 
         /* ── Cards ────────────────────────────────────────────────── */
@@ -209,7 +209,7 @@
         /* ── Form Inputs ──────────────────────────────────────────── */
         .lux-input {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.875rem 1.125rem;
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--gold-line);
             border-radius: 0.625rem;
@@ -233,13 +233,13 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--text-muted);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.625rem;
         }
 
         /* ── Section Divider ──────────────────────────────────────── */
         .section-divider {
             display: flex; align-items: center; gap: 1rem;
-            margin: 1.75rem 0;
+            margin: 2.25rem 0;
         }
         .section-divider::before, .section-divider::after {
             content: ''; flex: 1; height: 1px;
@@ -251,14 +251,14 @@
             display: flex;
             gap: 0;
             border-bottom: 1px solid var(--gold-line);
-            margin-bottom: 1.75rem;
+            margin-bottom: 2rem;
             overflow-x: auto;
             scrollbar-width: none;
         }
         .tab-bar::-webkit-scrollbar { display: none; }
 
         .tab-btn {
-            padding: 0.8rem 1.25rem;
+            padding: 1rem 1.5rem;
             font-size: 0.78rem;
             font-weight: 500;
             letter-spacing: 0.08em;
@@ -283,8 +283,8 @@
         .doc-row {
             display: flex;
             flex-direction: column;
-            gap: 0.875rem;
-            padding: 1.1rem 1.25rem;
+            gap: 1rem;
+            padding: 1.35rem 1.5rem;
             background: rgba(255,255,255,0.015);
             border: 1px solid rgba(212,175,55,0.1);
             border-left: 3px solid rgba(212,175,55,0.15);
@@ -512,12 +512,12 @@
     <div class="page-wrap">
 
         <!-- ── HEADER CARD ──────────────────────────────────────────── -->
-        <div class="lux-card p-7 mb-6 animate-in">
+        <div class="lux-card p-9 mb-8 animate-in">
 
-            <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-8">
 
                 <!-- Avatar + Identity -->
-                <div class="flex items-center gap-5 flex-1 min-w-0">
+                <div class="flex items-center gap-6 flex-1 min-w-0">
                     <div class="avatar-ring">
                         @if($application->student_name)
                             {{ strtoupper(substr($application->student_name, 0, 1)) }}
@@ -561,7 +561,7 @@
             </div>
 
             <!-- Progress -->
-            <div class="grid md:grid-cols-2 gap-6 mt-7">
+            <div class="grid md:grid-cols-2 gap-8 mt-9">
                 @php
                     $statusInfo     = $application->status_info;
                     $compStatusInfo = $application->complementary_status_info;
@@ -589,7 +589,7 @@
             </div>
 
             <!-- Status pills -->
-            <div class="flex flex-wrap gap-2 mt-5">
+            <div class="flex flex-wrap gap-3 mt-7">
                 <span class="pill
                     @if($statusInfo['color']==='green') pill-green
                     @elseif($statusInfo['color']==='red') pill-red
@@ -612,9 +612,9 @@
         </div>
 
         <!-- ── PERSONAL INFO CARD ────────────────────────────────────── -->
-        <div class="lux-card p-7 mb-6 animate-in delay-1">
+        <div class="lux-card p-9 mb-8 animate-in delay-1">
 
-            <div class="flex items-center gap-3 mb-6">
+            <div class="flex items-center gap-4 mb-8">
                 <div class="section-icon">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" style="color:var(--gold)">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
@@ -624,7 +624,7 @@
             </div>
 
             <form @submit.prevent="saveInfo">
-                <div class="grid md:grid-cols-2 gap-5">
+                <div class="grid md:grid-cols-2 gap-6">
                     <div>
                         <label class="field-label">Nom complet <span style="color:var(--gold)">*</span></label>
                         <input type="text" x-model="info.student_name" required class="lux-input" placeholder="Votre nom complet">
@@ -663,7 +663,7 @@
                     @endif
                 </div>
 
-                <div class="mt-6">
+                <div class="mt-8">
                     <button type="submit" class="btn-gold" :disabled="saving">
                         <span x-show="!saving" class="flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
@@ -676,9 +676,9 @@
         </div>
 
         <!-- ── DOCUMENTS CARD ────────────────────────────────────────── -->
-        <div class="lux-card p-7 animate-in delay-2">
+        <div class="lux-card p-9 animate-in delay-2">
 
-            <div class="flex items-center gap-3 mb-6">
+            <div class="flex items-center gap-4 mb-8">
                 <div class="section-icon">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" style="color:var(--gold)">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -698,7 +698,7 @@
             </div>
 
             <!-- Initial Documents -->
-            <div x-show="activeTab === 'initial'" class="space-y-3">
+            <div x-show="activeTab === 'initial'" class="space-y-4">
                 @foreach($requiredDocuments as $docType => $docLabel)
                     @php
                         $uploaded   = $uploadedDocuments->get($docType);
@@ -763,7 +763,7 @@
             </div>
 
             <!-- Complementary Documents -->
-            <div x-show="activeTab === 'complementary'" class="space-y-3">
+            <div x-show="activeTab === 'complementary'" class="space-y-4">
                 @foreach($complementaryDocuments as $docType => $docLabel)
                     @php $uploaded = $uploadedDocuments->get($docType); @endphp
                     <div class="doc-row {{ $uploaded ? 'doc-done' : '' }}" data-doc-type="{{ $docType }}">
