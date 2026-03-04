@@ -474,6 +474,15 @@ Alpine.data('evaluationForm', () => ({
         formData.append('would_recommend', this.wouldRecommend ? '1' : '0');
         formData.append('signature', this.signatureData);
 
+        // ── DEBUG: affiche toutes les valeurs envoyées ──
+        console.group('📤 [EVAL DEBUG] Données soumises');
+        for (let [key, val] of formData.entries()) {
+            if (key === 'signature') console.log(key, val ? '[signature presente, ' + val.length + ' chars]' : '[VIDE]');
+            else if (key.startsWith('conversation_screenshots')) console.log(key, val instanceof File ? val.name + ' (' + val.size + 'B)' : val);
+            else console.log(key, val);
+        }
+        console.groupEnd();
+
         try {
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
             const authToken = localStorage.getItem('auth_token');
@@ -486,6 +495,8 @@ Alpine.data('evaluationForm', () => ({
             if (csrfToken) headers['X-CSRF-TOKEN'] = csrfToken;
             if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
 
+            console.log('📡 [EVAL DEBUG] Envoi vers /api/evaluations', { csrfToken: csrfToken ? '✅' : '❌ ABSENT', authToken: authToken ? '✅' : '(anonyme)' });
+
             const response = await fetch('/api/evaluations', {
                 method: 'POST',
                 headers: headers,
@@ -493,31 +504,40 @@ Alpine.data('evaluationForm', () => ({
                 credentials: 'same-origin'
             });
 
+            console.log('📥 [EVAL DEBUG] Réponse HTTP', response.status, response.statusText);
+
             if (!response.ok) {
-                let errorMessage = 'Une erreur est survenue.';
+                let rawText = '';
+                try { rawText = await response.text(); } catch(e) {}
+
+                console.group('❌ [EVAL DEBUG] Erreur serveur');
+                console.log('Status:', response.status);
+                console.log('Body brut:', rawText.substring(0, 2000));
+                console.groupEnd();
+
+                let errorMessage = '[' + response.status + '] ';
+                let allErrors = [];
 
                 if (response.status === 413) {
-                    errorMessage = 'Les fichiers sont trop volumineux. Réduisez la taille des images.';
-                } else if (response.status === 422) {
-                    try {
-                        const result = await response.json();
-                        if (result.errors) {
-                            const firstError = Object.values(result.errors)[0];
-                            errorMessage = Array.isArray(firstError) ? firstError[0] : firstError;
-                        } else if (result.message) {
-                            errorMessage = result.message;
-                        }
-                    } catch (e) {
-                        errorMessage = 'Erreur de validation. Vérifiez vos données.';
-                    }
-                } else if (response.status === 500) {
-                    errorMessage = 'Erreur serveur. Veuillez réessayer plus tard.';
+                    errorMessage += 'Les fichiers sont trop volumineux. Réduisez la taille des images.';
+                } else if (response.status === 419) {
+                    errorMessage += 'Session expirée (CSRF). Rechargez la page et réessayez.';
                 } else {
                     try {
-                        const result = await response.json();
-                        errorMessage = result.message || 'Erreur ' + response.status;
+                        const result = JSON.parse(rawText);
+                        if (result.errors) {
+                            allErrors = Object.entries(result.errors).map(([field, msgs]) => {
+                                const msg = Array.isArray(msgs) ? msgs[0] : msgs;
+                                return field + ': ' + msg;
+                            });
+                            errorMessage += allErrors.join(' | ');
+                        } else if (result.message) {
+                            errorMessage += result.message;
+                        } else {
+                            errorMessage += rawText.substring(0, 300);
+                        }
                     } catch (e) {
-                        errorMessage = 'Erreur ' + response.status + ': ' + response.statusText;
+                        errorMessage += rawText.substring(0, 300) || response.statusText;
                     }
                 }
 
@@ -526,20 +546,20 @@ Alpine.data('evaluationForm', () => ({
             }
 
             const result = await response.json();
+            console.log('✅ [EVAL DEBUG] Succès:', result);
             this.success = true;
 
-            // Fermer rapidement après succès (1.5s pour voir le message)
             setTimeout(() => {
                 window.dispatchEvent(new CustomEvent('close-evaluation-modal'));
                 this.resetForm();
             }, 1500);
 
         } catch (e) {
-            console.error('Erreur lors de la soumission:', e);
+            console.error('💥 [EVAL DEBUG] Exception JS:', e.name, e.message, e);
             if (e.name === 'TypeError' && e.message.includes('Failed to fetch')) {
-                this.error = 'Erreur de connexion. Vérifiez votre connexion internet.';
+                this.error = 'Erreur de connexion réseau. Vérifiez votre connexion internet.';
             } else {
-                this.error = 'Erreur inattendue. Veuillez réessayer.';
+                this.error = 'Exception JS: ' + e.message;
             }
         } finally {
             this.submitting = false;

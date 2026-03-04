@@ -4933,20 +4933,28 @@
 
                         <!-- Recommandation -->
                         <div>
-                            <label class="block text-xs sm:text-sm font-semibold text-[#0a0a0a] mb-2 sm:mb-3">Recommanderiez-vous Travel Express ?</label>
-                            <div class="flex gap-2 sm:gap-4">
+                            <label class="block text-xs sm:text-sm font-semibold mb-2 sm:mb-3" style="color:rgba(212,175,55,0.85);">Recommanderiez-vous Travel Express ?</label>
+                            <div class="flex gap-3 sm:gap-4">
                                 <label class="flex-1 cursor-pointer">
-                                    <input type="radio" x-model="wouldRecommend" :value="true" class="peer sr-only">
-                                    <div class="p-2.5 sm:p-4 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37]/10 transition-all">
-                                        <span class="text-xl sm:text-3xl mb-1 sm:mb-2 block">👍</span>
-                                        <span class="font-semibold text-[#0a0a0a] text-xs sm:text-base">Oui !</span>
+                                    <input type="radio" x-model="wouldRecommend" :value="true" class="sr-only">
+                                    <div class="relative p-3 sm:p-5 rounded-2xl text-center transition-all duration-200 overflow-hidden"
+                                         :style="wouldRecommend === true ? 'background:rgba(212,175,55,0.12);border:2px solid rgba(212,175,55,0.6);box-shadow:0 0 24px rgba(212,175,55,0.12);' : 'background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);'">
+                                        <div class="absolute top-2 right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-200"
+                                             :style="wouldRecommend === true ? 'background:#D4AF37;color:#080808;opacity:1;' : 'opacity:0;background:#D4AF37;color:#080808;'">✓</div>
+                                        <span class="text-2xl sm:text-4xl block mb-2">👍</span>
+                                        <span class="font-bold text-sm sm:text-base tracking-wide transition-colors duration-200"
+                                              :style="wouldRecommend === true ? 'color:#F0D060;' : 'color:rgba(255,255,255,0.45);'">Oui !</span>
                                     </div>
                                 </label>
                                 <label class="flex-1 cursor-pointer">
-                                    <input type="radio" x-model="wouldRecommend" :value="false" class="peer sr-only">
-                                    <div class="p-2.5 sm:p-4 border-2 border-gray-200 rounded-lg sm:rounded-xl text-center peer-checked:border-red-500 peer-checked:bg-red-50 transition-all">
-                                        <span class="text-xl sm:text-3xl mb-1 sm:mb-2 block">👎</span>
-                                        <span class="font-semibold text-gray-700 text-xs sm:text-base">Non</span>
+                                    <input type="radio" x-model="wouldRecommend" :value="false" class="sr-only">
+                                    <div class="relative p-3 sm:p-5 rounded-2xl text-center transition-all duration-200 overflow-hidden"
+                                         :style="wouldRecommend === false ? 'background:rgba(239,68,68,0.08);border:2px solid rgba(239,68,68,0.45);box-shadow:0 0 20px rgba(239,68,68,0.08);' : 'background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);'">
+                                        <div class="absolute top-2 right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-200"
+                                             :style="wouldRecommend === false ? 'background:#ef4444;color:#fff;opacity:1;' : 'opacity:0;background:#ef4444;color:#fff;'">✕</div>
+                                        <span class="text-2xl sm:text-4xl block mb-2">👎</span>
+                                        <span class="font-bold text-sm sm:text-base tracking-wide transition-colors duration-200"
+                                              :style="wouldRecommend === false ? 'color:#fca5a5;' : 'color:rgba(255,255,255,0.45);'">Non</span>
                                     </div>
                                 </label>
                             </div>
