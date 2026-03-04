@@ -117,6 +117,7 @@ class EvaluationController extends Controller
                     'bouche_a_oreille', 'site_web', 'evenement', 'autre'
                 ])],
                 'discovery_source_detail' => 'nullable|string|max:255',
+                'tiktok_channel' => ['nullable', Rule::in(['travel_express', 'leyley', 'la_bobolaise'])],
                 'ambassador_direct_contact' => 'nullable',
                 'conversation_screenshots' => 'nullable|array|max:5',
                 'conversation_screenshots.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',

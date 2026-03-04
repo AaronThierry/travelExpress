@@ -25,6 +25,7 @@ class Evaluation extends Model
         'project_story',
         'discovery_source',
         'discovery_source_detail',
+        'tiktok_channel',
         'ambassador_direct_contact',
         'conversation_screenshots',
         'rating',
@@ -109,6 +110,19 @@ class Evaluation extends Model
             'formation_professionnelle' => 'Formation professionnelle',
             'autre' => 'Autre',
             default => $this->study_level,
+        };
+    }
+
+    /**
+     * Get the TikTok channel label.
+     */
+    public function getTiktokChannelLabelAttribute(): string
+    {
+        return match($this->tiktok_channel) {
+            'travel_express' => 'Travel Express ✈️',
+            'leyley'         => 'Leyley 👨‍💼',
+            'la_bobolaise'   => 'La Bobolaise 👩‍💼',
+            default          => $this->tiktok_channel ?? '',
         };
     }
 

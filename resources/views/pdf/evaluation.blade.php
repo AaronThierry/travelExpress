@@ -596,6 +596,9 @@
                     </div>
                     <div class="rating-line">
                         <strong>Source de decouverte:</strong> {{ $evaluation->discovery_source_label }}
+                        @if($evaluation->tiktok_channel)
+                            &nbsp;&mdash;&nbsp;<strong>Chaine:</strong> {{ $evaluation->tiktok_channel_label }}
+                        @endif
                         @if($evaluation->discovery_source_detail) ({{ $evaluation->discovery_source_detail }})@endif
                     </div>
                 </div>
