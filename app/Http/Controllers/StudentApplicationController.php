@@ -97,7 +97,7 @@ class StudentApplicationController extends Controller
             'private'
         );
 
-        // Create document record
+        // Create document record (auto-validation active)
         $document = ApplicationDocument::create([
             'application_id' => $application->id,
             'document_type' => $documentType,
@@ -105,7 +105,7 @@ class StudentApplicationController extends Controller
             'original_filename' => $file->getClientOriginalName(),
             'file_size' => $file->getSize(),
             'mime_type' => $file->getMimeType(),
-            'status' => 'pending',
+            'status' => 'approved',
             'is_complementary' => $isComplementary,
         ]);
 
