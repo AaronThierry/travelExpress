@@ -68,10 +68,25 @@ Route::middleware('auth:sanctum')->group(function () {
     // Evaluations - protected routes
     Route::get('/evaluations/my', [EvaluationController::class, 'myEvaluation']);
 
-    // Mon dossier - get user's application(s) by email
+    // Mon dossier - get user's application(s) by email (auto-create if none)
     Route::get('/my-dossier', function (Request $request) {
         $user = $request->user();
         $compDocs = \App\Models\StudentApplication::getComplementaryDocuments();
+
+        // Auto-create complementary dossier if user has none
+        $exists = \App\Models\StudentApplication::where('student_email', $user->email)->exists();
+        if (!$exists) {
+            $app = \App\Models\StudentApplication::create([
+                'student_name'          => $user->name,
+                'student_email'         => $user->email,
+                'dossier_type'          => 'complementaire',
+                'status'                => 'pending',
+                'complementary_status'  => 'in_progress',
+                'current_step'          => 2,
+                'program_type'          => 'licence',
+            ]);
+            $app->generateAccessToken(365);
+        }
 
         $applications = \App\Models\StudentApplication::with('documents')
             ->where('student_email', $user->email)
