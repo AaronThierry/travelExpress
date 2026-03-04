@@ -98,7 +98,6 @@ Route::middleware('auth:sanctum')->group(function () {
             ->get()
             ->map(function ($app) use ($compDocs) {
                 $reqDocs = \App\Models\StudentApplication::getRequiredDocuments($app->program_type);
-                $uploadedByType = $app->documents->keyBy('document_type');
 
                 return [
                     'id'                              => $app->id,
