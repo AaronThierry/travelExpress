@@ -609,9 +609,16 @@
                 async init() {
                     const token = localStorage.getItem('auth_token');
                     if (!token) {
-                        this.loading   = false;
+                        this.loading    = false;
                         this.isLoggedIn = false;
                         return;
+                    }
+
+                    // Token présent → utilisateur considéré connecté par défaut
+                    this.isLoggedIn = true;
+                    const userData = localStorage.getItem('user');
+                    if (userData) {
+                        try { this.userEmail = JSON.parse(userData).email || ''; } catch {}
                     }
 
                     try {
@@ -623,22 +630,24 @@
                         });
 
                         if (res.status === 401) {
-                            this.loading    = false;
                             this.isLoggedIn = false;
+                            localStorage.removeItem('auth_token');
+                            localStorage.removeItem('user');
                             return;
                         }
 
-                        if (!res.ok) throw new Error('Erreur lors du chargement');
+                        const data = await res.json();
 
-                        const data       = await res.json();
-                        this.isLoggedIn  = true;
+                        if (!res.ok) {
+                            this.error = data.message || data.error || 'Erreur lors du chargement';
+                            return;
+                        }
+
                         this.applications = data.data || [];
 
-                        const userData = localStorage.getItem('user');
-                        if (userData) this.userEmail = JSON.parse(userData).email || '';
-
                     } catch (err) {
-                        this.error = err.message;
+                        this.error = 'Impossible de charger votre dossier. Vérifiez votre connexion.';
+                        console.error(err);
                     } finally {
                         this.loading = false;
                     }

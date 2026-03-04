@@ -74,18 +74,22 @@ Route::middleware('auth:sanctum')->group(function () {
         $compDocs = \App\Models\StudentApplication::getComplementaryDocuments();
 
         // Auto-create complementary dossier if user has none
-        $exists = \App\Models\StudentApplication::where('student_email', $user->email)->exists();
-        if (!$exists) {
-            $app = \App\Models\StudentApplication::create([
-                'student_name'          => $user->name,
-                'student_email'         => $user->email,
-                'dossier_type'          => 'complementaire',
-                'status'                => 'pending',
-                'complementary_status'  => 'in_progress',
-                'current_step'          => 2,
-                'program_type'          => 'licence',
-            ]);
-            $app->generateAccessToken(365);
+        try {
+            $exists = \App\Models\StudentApplication::where('student_email', $user->email)->exists();
+            if (!$exists) {
+                $newApp = \App\Models\StudentApplication::create([
+                    'student_name'         => $user->name,
+                    'student_email'        => $user->email,
+                    'dossier_type'         => 'complementaire',
+                    'status'               => 'pending',
+                    'complementary_status' => 'in_progress',
+                    'current_step'         => 2,
+                    'program_type'         => 'licence',
+                ]);
+                $newApp->generateAccessToken(365);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Auto-create dossier failed for ' . $user->email . ': ' . $e->getMessage());
         }
 
         $applications = \App\Models\StudentApplication::with('documents')
