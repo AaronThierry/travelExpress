@@ -4935,28 +4935,28 @@
                         <div>
                             <label class="block text-xs sm:text-sm font-semibold mb-2 sm:mb-3" style="color:rgba(212,175,55,0.85);">Recommanderiez-vous Travel Express ?</label>
                             <div class="flex gap-3 sm:gap-4">
-                                <label class="flex-1 cursor-pointer">
-                                    <input type="radio" x-model="wouldRecommend" :value="true" class="sr-only">
+                                <div class="flex-1 cursor-pointer" @click="wouldRecommend = true">
                                     <div class="relative p-3 sm:p-5 rounded-2xl text-center transition-all duration-200 overflow-hidden"
-                                         :style="wouldRecommend === true ? 'background:rgba(212,175,55,0.12);border:2px solid rgba(212,175,55,0.6);box-shadow:0 0 24px rgba(212,175,55,0.12);' : 'background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);'">
-                                        <div class="absolute top-2 right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-200"
-                                             :style="wouldRecommend === true ? 'background:#D4AF37;color:#080808;opacity:1;' : 'opacity:0;background:#D4AF37;color:#080808;'">✓</div>
+                                         :style="wouldRecommend ? 'background:rgba(212,175,55,0.12);border:2px solid rgba(212,175,55,0.6);box-shadow:0 0 24px rgba(212,175,55,0.12);' : 'background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);'">
+                                        <div class="absolute top-2 right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold"
+                                             :style="wouldRecommend ? 'background:#D4AF37;color:#080808;opacity:1;' : 'opacity:0;'"
+                                             x-cloak>✓</div>
                                         <span class="text-2xl sm:text-4xl block mb-2">👍</span>
-                                        <span class="font-bold text-sm sm:text-base tracking-wide transition-colors duration-200"
-                                              :style="wouldRecommend === true ? 'color:#F0D060;' : 'color:rgba(255,255,255,0.45);'">Oui !</span>
+                                        <span class="font-bold text-sm sm:text-base tracking-wide"
+                                              :style="wouldRecommend ? 'color:#F0D060;' : 'color:rgba(255,255,255,0.45);'">Oui !</span>
                                     </div>
-                                </label>
-                                <label class="flex-1 cursor-pointer">
-                                    <input type="radio" x-model="wouldRecommend" :value="false" class="sr-only">
+                                </div>
+                                <div class="flex-1 cursor-pointer" @click="wouldRecommend = false">
                                     <div class="relative p-3 sm:p-5 rounded-2xl text-center transition-all duration-200 overflow-hidden"
-                                         :style="wouldRecommend === false ? 'background:rgba(239,68,68,0.08);border:2px solid rgba(239,68,68,0.45);box-shadow:0 0 20px rgba(239,68,68,0.08);' : 'background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);'">
-                                        <div class="absolute top-2 right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-200"
-                                             :style="wouldRecommend === false ? 'background:#ef4444;color:#fff;opacity:1;' : 'opacity:0;background:#ef4444;color:#fff;'">✕</div>
+                                         :style="!wouldRecommend ? 'background:rgba(239,68,68,0.08);border:2px solid rgba(239,68,68,0.45);box-shadow:0 0 20px rgba(239,68,68,0.08);' : 'background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);'">
+                                        <div class="absolute top-2 right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold"
+                                             :style="!wouldRecommend ? 'background:#ef4444;color:#fff;opacity:1;' : 'opacity:0;'"
+                                             x-cloak>✕</div>
                                         <span class="text-2xl sm:text-4xl block mb-2">👎</span>
-                                        <span class="font-bold text-sm sm:text-base tracking-wide transition-colors duration-200"
-                                              :style="wouldRecommend === false ? 'color:#fca5a5;' : 'color:rgba(255,255,255,0.45);'">Non</span>
+                                        <span class="font-bold text-sm sm:text-base tracking-wide"
+                                              :style="!wouldRecommend ? 'color:#fca5a5;' : 'color:rgba(255,255,255,0.45);'">Non</span>
                                     </div>
-                                </label>
+                                </div>
                             </div>
                         </div>
 

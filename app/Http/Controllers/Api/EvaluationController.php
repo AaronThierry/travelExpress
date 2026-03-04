@@ -255,14 +255,11 @@ class EvaluationController extends Controller
                 'request' => $request->except(['signature', 'conversation_screenshots'])
             ]);
 
-            // Return more details in development, generic message in production
-            $errorMessage = config('app.debug')
-                ? 'Erreur: ' . $e->getMessage()
-                : 'Une erreur est survenue lors de l\'enregistrement. Veuillez réessayer.';
-
             return response()->json([
                 'success' => false,
-                'message' => $errorMessage,
+                'message' => $e->getMessage(),
+                'file' => basename($e->getFile()),
+                'line' => $e->getLine(),
             ], 500);
         }
     }
