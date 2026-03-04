@@ -3711,46 +3711,55 @@
     </style>
 
     <!-- Modal Témoignage -->
+    <!-- ══ Testimonial Modal — Velvet Salon Edition ══ -->
     <div x-show="testimonialModalOpen"
-         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter="transition ease-out duration-400"
          x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100"
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
-         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4"
+         style="background:rgba(2,1,1,0.92);backdrop-filter:blur(16px);"
          @click.self="testimonialModalOpen = false"
          style="display: none;">
 
         <div x-show="testimonialModalOpen"
-             x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0 scale-95"
-             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:enter="transition ease-out duration-400"
+             x-transition:enter-start="opacity-0 scale-95 translate-y-3"
+             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
              x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100 scale-100"
-             x-transition:leave-end="opacity-0 scale-95"
-             class="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden max-h-[90vh] overflow-y-auto">
+             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+             x-transition:leave-end="opacity-0 scale-95 translate-y-3"
+             class="w-full max-w-lg overflow-hidden max-h-[92vh] overflow-y-auto"
+             style="background:#0c0908;border:1px solid rgba(212,175,55,0.22);border-radius:20px;box-shadow:0 40px 100px rgba(0,0,0,0.85),0 0 0 1px rgba(212,175,55,0.06),inset 0 1px 0 rgba(212,175,55,0.07);">
 
-            <!-- Header du modal -->
-            <div class="bg-gradient-to-r from-primary-600 via-primary-700 to-accent-500 px-6 py-5 sticky top-0 z-10">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white">Partagez votre expérience</h3>
-                            <p class="text-white/70 text-xs mt-0.5">Votre témoignage inspirera d'autres voyageurs</p>
-                        </div>
-                    </div>
-                    <button @click="testimonialModalOpen = false" class="text-white/80 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-lg">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            <!-- Header -->
+            <div class="relative px-6 py-5 flex items-center justify-between sticky top-0 z-10"
+                 style="background:#0c0908;border-bottom:1px solid rgba(212,175,55,0.1);">
+                <!-- Gold left accent bar -->
+                <div class="absolute left-0 top-3 bottom-3 w-0.5 rounded-r-full" style="background:linear-gradient(to bottom,transparent,#D4AF37,transparent);"></div>
+                <div class="flex items-center gap-3 pl-3">
+                    <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                         style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.18);">
+                        <svg class="w-4 h-4" fill="none" stroke="#D4AF37" viewBox="0 0 24 24" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                         </svg>
-                    </button>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold tracking-wider text-sm" style="color:#F0D060;">Partagez votre expérience</h3>
+                        <p class="text-xs mt-0.5" style="color:rgba(212,175,55,0.4);">Votre témoignage inspirera d'autres voyageurs</p>
+                    </div>
                 </div>
+                <button @click="testimonialModalOpen = false"
+                        class="p-2 rounded-lg transition-all duration-200 flex-shrink-0"
+                        style="color:rgba(212,175,55,0.4);"
+                        onmouseover="this.style.background='rgba(212,175,55,0.08)';this.style.color='#D4AF37';"
+                        onmouseout="this.style.background='transparent';this.style.color='rgba(212,175,55,0.4)';">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
             </div>
 
             <!-- Formulaire -->
@@ -3870,153 +3879,123 @@
                 }
             }" x-init="init()" @submit.prevent="submitTestimonial" class="p-6 space-y-5">
 
-                <!-- Chargement -->
-                <div x-show="loading" class="flex items-center justify-center py-12">
-                    <svg class="animate-spin w-8 h-8 text-primary-600" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
+                <!-- Loading -->
+                <div x-show="loading" class="flex items-center justify-center py-14">
+                    <div class="relative">
+                        <div class="w-10 h-10 rounded-full animate-spin" style="border:2px solid rgba(212,175,55,0.15);border-top-color:#D4AF37;"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full" style="background:#D4AF37;"></div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Message de succès -->
-                <div x-show="success" x-transition class="bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200 text-emerald-700 px-5 py-4 rounded-xl flex items-center gap-4">
-                    <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                <!-- Success -->
+                <div x-show="success" x-transition class="py-12 text-center">
+                    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5" style="background:linear-gradient(135deg,#B8960C,#D4AF37);box-shadow:0 12px 40px rgba(212,175,55,0.35);">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
                         </svg>
                     </div>
-                    <div>
-                        <p class="font-semibold">Merci pour votre témoignage !</p>
-                        <p class="text-sm text-emerald-600">Il sera visible après validation par notre équipe.</p>
-                    </div>
+                    <h4 class="font-display font-bold text-xl mb-2" style="color:#F0D060;">Merci pour votre témoignage !</h4>
+                    <p class="text-sm" style="color:rgba(255,255,255,0.45);">Il sera visible après validation par notre équipe.</p>
                 </div>
 
-                <!-- Message d'erreur -->
-                <div x-show="error" x-transition class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-3">
-                    <svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                <!-- Error -->
+                <div x-show="error" x-transition class="flex items-center gap-3 px-4 py-3 rounded-xl" style="background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="#f87171" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
-                    <span x-text="error"></span>
+                    <span class="text-sm" style="color:#fca5a5;" x-text="error"></span>
                 </div>
 
                 <template x-if="!loading && !success">
                     <div class="space-y-5">
-                        <!-- Profil utilisateur avec photo -->
-                        <div class="bg-gradient-to-br from-slate-50 to-gray-50 rounded-2xl p-5 border border-slate-100">
-                            <div class="flex items-start gap-4">
-                                <!-- Avatar avec upload -->
-                                <div class="relative group">
-                                    <div class="w-20 h-20 rounded-2xl overflow-hidden ring-4 ring-white shadow-lg">
-                                        <template x-if="avatarPreview">
-                                            <img :src="avatarPreview" class="w-full h-full object-cover">
-                                        </template>
-                                        <template x-if="!avatarPreview">
-                                            <div class="w-full h-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
-                                                <span class="text-white text-2xl font-bold" x-text="user?.name?.charAt(0)?.toUpperCase() || '?'"></span>
-                                            </div>
-                                        </template>
-                                    </div>
-                                    <label class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-2xl">
-                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        </svg>
-                                        <input type="file" class="hidden" accept="image/*" @change="handleAvatarChange($event)">
-                                    </label>
-                                    <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center ring-2 ring-white">
-                                        <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                </div>
 
-                                <!-- Infos utilisateur -->
-                                <div class="flex-1">
-                                    <h4 class="text-lg font-bold text-gray-900" x-text="user?.name || 'Utilisateur'"></h4>
-                                    <p class="text-sm text-primary-600 font-medium" x-text="user?.position || 'Voyageur'"></p>
-                                    <div class="flex items-center gap-2 mt-2">
-                                        <span class="text-lg" x-text="getFlag(user?.country)"></span>
-                                        <span class="text-sm text-gray-600" x-text="user?.country || 'Pays non spécifié'"></span>
-                                    </div>
+                        <!-- Profile -->
+                        <div class="flex items-center gap-4 p-4 rounded-2xl" style="background:rgba(255,255,255,0.02);border:1px solid rgba(212,175,55,0.1);">
+                            <div class="relative group flex-shrink-0">
+                                <div class="w-16 h-16 rounded-xl overflow-hidden" style="box-shadow:0 0 0 2px rgba(212,175,55,0.28);">
+                                    <template x-if="avatarPreview">
+                                        <img :src="avatarPreview" class="w-full h-full object-cover">
+                                    </template>
+                                    <template x-if="!avatarPreview">
+                                        <div class="w-full h-full flex items-center justify-center text-2xl font-bold" style="background:linear-gradient(135deg,#B8960C,#D4AF37);color:#080808;">
+                                            <span x-text="user?.name?.charAt(0)?.toUpperCase() || '?'"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                                <label class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-xl" style="background:rgba(0,0,0,0.65);">
+                                    <svg class="w-5 h-5" fill="none" stroke="#D4AF37" viewBox="0 0 24 24" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                    <input type="file" class="hidden" accept="image/*" @change="handleAvatarChange($event)">
+                                </label>
+                                <div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center" style="background:#D4AF37;box-shadow:0 0 0 2px #0c0908;">
+                                    <svg class="w-3 h-3" fill="none" stroke="#080808" viewBox="0 0 24 24" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                                    </svg>
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-400 mt-3 flex items-center gap-1">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                Survolez la photo pour la modifier
-                            </p>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-bold truncate" style="color:#ffffff;" x-text="user?.name || 'Utilisateur'"></p>
+                                <p class="text-sm truncate" style="color:#D4AF37;" x-text="user?.position || 'Voyageur'"></p>
+                                <div class="flex items-center gap-1.5 mt-1">
+                                    <span x-text="getFlag(user?.country)" class="text-sm"></span>
+                                    <span class="text-xs" style="color:rgba(255,255,255,0.4);" x-text="user?.country || 'Pays non spécifié'"></span>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Trajet stylisé -->
-                        <div class="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-2xl p-5 border border-indigo-100">
-                            <label class="block text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-                                <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                                Votre trajet
-                            </label>
+                        <!-- Journey -->
+                        <div class="rounded-2xl p-4" style="background:rgba(212,175,55,0.04);border:1px solid rgba(212,175,55,0.12);">
+                            <p class="text-[10px] font-semibold uppercase tracking-widest mb-3" style="color:rgba(212,175,55,0.55);">✈ Votre trajet</p>
                             <div class="flex items-center gap-3">
-                                <!-- Départ -->
-                                <div class="flex-1 bg-white rounded-xl p-3 border border-slate-200 shadow-sm">
-                                    <p class="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Départ</p>
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-xl" x-text="getFlag(user?.country)"></span>
-                                        <span class="text-sm font-medium text-gray-700" x-text="user?.country || 'Votre pays'"></span>
+                                <div class="flex-1 rounded-xl p-3" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+                                    <p class="text-[9px] uppercase tracking-wider mb-1.5" style="color:rgba(255,255,255,0.3);">Départ</p>
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="text-base" x-text="getFlag(user?.country)"></span>
+                                        <span class="text-xs font-medium" style="color:rgba(255,255,255,0.7);" x-text="user?.country || 'Votre pays'"></span>
                                     </div>
                                 </div>
-
-                                <!-- Flèche avec avion -->
-                                <div class="flex flex-col items-center">
-                                    <div class="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
-                                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-                                        </svg>
-                                    </div>
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#B8960C,#D4AF37);box-shadow:0 4px 14px rgba(212,175,55,0.35);">
+                                    <svg class="w-4 h-4" fill="#080808" viewBox="0 0 24 24">
+                                        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                                    </svg>
                                 </div>
-
-                                <!-- Destination -->
-                                <div class="flex-1">
-                                    <div class="bg-white rounded-xl p-3 border-2 border-dashed border-indigo-300 shadow-sm">
-                                        <p class="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Destination</p>
-                                        <select x-model="destination" required
-                                                class="w-full text-sm font-medium text-gray-700 bg-transparent border-none focus:ring-0 p-0 cursor-pointer">
-                                            <option value="">Choisir...</option>
-                                            <option value="Chine">🇨🇳 Chine</option>
-                                            <option value="Espagne">🇪🇸 Espagne</option>
-                                            <option value="Allemagne">🇩🇪 Allemagne</option>
-                                        </select>
-                                    </div>
+                                <div class="flex-1 rounded-xl p-3" style="background:rgba(212,175,55,0.07);border:1.5px dashed rgba(212,175,55,0.28);">
+                                    <p class="text-[9px] uppercase tracking-wider mb-1.5" style="color:rgba(212,175,55,0.5);">Destination</p>
+                                    <select x-model="destination" required
+                                            class="w-full text-xs font-semibold bg-transparent border-none focus:ring-0 p-0 cursor-pointer"
+                                            style="color:#D4AF37;outline:none;">
+                                        <option value="" style="background:#0c0908;color:#888;">Choisir...</option>
+                                        <option value="Chine" style="background:#0c0908;color:#fff;">🇨🇳 Chine</option>
+                                        <option value="Espagne" style="background:#0c0908;color:#fff;">🇪🇸 Espagne</option>
+                                        <option value="Allemagne" style="background:#0c0908;color:#fff;">🇩🇪 Allemagne</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Note avec étoiles -->
+                        <!-- Rating -->
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-                                <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                                </svg>
-                                Votre évaluation
-                            </label>
-                            <div class="flex items-center gap-3 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl p-4 border border-amber-100">
+                            <p class="text-[10px] font-semibold uppercase tracking-widest mb-3" style="color:rgba(212,175,55,0.55);">★ Votre évaluation</p>
+                            <div class="flex items-center gap-4 p-4 rounded-xl" style="background:rgba(212,175,55,0.04);border:1px solid rgba(212,175,55,0.1);">
                                 <div class="flex items-center gap-1">
                                     <template x-for="star in 5" :key="star">
                                         <button type="button" @click="rating = star"
-                                                class="focus:outline-none transition-all duration-200 hover:scale-125"
-                                                :class="star <= rating ? 'drop-shadow-lg' : ''">
-                                            <svg class="w-9 h-9 transition-colors"
-                                                 :class="star <= rating ? 'text-amber-400' : 'text-gray-200'"
+                                                class="focus:outline-none transition-all duration-200 hover:scale-125">
+                                            <svg class="w-8 h-8 transition-all duration-200"
+                                                 :style="star <= rating ? 'color:#D4AF37;filter:drop-shadow(0 0 5px rgba(212,175,55,0.5));' : 'color:rgba(255,255,255,0.1);'"
                                                  fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                             </svg>
                                         </button>
                                     </template>
                                 </div>
-                                <div class="flex-1">
-                                    <p class="text-lg font-bold text-amber-600" x-text="rating + '/5'"></p>
-                                    <p class="text-xs text-amber-500"
+                                <div>
+                                    <p class="font-bold text-base" style="color:#D4AF37;" x-text="rating + '/5'"></p>
+                                    <p class="text-xs" style="color:rgba(212,175,55,0.5);"
                                        x-text="rating === 5 ? 'Excellent !' : rating === 4 ? 'Très bien' : rating === 3 ? 'Bien' : rating === 2 ? 'Moyen' : 'À améliorer'"></p>
                                 </div>
                             </div>
@@ -4024,39 +4003,42 @@
 
                         <!-- Message -->
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                                </svg>
-                                Votre témoignage
-                            </label>
+                            <p class="text-[10px] font-semibold uppercase tracking-widest mb-3" style="color:rgba(212,175,55,0.55);">✦ Votre témoignage</p>
                             <div class="relative">
+                                <div class="absolute top-3 left-4 text-3xl leading-none pointer-events-none select-none" style="color:rgba(212,175,55,0.18);font-family:Georgia,serif;">"</div>
                                 <textarea x-model="message" required rows="4" minlength="20" maxlength="500"
-                                          class="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all resize-none"
-                                          placeholder="Racontez votre expérience avec Travel Express... Comment s'est passé votre voyage ? Qu'avez-vous apprécié ?"></textarea>
-                                <div class="absolute bottom-3 right-3 text-xs text-gray-400">
+                                          class="w-full px-4 pt-8 pb-3 text-sm rounded-xl resize-none focus:outline-none transition-all"
+                                          style="background:rgba(255,255,255,0.03);border:1px solid rgba(212,175,55,0.14);color:rgba(255,255,255,0.82);"
+                                          onfocus="this.style.borderColor='rgba(212,175,55,0.38)';this.style.boxShadow='0 0 0 3px rgba(212,175,55,0.06)';"
+                                          onblur="this.style.borderColor='rgba(212,175,55,0.14)';this.style.boxShadow='none';"
+                                          placeholder="Racontez votre expérience... Comment s'est passé votre voyage ? Qu'avez-vous apprécié ?"></textarea>
+                                <div class="absolute bottom-3 right-3 text-xs" style="color:rgba(212,175,55,0.35);">
                                     <span x-text="message.length"></span>/500
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-400 mt-1">Minimum 20 caractères</p>
+                            <p class="text-[10px] mt-1.5" style="color:rgba(255,255,255,0.28);">Minimum 20 caractères</p>
                         </div>
 
-                        <!-- Boutons -->
-                        <div class="flex gap-3 pt-3">
+                        <!-- Actions -->
+                        <div class="flex gap-3 pt-1">
                             <button type="button" @click="testimonialModalOpen = false"
-                                    class="flex-1 px-5 py-3 border border-gray-200 text-gray-700 font-medium rounded-xl text-sm hover:bg-gray-50 transition-all">
+                                    class="flex-1 py-3 rounded-xl text-sm font-medium transition-all"
+                                    style="border:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.45);"
+                                    onmouseover="this.style.borderColor='rgba(255,255,255,0.14)';this.style.color='rgba(255,255,255,0.75)';"
+                                    onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.color='rgba(255,255,255,0.45)';">
                                 Annuler
                             </button>
                             <button type="submit" :disabled="submitting || message.length < 20 || !destination"
-                                    class="flex-1 px-5 py-3 bg-gradient-to-r from-primary-600 to-accent-500 text-white font-semibold rounded-xl text-sm hover:shadow-lg hover:shadow-primary-500/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none flex items-center justify-center gap-2">
-                                <svg x-show="submitting" class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                                    class="flex-grow py-3 px-6 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                                    style="background:linear-gradient(135deg,#B8960C,#D4AF37);color:#080808;box-shadow:0 4px 20px rgba(212,175,55,0.28);">
+                                <svg x-show="submitting" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
-                                <svg x-show="!submitting" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                <svg x-show="!submitting" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                                 </svg>
-                                <span x-text="submitting ? 'Envoi en cours...' : 'Publier mon témoignage'"></span>
+                                <span x-text="submitting ? 'Envoi...' : 'Publier mon témoignage'"></span>
                             </button>
                         </div>
                     </div>
@@ -4066,45 +4048,166 @@
     </div>
 
     <!-- Evaluation Modal - Formulaire pour les anciens collaborateurs -->
+    <!-- ══ Evaluation Modal — Art Deco Vault Edition ══ -->
+    <style>
+        /* ── Evaluation modal dark theme ── */
+        #eval-modal-card {
+            background: #080808;
+            border: 1px solid rgba(212,175,55,0.2);
+            box-shadow: 0 48px 120px rgba(0,0,0,0.9), 0 0 0 1px rgba(212,175,55,0.05);
+        }
+        /* Progress bar track */
+        #eval-modal-card .h-2.bg-gray-200 { background: rgba(255,255,255,0.06) !important; }
+        /* Gray backgrounds → dark */
+        #eval-modal-card .bg-gray-50 { background: rgba(255,255,255,0.03) !important; }
+        #eval-modal-card .bg-gray-100 { background: rgba(255,255,255,0.04) !important; }
+        #eval-modal-card .bg-white { background: #0e0d0b !important; }
+        /* Step connector inactive */
+        #eval-modal-card .bg-gray-200 { background: rgba(255,255,255,0.08) !important; }
+        /* Text */
+        #eval-modal-card .text-gray-500 { color: rgba(255,255,255,0.45) !important; }
+        #eval-modal-card .text-gray-600 { color: rgba(255,255,255,0.6) !important; }
+        #eval-modal-card .text-gray-700 { color: rgba(255,255,255,0.8) !important; }
+        #eval-modal-card .text-gray-400 { color: rgba(255,255,255,0.35) !important; }
+        /* Labels */
+        #eval-modal-card label.block.text-sm.font-semibold { color: rgba(212,175,55,0.75) !important; }
+        #eval-modal-card label.block.text-xs.font-semibold { color: rgba(212,175,55,0.75) !important; }
+        #eval-modal-card label.block.text-\[10px\].font-semibold { color: rgba(212,175,55,0.7) !important; }
+        /* Inputs */
+        #eval-modal-card input[type="text"],
+        #eval-modal-card input[type="email"],
+        #eval-modal-card input[type="tel"],
+        #eval-modal-card select,
+        #eval-modal-card textarea {
+            background: rgba(255,255,255,0.04) !important;
+            border-color: rgba(212,175,55,0.15) !important;
+            color: rgba(255,255,255,0.85) !important;
+        }
+        #eval-modal-card input::placeholder,
+        #eval-modal-card textarea::placeholder { color: rgba(255,255,255,0.2) !important; }
+        #eval-modal-card input:focus,
+        #eval-modal-card select:focus,
+        #eval-modal-card textarea:focus {
+            border-color: rgba(212,175,55,0.45) !important;
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.07) !important;
+            outline: none !important;
+        }
+        /* Select options */
+        #eval-modal-card select option { background: #0e0d0b; color: #fff; }
+        /* Radio cards (border-gray-200) */
+        #eval-modal-card .border-gray-200 { border-color: rgba(212,175,55,0.14) !important; }
+        /* Radio card text */
+        #eval-modal-card .peer-checked\:border-\[\#d4af37\]:checked ~ div { border-color: #D4AF37; }
+        /* Emerald validation → gold */
+        #eval-modal-card .border-emerald-500 { border-color: rgba(212,175,55,0.5) !important; }
+        #eval-modal-card .bg-emerald-50\/50 { background: rgba(212,175,55,0.04) !important; }
+        #eval-modal-card .text-emerald-500 { color: #D4AF37 !important; }
+        /* Red validation stays red */
+        #eval-modal-card .border-red-400 { border-color: rgba(239,68,68,0.5) !important; }
+        #eval-modal-card .bg-red-50\/50 { background: rgba(239,68,68,0.05) !important; }
+        /* Error box */
+        #eval-modal-card .bg-red-50.border.border-red-200 {
+            background: rgba(239,68,68,0.07) !important;
+            border-color: rgba(239,68,68,0.22) !important;
+        }
+        #eval-modal-card .text-red-700 { color: #fca5a5 !important; }
+        #eval-modal-card .text-red-500 { color: #f87171 !important; }
+        /* Story section gradient */
+        #eval-modal-card .bg-gradient-to-br.from-\[\#d4af37\]\/10 {
+            background: rgba(212,175,55,0.05) !important;
+        }
+        /* Ambassador section */
+        #eval-modal-card .bg-gradient-to-br.from-\[\#d4af37\]\/10.to-\[\#0a0a0a\]\/5 {
+            background: rgba(212,175,55,0.05) !important;
+        }
+        /* Step indicator future circles */
+        #eval-modal-card .bg-gray-200.rounded-full { background: rgba(255,255,255,0.08) !important; }
+        /* Detailed rating rows */
+        #eval-modal-card .text-gray-300 { color: rgba(255,255,255,0.12) !important; }
+        /* Recommend No button */
+        #eval-modal-card .peer-checked\:bg-gray-100 { background: rgba(239,68,68,0.1) !important; }
+        /* Footer */
+        #eval-modal-card .border-t.border-gray-200 { border-color: rgba(212,175,55,0.1) !important; }
+        #eval-modal-card .bg-gradient-to-r.from-gray-50.to-white { background: #0b0b0b !important; }
+        /* Screenshot thumbnails */
+        #eval-modal-card .border-gray-200 { border-color: rgba(212,175,55,0.14) !important; }
+        /* Phone dropdown */
+        #eval-modal-card .bg-gray-50.border.border-gray-200 { background: rgba(255,255,255,0.04) !important; border-color: rgba(212,175,55,0.14) !important; }
+        #eval-modal-card .bg-gray-50 { background: rgba(255,255,255,0.03) !important; }
+        /* Country dropdown */
+        #eval-modal-card .bg-white.rounded-xl.shadow-2xl.border.border-gray-200 {
+            background: #0e0d0b !important;
+            border-color: rgba(212,175,55,0.2) !important;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.8) !important;
+        }
+        #eval-modal-card .border-b.border-gray-100 { border-color: rgba(212,175,55,0.08) !important; }
+        #eval-modal-card .border-b.border-gray-50 { border-color: rgba(212,175,55,0.05) !important; }
+        #eval-modal-card .hover\:bg-\[\#d4af37\]\/10:hover { background: rgba(212,175,55,0.08) !important; }
+        #eval-modal-card .text-gray-700.font-medium { color: rgba(255,255,255,0.75) !important; }
+        #eval-modal-card .bg-gray-100.px-2.py-0 { background: rgba(255,255,255,0.06) !important; }
+        /* Signature canvas */
+        #eval-modal-card #signature-canvas { background: #f5f0e8 !important; border-color: rgba(212,175,55,0.35) !important; }
+        /* Service type radio cards text */
+        #eval-modal-card .text-\[0a0a0a\] { color: rgba(255,255,255,0.8) !important; }
+        /* Submit green button → gold */
+        #eval-modal-card .from-emerald-600 { --tw-gradient-from: #B8960C !important; }
+        #eval-modal-card .to-emerald-700 { --tw-gradient-to: #D4AF37 !important; }
+        #eval-modal-card .border-emerald-600 { border-color: rgba(212,175,55,0.4) !important; }
+        #eval-modal-card .hover\:shadow-emerald-500\/50:hover { box-shadow: 0 20px 50px rgba(212,175,55,0.3) !important; }
+        /* Success screen */
+        #eval-modal-card .text-\[0a0a0a\].text-3xl { color: #F0D060 !important; }
+        #eval-modal-card .text-3xl.font-bold { color: #F0D060 !important; }
+    </style>
+
     <div x-show="evaluationModalOpen"
-         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter="transition ease-out duration-400"
          x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100"
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
          @click.self="evaluationModalOpen = false"
-         class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-start justify-center p-2 sm:p-4 pt-4 sm:pt-10 pb-4 sm:pb-10"
+         class="fixed inset-0 z-50 overflow-y-auto flex items-start justify-center p-2 sm:p-4 pt-4 sm:pt-10 pb-4 sm:pb-10"
+         style="background:rgba(2,1,1,0.92);backdrop-filter:blur(16px);"
          style="display: none;">
-        <div x-show="evaluationModalOpen"
-             x-transition:enter="transition ease-out duration-300"
+        <div id="eval-modal-card"
+             x-show="evaluationModalOpen"
+             x-transition:enter="transition ease-out duration-400"
              x-transition:enter-start="opacity-0 translate-y-8 scale-95"
              x-transition:enter-end="opacity-100 translate-y-0 scale-100"
              x-transition:leave="transition ease-in duration-200"
              x-transition:leave-start="opacity-100 translate-y-0 scale-100"
              x-transition:leave-end="opacity-0 translate-y-8 scale-95"
              @click.stop
-             class="relative w-full max-w-3xl max-h-[90vh] sm:max-h-[88vh] bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col"
+             class="relative w-full max-w-3xl max-h-[90vh] sm:max-h-[88vh] rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col">
 
->
-            <!-- Header with gradient - Black & Gold theme -->
-            <div class="relative bg-gradient-to-r from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] px-3 sm:px-4 py-2.5 sm:py-3 text-white flex-shrink-0">
-                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23d4af37\" fill-opacity=\"0.08\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+            <!-- Gold top accent line -->
+            <div class="h-0.5 w-full flex-shrink-0" style="background:linear-gradient(to right,transparent,#B8960C,#D4AF37,#B8960C,transparent);"></div>
+
+            <!-- Header -->
+            <div class="relative px-4 sm:px-6 py-3 sm:py-4 flex-shrink-0" style="background:#080808;border-bottom:1px solid rgba(212,175,55,0.1);">
+                <!-- Decorative cross pattern -->
+                <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image:url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23d4af37\' fill-opacity=\'1\'%3E%3Cpath d=\'M20 18h-2v-8h-2v8H4v2h12v8h2v-8h12v-2H20z\'/%3E%3C/g%3E%3C/svg%3E');"></div>
                 <div class="relative flex items-center justify-between">
                     <div class="flex items-center gap-3 sm:gap-4">
-                        <div class="w-10 h-10 sm:w-14 sm:h-14 bg-[#d4af37]/20 backdrop-blur rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0 border border-[#d4af37]/30">
-                            <svg class="w-5 h-5 sm:w-7 sm:h-7 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0"
+                             style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.22);">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="#D4AF37" viewBox="0 0 24 24" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
                         <div>
-                            <h3 class="font-display text-lg sm:text-2xl font-bold text-[#d4af37] tracking-wide">Formulaire d'évaluation</h3>
-                            <p class="font-display text-white/70 text-xs sm:text-sm hidden xs:block tracking-wider font-medium">Partagez votre expérience avec Travel Express</p>
+                            <h3 class="font-display font-bold tracking-wide text-base sm:text-xl" style="color:#F0D060;">Formulaire d'évaluation</h3>
+                            <p class="text-xs sm:text-sm mt-0.5" style="color:rgba(212,175,55,0.45);">Partagez votre expérience avec Travel Express</p>
                         </div>
                     </div>
-                    <button @click="evaluationModalOpen = false" class="text-white/60 hover:text-[#d4af37] transition-colors p-1.5 sm:p-2 hover:bg-[#d4af37]/10 rounded-lg sm:rounded-xl flex-shrink-0">
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    <button @click="evaluationModalOpen = false"
+                            class="p-2 rounded-xl transition-all duration-200 flex-shrink-0"
+                            style="color:rgba(212,175,55,0.4);"
+                            onmouseover="this.style.background='rgba(212,175,55,0.08)';this.style.color='#D4AF37';"
+                            onmouseout="this.style.background='transparent';this.style.color='rgba(212,175,55,0.4)';">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                     </button>
                 </div>
@@ -4114,67 +4217,49 @@
             <form id="evaluation-form" class="flex flex-col flex-1 min-h-0" x-data="evaluationForm()">
                 <!-- Scrollable Content Area -->
                 <div class="flex-1 overflow-y-auto px-4 sm:px-6 py-3 sm:py-4">
-                <!-- Progress bar - Black & Gold theme -->
-                <div class="mb-4">
+                <!-- Progress bar -->
+                <div class="mb-5">
                     <div class="flex items-center justify-between mb-2">
-                        <span class="text-sm font-medium text-[#0a0a0a]">Étape <span x-text="step"></span> sur <span x-text="totalSteps"></span></span>
-                        <span class="text-sm text-gray-500" x-text="step === 1 ? 'Informations personnelles' : step === 2 ? 'Parcours académique' : step === 3 ? 'Votre expérience' : 'Évaluation'"></span>
+                        <span class="text-xs font-semibold" style="color:rgba(212,175,55,0.7);">Étape <span x-text="step"></span> / <span x-text="totalSteps"></span></span>
+                        <span class="text-xs" style="color:rgba(255,255,255,0.4);" x-text="step === 1 ? 'Informations personnelles' : step === 2 ? 'Parcours académique' : step === 3 ? 'Votre expérience' : 'Évaluation'"></span>
                     </div>
-                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-[#d4af37] to-[#b8960c] transition-all duration-500 rounded-full" :style="'width: ' + (step / totalSteps * 100) + '%'"></div>
+                    <div class="h-0.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.06);">
+                        <div class="h-full rounded-full transition-all duration-700" style="background:linear-gradient(to right,#B8960C,#D4AF37,#F0D060);" :style="'width: ' + (step / totalSteps * 100) + '%'"></div>
                     </div>
                 </div>
 
-                <!-- Step Validation Indicators - Enhanced Design -->
-                <div class="flex items-center justify-center gap-2 mb-6" x-show="!success">
+                <!-- Step Indicators — Art Deco Roman numerals -->
+                <div class="flex items-center justify-center gap-1 mb-6" x-show="!success">
                     <template x-for="s in totalSteps" :key="s">
-                        <div class="flex items-center" x-data="{ isCompleted: s < step || (s === step && ((s === 1 && isStep1Valid) || (s === 2 && isStep2Valid) || (s === 3 && isStep3Valid) || (s === 4 && isStep4Valid))) }">
-                            <!-- Step Circle with Animation -->
-                            <div class="relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center transition-all duration-500 ease-out transform"
-                                 :class="{
-                                     'scale-100': s !== step,
-                                     'scale-110': s === step
-                                 }">
-                                <!-- Background Circle with Glow -->
+                        <div class="flex items-center"
+                             x-data="{ isCompleted: s < step || (s === step && ((s === 1 && isStep1Valid) || (s === 2 && isStep2Valid) || (s === 3 && isStep3Valid) || (s === 4 && isStep4Valid))) }">
+                            <!-- Step button -->
+                            <div class="relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-all duration-500"
+                                 :class="s === step ? 'scale-110' : 'scale-100'">
+                                <!-- Ring -->
                                 <div class="absolute inset-0 rounded-full transition-all duration-500"
-                                     :class="{
-                                         'bg-gradient-to-br from-[#d4af37] to-[#b8960c] shadow-lg shadow-[#d4af37]/50': isCompleted,
-                                         'bg-gradient-to-br from-[#0a0a0a] to-[#2a2a2a] ring-2 ring-[#d4af37] shadow-xl': s === step && !isCompleted,
-                                         'bg-gray-200': s > step
-                                     }"></div>
-
-                                <!-- Icon/Number -->
-                                <div class="relative z-10 flex items-center justify-center text-sm sm:text-base font-bold transition-all duration-300"
-                                     :class="{
-                                         'text-white': isCompleted || (s === step && !isCompleted),
-                                         'text-gray-500': s > step
-                                     }">
-                                    <!-- Checkmark with animation -->
+                                     :style="isCompleted ? 'background:linear-gradient(135deg,#B8960C,#D4AF37);box-shadow:0 4px 16px rgba(212,175,55,0.4);' :
+                                             s === step ? 'background:rgba(212,175,55,0.08);box-shadow:0 0 0 2px #D4AF37,0 0 20px rgba(212,175,55,0.2);' :
+                                             'background:rgba(255,255,255,0.04);box-shadow:0 0 0 1px rgba(255,255,255,0.1);'"></div>
+                                <!-- Label -->
+                                <div class="relative z-10 text-xs sm:text-sm font-bold font-display transition-all duration-300"
+                                     :style="isCompleted ? 'color:#080808;' : s === step ? 'color:#D4AF37;' : 'color:rgba(255,255,255,0.25);'">
                                     <span x-show="isCompleted"
                                           x-transition:enter="transition ease-out duration-300"
-                                          x-transition:enter-start="opacity-0 scale-0 rotate-180"
-                                          x-transition:enter-end="opacity-100 scale-100 rotate-0"
-                                          class="text-lg sm:text-xl">✓</span>
-                                    <!-- Number -->
-                                    <span x-show="!isCompleted"
-                                          x-text="s"
-                                          x-transition:enter="transition ease-out duration-300"
                                           x-transition:enter-start="opacity-0 scale-0"
-                                          x-transition:enter-end="opacity-100 scale-100"></span>
+                                          x-transition:enter-end="opacity-100 scale-100">✓</span>
+                                    <span x-show="!isCompleted"
+                                          x-text="['I','II','III','IV'][s-1]"></span>
                                 </div>
-
-                                <!-- Pulse animation for current step -->
+                                <!-- Pulse on active -->
                                 <div x-show="s === step && !isCompleted"
-                                     class="absolute inset-0 rounded-full bg-[#d4af37] animate-ping opacity-20"></div>
+                                     class="absolute inset-0 rounded-full animate-ping"
+                                     style="background:rgba(212,175,55,0.15);"></div>
                             </div>
-
-                            <!-- Connecting Line -->
+                            <!-- Connector -->
                             <div x-show="s < totalSteps"
-                                 class="h-1 w-8 sm:w-12 mx-2 rounded-full transition-all duration-500"
-                                 :class="{
-                                     'bg-gradient-to-r from-[#d4af37] to-[#b8960c]': s < step,
-                                     'bg-gray-200': s >= step
-                                 }"></div>
+                                 class="h-px w-6 sm:w-10 mx-1 rounded-full transition-all duration-700"
+                                 :style="s < step ? 'background:linear-gradient(to right,#D4AF37,#B8960C);' : 'background:rgba(255,255,255,0.07);'"></div>
                         </div>
                     </template>
                 </div>
@@ -4204,9 +4289,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
                         </svg>
                     </div>
-                    <h4 class="text-3xl font-bold text-[#0a0a0a] mb-4">Évaluation envoyée avec succès !</h4>
-                    <p class="text-lg text-gray-600 mb-3">Merci pour votre précieux retour 🙏</p>
-                    <p class="text-sm text-gray-500">Cette fenêtre se fermera automatiquement...</p>
+                    <h4 class="font-display font-bold text-2xl sm:text-3xl mb-4" style="color:#F0D060;">Évaluation envoyée avec succès !</h4>
+                    <p class="text-base sm:text-lg mb-3" style="color:rgba(255,255,255,0.6);">Merci pour votre précieux retour 🙏</p>
+                    <p class="text-sm" style="color:rgba(255,255,255,0.35);">Cette fenêtre se fermera automatiquement...</p>
                 </div>
 
                 <!-- Error Message -->
@@ -4903,35 +4988,48 @@
                 </div>
                 <!-- End Scrollable Content Area -->
 
-                <!-- Footer Statique avec boutons de navigation - Black & Gold theme Enhanced -->
-                <div x-show="!success" class="border-t border-gray-200 bg-gradient-to-r from-gray-50 to-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between flex-shrink-0 shadow-lg">
+                <!-- Footer navigation -->
+                <div x-show="!success"
+                     class="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between"
+                     style="border-top:1px solid rgba(212,175,55,0.1);background:#080808;">
+                    <!-- Précédent -->
                     <button type="button" @click="prevStep()" x-show="step > 1"
-                            class="group px-4 sm:px-6 py-2.5 sm:py-3 text-[#0a0a0a] hover:text-[#d4af37] font-semibold rounded-xl hover:bg-[#d4af37]/10 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base border border-gray-200 hover:border-[#d4af37]/30 hover:shadow-md">
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            class="group flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300"
+                            style="border:1px solid rgba(212,175,55,0.15);color:rgba(255,255,255,0.55);"
+                            onmouseover="this.style.borderColor='rgba(212,175,55,0.35)';this.style.color='#D4AF37';this.style.background='rgba(212,175,55,0.05)';"
+                            onmouseout="this.style.borderColor='rgba(212,175,55,0.15)';this.style.color='rgba(255,255,255,0.55)';this.style.background='transparent';">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
                         </svg>
                         <span class="hidden sm:inline">Précédent</span>
                         <span class="sm:hidden">Retour</span>
                     </button>
                     <div x-show="step === 1"></div>
 
+                    <!-- Suivant -->
                     <button type="button" @click="nextStep()" x-show="step < totalSteps"
                             :disabled="(step === 1 && (!firstName || !lastName || !email)) || (step === 2 && (!university || !countryOfStudy || !studyLevel || !fieldOfStudy)) || (step === 3 && (!projectStory || projectStory.length < 50 || !discoverySource))"
-                            class="group px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-[#0a0a0a] to-[#1a1a1a] text-[#d4af37] font-bold rounded-xl hover:shadow-xl hover:shadow-[#d4af37]/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm sm:text-base border border-[#d4af37]/30 hover:scale-105 disabled:hover:scale-100">
+                            class="group flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-bold transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-105 disabled:hover:scale-100"
+                            style="background:linear-gradient(135deg,#0e0c08,#1a1508);border:1px solid rgba(212,175,55,0.32);color:#D4AF37;box-shadow:0 4px 20px rgba(212,175,55,0.1);"
+                            onmouseover="if(!this.disabled){this.style.boxShadow='0 8px 28px rgba(212,175,55,0.25)';this.style.borderColor='rgba(212,175,55,0.55)';}"
+                            onmouseout="this.style.boxShadow='0 4px 20px rgba(212,175,55,0.1)';this.style.borderColor='rgba(212,175,55,0.32)';">
                         <span>Suivant</span>
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                         </svg>
                     </button>
 
-                    <button type="button" @click="submitForm()" x-show="step === totalSteps" :disabled="submitting || !signatureData"
-                            class="group px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-emerald-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm sm:text-base border border-emerald-600 hover:scale-105 disabled:hover:scale-100">
-                        <svg x-show="submitting" class="animate-spin w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24">
+                    <!-- Envoyer -->
+                    <button type="button" @click="submitForm()" x-show="step === totalSteps"
+                            :disabled="submitting || !signatureData"
+                            class="group flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-bold transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-105 disabled:hover:scale-100"
+                            style="background:linear-gradient(135deg,#B8960C,#D4AF37);color:#080808;box-shadow:0 6px 24px rgba(212,175,55,0.3);">
+                        <svg x-show="submitting" class="animate-spin w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        <svg x-show="!submitting" class="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        <svg x-show="!submitting" class="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
                         </svg>
                         <span x-text="submitting ? 'Envoi...' : 'Envoyer'" class="sm:hidden"></span>
                         <span x-text="submitting ? 'Envoi en cours...' : 'Envoyer mon évaluation'" class="hidden sm:inline"></span>
