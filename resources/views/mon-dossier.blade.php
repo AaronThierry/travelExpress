@@ -448,24 +448,29 @@
                     <div style="margin-bottom:2rem;">
 
                         <!-- ── IDENTITY CARD ─────────────────────────── -->
-                        <div class="lux-card anim" style="padding:1.75rem;margin-bottom:1.25rem;">
-                            <div style="display:flex;flex-direction:column;gap:1.5rem;">
+                        <div class="lux-card anim" style="margin-bottom:1.25rem;overflow:hidden;">
 
-                                <!-- Name + email row -->
-                                <div style="display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;">
-                                    <div class="avatar-ring" x-text="app.student_name ? app.student_name.split(' ').map(n=>n[0]).join('').toUpperCase().substring(0,2) : '?'"></div>
-                                    <div style="min-width:0;flex:1;">
-                                        <p class="label-text" style="margin-bottom:0.2rem;">Candidat</p>
-                                        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;" class="shimmer-text" x-text="app.student_name || 'Sans nom'"></h2>
-                                        <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.2rem;">
-                                            <span x-text="app.student_email"></span>
-                                            <template x-if="app.program_type">
-                                                <span>
-                                                    <span style="color:var(--gold-line);margin:0 0.4rem;">·</span>
-                                                    <span style="color:var(--gold);text-transform:capitalize;" x-text="app.program_type"></span>
-                                                </span>
-                                            </template>
-                                        </p>
+                            <!-- Card Header — dark hero band -->
+                            <div style="
+                                position:relative;
+                                padding:2rem 2rem 1.6rem;
+                                background:linear-gradient(135deg,#0a0900 0%,#110f07 60%,#0e0c05 100%);
+                                overflow:hidden;
+                            ">
+                                <!-- Decorative corner glow -->
+                                <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,0.12) 0%,transparent 70%);pointer-events:none;"></div>
+                                <div style="position:absolute;bottom:-60px;left:-20px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+
+                                <!-- Diagonal stripe texture -->
+                                <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(55deg,rgba(212,175,55,0.025) 0px,rgba(212,175,55,0.025) 1px,transparent 1px,transparent 28px);pointer-events:none;"></div>
+
+                                <!-- Top row: logo mark + status pill -->
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;position:relative;">
+                                    <div style="display:flex;align-items:center;gap:0.5rem;">
+                                        <div style="width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold);"></div>
+                                        <span style="font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);">Travel Express</span>
+                                        <span style="color:var(--gold-line);font-size:0.7rem;margin:0 0.25rem;">·</span>
+                                        <span style="font-size:0.6rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);">Carte Candidat</span>
                                     </div>
                                     <span class="pill"
                                         :class="{
@@ -479,48 +484,113 @@
                                     </span>
                                 </div>
 
-                                <!-- Dual progress -->
-                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;padding-top:1.25rem;border-top:1px solid var(--gold-line);">
-                                    <div>
-                                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-                                            <span class="label-text">Dossier initial</span>
-                                            <span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:#60a5fa;" x-text="app.completion_percentage + '%'"></span>
-                                        </div>
-                                        <div class="prog-track">
-                                            <div class="prog-fill-blue" :style="'width:' + app.completion_percentage + '%'"></div>
+                                <!-- Main identity row -->
+                                <div style="display:flex;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;position:relative;">
+
+                                    <!-- Avatar -->
+                                    <div style="position:relative;flex-shrink:0;">
+                                        <div style="
+                                            width:76px;height:76px;border-radius:18px;
+                                            background:linear-gradient(145deg,#9A7B1E,#D4AF37,#F0C85C);
+                                            display:flex;align-items:center;justify-content:center;
+                                            font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;
+                                            color:#080807;letter-spacing:-1px;
+                                            box-shadow:0 8px 32px rgba(212,175,55,0.3),0 0 0 1px rgba(212,175,55,0.4);
+                                        " x-text="app.student_name ? app.student_name.split(' ').map(n=>n[0]).join('').toUpperCase().substring(0,2) : '?'"></div>
+                                        <!-- verified dot -->
+                                        <div style="position:absolute;bottom:-3px;right:-3px;width:18px;height:18px;border-radius:50%;background:#080807;border:2px solid #080807;display:flex;align-items:center;justify-content:center;">
+                                            <svg style="width:11px;height:11px;color:#4ade80" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                                         </div>
                                     </div>
-                                    <div>
-                                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-                                            <span class="label-text">Dossier complémentaire</span>
-                                            <span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:var(--gold);" x-text="app.complementary_completion_percentage + '%'"></span>
-                                        </div>
-                                        <div class="prog-track">
-                                            <div class="prog-fill" :style="'width:' + app.complementary_completion_percentage + '%'"></div>
-                                        </div>
+
+                                    <!-- Name + info -->
+                                    <div style="flex:1;min-width:0;">
+                                        <p style="font-size:0.6rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.3rem;">Nom complet</p>
+                                        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:700;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="shimmer-text" x-text="app.student_name || 'Sans nom'"></h2>
+                                        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.35rem;display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+                                            <svg style="width:12px;height:12px;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                            <span x-text="app.student_email"></span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right badges column -->
+                                    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem;flex-shrink:0;">
+                                        <!-- Program badge -->
+                                        <template x-if="app.program_type">
+                                            <div style="
+                                                display:inline-flex;align-items:center;gap:0.35rem;
+                                                padding:0.3rem 0.75rem;
+                                                background:rgba(212,175,55,0.1);
+                                                border:1px solid var(--gold-line);
+                                                border-radius:0.5rem;
+                                            ">
+                                                <svg style="width:11px;height:11px;color:var(--gold)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                                                <span style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);" x-text="app.program_type"></span>
+                                            </div>
+                                        </template>
+                                        <!-- Dossier ID -->
+                                        <p style="font-size:0.6rem;color:var(--text-faint);letter-spacing:0.08em;" x-text="'ID #' + String(app.id).padStart(6,'0')"></p>
                                     </div>
                                 </div>
 
-                                <!-- Stats row -->
-                                <div class="stats-grid">
-                                    <div class="stat-box">
-                                        <span class="stat-num" x-text="app.documents.filter(d => !d.is_complementary).length"></span>
-                                        <span class="stat-lbl">Docs initiaux</span>
+                                <!-- SIM chip decorative -->
+                                <div style="position:absolute;bottom:1.25rem;right:2rem;opacity:0.18;">
+                                    <div style="width:36px;height:28px;border-radius:4px;border:1px solid var(--gold);display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:2px;padding:3px;">
+                                        <div style="background:var(--gold);border-radius:1px;grid-column:1/-1;"></div>
+                                        <div style="background:var(--gold);border-radius:1px;"></div>
+                                        <div style="background:transparent;border-radius:1px;"></div>
+                                        <div style="background:var(--gold);border-radius:1px;"></div>
+                                        <div style="background:var(--gold);border-radius:1px;grid-column:1/-1;"></div>
                                     </div>
-                                    <div class="stat-box">
-                                        <span class="stat-num" x-text="app.documents.filter(d => d.is_complementary).length"></span>
-                                        <span class="stat-lbl">Docs complémentaires</span>
+                                </div>
+                            </div>
+
+                            <!-- Card Footer — progress + stats -->
+                            <div style="padding:1.35rem 2rem 1.5rem;background:var(--card-2);border-top:1px solid var(--gold-line);">
+
+                                <!-- Dual progress bars -->
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.25rem;">
+                                    <div>
+                                        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.45rem;">
+                                            <span style="font-size:0.62rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(96,165,250,0.7);">Initial</span>
+                                            <span style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#60a5fa;" x-text="app.completion_percentage + '%'"></span>
+                                        </div>
+                                        <div style="height:5px;background:rgba(96,165,250,0.1);border-radius:99px;overflow:hidden;">
+                                            <div style="height:100%;border-radius:99px;background:linear-gradient(90deg,#1d4ed8,#3b82f6,#60a5fa);transition:width 1s cubic-bezier(0.4,0,0.2,1);" :style="'width:' + app.completion_percentage + '%'"></div>
+                                        </div>
+                                        <p style="font-size:0.6rem;color:var(--text-faint);margin-top:0.3rem;" x-text="app.documents.filter(d => !d.is_complementary).length + ' / 9 documents'"></p>
                                     </div>
-                                    <div class="stat-box">
-                                        <span class="stat-num" style="color:#60a5fa;" x-text="app.current_step_label || ('Étape ' + app.current_step)"></span>
-                                        <span class="stat-lbl">Étape actuelle</span>
-                                    </div>
-                                    <div class="stat-box">
-                                        <span class="stat-num" style="font-size:1rem;padding-top:0.3rem;" x-text="app.created_at"></span>
-                                        <span class="stat-lbl">Date création</span>
+                                    <div>
+                                        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.45rem;">
+                                            <span style="font-size:0.62rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(212,175,55,0.7);">Complémentaire</span>
+                                            <span style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:var(--gold);" x-text="app.complementary_completion_percentage + '%'"></span>
+                                        </div>
+                                        <div style="height:5px;background:rgba(212,175,55,0.1);border-radius:99px;overflow:hidden;">
+                                            <div style="height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-bright));transition:width 1s cubic-bezier(0.4,0,0.2,1);" :style="'width:' + app.complementary_completion_percentage + '%'"></div>
+                                        </div>
+                                        <p style="font-size:0.6rem;color:var(--text-faint);margin-top:0.3rem;" x-text="app.documents.filter(d => d.is_complementary).length + ' / 7 documents'"></p>
                                     </div>
                                 </div>
 
+                                <!-- Stats strip -->
+                                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--gold-line);border-radius:0.75rem;overflow:hidden;">
+                                    <div style="padding:0.75rem;text-align:center;border-right:1px solid var(--gold-line);">
+                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#60a5fa;line-height:1;" x-text="app.documents.filter(d => !d.is_complementary).length"></span>
+                                        <span style="display:block;font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.2rem;">Initiaux</span>
+                                    </div>
+                                    <div style="padding:0.75rem;text-align:center;border-right:1px solid var(--gold-line);">
+                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);line-height:1;" x-text="app.documents.filter(d => d.is_complementary).length"></span>
+                                        <span style="display:block;font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.2rem;">Complémentaires</span>
+                                    </div>
+                                    <div style="padding:0.75rem;text-align:center;border-right:1px solid var(--gold-line);">
+                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--text);line-height:1;padding-top:0.2rem;" x-text="app.current_step_label || ('Étape ' + app.current_step)"></span>
+                                        <span style="display:block;font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.2rem;">Étape</span>
+                                    </div>
+                                    <div style="padding:0.75rem;text-align:center;">
+                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:0.85rem;font-weight:700;color:var(--text);line-height:1;padding-top:0.25rem;" x-text="app.created_at"></span>
+                                        <span style="display:block;font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.2rem;">Création</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
