@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --gold:        #D4AF37;
@@ -21,7 +22,7 @@
             --card-2:      #131109;
             --text:        #F2ECD8;
             --text-muted:  rgba(242,236,216,0.45);
-            --text-faint:  rgba(242,236,216,0.2);
+            --text-faint:  rgba(242,236,216,0.18);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,9 +36,7 @@
         }
 
         /* ── Background ───────────────────────────────────────── */
-        .bg-scene {
-            position: fixed; inset: 0; pointer-events: none; z-index: 0;
-        }
+        .bg-scene { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
         .bg-scene::before {
             content: '';
             position: absolute; inset: 0;
@@ -56,7 +55,7 @@
         /* ── Layout ───────────────────────────────────────────── */
         .page-wrap {
             position: relative; z-index: 1;
-            max-width: 960px;
+            max-width: 980px;
             margin: 0 auto;
             padding: 0 1.5rem 5rem;
         }
@@ -64,12 +63,12 @@
         /* ── Header ───────────────────────────────────────────── */
         .site-header {
             position: sticky; top: 0; z-index: 50;
-            background: rgba(8,8,7,0.88);
-            backdrop-filter: blur(16px);
+            background: rgba(8,8,7,0.92);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--gold-line);
         }
         .header-inner {
-            max-width: 960px;
+            max-width: 980px;
             margin: 0 auto;
             padding: 0 1.5rem;
             height: 64px;
@@ -82,19 +81,8 @@
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
         }
-        .logo-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-        .logo-sub {
-            font-size: 0.62rem;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--gold);
-        }
+        .logo-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--text); }
+        .logo-sub  { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
         .btn-back {
             display: inline-flex; align-items: center; gap: 0.4rem;
             padding: 0.45rem 1rem;
@@ -108,9 +96,7 @@
         .btn-back:hover { color: var(--gold); border-color: rgba(212,175,55,0.4); background: var(--gold-dim); }
 
         /* ── Page title ───────────────────────────────────────── */
-        .page-title-block {
-            padding: 2.5rem 0 2rem;
-        }
+        .page-title-block { padding: 2.5rem 0 2rem; }
 
         /* ── Cards ────────────────────────────────────────────── */
         .lux-card {
@@ -131,10 +117,8 @@
 
         /* ── Label text ───────────────────────────────────────── */
         .label-text {
-            font-size: 0.68rem;
-            font-weight: 500;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
+            font-size: 0.68rem; font-weight: 500;
+            letter-spacing: 0.12em; text-transform: uppercase;
             color: var(--text-muted);
         }
 
@@ -147,8 +131,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem; font-weight: 700;
             color: var(--obsidian);
-            position: relative;
-            flex-shrink: 0;
+            position: relative; flex-shrink: 0;
             box-shadow: 0 0 0 1px var(--gold-dim), 0 6px 24px rgba(212,175,55,0.18);
         }
         .avatar-ring::after {
@@ -174,32 +157,25 @@
 
         /* ── Progress ─────────────────────────────────────────── */
         .prog-track {
-            height: 3px;
+            height: 4px;
             background: rgba(212,175,55,0.1);
-            border-radius: 99px;
-            overflow: visible;
-            position: relative;
+            border-radius: 99px; overflow: hidden; position: relative;
         }
         .prog-fill {
-            height: 100%;
-            border-radius: 99px;
+            height: 100%; border-radius: 99px;
             background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-bright));
-            position: relative;
-            transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+            transition: width 0.9s cubic-bezier(0.4,0,0.2,1);
         }
-        .prog-fill::after {
-            content: '';
-            position: absolute; top: -2.5px; right: -1px;
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--gold-bright);
-            box-shadow: 0 0 10px var(--gold);
+        .prog-fill-blue {
+            height: 100%; border-radius: 99px;
+            background: linear-gradient(90deg, #1d4ed8, #3b82f6, #60a5fa);
+            transition: width 0.9s cubic-bezier(0.4,0,0.2,1);
         }
 
         /* ── Status Pills ─────────────────────────────────────── */
         .pill {
             display: inline-flex; align-items: center; gap: 0.3rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 99px;
+            padding: 0.25rem 0.75rem; border-radius: 99px;
             font-size: 0.68rem; font-weight: 500;
             letter-spacing: 0.06em; text-transform: uppercase;
             border: 1px solid;
@@ -215,11 +191,12 @@
         .tab-bar {
             display: flex;
             border-bottom: 1px solid var(--gold-line);
+            background: rgba(0,0,0,0.2);
             overflow-x: auto; scrollbar-width: none;
         }
         .tab-bar::-webkit-scrollbar { display: none; }
         .tab-btn {
-            padding: 0.9rem 1.5rem;
+            padding: 1rem 1.75rem;
             font-size: 0.75rem; font-weight: 500;
             letter-spacing: 0.08em; text-transform: uppercase;
             color: var(--text-muted);
@@ -229,18 +206,28 @@
             transition: color 0.2s, border-color 0.2s;
             background: none;
             border-top: none; border-left: none; border-right: none;
+            display: flex; align-items: center; gap: 0.5rem;
         }
         .tab-btn:hover { color: var(--gold-bright); }
         .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+        .tab-count {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 20px; height: 20px; border-radius: 99px;
+            font-size: 0.6rem; font-weight: 600;
+            background: rgba(212,175,55,0.15);
+            border: 1px solid var(--gold-line);
+            color: var(--gold);
+        }
+        .tab-count.done { background: rgba(74,222,128,0.12); border-color: rgba(74,222,128,0.3); color: #4ade80; }
 
         /* ── Doc rows ─────────────────────────────────────────── */
         .doc-row {
             display: flex;
             flex-direction: column;
-            gap: 0.875rem;
-            padding: 1.25rem 1.5rem;
-            background: rgba(255,255,255,0.012);
-            border: 1px solid rgba(212,175,55,0.09);
+            gap: 0.75rem;
+            padding: 1.1rem 1.35rem;
+            background: rgba(255,255,255,0.01);
+            border: 1px solid rgba(212,175,55,0.08);
             border-left: 3px solid rgba(212,175,55,0.15);
             border-radius: 0.75rem;
             transition: all 0.22s;
@@ -249,14 +236,16 @@
             .doc-row { flex-direction: row; align-items: center; }
         }
         .doc-row:hover { background: rgba(212,175,55,0.04); border-left-color: var(--gold); border-color: rgba(212,175,55,0.22); }
-        .doc-row.doc-done { border-left-color: rgba(74,222,128,0.5); border-color: rgba(74,222,128,0.13); }
+        .doc-row.doc-done { border-left-color: rgba(74,222,128,0.6); border-color: rgba(74,222,128,0.12); background: rgba(74,222,128,0.02); }
+        .doc-row.doc-optional { border-left-color: rgba(212,175,55,0.08); opacity: 0.75; }
+        .doc-row.doc-optional:hover { opacity: 1; }
 
         /* ── Doc status ───────────────────────────────────────── */
         .doc-status {
             display: inline-flex; align-items: center; gap: 0.25rem;
             padding: 0.15rem 0.55rem;
             border-radius: 99px;
-            font-size: 0.63rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+            font-size: 0.62rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
         }
         .doc-status-approved { color:#4ade80; background:rgba(74,222,128,0.1);  border:1px solid rgba(74,222,128,0.25); }
         .doc-status-pending   { color:#fbbf24; background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.2); }
@@ -265,11 +254,11 @@
         /* ── Buttons ──────────────────────────────────────────── */
         .btn-gold {
             display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
-            padding: 0.55rem 1.1rem;
+            padding: 0.52rem 1.05rem;
             background: linear-gradient(135deg, var(--gold-dark), var(--gold));
             color: var(--obsidian);
             font-family: 'Outfit', sans-serif;
-            font-size: 0.75rem; font-weight: 600;
+            font-size: 0.72rem; font-weight: 600;
             letter-spacing: 0.07em; text-transform: uppercase;
             border: none; border-radius: 0.5rem;
             cursor: pointer; transition: all 0.22s; white-space: nowrap;
@@ -279,28 +268,62 @@
 
         .btn-ghost {
             display: inline-flex; align-items: center; gap: 0.35rem;
-            padding: 0.5rem 0.9rem;
+            padding: 0.48rem 0.85rem;
             border: 1px solid var(--gold-line);
             color: var(--gold);
-            font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em;
+            font-size: 0.72rem; font-weight: 500; letter-spacing: 0.04em;
             border-radius: 0.5rem; cursor: pointer; background: none;
             transition: all 0.2s; white-space: nowrap; text-decoration: none;
         }
         .btn-ghost:hover { background: var(--gold-dim); border-color: rgba(212,175,55,0.4); }
 
         /* ── Section title ────────────────────────────────────── */
-        .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.25rem; font-weight: 600;
-            color: var(--text); letter-spacing: 0.01em;
-        }
+        .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--text); letter-spacing: 0.01em; }
         .section-icon {
-            width: 34px; height: 34px;
-            border-radius: 0.55rem;
-            background: var(--gold-dim);
+            width: 34px; height: 34px; border-radius: 0.55rem;
+            background: var(--gold-dim); border: 1px solid var(--gold-line);
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+
+        /* ── Stats grid ───────────────────────────────────────── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 0.75rem;
+        }
+        .stat-box {
+            padding: 1rem;
+            background: rgba(212,175,55,0.05);
             border: 1px solid var(--gold-line);
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem; font-weight: 700;
+            color: var(--gold); line-height: 1; display: block;
+        }
+        .stat-lbl {
+            font-size: 0.65rem; font-weight: 500;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--text-muted); display: block; margin-top: 0.2rem;
+        }
+
+        /* ── Optional badge ───────────────────────────────────── */
+        .opt-badge {
+            font-size: 0.6rem; font-weight: 500; letter-spacing: 0.06em;
+            text-transform: uppercase; padding: 0.1rem 0.45rem;
+            border-radius: 99px; border: 1px solid rgba(212,175,55,0.2);
+            color: var(--text-muted); background: rgba(212,175,55,0.05);
+        }
+
+        /* ── Auto-validation badge ────────────────────────────── */
+        .auto-badge {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            background: rgba(74,222,128,0.05);
+            border: 1px solid rgba(74,222,128,0.18);
+            border-radius: 0.625rem;
         }
 
         /* ── Spinner ──────────────────────────────────────────── */
@@ -315,13 +338,12 @@
 
         /* ── Animations ───────────────────────────────────────── */
         @keyframes fade-up {
-            from { opacity: 0; transform: translateY(14px); }
+            from { opacity: 0; transform: translateY(12px); }
             to   { opacity: 1; transform: translateY(0); }
         }
-        .anim { animation: fade-up 0.45s ease both; }
+        .anim   { animation: fade-up 0.45s ease both; }
         .anim-1 { animation-delay: 0.06s; }
         .anim-2 { animation-delay: 0.12s; }
-        .anim-3 { animation-delay: 0.18s; }
 
         /* ── Toast ────────────────────────────────────────────── */
         .toast-wrap {
@@ -340,41 +362,23 @@
             box-shadow: 0 12px 40px rgba(0,0,0,0.6);
         }
 
-        /* ── Footer ───────────────────────────────────────────── */
         .page-footer {
-            margin-top: 3.5rem;
-            padding-top: 1.5rem;
+            margin-top: 3.5rem; padding-top: 1.5rem;
             border-top: 1px solid var(--gold-line);
             text-align: center;
-        }
-
-        /* ── Upload progress bar ──────────────────────────────── */
-        .upload-bar-wrap {
-            display: none;
-            height: 2px; background: rgba(212,175,55,0.1);
-            border-radius: 99px; overflow: hidden; margin-top: 0.5rem;
-        }
-        .upload-bar-wrap.visible { display: block; }
-        .upload-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright));
-            width: 0%;
-            transition: width 0.3s;
         }
     </style>
 </head>
 <body x-data="dossierApp()" x-init="init()">
 
-    <div class="bg-scene">
-        <div class="bg-grid"></div>
-    </div>
+    <div class="bg-scene"><div class="bg-grid"></div></div>
 
-    <!-- ── HEADER ──────────────────────────────────────────────── -->
+    <!-- ── HEADER ────────────────────────────────────────────────── -->
     <header class="site-header">
         <div class="header-inner">
             <a href="/" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;">
                 <div class="logo-mark">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:18px;height:18px;color:#080807">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:18px;height:18px;color:#080807">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 </div>
@@ -384,7 +388,7 @@
                 </div>
             </a>
             <a href="/" class="btn-back">
-                <svg style="width:14px;height:14px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                <svg style="width:13px;height:13px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
                 Retour au site
             </a>
         </div>
@@ -399,17 +403,17 @@
                 Mon <span class="shimmer-text">Dossier</span>
             </h1>
             <p style="margin-top:0.5rem;font-size:0.875rem;color:var(--text-muted)">
-                Gérez vos documents et suivez l'avancement de votre candidature.
+                Gérez l'intégralité de vos documents et suivez l'avancement de votre candidature.
             </p>
         </div>
 
-        <!-- ── LOADING ──────────────────────────────────────────── -->
+        <!-- LOADING -->
         <div x-show="loading" class="anim" style="text-align:center;padding:5rem 0;">
             <div class="spinner" style="margin:0 auto 1.25rem;"></div>
             <p style="color:var(--text-muted);font-size:0.875rem;">Chargement de votre dossier…</p>
         </div>
 
-        <!-- ── NOT LOGGED IN ────────────────────────────────────── -->
+        <!-- NOT LOGGED IN -->
         <div x-show="!loading && !isLoggedIn" class="lux-card anim" style="padding:3rem;text-align:center;">
             <div style="width:64px;height:64px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-line);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
                 <svg style="width:28px;height:28px;color:var(--gold)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -419,8 +423,16 @@
             <a href="/login" class="btn-gold" style="padding:0.75rem 2rem;font-size:0.85rem;">Se connecter</a>
         </div>
 
-        <!-- ── NO DOSSIER ───────────────────────────────────────── -->
-        <div x-show="!loading && isLoggedIn && applications.length === 0" class="lux-card anim" style="padding:3rem;text-align:center;">
+        <!-- ERROR -->
+        <div x-show="error && isLoggedIn" class="lux-card anim" style="padding:1.5rem;border-color:rgba(248,113,113,0.25);margin-bottom:1rem;">
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+                <svg style="width:18px;height:18px;color:#f87171;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                <p style="color:#f87171;font-size:0.875rem;" x-text="error"></p>
+            </div>
+        </div>
+
+        <!-- NO DOSSIER -->
+        <div x-show="!loading && isLoggedIn && applications.length === 0 && !error" class="lux-card anim" style="padding:3rem;text-align:center;">
             <div style="width:64px;height:64px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-line);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
                 <svg style="width:28px;height:28px;color:var(--gold)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             </div>
@@ -429,139 +441,251 @@
             <p class="label-text" x-text="userEmail" style="margin-top:0.25rem;"></p>
         </div>
 
-        <!-- ── ERROR ────────────────────────────────────────────── -->
-        <div x-show="error" class="lux-card anim" style="padding:2.5rem;text-align:center;border-color:rgba(248,113,113,0.25);">
-            <p style="color:#f87171;font-size:0.875rem;" x-text="error"></p>
-        </div>
-
         <!-- ── DOSSIERS ─────────────────────────────────────────── -->
         <template x-if="!loading && isLoggedIn && applications.length > 0">
             <div>
                 <template x-for="(app, appIdx) in applications" :key="app.id">
-                    <div style="margin-bottom:1.75rem;">
+                    <div style="margin-bottom:2rem;">
 
-                        <!-- Identity card -->
-                        <div class="lux-card anim" style="padding:2rem;margin-bottom:1.5rem;">
+                        <!-- ── IDENTITY CARD ─────────────────────────── -->
+                        <div class="lux-card anim" style="padding:1.75rem;margin-bottom:1.25rem;">
                             <div style="display:flex;flex-direction:column;gap:1.5rem;">
-                                <div style="display:flex;align-items:center;gap:1.25rem;flex:1;min-width:0;">
-                                    <div class="avatar-ring" x-text="app.student_name ? app.student_name.charAt(0).toUpperCase() : '?'"></div>
+
+                                <!-- Name + email row -->
+                                <div style="display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;">
+                                    <div class="avatar-ring" x-text="app.student_name ? app.student_name.split(' ').map(n=>n[0]).join('').toUpperCase().substring(0,2) : '?'"></div>
                                     <div style="min-width:0;flex:1;">
-                                        <p class="label-text" style="margin-bottom:0.25rem;">Candidat</p>
-                                        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" class="shimmer-text" x-text="app.student_name"></h2>
+                                        <p class="label-text" style="margin-bottom:0.2rem;">Candidat</p>
+                                        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;" class="shimmer-text" x-text="app.student_name || 'Sans nom'"></h2>
                                         <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.2rem;">
                                             <span x-text="app.student_email"></span>
-                                            <span style="color:var(--gold-line);margin:0 0.4rem;">·</span>
-                                            <span style="color:var(--gold);text-transform:capitalize;" x-text="app.program_type || 'N/A'"></span>
+                                            <template x-if="app.program_type">
+                                                <span>
+                                                    <span style="color:var(--gold-line);margin:0 0.4rem;">·</span>
+                                                    <span style="color:var(--gold);text-transform:capitalize;" x-text="app.program_type"></span>
+                                                </span>
+                                            </template>
                                         </p>
+                                    </div>
+                                    <span class="pill"
+                                        :class="{
+                                            'pill-green':  app.status === 'approved',
+                                            'pill-red':    app.status === 'rejected',
+                                            'pill-blue':   app.status === 'complete',
+                                            'pill-yellow': app.status === 'pending' || app.status === 'incomplete',
+                                            'pill-gray':   !app.status
+                                        }"
+                                        x-text="app.status_info?.label || app.status || 'En attente'">
+                                    </span>
+                                </div>
+
+                                <!-- Dual progress -->
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;padding-top:1.25rem;border-top:1px solid var(--gold-line);">
+                                    <div>
+                                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                                            <span class="label-text">Dossier initial</span>
+                                            <span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:#60a5fa;" x-text="app.completion_percentage + '%'"></span>
+                                        </div>
+                                        <div class="prog-track">
+                                            <div class="prog-fill-blue" :style="'width:' + app.completion_percentage + '%'"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                                            <span class="label-text">Dossier complémentaire</span>
+                                            <span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:var(--gold);" x-text="app.complementary_completion_percentage + '%'"></span>
+                                        </div>
+                                        <div class="prog-track">
+                                            <div class="prog-fill" :style="'width:' + app.complementary_completion_percentage + '%'"></div>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!-- Stats row -->
-                                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1rem;padding-top:1.25rem;border-top:1px solid var(--gold-line);">
-                                    <div>
-                                        <p class="label-text" style="margin-bottom:0.3rem;">Statut</p>
-                                        <span class="pill"
+                                <div class="stats-grid">
+                                    <div class="stat-box">
+                                        <span class="stat-num" x-text="app.documents.filter(d => !d.is_complementary).length"></span>
+                                        <span class="stat-lbl">Docs initiaux</span>
+                                    </div>
+                                    <div class="stat-box">
+                                        <span class="stat-num" x-text="app.documents.filter(d => d.is_complementary).length"></span>
+                                        <span class="stat-lbl">Docs complémentaires</span>
+                                    </div>
+                                    <div class="stat-box">
+                                        <span class="stat-num" style="color:#60a5fa;" x-text="app.current_step_label || ('Étape ' + app.current_step)"></span>
+                                        <span class="stat-lbl">Étape actuelle</span>
+                                    </div>
+                                    <div class="stat-box">
+                                        <span class="stat-num" style="font-size:1rem;padding-top:0.3rem;" x-text="app.created_at"></span>
+                                        <span class="stat-lbl">Date création</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- ── DOCUMENTS CARD with TABS ──────────────── -->
+                        <div class="lux-card anim anim-1">
+
+                            <!-- Tabs -->
+                            <div class="tab-bar">
+                                <button
+                                    class="tab-btn"
+                                    :class="{ active: app._tab === 'initial' || !app._tab }"
+                                    @click="app._tab = 'initial'">
+                                    <svg style="width:13px;height:13px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                    Dossier Initial
+                                    <span class="tab-count"
+                                        :class="{ done: app.completion_percentage >= 100 }"
+                                        x-text="app.documents.filter(d => !d.is_complementary).length + '/' + requiredCount(app)">
+                                    </span>
+                                </button>
+                                <button
+                                    class="tab-btn"
+                                    :class="{ active: app._tab === 'complementaire' }"
+                                    @click="app._tab = 'complementaire'">
+                                    <svg style="width:13px;height:13px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                                    Dossier Complémentaire
+                                    <span class="tab-count"
+                                        :class="{ done: app.complementary_completion_percentage >= 100 }"
+                                        x-text="app.documents.filter(d => d.is_complementary).length + '/' + Object.keys(app.complementary_documents).length">
+                                    </span>
+                                </button>
+                            </div>
+
+                            <!-- Auto-validation notice -->
+                            <div style="padding:0.875rem 1.5rem;border-bottom:1px solid var(--gold-line);">
+                                <div class="auto-badge">
+                                    <svg style="width:13px;height:13px;color:#4ade80;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                    <span style="font-size:0.72rem;color:#4ade80;font-weight:500;letter-spacing:0.04em;">Auto-validation active — vos documents sont approuvés instantanément après upload</span>
+                                </div>
+                            </div>
+
+                            <!-- ── TAB: INITIAL ───────────────────────── -->
+                            <div x-show="app._tab === 'initial' || !app._tab" style="padding:1.5rem;">
+
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem;">
+                                    <div style="display:flex;align-items:center;gap:0.75rem;">
+                                        <div class="section-icon" style="background:rgba(96,165,250,0.1);border-color:rgba(96,165,250,0.25);">
+                                            <svg style="width:15px;height:15px;color:#60a5fa" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                        </div>
+                                        <h3 class="section-title">Documents Initiaux</h3>
+                                    </div>
+                                    <span class="label-text" style="color:var(--text-faint);">Programme : <span style="color:var(--gold);text-transform:capitalize;" x-text="app.program_type || 'licence'"></span></span>
+                                </div>
+
+                                <div style="display:flex;flex-direction:column;gap:0.6rem;">
+                                    <template x-for="(label, docType) in app.required_documents" :key="'init_' + docType">
+                                        <div class="doc-row"
                                             :class="{
-                                                'pill-green':  app.status === 'approved',
-                                                'pill-red':    app.status === 'rejected',
-                                                'pill-blue':   app.status === 'complete',
-                                                'pill-yellow': app.status === 'pending' || app.status === 'incomplete',
-                                                'pill-gray':   !app.status
-                                            }"
-                                            x-text="app.status_info?.label || app.status">
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <p class="label-text" style="margin-bottom:0.3rem;">Étape</p>
-                                        <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--text);" x-text="app.current_step_label || ('Étape ' + app.current_step)"></p>
-                                    </div>
-                                    <div x-show="app.university_name">
-                                        <p class="label-text" style="margin-bottom:0.3rem;">Université</p>
-                                        <p style="font-size:0.82rem;color:var(--text);" x-text="app.university_name"></p>
-                                    </div>
-                                    <div>
-                                        <p class="label-text" style="margin-bottom:0.3rem;">Créé le</p>
-                                        <p style="font-size:0.82rem;color:var(--text);" x-text="app.created_at"></p>
-                                    </div>
-                                </div>
-
-                                <!-- Progress bar complémentaire uniquement -->
-                                <div>
-                                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-                                        <span class="label-text">Progression complémentaire</span>
-                                        <span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:var(--gold);" x-text="app.complementary_completion_percentage + '%'"></span>
-                                    </div>
-                                    <div class="prog-track">
-                                        <div class="prog-fill" :style="'width:' + app.complementary_completion_percentage + '%'"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Documents card -->
-                        <div class="lux-card anim anim-1" style="padding:2rem;">
-
-                            <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem;">
-                                <div class="section-icon">
-                                    <svg style="width:16px;height:16px;color:var(--gold)" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                </div>
-                                <h3 class="section-title">Dossier Complémentaire</h3>
-                                <span class="pill pill-gold" style="margin-left:auto;font-size:0.65rem;" x-text="app.documents.filter(d=>d.is_complementary).length + '/' + Object.keys(app.complementary_documents).length + ' docs'"></span>
-                            </div>
-
-                            <!-- Complémentaire uniquement -->
-                            <div style="display:flex;flex-direction:column;gap:0.75rem;">
-
-                                <!-- Auto-validation badge -->
-                                <div style="display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1rem;background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.2);border-radius:0.625rem;margin-bottom:0.5rem;">
-                                    <svg style="width:14px;height:14px;color:#4ade80;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                    <span style="font-size:0.72rem;color:#4ade80;font-weight:500;letter-spacing:0.04em;">Auto-validation active — vos documents sont approuvés immédiatement</span>
-                                </div>
-
-                                <template x-for="(label, docType) in app.complementary_documents" :key="docType">
-                                    <div class="doc-row" :class="{ 'doc-done': getDoc(app, docType) }">
-                                        <div style="flex:1;min-width:0;">
-                                            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
-                                                <template x-if="getDoc(app, docType)">
-                                                    <svg style="width:15px;height:15px;color:#4ade80;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                                </template>
-                                                <template x-if="!getDoc(app, docType)">
-                                                    <svg style="width:15px;height:15px;color:var(--text-faint);flex-shrink:0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                                </template>
-                                                <span style="font-size:0.875rem;font-weight:500;color:var(--text);" x-text="label"></span>
-                                            </div>
-                                            <template x-if="getDoc(app, docType)">
-                                                <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.35rem;margin-left:1.4rem;flex-wrap:wrap;">
-                                                    <span style="font-size:0.75rem;color:var(--text-muted);" x-text="getDoc(app, docType).original_filename"></span>
-                                                    <span class="doc-status doc-status-approved">
-                                                        <svg style="width:8px;height:8px" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4"/></svg>
-                                                        Validé
-                                                    </span>
+                                                'doc-done': getDoc(app, docType),
+                                                'doc-optional': isOptional(docType)
+                                            }">
+                                            <div style="flex:1;min-width:0;">
+                                                <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+                                                    <template x-if="getDoc(app, docType)">
+                                                        <svg style="width:14px;height:14px;color:#4ade80;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                                    </template>
+                                                    <template x-if="!getDoc(app, docType)">
+                                                        <svg style="width:14px;height:14px;color:var(--text-faint);flex-shrink:0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                                                    </template>
+                                                    <span style="font-size:0.875rem;font-weight:500;color:var(--text);" x-text="label.replace(' (optionnel)', '')"></span>
+                                                    <span x-show="isOptional(docType)" class="opt-badge">Optionnel</span>
                                                 </div>
-                                            </template>
+                                                <template x-if="getDoc(app, docType)">
+                                                    <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.3rem;margin-left:1.35rem;flex-wrap:wrap;">
+                                                        <span style="font-size:0.75rem;color:var(--text-muted);" x-text="getDoc(app, docType).original_filename"></span>
+                                                        <span class="doc-status"
+                                                            :class="{
+                                                                'doc-status-approved': getDoc(app, docType).status === 'approved',
+                                                                'doc-status-pending':  getDoc(app, docType).status === 'pending',
+                                                                'doc-status-rejected': getDoc(app, docType).status === 'rejected'
+                                                            }">
+                                                            <svg style="width:7px;height:7px" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4"/></svg>
+                                                            <span x-text="getDoc(app, docType).status === 'approved' ? 'Validé' : getDoc(app, docType).status === 'rejected' ? 'Rejeté' : 'En attente'"></span>
+                                                        </span>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                            <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
+                                                <template x-if="getDoc(app, docType)">
+                                                    <a :href="'/document/' + getDoc(app, docType).id + '/download'" class="btn-ghost" target="_blank">
+                                                        <svg style="width:12px;height:12px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                                        Télécharger
+                                                    </a>
+                                                </template>
+                                                <label class="btn-gold" style="cursor:pointer;" :style="uploading[app.id + '_' + docType] ? 'opacity:0.6;pointer-events:none' : ''">
+                                                    <input type="file" style="display:none" @change="uploadDoc(app, docType, $event.target.files[0], false)" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                                                    <svg style="width:11px;height:11px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                                                    <span x-text="uploading[app.id + '_' + docType] ? 'Upload…' : (getDoc(app, docType) ? 'Remplacer' : 'Uploader')"></span>
+                                                </label>
+                                            </div>
                                         </div>
-                                        <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
-                                            <template x-if="getDoc(app, docType)">
-                                                <a :href="'/document/' + getDoc(app, docType).id + '/download'" class="btn-ghost" target="_blank">
-                                                    <svg style="width:13px;height:13px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                                                    Télécharger
-                                                </a>
-                                            </template>
-                                            <label class="btn-gold cursor-pointer" :style="uploading[app.id + '_' + docType] ? 'opacity:0.6;pointer-events:none' : ''">
-                                                <input type="file" style="display:none" @change="uploadDoc(app, docType, $event.target.files[0])" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                                                <svg style="width:12px;height:12px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                                                <span x-text="uploading[app.id + '_' + docType] ? 'Upload…' : (getDoc(app, docType) ? 'Remplacer' : 'Uploader')"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </template>
+                                    </template>
+                                </div>
                             </div>
 
+                            <!-- ── TAB: COMPLÉMENTAIRE ────────────────── -->
+                            <div x-show="app._tab === 'complementaire'" style="padding:1.5rem;">
+
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem;">
+                                    <div style="display:flex;align-items:center;gap:0.75rem;">
+                                        <div class="section-icon">
+                                            <svg style="width:15px;height:15px;color:var(--gold)" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                                        </div>
+                                        <h3 class="section-title">Documents Complémentaires</h3>
+                                    </div>
+                                    <span class="pill pill-gold" style="font-size:0.63rem;"
+                                        x-text="app.documents.filter(d=>d.is_complementary).length + '/' + Object.keys(app.complementary_documents).length + ' documents'">
+                                    </span>
+                                </div>
+
+                                <div style="display:flex;flex-direction:column;gap:0.6rem;">
+                                    <template x-for="(label, docType) in app.complementary_documents" :key="'comp_' + docType">
+                                        <div class="doc-row" :class="{ 'doc-done': getDoc(app, docType) }">
+                                            <div style="flex:1;min-width:0;">
+                                                <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+                                                    <template x-if="getDoc(app, docType)">
+                                                        <svg style="width:14px;height:14px;color:#4ade80;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                                    </template>
+                                                    <template x-if="!getDoc(app, docType)">
+                                                        <svg style="width:14px;height:14px;color:var(--text-faint);flex-shrink:0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                                                    </template>
+                                                    <span style="font-size:0.875rem;font-weight:500;color:var(--text);" x-text="label"></span>
+                                                </div>
+                                                <template x-if="getDoc(app, docType)">
+                                                    <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.3rem;margin-left:1.35rem;flex-wrap:wrap;">
+                                                        <span style="font-size:0.75rem;color:var(--text-muted);" x-text="getDoc(app, docType).original_filename"></span>
+                                                        <span class="doc-status doc-status-approved">
+                                                            <svg style="width:7px;height:7px" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4"/></svg>
+                                                            Validé
+                                                        </span>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                            <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
+                                                <template x-if="getDoc(app, docType)">
+                                                    <a :href="'/document/' + getDoc(app, docType).id + '/download'" class="btn-ghost" target="_blank">
+                                                        <svg style="width:12px;height:12px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                                        Télécharger
+                                                    </a>
+                                                </template>
+                                                <label class="btn-gold" style="cursor:pointer;" :style="uploading[app.id + '_' + docType] ? 'opacity:0.6;pointer-events:none' : ''">
+                                                    <input type="file" style="display:none" @change="uploadDoc(app, docType, $event.target.files[0], true)" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                                                    <svg style="width:11px;height:11px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                                                    <span x-text="uploading[app.id + '_' + docType] ? 'Upload…' : (getDoc(app, docType) ? 'Remplacer' : 'Uploader')"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+
+                            </div>
                         </div>
+
                     </div>
                 </template>
 
-                <!-- Footer -->
                 <div class="page-footer">
                     <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:var(--text-muted);">
                         Travel Express &mdash; <span style="color:var(--gold);">Votre partenaire pour les études à l'étranger</span>
@@ -572,7 +696,7 @@
 
     </div>
 
-    <!-- ── TOAST ──────────────────────────────────────────────────── -->
+    <!-- TOAST -->
     <div class="toast-wrap" :class="{ show: toast.show }">
         <div class="toast-inner">
             <div :style="toast.type === 'success' ? 'color:#4ade80' : 'color:#f87171'">
@@ -587,6 +711,8 @@
     </div>
 
     <script>
+        const OPTIONAL_DOCS = ['certificat_anglais','test_csca','plan_etude','lettre_motivation','capacite_financiere'];
+
         function dossierApp() {
             return {
                 loading:      true,
@@ -602,8 +728,19 @@
                     setTimeout(() => this.toast.show = false, 5000);
                 },
 
+                // Returns uploaded doc by type, or null
                 getDoc(app, docType) {
                     return app.documents.find(d => d.document_type === docType) || null;
+                },
+
+                isOptional(docType) {
+                    return OPTIONAL_DOCS.includes(docType);
+                },
+
+                // Count only required (non-optional) docs
+                requiredCount(app) {
+                    if (!app.required_documents) return 0;
+                    return Object.keys(app.required_documents).filter(k => !OPTIONAL_DOCS.includes(k)).length;
                 },
 
                 async init() {
@@ -614,7 +751,6 @@
                         return;
                     }
 
-                    // Token présent → utilisateur considéré connecté par défaut
                     this.isLoggedIn = true;
                     const userData = localStorage.getItem('user');
                     if (userData) {
@@ -623,10 +759,7 @@
 
                     try {
                         const res = await fetch('/api/my-dossier', {
-                            headers: {
-                                'Accept': 'application/json',
-                                'Authorization': 'Bearer ' + token
-                            }
+                            headers: { 'Accept': 'application/json', 'Authorization': 'Bearer ' + token }
                         });
 
                         if (res.status === 401) {
@@ -643,7 +776,8 @@
                             return;
                         }
 
-                        this.applications = data.data || [];
+                        // Inject reactive _tab property
+                        this.applications = (data.data || []).map(app => ({ ...app, _tab: 'initial' }));
 
                     } catch (err) {
                         this.error = 'Impossible de charger votre dossier. Vérifiez votre connexion.';
@@ -653,17 +787,18 @@
                     }
                 },
 
-                async uploadDoc(app, docType, file) {
+                async uploadDoc(app, docType, file, isComplementary) {
                     if (!file) return;
                     const key = app.id + '_' + docType;
-                    this.uploading[key] = true;
+                    this.uploading = { ...this.uploading, [key]: true };
 
                     const fd = new FormData();
                     fd.append('document_type', docType);
                     fd.append('file', file);
+                    if (isComplementary) fd.append('is_complementary', '1');
 
                     try {
-                        const res = await fetch(`/dossier/${app.upload_token}/upload`, {
+                        const res  = await fetch(`/dossier/${app.upload_token}/upload`, {
                             method: 'POST',
                             headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content },
                             body: fd
@@ -671,20 +806,19 @@
                         const data = await res.json();
 
                         if (res.ok) {
-                            this.showToast('success', 'Document validé', data.message || 'Document uploadé et approuvé automatiquement.');
-                            // Reload data to reflect new document
-                            await this.refreshApp(app);
+                            this.showToast('success', 'Document validé', data.message || 'Document approuvé automatiquement.');
+                            await this.refreshApps();
                         } else {
-                            this.showToast('error', 'Erreur', data.error || 'Impossible d\'uploader le document.');
+                            this.showToast('error', 'Erreur upload', data.error || 'Impossible d\'uploader le document.');
                         }
                     } catch {
                         this.showToast('error', 'Erreur', 'Une erreur est survenue.');
                     } finally {
-                        this.uploading[key] = false;
+                        this.uploading = { ...this.uploading, [key]: false };
                     }
                 },
 
-                async refreshApp(app) {
+                async refreshApps() {
                     const token = localStorage.getItem('auth_token');
                     if (!token) return;
                     try {
@@ -693,7 +827,10 @@
                         });
                         const data = await res.json();
                         if (data.data) {
-                            this.applications = data.data;
+                            // Preserve current _tab state
+                            const tabState = {};
+                            this.applications.forEach(a => { tabState[a.id] = a._tab; });
+                            this.applications = data.data.map(a => ({ ...a, _tab: tabState[a.id] || 'initial' }));
                         }
                     } catch {}
                 }
