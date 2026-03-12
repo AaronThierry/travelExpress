@@ -907,22 +907,39 @@
                     if (isComplementary) fd.append('is_complementary', '1');
 
                     try {
-                        const res  = await fetch(`/dossier/${app.upload_token}/upload`, {
+                        const res = await fetch(`/dossier/${app.upload_token}/upload`, {
                             method: 'POST',
                             headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content },
                             body: fd
                         });
-                        const data = await res.json();
+
+                        // 413 = nginx/server body size limit exceeded
+                        if (res.status === 413) {
+                            this.showToast('error', 'Fichier trop lourd', 'Le serveur refuse le fichier (limite serveur dépassée). Contactez l\'administrateur.');
+                            return;
+                        }
+
+                        // Try to parse JSON; fallback to text if server returned HTML (e.g. 500)
+                        let data = {};
+                        const ct = res.headers.get('content-type') || '';
+                        if (ct.includes('application/json')) {
+                            data = await res.json();
+                        } else {
+                            const txt = await res.text();
+                            data = { error: `Erreur serveur (HTTP ${res.status})` };
+                            console.error('Upload non-JSON response:', txt);
+                        }
 
                         if (res.ok) {
                             const sizeStr = (file.size / 1024).toFixed(0) + ' Ko';
                             this.showToast('success', 'Document validé ✓', `${file.name} (${sizeStr}) — approuvé automatiquement.`);
                             await this.refreshApps();
                         } else {
-                            this.showToast('error', 'Erreur upload', data.error || data.message || 'Impossible d\'uploader le document.');
+                            this.showToast('error', 'Erreur upload', data.error || data.message || `Impossible d'uploader (HTTP ${res.status}).`);
                         }
-                    } catch {
-                        this.showToast('error', 'Erreur réseau', 'Vérifiez votre connexion et réessayez.');
+                    } catch (err) {
+                        console.error('Upload fetch error:', err);
+                        this.showToast('error', 'Erreur réseau', 'La requête a échoué. Vérifiez votre connexion et réessayez.');
                     } finally {
                         this.uploading = { ...this.uploading, [key]: false };
                     }
