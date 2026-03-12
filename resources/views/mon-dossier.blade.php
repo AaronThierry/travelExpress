@@ -615,7 +615,7 @@
                                                     </a>
                                                 </template>
                                                 <label class="btn-gold" style="cursor:pointer;" :style="uploading[app.id + '_' + docType] ? 'opacity:0.6;pointer-events:none' : ''">
-                                                    <input type="file" style="display:none" @change="uploadDoc(app, docType, $event.target.files[0], false)" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                                                    <input type="file" style="display:none" @change="uploadDoc(app, docType, $event.target.files[0], false)" accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx">
                                                     <svg style="width:11px;height:11px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
                                                     <span x-text="uploading[app.id + '_' + docType] ? 'Upload…' : (getDoc(app, docType) ? 'Remplacer' : 'Uploader')"></span>
                                                 </label>
@@ -671,7 +671,7 @@
                                                     </a>
                                                 </template>
                                                 <label class="btn-gold" style="cursor:pointer;" :style="uploading[app.id + '_' + docType] ? 'opacity:0.6;pointer-events:none' : ''">
-                                                    <input type="file" style="display:none" @change="uploadDoc(app, docType, $event.target.files[0], true)" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                                                    <input type="file" style="display:none" @change="uploadDoc(app, docType, $event.target.files[0], true)" accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx">
                                                     <svg style="width:11px;height:11px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
                                                     <span x-text="uploading[app.id + '_' + docType] ? 'Upload…' : (getDoc(app, docType) ? 'Remplacer' : 'Uploader')"></span>
                                                 </label>
@@ -711,7 +711,15 @@
     </div>
 
     <script>
-        const OPTIONAL_DOCS = ['certificat_anglais','test_csca','plan_etude','lettre_motivation','capacite_financiere'];
+        const OPTIONAL_DOCS  = ['certificat_anglais','test_csca','plan_etude','lettre_motivation','capacite_financiere'];
+        const MAX_SIZE_BYTES = 10 * 1024 * 1024; // 10 Mo
+        const ALLOWED_EXTS  = ['pdf','jpg','jpeg','png','doc','docx','webp'];
+        const ALLOWED_MIMES = [
+            'application/pdf',
+            'image/jpeg','image/jpg','image/png','image/webp',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        ];
 
         function dossierApp() {
             return {
@@ -787,8 +795,39 @@
                     }
                 },
 
+                validateFile(file) {
+                    if (!file) return 'Aucun fichier sélectionné.';
+
+                    // Taille max 10 Mo
+                    if (file.size > MAX_SIZE_BYTES) {
+                        const mb = (file.size / 1024 / 1024).toFixed(1);
+                        return `Fichier trop volumineux (${mb} Mo). Maximum autorisé : 10 Mo.`;
+                    }
+
+                    // Extension
+                    const ext = file.name.split('.').pop().toLowerCase();
+                    if (!ALLOWED_EXTS.includes(ext)) {
+                        return `Extension .${ext} non acceptée. Formats autorisés : PDF, JPG, PNG, DOC, DOCX, WebP.`;
+                    }
+
+                    // MIME type (si disponible côté navigateur)
+                    if (file.type && !ALLOWED_MIMES.includes(file.type)) {
+                        return `Type de fichier non autorisé (${file.type}). Formats acceptés : PDF, JPG, PNG, DOC, DOCX, WebP.`;
+                    }
+
+                    return null; // OK
+                },
+
                 async uploadDoc(app, docType, file, isComplementary) {
                     if (!file) return;
+
+                    // Validation client-side avant envoi
+                    const validationError = this.validateFile(file);
+                    if (validationError) {
+                        this.showToast('error', 'Fichier invalide', validationError);
+                        return;
+                    }
+
                     const key = app.id + '_' + docType;
                     this.uploading = { ...this.uploading, [key]: true };
 
@@ -806,13 +845,14 @@
                         const data = await res.json();
 
                         if (res.ok) {
-                            this.showToast('success', 'Document validé', data.message || 'Document approuvé automatiquement.');
+                            const sizeStr = (file.size / 1024).toFixed(0) + ' Ko';
+                            this.showToast('success', 'Document validé ✓', `${file.name} (${sizeStr}) — approuvé automatiquement.`);
                             await this.refreshApps();
                         } else {
-                            this.showToast('error', 'Erreur upload', data.error || 'Impossible d\'uploader le document.');
+                            this.showToast('error', 'Erreur upload', data.error || data.message || 'Impossible d\'uploader le document.');
                         }
                     } catch {
-                        this.showToast('error', 'Erreur', 'Une erreur est survenue.');
+                        this.showToast('error', 'Erreur réseau', 'Vérifiez votre connexion et réessayez.');
                     } finally {
                         this.uploading = { ...this.uploading, [key]: false };
                     }

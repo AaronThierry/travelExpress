@@ -54,12 +54,20 @@ class StudentApplicationController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'document_type' => 'required|string',
-            'file' => 'required|file|max:10240|mimes:pdf,jpg,jpeg,png,doc,docx,webp'
+            'document_type' => 'required|string|max:100',
+            'file' => [
+                'required',
+                'file',
+                'max:10240', // 10 MB
+                'mimes:pdf,jpg,jpeg,png,doc,docx,webp',
+                'mimetypes:application/pdf,image/jpeg,image/png,image/webp,image/jpg,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            ],
         ], [
-            'file.required' => 'Veuillez sélectionner un fichier.',
-            'file.max' => 'Le fichier ne doit pas dépasser 10 Mo.',
-            'file.mimes' => 'Format accepté: PDF, JPG, PNG, DOC, DOCX, WebP.',
+            'document_type.required' => 'Le type de document est requis.',
+            'file.required'   => 'Veuillez sélectionner un fichier.',
+            'file.max'        => 'Le fichier ne doit pas dépasser 10 Mo.',
+            'file.mimes'      => 'Format non accepté. Formats autorisés : PDF, JPG, PNG, DOC, DOCX, WebP.',
+            'file.mimetypes'  => 'Le contenu du fichier ne correspond pas à un format autorisé.',
         ]);
 
         if ($validator->fails()) {
@@ -290,10 +298,9 @@ class StudentApplicationController extends Controller
             abort(404, 'Fichier introuvable');
         }
 
-        return Storage::disk('private')->download(
-            $document->file_path,
-            $document->original_filename
-        );
+        $fullPath = storage_path('app/private/' . $document->file_path);
+
+        return response()->download($fullPath, $document->original_filename);
     }
 
     /**

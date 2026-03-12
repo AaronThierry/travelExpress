@@ -18,13 +18,15 @@ class ApplicationDocument extends Model
         'file_size',
         'mime_type',
         'status',
+        'is_complementary',
         'rejection_reason',
         'reviewed_by',
-        'reviewed_at'
+        'reviewed_at',
     ];
 
     protected $casts = [
-        'reviewed_at' => 'datetime',
+        'reviewed_at'      => 'datetime',
+        'is_complementary' => 'boolean',
     ];
 
     // Relationships
