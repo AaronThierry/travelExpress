@@ -44,7 +44,7 @@ class CreateDefaultDossiers extends Command
                     'status'               => 'pending',
                     'complementary_status' => 'in_progress',
                     'current_step'         => 2,
-                    'program_type'         => 'licence',
+                    'program_type'         => 'license',
                 ]);
                 $app->generateAccessToken(365);
 

@@ -66,7 +66,7 @@ class AuthController extends Controller
                 'status'               => 'pending',
                 'complementary_status' => 'in_progress',
                 'current_step'         => 2,
-                'program_type'         => 'licence',
+                'program_type'         => 'license',
             ]);
             $dossier->generateAccessToken(365);
         } catch (\Exception $e) {

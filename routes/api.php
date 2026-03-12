@@ -93,7 +93,7 @@ Route::middleware('auth:sanctum')->group(function () {
                     'status'               => 'pending',
                     'complementary_status' => 'in_progress',
                     'current_step'         => 2,
-                    'program_type'         => 'licence',
+                    'program_type'         => 'license',
                     'created_at'           => now(),
                     'updated_at'           => now(),
                 ]);
