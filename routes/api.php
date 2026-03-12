@@ -73,11 +73,35 @@ Route::middleware('auth:sanctum')->group(function () {
         $user = $request->user();
         $compDocs = \App\Models\StudentApplication::getComplementaryDocuments();
 
-        // Fallback: create default dossier if user somehow has none
-        try {
-            \App\Models\StudentApplication::createDefaultForUser($user);
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Dossier fallback-create failed for ' . $user->email . ': ' . $e->getMessage());
+        // Auto-create dossier if user has none (guaranteed, self-contained)
+        $hasApp = \DB::table('student_applications')
+            ->where('student_email', $user->email)
+            ->exists();
+
+        if (!$hasApp) {
+            try {
+                $token    = \Illuminate\Support\Str::random(32);
+                $accToken = \Illuminate\Support\Str::random(64);
+
+                $appId = \DB::table('student_applications')->insertGetId([
+                    'unique_token'         => $token,
+                    'access_token'         => $accToken,
+                    'token_expires_at'     => now()->addDays(365),
+                    'student_name'         => $user->name,
+                    'student_email'        => $user->email,
+                    'dossier_type'         => 'complementaire',
+                    'status'               => 'pending',
+                    'complementary_status' => 'in_progress',
+                    'current_step'         => 2,
+                    'program_type'         => 'licence',
+                    'created_at'           => now(),
+                    'updated_at'           => now(),
+                ]);
+
+                \Illuminate\Support\Facades\Log::info("Dossier auto-created (id={$appId}) for {$user->email}");
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error("Dossier auto-create failed for {$user->email}: " . $e->getMessage());
+            }
         }
 
         $applications = \App\Models\StudentApplication::with('documents')
