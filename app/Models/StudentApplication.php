@@ -365,6 +365,30 @@ class StudentApplication extends Model
             });
     }
 
+    /**
+     * Create (or return existing) default dossier for a user.
+     * Safe to call multiple times — idempotent.
+     */
+    public static function createDefaultForUser(\App\Models\User $user): ?self
+    {
+        if (static::where('student_email', $user->email)->exists()) {
+            return null;
+        }
+
+        $app = static::create([
+            'student_name'         => $user->name,
+            'student_email'        => $user->email,
+            'dossier_type'         => 'complementaire',
+            'status'               => 'pending',
+            'complementary_status' => 'in_progress',
+            'current_step'         => 2,
+            'program_type'         => 'licence',
+        ]);
+        $app->generateAccessToken(365);
+
+        return $app;
+    }
+
     // Mark as submitted by student
     public function markAsSubmittedByStudent(): void
     {

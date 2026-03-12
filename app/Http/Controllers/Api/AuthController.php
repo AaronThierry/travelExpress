@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\StudentApplication;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,6 +56,22 @@ class AuthController extends Controller
             'bio' => $request->specialty, // Using bio field for specialty
             'language' => 'fr',
         ]);
+
+        // Auto-create default complementary dossier for the new user
+        try {
+            $dossier = StudentApplication::create([
+                'student_name'         => $user->name,
+                'student_email'        => $user->email,
+                'dossier_type'         => 'complementaire',
+                'status'               => 'pending',
+                'complementary_status' => 'in_progress',
+                'current_step'         => 2,
+                'program_type'         => 'licence',
+            ]);
+            $dossier->generateAccessToken(365);
+        } catch (\Exception $e) {
+            \Log::error('Auto-create dossier on register failed for ' . $user->email . ': ' . $e->getMessage());
+        }
 
         $token = $user->createToken('auth_token')->plainTextToken;
         $expiresAt = Carbon::now()->addDays(self::TOKEN_EXPIRATION_DAYS);
