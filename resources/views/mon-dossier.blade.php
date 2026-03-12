@@ -467,10 +467,10 @@
                                 <!-- Top row: logo mark + status pill -->
                                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;position:relative;">
                                     <div style="display:flex;align-items:center;gap:0.5rem;">
-                                        <div style="width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold);"></div>
-                                        <span style="font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);">Travel Express</span>
-                                        <span style="color:var(--gold-line);font-size:0.7rem;margin:0 0.25rem;">·</span>
-                                        <span style="font-size:0.6rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);">Carte Candidat</span>
+                                        <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold);"></div>
+                                        <span style="font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);">Travel Express</span>
+                                        <span style="color:var(--gold-line);font-size:0.8rem;margin:0 0.25rem;">·</span>
+                                        <span style="font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);">Carte Candidat</span>
                                     </div>
                                     <span class="pill"
                                         :class="{
@@ -505,10 +505,10 @@
 
                                     <!-- Name + info -->
                                     <div style="flex:1;min-width:0;">
-                                        <p style="font-size:0.6rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.3rem;">Nom complet</p>
-                                        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:700;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="shimmer-text" x-text="app.student_name || 'Sans nom'"></h2>
-                                        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.35rem;display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
-                                            <svg style="width:12px;height:12px;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                        <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.3rem;">Nom complet</p>
+                                        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="shimmer-text" x-text="app.student_name || 'Sans nom'"></h2>
+                                        <p style="font-size:0.9rem;color:var(--text-muted);margin-top:0.35rem;display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+                                            <svg style="width:13px;height:13px;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                                             <span x-text="app.student_email"></span>
                                         </p>
                                     </div>
@@ -525,11 +525,11 @@
                                                 border-radius:0.5rem;
                                             ">
                                                 <svg style="width:11px;height:11px;color:var(--gold)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-                                                <span style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);" x-text="app.program_type"></span>
+                                                <span style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);" x-text="app.program_type"></span>
                                             </div>
                                         </template>
                                         <!-- Dossier ID -->
-                                        <p style="font-size:0.6rem;color:var(--text-faint);letter-spacing:0.08em;" x-text="'ID #' + String(app.id).padStart(6,'0')"></p>
+                                        <p style="font-size:0.7rem;color:var(--text-faint);letter-spacing:0.08em;" x-text="'ID #' + String(app.id).padStart(6,'0')"></p>
                                     </div>
                                 </div>
 
@@ -552,43 +552,43 @@
                                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.25rem;">
                                     <div>
                                         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.45rem;">
-                                            <span style="font-size:0.62rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(96,165,250,0.7);">Initial</span>
-                                            <span style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#60a5fa;" x-text="app.completion_percentage + '%'"></span>
+                                            <span style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(96,165,250,0.7);">Initial</span>
+                                            <span style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#60a5fa;" x-text="app.completion_percentage + '%'"></span>
                                         </div>
-                                        <div style="height:5px;background:rgba(96,165,250,0.1);border-radius:99px;overflow:hidden;">
+                                        <div style="height:6px;background:rgba(96,165,250,0.1);border-radius:99px;overflow:hidden;">
                                             <div style="height:100%;border-radius:99px;background:linear-gradient(90deg,#1d4ed8,#3b82f6,#60a5fa);transition:width 1s cubic-bezier(0.4,0,0.2,1);" :style="'width:' + app.completion_percentage + '%'"></div>
                                         </div>
-                                        <p style="font-size:0.6rem;color:var(--text-faint);margin-top:0.3rem;" x-text="app.documents.filter(d => !d.is_complementary).length + ' / 9 documents'"></p>
+                                        <p style="font-size:0.7rem;color:var(--text-faint);margin-top:0.3rem;" x-text="app.documents.filter(d => !d.is_complementary).length + ' / 9 documents'"></p>
                                     </div>
                                     <div>
                                         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.45rem;">
-                                            <span style="font-size:0.62rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(212,175,55,0.7);">Complémentaire</span>
-                                            <span style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:var(--gold);" x-text="app.complementary_completion_percentage + '%'"></span>
+                                            <span style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(212,175,55,0.7);">Complémentaire</span>
+                                            <span style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--gold);" x-text="app.complementary_completion_percentage + '%'"></span>
                                         </div>
-                                        <div style="height:5px;background:rgba(212,175,55,0.1);border-radius:99px;overflow:hidden;">
+                                        <div style="height:6px;background:rgba(212,175,55,0.1);border-radius:99px;overflow:hidden;">
                                             <div style="height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-bright));transition:width 1s cubic-bezier(0.4,0,0.2,1);" :style="'width:' + app.complementary_completion_percentage + '%'"></div>
                                         </div>
-                                        <p style="font-size:0.6rem;color:var(--text-faint);margin-top:0.3rem;" x-text="app.documents.filter(d => d.is_complementary).length + ' / 7 documents'"></p>
+                                        <p style="font-size:0.7rem;color:var(--text-faint);margin-top:0.3rem;" x-text="app.documents.filter(d => d.is_complementary).length + ' / 7 documents'"></p>
                                     </div>
                                 </div>
 
                                 <!-- Stats strip -->
                                 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--gold-line);border-radius:0.75rem;overflow:hidden;">
-                                    <div style="padding:0.75rem;text-align:center;border-right:1px solid var(--gold-line);">
-                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#60a5fa;line-height:1;" x-text="app.documents.filter(d => !d.is_complementary).length"></span>
-                                        <span style="display:block;font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.2rem;">Initiaux</span>
+                                    <div style="padding:0.9rem;text-align:center;border-right:1px solid var(--gold-line);">
+                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:#60a5fa;line-height:1;" x-text="app.documents.filter(d => !d.is_complementary).length"></span>
+                                        <span style="display:block;font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.25rem;">Initiaux</span>
                                     </div>
-                                    <div style="padding:0.75rem;text-align:center;border-right:1px solid var(--gold-line);">
-                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);line-height:1;" x-text="app.documents.filter(d => d.is_complementary).length"></span>
-                                        <span style="display:block;font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.2rem;">Complémentaires</span>
+                                    <div style="padding:0.9rem;text-align:center;border-right:1px solid var(--gold-line);">
+                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:var(--gold);line-height:1;" x-text="app.documents.filter(d => d.is_complementary).length"></span>
+                                        <span style="display:block;font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.25rem;">Complémentaires</span>
                                     </div>
-                                    <div style="padding:0.75rem;text-align:center;border-right:1px solid var(--gold-line);">
-                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--text);line-height:1;padding-top:0.2rem;" x-text="app.current_step_label || ('Étape ' + app.current_step)"></span>
-                                        <span style="display:block;font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.2rem;">Étape</span>
+                                    <div style="padding:0.9rem;text-align:center;border-right:1px solid var(--gold-line);">
+                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--text);line-height:1;padding-top:0.2rem;" x-text="app.current_step_label || ('Étape ' + app.current_step)"></span>
+                                        <span style="display:block;font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.25rem;">Étape</span>
                                     </div>
-                                    <div style="padding:0.75rem;text-align:center;">
-                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:0.85rem;font-weight:700;color:var(--text);line-height:1;padding-top:0.25rem;" x-text="app.created_at"></span>
-                                        <span style="display:block;font-size:0.58rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.2rem;">Création</span>
+                                    <div style="padding:0.9rem;text-align:center;">
+                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:700;color:var(--text);line-height:1;padding-top:0.25rem;" x-text="app.created_at"></span>
+                                        <span style="display:block;font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.25rem;">Création</span>
                                     </div>
                                 </div>
                             </div>
