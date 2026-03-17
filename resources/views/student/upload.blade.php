@@ -8,35 +8,39 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Bebas+Neue&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold:        #D4AF37;
-            --gold-bright: #F0C85C;
-            --gold-dark:   #9A7B1E;
-            --gold-dim:    rgba(212,175,55,0.18);
-            --gold-line:   rgba(212,175,55,0.25);
-            --obsidian:    #080807;
-            --card:        #0e0d0b;
-            --card-hover:  #141209;
-            --text:        #F2ECD8;
-            --text-muted:  rgba(242,236,216,0.45);
-            --text-faint:  rgba(242,236,216,0.22);
+            --gold-primary: #C9A84C;
+            --gold-bright:  #F0D07A;
+            --gold-deep:    #8B6914;
+            --gold-gradient: linear-gradient(135deg, #8B6914 0%, #C9A84C 30%, #F0D07A 50%, #C9A84C 70%, #8B6914 100%);
+            --dark-0: #080808; --dark-100: #141414; --dark-200: #1C1C1C;
+            --dark-300: #262626; --dark-400: #333333; --dark-500: #4A4A4A;
+            --dark-600: #6B6B6B; --dark-700: #8A8A8A; --dark-800: #B0B0B0; --dark-900: #D4D4D4;
+            --glow-gold: 0 0 20px rgba(201,168,76,.25), 0 0 60px rgba(201,168,76,.08);
+            --glow-gold-strong: 0 0 30px rgba(201,168,76,.4), 0 0 80px rgba(201,168,76,.15);
+            --r-sm:3px; --r-md:6px; --r-lg:10px; --r-xl:14px; --r-full:9999px;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Lato', sans-serif;
+            --color-success: #2ECABB;
+            --color-warning: #F0B428;
+            --color-danger:  #E74C3C;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--obsidian);
-            color: var(--text);
+            font-family: var(--font-body);
+            background: var(--dark-0);
+            color: var(--dark-800);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* ── Ambient Background ───────────────────────────────────── */
+        /* ── Ambient Background ────────────────────────────────────── */
         .bg-scene {
             position: fixed; inset: 0; pointer-events: none; z-index: 0;
         }
@@ -44,22 +48,22 @@
             content: '';
             position: absolute; inset: 0;
             background:
-                radial-gradient(ellipse 80% 60% at 10% -10%, rgba(212,175,55,0.07) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 50% at 90% 110%, rgba(212,175,55,0.05) 0%, transparent 55%);
+                radial-gradient(ellipse 80% 60% at 10% -10%, rgba(201,168,76,.07) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 90% 110%, rgba(201,168,76,.05) 0%, transparent 55%);
         }
         .bg-grid {
             position: absolute; inset: 0;
             background-image:
-                linear-gradient(rgba(212,175,55,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212,175,55,0.03) 1px, transparent 1px);
-            background-size: 48px 48px;
+                linear-gradient(rgba(201,168,76,.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
+            background-size: 60px 60px;
         }
         .bg-grain {
             position: absolute; inset: 0; opacity: 0.035;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
         }
 
-        /* ── Layout ───────────────────────────────────────────────── */
+        /* ── Layout ────────────────────────────────────────────────── */
         .page-wrap {
             position: relative; z-index: 1;
             max-width: 900px;
@@ -67,11 +71,11 @@
             padding: 3rem 1.75rem 5rem;
         }
 
-        /* ── Cards ────────────────────────────────────────────────── */
+        /* ── Cards ─────────────────────────────────────────────────── */
         .lux-card {
-            background: var(--card);
-            border: 1px solid var(--gold-line);
-            border-radius: 1.25rem;
+            background: var(--dark-100);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-xl);
             position: relative;
             overflow: hidden;
             transition: border-color 0.3s;
@@ -80,30 +84,30 @@
             content: '';
             position: absolute; top: 0; left: 0; right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
             opacity: 0.5;
         }
-        .lux-card:hover { border-color: rgba(212,175,55,0.4); }
+        .lux-card:hover { border-color: rgba(201,168,76,.35); }
 
-        /* ── Typography ───────────────────────────────────────────── */
-        .font-display { font-family: 'Cormorant Garamond', serif; }
-        .gold-text { color: var(--gold); }
+        /* ── Typography ────────────────────────────────────────────── */
+        .font-display { font-family: var(--font-display); }
+        .gold-text { color: var(--gold-primary); }
         .label-text {
             font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.12em;
+            font-weight: 700;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: var(--text-muted);
+            color: var(--gold-deep);
         }
 
-        /* ── Gold ornament line ───────────────────────────────────── */
+        /* ── Gold ornament line ────────────────────────────────────── */
         .ornament {
             display: flex; align-items: center; gap: 0.75rem;
-            color: var(--gold-dim);
+            color: rgba(201,168,76,.3);
         }
         .ornament::before, .ornament::after {
             content: ''; flex: 1; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold-line), transparent);
+            background: linear-gradient(90deg, transparent, rgba(201,168,76,.25), transparent);
         }
         .ornament-sm {
             display: flex; align-items: center; gap: 0.5rem;
@@ -111,71 +115,71 @@
         }
         .ornament-sm::after {
             content: ''; flex: 1; height: 1px;
-            background: linear-gradient(90deg, var(--gold-line), transparent);
+            background: linear-gradient(90deg, rgba(201,168,76,.25), transparent);
         }
 
-        /* ── Avatar ───────────────────────────────────────────────── */
+        /* ── Avatar ────────────────────────────────────────────────── */
         .avatar-ring {
             width: 68px; height: 68px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            background: var(--gold-gradient);
             display: flex; align-items: center; justify-content: center;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--font-serif);
             font-size: 1.75rem; font-weight: 700;
-            color: var(--obsidian);
+            color: var(--dark-0);
             position: relative;
             flex-shrink: 0;
-            box-shadow: 0 0 0 1px var(--gold-dim), 0 8px 32px rgba(212,175,55,0.2);
+            box-shadow: 0 0 0 1px rgba(201,168,76,.2), 0 8px 32px rgba(201,168,76,.2);
         }
         .avatar-ring::after {
             content: '';
             position: absolute; inset: -4px;
             border-radius: 50%;
-            border: 1px solid var(--gold-line);
+            border: 1px solid rgba(201,168,76,.25);
         }
 
-        /* ── Step Indicator ───────────────────────────────────────── */
+        /* ── Step Indicator ────────────────────────────────────────── */
         .steps { display: flex; align-items: center; }
         .step-dot {
             width: 36px; height: 36px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.8rem; font-weight: 600;
-            border: 1px solid var(--gold-line);
-            color: var(--text-muted);
-            background: var(--card);
+            font-size: 0.8rem; font-weight: 700;
+            border: 1px solid rgba(201,168,76,.2);
+            color: var(--dark-600);
+            background: var(--dark-200);
             transition: all 0.3s;
             flex-shrink: 0;
         }
         .step-dot.active {
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            color: var(--obsidian);
+            background: var(--gold-gradient);
+            color: var(--dark-0);
             border-color: transparent;
-            box-shadow: 0 4px 16px rgba(212,175,55,0.3);
+            box-shadow: 0 4px 16px rgba(201,168,76,.3);
         }
         .step-dot.done {
-            background: rgba(34,197,94,0.1);
-            border-color: rgba(34,197,94,0.4);
-            color: #4ade80;
+            background: rgba(46,202,187,.1);
+            border-color: rgba(46,202,187,.4);
+            color: var(--color-success);
         }
         .step-connector {
             width: 44px; height: 1px;
-            background: var(--gold-line);
+            background: rgba(201,168,76,.2);
         }
-        .step-connector.done { background: var(--gold); }
+        .step-connector.done { background: var(--gold-primary); }
 
-        /* ── Progress Bars ────────────────────────────────────────── */
+        /* ── Progress Bars ─────────────────────────────────────────── */
         .prog-track {
             height: 3px;
-            background: rgba(212,175,55,0.12);
-            border-radius: 99px;
+            background: rgba(201,168,76,.1);
+            border-radius: var(--r-full);
             overflow: visible;
             position: relative;
         }
         .prog-fill {
             height: 100%;
-            border-radius: 99px;
-            background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-bright) 100%);
+            border-radius: var(--r-full);
+            background: var(--gold-gradient);
             position: relative;
             transition: width 0.7s cubic-bezier(0.4,0,0.2,1);
         }
@@ -185,85 +189,84 @@
             width: 7px; height: 7px;
             border-radius: 50%;
             background: var(--gold-bright);
-            box-shadow: 0 0 8px var(--gold);
+            box-shadow: 0 0 8px var(--gold-primary);
         }
 
-        /* ── Status Pills ─────────────────────────────────────────── */
+        /* ── Status Pills ──────────────────────────────────────────── */
         .pill {
             display: inline-flex; align-items: center; gap: 0.35rem;
             padding: 0.3rem 0.85rem;
-            border-radius: 99px;
+            border-radius: var(--r-full);
             font-size: 0.7rem;
-            font-weight: 500;
+            font-weight: 700;
             letter-spacing: 0.06em;
             text-transform: uppercase;
             border: 1px solid;
         }
-        .pill-green  { color:#4ade80; border-color:rgba(74,222,128,0.3); background:rgba(74,222,128,0.07); }
-        .pill-red    { color:#f87171; border-color:rgba(248,113,113,0.3); background:rgba(248,113,113,0.07); }
-        .pill-blue   { color:#60a5fa; border-color:rgba(96,165,250,0.3); background:rgba(96,165,250,0.07); }
-        .pill-yellow { color:#fbbf24; border-color:rgba(251,191,36,0.3); background:rgba(251,191,36,0.07); }
-        .pill-gray   { color:rgba(242,236,216,0.5); border-color:rgba(242,236,216,0.12); background:rgba(242,236,216,0.04); }
-        .pill-gold   { color:var(--gold); border-color:var(--gold-line); background:var(--gold-dim); }
+        .pill-green  { color:var(--color-success); border-color:rgba(46,202,187,.3); background:rgba(46,202,187,.07); }
+        .pill-red    { color:var(--color-danger);  border-color:rgba(231,76,60,.3);  background:rgba(231,76,60,.07); }
+        .pill-blue   { color:#60a5fa; border-color:rgba(96,165,250,.3); background:rgba(96,165,250,.07); }
+        .pill-yellow { color:var(--color-warning); border-color:rgba(240,180,40,.3); background:rgba(240,180,40,.07); }
+        .pill-gray   { color:var(--dark-600); border-color:rgba(176,176,176,.15); background:rgba(176,176,176,.04); }
+        .pill-gold   { color:var(--gold-primary); border-color:rgba(201,168,76,.3); background:rgba(201,168,76,.08); }
 
-        /* ── Form Inputs ──────────────────────────────────────────── */
+        /* ── Form Inputs ───────────────────────────────────────────── */
         .lux-input {
             width: 100%;
             padding: 0.875rem 1.125rem;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--gold-line);
-            border-radius: 0.625rem;
-            color: var(--text);
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.875rem;
+            background: var(--dark-200);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-lg);
+            color: var(--dark-900);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
             transition: border-color 0.25s, box-shadow 0.25s;
         }
         .lux-input:focus {
             outline: none;
-            border-color: rgba(212,175,55,0.5);
-            box-shadow: 0 0 0 3px rgba(212,175,55,0.08);
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(201,168,76,.1);
         }
-        .lux-input::placeholder { color: var(--text-faint); }
+        .lux-input::placeholder { color: var(--dark-500); }
         textarea.lux-input { resize: vertical; min-height: 90px; }
 
         .field-label {
             display: block;
-            font-size: 0.72rem;
-            font-weight: 500;
-            letter-spacing: 0.1em;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: .15em;
             text-transform: uppercase;
-            color: var(--text-muted);
+            color: var(--gold-deep);
             margin-bottom: 0.625rem;
         }
 
-        /* ── Section Divider ──────────────────────────────────────── */
+        /* ── Section Divider ───────────────────────────────────────── */
         .section-divider {
             display: flex; align-items: center; gap: 1rem;
             margin: 2.25rem 0;
         }
         .section-divider::before, .section-divider::after {
             content: ''; flex: 1; height: 1px;
-            background: var(--gold-line);
+            background: rgba(201,168,76,.15);
         }
 
-        /* ── Tabs ─────────────────────────────────────────────────── */
+        /* ── Tabs ──────────────────────────────────────────────────── */
         .tab-bar {
             display: flex;
             gap: 0;
-            border-bottom: 1px solid var(--gold-line);
+            border-bottom: 1px solid rgba(201,168,76,.15);
             margin-bottom: 2rem;
             overflow-x: auto;
             scrollbar-width: none;
         }
         .tab-bar::-webkit-scrollbar { display: none; }
-
         .tab-btn {
             padding: 1rem 1.5rem;
-            font-size: 0.78rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: var(--text-muted);
+            color: var(--dark-600);
             border-bottom: 2px solid transparent;
             margin-bottom: -1px;
             cursor: pointer;
@@ -275,104 +278,104 @@
         }
         .tab-btn:hover { color: var(--gold-bright); }
         .tab-btn.active {
-            color: var(--gold);
-            border-bottom-color: var(--gold);
+            color: var(--gold-primary);
+            border-bottom-color: var(--gold-primary);
         }
 
-        /* ── Document Items ───────────────────────────────────────── */
+        /* ── Document Items ────────────────────────────────────────── */
         .doc-row {
             display: flex;
             flex-direction: column;
             gap: 1rem;
             padding: 1.35rem 1.5rem;
-            background: rgba(255,255,255,0.015);
-            border: 1px solid rgba(212,175,55,0.1);
-            border-left: 3px solid rgba(212,175,55,0.15);
-            border-radius: 0.75rem;
+            background: var(--dark-200);
+            border: 1px solid rgba(201,168,76,.1);
+            border-left: 3px solid rgba(201,168,76,.15);
+            border-radius: var(--r-lg);
             transition: all 0.25s;
         }
         .doc-row:hover {
-            background: rgba(212,175,55,0.04);
-            border-left-color: var(--gold);
-            border-color: rgba(212,175,55,0.25);
+            background: var(--dark-300);
+            border-left-color: var(--gold-primary);
+            border-color: rgba(201,168,76,.3);
+            box-shadow: var(--glow-gold);
         }
         .doc-row.doc-done {
-            border-left-color: rgba(74,222,128,0.5);
-            border-color: rgba(74,222,128,0.15);
+            border-left-color: rgba(46,202,187,.5);
+            border-color: rgba(46,202,187,.15);
         }
         @media (min-width: 640px) {
             .doc-row { flex-direction: row; align-items: center; }
         }
 
-        /* ── Buttons ──────────────────────────────────────────────── */
+        /* ── Buttons ───────────────────────────────────────────────── */
         .btn-gold {
             display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
             padding: 0.6rem 1.2rem;
-            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
-            color: var(--obsidian);
-            font-family: 'Outfit', sans-serif;
+            background: var(--gold-gradient);
+            color: var(--dark-0);
+            font-family: var(--font-body);
             font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
+            font-weight: 700;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             border: none;
-            border-radius: 0.5rem;
+            border-radius: var(--r-md);
             cursor: pointer;
             transition: all 0.25s;
             white-space: nowrap;
         }
         .btn-gold:hover {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 100%);
             transform: translateY(-1px);
-            box-shadow: 0 6px 24px rgba(212,175,55,0.28);
+            box-shadow: var(--glow-gold-strong);
         }
         .btn-gold:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
         .btn-ghost {
             display: inline-flex; align-items: center; gap: 0.4rem;
             padding: 0.55rem 1rem;
-            border: 1px solid var(--gold-line);
-            color: var(--gold);
+            border: 1px solid rgba(201,168,76,.25);
+            color: var(--gold-primary);
             font-size: 0.78rem;
-            font-weight: 500;
+            font-weight: 600;
             letter-spacing: 0.04em;
-            border-radius: 0.5rem;
+            border-radius: var(--r-md);
             cursor: pointer;
             background: none;
             transition: all 0.2s;
             white-space: nowrap;
             text-decoration: none;
         }
-        .btn-ghost:hover { background: var(--gold-dim); border-color: rgba(212,175,55,0.45); }
+        .btn-ghost:hover { background: rgba(201,168,76,.08); border-color: rgba(201,168,76,.45); }
 
         .btn-danger {
             display: inline-flex; align-items: center; gap: 0.4rem;
             padding: 0.55rem 1rem;
-            border: 1px solid rgba(239,68,68,0.25);
-            color: rgba(252,165,165,0.8);
+            border: 1px solid rgba(231,76,60,.25);
+            color: var(--color-danger);
             font-size: 0.78rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
+            font-weight: 600;
+            border-radius: var(--r-md);
             cursor: pointer;
             background: none;
             transition: all 0.2s;
             white-space: nowrap;
         }
-        .btn-danger:hover { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.4); }
+        .btn-danger:hover { background: rgba(231,76,60,.08); border-color: rgba(231,76,60,.4); }
 
-        /* ── Submit Button ────────────────────────────────────────── */
+        /* ── Submit Button ─────────────────────────────────────────── */
         .btn-submit {
             width: 100%;
             padding: 1.1rem 2rem;
-            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-bright) 100%);
-            color: var(--obsidian);
-            font-family: 'Outfit', sans-serif;
+            background: var(--gold-gradient);
+            color: var(--dark-0);
+            font-family: var(--font-body);
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             border: none;
-            border-radius: 0.875rem;
+            border-radius: var(--r-xl);
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
@@ -382,17 +385,17 @@
             content: '';
             position: absolute; top: 0; left: -100%;
             width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
             transition: left 0.5s;
         }
         .btn-submit:hover::before { left: 100%; }
         .btn-submit:hover {
-            box-shadow: 0 8px 40px rgba(212,175,55,0.35);
+            box-shadow: var(--glow-gold-strong);
             transform: translateY(-2px);
         }
         .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        /* ── Toast ────────────────────────────────────────────────── */
+        /* ── Toast ─────────────────────────────────────────────────── */
         .toast-wrap {
             position: fixed;
             bottom: 1.5rem; right: 1.5rem;
@@ -403,21 +406,21 @@
         }
         .toast-wrap.show { transform: translateY(0); }
         .toast-inner {
-            background: var(--card);
-            border: 1px solid var(--gold-line);
-            border-radius: 0.875rem;
+            background: var(--dark-100);
+            border: 1px solid rgba(201,168,76,.25);
+            border-radius: var(--r-xl);
             padding: 1rem 1.25rem;
             display: flex; align-items: flex-start; gap: 0.875rem;
-            box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.05);
+            box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 0 0 1px rgba(201,168,76,.05);
         }
         .toast-inner::before {
             content: '';
             position: absolute; top: 0; left: 1.5rem; right: 1.5rem;
             height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold-line), transparent);
+            background: linear-gradient(90deg, transparent, rgba(201,168,76,.25), transparent);
         }
 
-        /* ── Animations ───────────────────────────────────────────── */
+        /* ── Animations ────────────────────────────────────────────── */
         @keyframes fade-up {
             from { opacity:0; transform: translateY(16px); }
             to   { opacity:1; transform: translateY(0); }
@@ -426,7 +429,6 @@
             0%   { background-position: -200% center; }
             100% { background-position: 200% center; }
         }
-        @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
         .animate-in {
             animation: fade-up 0.5s ease both;
@@ -436,7 +438,7 @@
         .delay-3 { animation-delay: 0.19s; }
 
         .shimmer-text {
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright), var(--gold-dark));
+            background: var(--gold-gradient);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -444,61 +446,67 @@
             animation: shimmer 4s linear infinite;
         }
 
-        /* ── Submitted Banner ─────────────────────────────────────── */
+        /* ── Submitted Banner ──────────────────────────────────────── */
         .submitted-banner {
             padding: 2.5rem;
-            border: 1px solid rgba(74,222,128,0.25);
-            border-radius: 1.25rem;
-            background: rgba(74,222,128,0.04);
+            border: 1px solid rgba(46,202,187,.25);
+            border-radius: var(--r-xl);
+            background: rgba(46,202,187,.04);
             text-align: center;
         }
         .submitted-icon {
             width: 64px; height: 64px;
             border-radius: 50%;
-            background: rgba(74,222,128,0.1);
-            border: 1px solid rgba(74,222,128,0.3);
+            background: rgba(46,202,187,.1);
+            border: 1px solid rgba(46,202,187,.3);
             display: flex; align-items: center; justify-content: center;
             margin: 0 auto 1.25rem;
         }
 
-        /* ── Section header ───────────────────────────────────────── */
+        /* ── Section header ────────────────────────────────────────── */
         .section-title {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--font-serif);
             font-size: 1.35rem;
             font-weight: 600;
-            color: var(--text);
+            color: var(--dark-900);
             letter-spacing: 0.01em;
         }
         .section-icon {
             width: 36px; height: 36px;
-            border-radius: 0.625rem;
-            background: var(--gold-dim);
-            border: 1px solid var(--gold-line);
+            border-radius: var(--r-lg);
+            background: rgba(201,168,76,.1);
+            border: 1px solid rgba(201,168,76,.2);
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
         }
 
-        /* ── Doc status badges ────────────────────────────────────── */
+        /* ── Doc status badges ─────────────────────────────────────── */
         .doc-status {
             display: inline-flex; align-items: center; gap: 0.3rem;
             padding: 0.2rem 0.6rem;
-            border-radius: 99px;
+            border-radius: var(--r-full);
             font-size: 0.67rem;
-            font-weight: 500;
+            font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
         }
-        .doc-status-approved { color:#4ade80; background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.25); }
-        .doc-status-rejected  { color:#f87171; background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.25); }
-        .doc-status-pending   { color:#fbbf24; background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.2); }
+        .doc-status-approved { color:var(--color-success); background:rgba(46,202,187,.1);   border:1px solid rgba(46,202,187,.25); }
+        .doc-status-rejected  { color:var(--color-danger);  background:rgba(231,76,60,.1);   border:1px solid rgba(231,76,60,.25); }
+        .doc-status-pending   { color:var(--color-warning); background:rgba(240,180,40,.08); border:1px solid rgba(240,180,40,.2); }
 
-        /* ── Footer ───────────────────────────────────────────────── */
+        /* ── Footer ────────────────────────────────────────────────── */
         .page-footer {
             margin-top: 3rem;
             padding-top: 1.5rem;
-            border-top: 1px solid var(--gold-line);
+            border-top: 1px solid rgba(201,168,76,.1);
             text-align: center;
         }
+
+        /* ── Scrollbar ─────────────────────────────────────────────── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark-0); }
+        ::-webkit-scrollbar-thumb { background: rgba(201,168,76,.25); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,.5); }
     </style>
 </head>
 <body x-data="studentForm()">
@@ -511,7 +519,7 @@
 
     <div class="page-wrap">
 
-        <!-- ── HEADER CARD ──────────────────────────────────────────── -->
+        <!-- ── HEADER CARD ─────────────────────────────────────────── -->
         <div class="lux-card animate-in" style="padding:2.25rem;margin-bottom:1.75rem;">
 
             <div class="flex flex-col sm:flex-row sm:items-center" style="gap:2rem;">
@@ -529,12 +537,12 @@
                     </div>
                     <div class="min-w-0">
                         <p class="label-text mb-1">Candidat</p>
-                        <h1 class="font-display text-2xl md:text-3xl font-600 shimmer-text truncate">
+                        <h1 class="font-display text-2xl md:text-3xl shimmer-text truncate" style="font-weight:400; letter-spacing:.05em;">
                             {{ $application->student_name ?? 'Nouveau Dossier' }}
                         </h1>
-                        <p class="text-sm mt-0.5" style="color:var(--text-muted)">
+                        <p class="text-sm mt-0.5" style="color:var(--dark-600);">
                             Programme
-                            <span style="color:var(--gold)">{{ ucfirst($application->program_type) }}</span>
+                            <span style="color:var(--gold-primary)">{{ ucfirst($application->program_type) }}</span>
                             &mdash;
                             Dossier {{ $application->dossier_type === 'complementaire' ? 'Complémentaire' : 'Initial' }}
                         </p>
@@ -570,7 +578,7 @@
                 <div>
                     <div class="flex justify-between items-center mb-2">
                         <span class="label-text">Dossier Initial</span>
-                        <span class="font-display text-base font-600" style="color:var(--gold)" id="initial-percentage">{{ $application->completion_percentage }}%</span>
+                        <span class="font-display text-base gold-text" style="font-weight:400;" id="initial-percentage">{{ $application->completion_percentage }}%</span>
                     </div>
                     <div class="prog-track">
                         <div class="prog-fill" id="initial-progress" style="width:{{ $application->completion_percentage }}%"></div>
@@ -580,7 +588,7 @@
                 <div>
                     <div class="flex justify-between items-center mb-2">
                         <span class="label-text">Dossier Complémentaire</span>
-                        <span class="font-display text-base font-600" style="color:var(--gold)" id="comp-percentage">{{ $application->complementary_completion_percentage }}%</span>
+                        <span class="font-display text-base gold-text" style="font-weight:400;" id="comp-percentage">{{ $application->complementary_completion_percentage }}%</span>
                     </div>
                     <div class="prog-track">
                         <div class="prog-fill" id="comp-progress" style="width:{{ $application->complementary_completion_percentage }}%"></div>
@@ -611,12 +619,12 @@
             </div>
         </div>
 
-        <!-- ── PERSONAL INFO CARD ────────────────────────────────────── -->
+        <!-- ── PERSONAL INFO CARD ──────────────────────────────────── -->
         <div class="lux-card animate-in delay-1" style="padding:2.25rem;margin-bottom:1.75rem;">
 
             <div class="flex items-center" style="gap:1rem;margin-bottom:1.75rem;">
                 <div class="section-icon">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" style="color:var(--gold)">
+                    <svg class="w-4 h-4" fill="none" stroke="var(--gold-primary)" stroke-width="1.75" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
                 </div>
@@ -626,11 +634,11 @@
             <form @submit.prevent="saveInfo">
                 <div class="grid md:grid-cols-2" style="gap:1.5rem;">
                     <div>
-                        <label class="field-label">Nom complet <span style="color:var(--gold)">*</span></label>
+                        <label class="field-label">Nom complet <span style="color:var(--gold-primary)">*</span></label>
                         <input type="text" x-model="info.student_name" required class="lux-input" placeholder="Votre nom complet">
                     </div>
                     <div>
-                        <label class="field-label">Adresse email <span style="color:var(--gold)">*</span></label>
+                        <label class="field-label">Adresse email <span style="color:var(--gold-primary)">*</span></label>
                         <input type="email" x-model="info.student_email" required class="lux-input" placeholder="votre@email.com">
                     </div>
                     <div>
@@ -675,12 +683,12 @@
             </form>
         </div>
 
-        <!-- ── DOCUMENTS CARD ────────────────────────────────────────── -->
+        <!-- ── DOCUMENTS CARD ──────────────────────────────────────── -->
         <div class="lux-card animate-in delay-2" style="padding:2.25rem;">
 
             <div class="flex items-center" style="gap:1rem;margin-bottom:1.75rem;">
                 <div class="section-icon">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" style="color:var(--gold)">
+                    <svg class="w-4 h-4" fill="none" stroke="var(--gold-primary)" stroke-width="1.75" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
                 </div>
@@ -709,18 +717,18 @@
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-2 flex-wrap">
                                 @if($uploaded)
-                                    <svg class="w-4 h-4 flex-shrink-0" style="color:#4ade80" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                    <svg class="w-4 h-4 flex-shrink-0" style="color:var(--color-success)" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                                 @else
-                                    <svg class="w-4 h-4 flex-shrink-0" style="color:var(--text-faint)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                    <svg class="w-4 h-4 flex-shrink-0" style="color:var(--dark-500)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                 @endif
-                                <span class="font-medium text-sm" style="color:var(--text)">{{ $docLabel }}</span>
+                                <span class="font-medium text-sm" style="color:var(--dark-900);font-family:var(--font-body);">{{ $docLabel }}</span>
                                 @if($isOptional)
                                     <span class="pill pill-gray" style="font-size:0.62rem;padding:0.15rem 0.5rem;">Optionnel</span>
                                 @endif
                             </div>
                             @if($uploaded)
                                 <div class="flex flex-wrap items-center gap-2 mt-1.5 ml-6">
-                                    <span class="text-xs" style="color:var(--text-muted)">{{ $uploaded->original_filename }}</span>
+                                    <span class="text-xs" style="color:var(--dark-600);font-style:italic;">{{ $uploaded->original_filename }}</span>
                                     @if($uploaded->status === 'approved')
                                         <span class="doc-status doc-status-approved">Approuvé</span>
                                     @elseif($uploaded->status === 'rejected')
@@ -730,7 +738,7 @@
                                     @endif
                                 </div>
                                 @if($uploaded->status === 'rejected' && $uploaded->rejection_reason)
-                                    <p class="text-xs mt-1.5 ml-6 px-3 py-2 rounded-lg" style="color:#fca5a5;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2)">
+                                    <p class="text-xs mt-1.5 ml-6 px-3 py-2 rounded-lg" style="color:var(--color-danger);background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.2)">
                                         {{ $uploaded->rejection_reason }}
                                     </p>
                                 @endif
@@ -770,15 +778,15 @@
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-2 flex-wrap">
                                 @if($uploaded)
-                                    <svg class="w-4 h-4 flex-shrink-0" style="color:#4ade80" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                    <svg class="w-4 h-4 flex-shrink-0" style="color:var(--color-success)" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                                 @else
-                                    <svg class="w-4 h-4 flex-shrink-0" style="color:var(--text-faint)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                    <svg class="w-4 h-4 flex-shrink-0" style="color:var(--dark-500)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                 @endif
-                                <span class="font-medium text-sm" style="color:var(--text)">{{ $docLabel }}</span>
+                                <span class="font-medium text-sm" style="color:var(--dark-900);font-family:var(--font-body);">{{ $docLabel }}</span>
                             </div>
                             @if($uploaded)
                                 <div class="flex flex-wrap items-center gap-2 mt-1.5 ml-6">
-                                    <span class="text-xs" style="color:var(--text-muted)">{{ $uploaded->original_filename }}</span>
+                                    <span class="text-xs" style="color:var(--dark-600);font-style:italic;">{{ $uploaded->original_filename }}</span>
                                     @if($uploaded->status === 'approved')
                                         <span class="doc-status doc-status-approved">Approuvé</span>
                                     @elseif($uploaded->status === 'rejected')
@@ -788,7 +796,7 @@
                                     @endif
                                 </div>
                                 @if($uploaded->status === 'rejected' && $uploaded->rejection_reason)
-                                    <p class="text-xs mt-1.5 ml-6 px-3 py-2 rounded-lg" style="color:#fca5a5;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2)">
+                                    <p class="text-xs mt-1.5 ml-6 px-3 py-2 rounded-lg" style="color:var(--color-danger);background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.2)">
                                         {{ $uploaded->rejection_reason }}
                                     </p>
                                 @endif
@@ -821,7 +829,7 @@
 
         </div>
 
-        <!-- ── SUBMIT BUTTON ─────────────────────────────────────────── -->
+        <!-- ── SUBMIT BUTTON ────────────────────────────────────────── -->
         <div class="mt-6 animate-in delay-3">
             @if(!$application->student_submitted_at)
                 <button @click="submitApplication" class="btn-submit" :disabled="submitting">
@@ -834,13 +842,13 @@
             @else
                 <div class="submitted-banner">
                     <div class="submitted-icon">
-                        <svg class="w-8 h-8" style="color:#4ade80" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <svg class="w-8 h-8" style="color:var(--color-success)" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                     </div>
-                    <h3 class="font-display text-xl font-600" style="color:#4ade80">Dossier soumis</h3>
-                    <p class="text-sm mt-1" style="color:rgba(74,222,128,0.7)">
+                    <h3 class="font-display text-xl" style="font-weight:400;color:var(--color-success);letter-spacing:.06em;">Dossier soumis</h3>
+                    <p class="text-sm mt-1" style="color:rgba(46,202,187,.7)">
                         Le {{ $application->student_submitted_at->format('d/m/Y à H:i') }}
                     </p>
-                    <p class="text-sm mt-3" style="color:var(--text-muted)">
+                    <p class="text-sm mt-3" style="color:var(--dark-600)">
                         Vous recevrez une notification par email dès que votre dossier sera examiné.
                     </p>
                 </div>
@@ -849,8 +857,8 @@
 
         <!-- ── FOOTER ───────────────────────────────────────────────── -->
         <div class="page-footer">
-            <p class="font-display text-base italic" style="color:var(--text-muted)">
-                Travel Express &mdash; <span style="color:var(--gold)">Votre partenaire pour les études à l'étranger</span>
+            <p class="font-serif text-base italic" style="color:var(--dark-600)">
+                Travel Express &mdash; <span style="color:var(--gold-primary)">Votre partenaire pour les études à l'étranger</span>
             </p>
         </div>
 
@@ -859,13 +867,13 @@
     <!-- ── TOAST ──────────────────────────────────────────────────────── -->
     <div class="toast-wrap" :class="{ show: toast.show }">
         <div class="toast-inner" style="position:relative">
-            <div :style="toast.type === 'success' ? 'color:#4ade80' : 'color:#f87171'">
+            <div :style="toast.type === 'success' ? 'color:var(--color-success)' : 'color:var(--color-danger)'">
                 <svg x-show="toast.type === 'success'" class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                 <svg x-show="toast.type === 'error'" class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
             </div>
             <div>
-                <p class="font-medium text-sm" style="color:var(--gold)" x-text="toast.title"></p>
-                <p class="text-sm mt-0.5" style="color:var(--text-muted)" x-text="toast.message"></p>
+                <p class="font-medium text-sm" style="color:var(--gold-primary);font-family:var(--font-body);" x-text="toast.title"></p>
+                <p class="text-sm mt-0.5" style="color:var(--dark-600)" x-text="toast.message"></p>
             </div>
         </div>
     </div>

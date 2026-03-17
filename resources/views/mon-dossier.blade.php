@@ -8,32 +8,70 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Bebas+Neue&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ── Royal Design System ────────────────────────────────── */
         :root {
-            --gold:        #D4AF37;
-            --gold-bright: #F0C85C;
-            --gold-dark:   #9A7B1E;
-            --gold-dim:    rgba(212,175,55,0.15);
-            --gold-line:   rgba(212,175,55,0.22);
-            --obsidian:    #080807;
-            --card:        #0e0d0b;
-            --card-2:      #131109;
-            --text:        #F2ECD8;
-            --text-muted:  rgba(242,236,216,0.45);
-            --text-faint:  rgba(242,236,216,0.18);
+            --gold-primary:  #C9A84C;
+            --gold-bright:   #F0D07A;
+            --gold-deep:     #8B6914;
+            --gold-gradient: linear-gradient(135deg, #8B6914 0%, #C9A84C 30%, #F0D07A 50%, #C9A84C 70%, #8B6914 100%);
+            --dark-0:   #080808;
+            --dark-50:  #0D0D0D;
+            --dark-100: #141414;
+            --dark-200: #1C1C1C;
+            --dark-300: #262626;
+            --dark-400: #333333;
+            --dark-500: #4A4A4A;
+            --dark-600: #6B6B6B;
+            --dark-700: #8A8A8A;
+            --dark-800: #B0B0B0;
+            --dark-900: #D4D4D4;
+            --glow-gold:        0 0 20px rgba(201,168,76,.25), 0 0 60px rgba(201,168,76,.08);
+            --glow-gold-strong: 0 0 30px rgba(201,168,76,.4),  0 0 80px rgba(201,168,76,.15);
+            --r-sm:   3px;
+            --r-md:   6px;
+            --r-lg:   10px;
+            --r-xl:   14px;
+            --r-full: 9999px;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-serif:   'Cormorant Garamond', Georgia, serif;
+            --font-body:    'Lato', sans-serif;
+            --color-success: #2ECABB;
+            --color-warning: #F0B428;
+            --color-danger:  #E74C3C;
+            /* Aliases used by existing classes */
+            --gold:       #C9A84C;
+            --gold-line:  rgba(201,168,76,.18);
+            --gold-dim:   rgba(201,168,76,.08);
+            --bg:         #080808;
+            --bg-card:    #141414;
+            --text:       #D4D4D4;
+            --text-muted: #6B6B6B;
+            /* Legacy aliases kept for inline styles referencing old vars */
+            --gold-dark:  #8B6914;
+            --obsidian:   #080808;
+            --card:       #141414;
+            --card-2:     #1C1C1C;
+            --text-faint: rgba(212,212,212,.18);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--obsidian);
+            font-family: var(--font-body);
+            background: var(--dark-0);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
         }
+
+        /* ── Scrollbar ──────────────────────────────────────────── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark-100); }
+        ::-webkit-scrollbar-thumb { background: var(--gold-deep); border-radius: var(--r-full); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
 
         /* ── Background ───────────────────────────────────────── */
         .bg-scene { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
@@ -41,14 +79,14 @@
             content: '';
             position: absolute; inset: 0;
             background:
-                radial-gradient(ellipse 70% 50% at 15% -5%,  rgba(212,175,55,0.07) 0%, transparent 60%),
-                radial-gradient(ellipse 50% 40% at 85% 105%, rgba(212,175,55,0.05) 0%, transparent 55%);
+                radial-gradient(ellipse 70% 50% at 15% -5%,  rgba(201,168,76,0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 85% 105%, rgba(201,168,76,0.05) 0%, transparent 55%);
         }
         .bg-grid {
             position: absolute; inset: 0;
             background-image:
-                linear-gradient(rgba(212,175,55,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212,175,55,0.03) 1px, transparent 1px);
+                linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
             background-size: 48px 48px;
         }
 
@@ -63,8 +101,9 @@
         /* ── Header ───────────────────────────────────────────── */
         .site-header {
             position: sticky; top: 0; z-index: 50;
-            background: rgba(8,8,7,0.92);
+            background: rgba(8,8,8,0.95);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--gold-line);
         }
         .header-inner {
@@ -76,24 +115,24 @@
         }
         .logo-mark {
             width: 36px; height: 36px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            border-radius: var(--r-lg);
+            background: var(--gold-gradient);
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
         }
-        .logo-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--text); }
-        .logo-sub  { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+        .logo-name { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 600; color: var(--text); }
+        .logo-sub  { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-primary); }
         .btn-back {
             display: inline-flex; align-items: center; gap: 0.4rem;
             padding: 0.45rem 1rem;
             border: 1px solid var(--gold-line);
             color: var(--text-muted);
             font-size: 0.78rem;
-            border-radius: 0.5rem;
+            border-radius: var(--r-md);
             text-decoration: none;
             transition: all 0.2s;
         }
-        .btn-back:hover { color: var(--gold); border-color: rgba(212,175,55,0.4); background: var(--gold-dim); }
+        .btn-back:hover { color: var(--gold-primary); border-color: rgba(201,168,76,.4); background: var(--gold-dim); }
 
         /* ── Page title ───────────────────────────────────────── */
         .page-title-block { padding: 2.5rem 0 2rem; }
@@ -102,7 +141,7 @@
         .lux-card {
             background: var(--card);
             border: 1px solid var(--gold-line);
-            border-radius: 1.25rem;
+            border-radius: var(--r-xl);
             position: relative;
             overflow: hidden;
             transition: border-color 0.3s;
@@ -110,10 +149,10 @@
         .lux-card::before {
             content: '';
             position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
             opacity: 0.45;
         }
-        .lux-card:hover { border-color: rgba(212,175,55,0.38); }
+        .lux-card:hover { border-color: rgba(201,168,76,.38); }
 
         /* ── Label text ───────────────────────────────────────── */
         .label-text {
@@ -126,13 +165,13 @@
         .avatar-ring {
             width: 60px; height: 60px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            background: var(--gold-gradient);
             display: flex; align-items: center; justify-content: center;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--font-serif);
             font-size: 1.5rem; font-weight: 700;
-            color: var(--obsidian);
+            color: var(--dark-0);
             position: relative; flex-shrink: 0;
-            box-shadow: 0 0 0 1px var(--gold-dim), 0 6px 24px rgba(212,175,55,0.18);
+            box-shadow: 0 0 0 1px var(--gold-dim), 0 6px 24px rgba(201,168,76,.18);
         }
         .avatar-ring::after {
             content: '';
@@ -147,7 +186,7 @@
             100% { background-position:  200% center; }
         }
         .shimmer-text {
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright), var(--gold-dark));
+            background: linear-gradient(90deg, var(--gold-deep), var(--gold-bright), var(--gold-deep));
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -158,16 +197,16 @@
         /* ── Progress ─────────────────────────────────────────── */
         .prog-track {
             height: 4px;
-            background: rgba(212,175,55,0.1);
-            border-radius: 99px; overflow: hidden; position: relative;
+            background: rgba(201,168,76,.1);
+            border-radius: var(--r-full); overflow: hidden; position: relative;
         }
         .prog-fill {
-            height: 100%; border-radius: 99px;
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-bright));
+            height: 100%; border-radius: var(--r-full);
+            background: var(--gold-gradient);
             transition: width 0.9s cubic-bezier(0.4,0,0.2,1);
         }
         .prog-fill-blue {
-            height: 100%; border-radius: 99px;
+            height: 100%; border-radius: var(--r-full);
             background: linear-gradient(90deg, #1d4ed8, #3b82f6, #60a5fa);
             transition: width 0.9s cubic-bezier(0.4,0,0.2,1);
         }
@@ -175,7 +214,7 @@
         /* ── Status Pills ─────────────────────────────────────── */
         .pill {
             display: inline-flex; align-items: center; gap: 0.3rem;
-            padding: 0.25rem 0.75rem; border-radius: 99px;
+            padding: 0.25rem 0.75rem; border-radius: var(--r-full);
             font-size: 0.68rem; font-weight: 500;
             letter-spacing: 0.06em; text-transform: uppercase;
             border: 1px solid;
@@ -184,8 +223,8 @@
         .pill-red    { color:#f87171; border-color:rgba(248,113,113,0.3); background:rgba(248,113,113,0.07); }
         .pill-blue   { color:#60a5fa; border-color:rgba(96,165,250,0.3);  background:rgba(96,165,250,0.07); }
         .pill-yellow { color:#fbbf24; border-color:rgba(251,191,36,0.3);  background:rgba(251,191,36,0.07); }
-        .pill-gray   { color:rgba(242,236,216,0.5); border-color:rgba(242,236,216,0.12); background:rgba(242,236,216,0.04); }
-        .pill-gold   { color:var(--gold); border-color:var(--gold-line); background:var(--gold-dim); }
+        .pill-gray   { color:var(--dark-700); border-color:rgba(212,212,212,.12); background:rgba(212,212,212,.04); }
+        .pill-gold   { color:var(--gold-primary); border-color:var(--gold-line); background:var(--gold-dim); }
 
         /* ── Tabs ─────────────────────────────────────────────── */
         .tab-bar {
@@ -209,14 +248,14 @@
             display: flex; align-items: center; gap: 0.5rem;
         }
         .tab-btn:hover { color: var(--gold-bright); }
-        .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+        .tab-btn.active { color: var(--gold-primary); border-bottom-color: var(--gold-primary); }
         .tab-count {
             display: inline-flex; align-items: center; justify-content: center;
-            width: 20px; height: 20px; border-radius: 99px;
+            width: 20px; height: 20px; border-radius: var(--r-full);
             font-size: 0.6rem; font-weight: 600;
-            background: rgba(212,175,55,0.15);
+            background: rgba(201,168,76,.15);
             border: 1px solid var(--gold-line);
-            color: var(--gold);
+            color: var(--gold-primary);
         }
         .tab-count.done { background: rgba(74,222,128,0.12); border-color: rgba(74,222,128,0.3); color: #4ade80; }
 
@@ -227,24 +266,24 @@
             gap: 0.75rem;
             padding: 1.1rem 1.35rem;
             background: rgba(255,255,255,0.01);
-            border: 1px solid rgba(212,175,55,0.08);
-            border-left: 3px solid rgba(212,175,55,0.15);
-            border-radius: 0.75rem;
+            border: 1px solid rgba(201,168,76,.08);
+            border-left: 3px solid rgba(201,168,76,.15);
+            border-radius: var(--r-lg);
             transition: all 0.22s;
         }
         @media (min-width: 600px) {
             .doc-row { flex-direction: row; align-items: center; }
         }
-        .doc-row:hover { background: rgba(212,175,55,0.04); border-left-color: var(--gold); border-color: rgba(212,175,55,0.22); }
+        .doc-row:hover { background: rgba(201,168,76,.04); border-left-color: var(--gold-primary); border-color: rgba(201,168,76,.22); }
         .doc-row.doc-done { border-left-color: rgba(74,222,128,0.6); border-color: rgba(74,222,128,0.12); background: rgba(74,222,128,0.02); }
-        .doc-row.doc-optional { border-left-color: rgba(212,175,55,0.08); opacity: 0.75; }
+        .doc-row.doc-optional { border-left-color: rgba(201,168,76,.08); opacity: 0.75; }
         .doc-row.doc-optional:hover { opacity: 1; }
 
         /* ── Doc status ───────────────────────────────────────── */
         .doc-status {
             display: inline-flex; align-items: center; gap: 0.25rem;
             padding: 0.15rem 0.55rem;
-            border-radius: 99px;
+            border-radius: var(--r-full);
             font-size: 0.62rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
         }
         .doc-status-approved { color:#4ade80; background:rgba(74,222,128,0.1);  border:1px solid rgba(74,222,128,0.25); }
@@ -255,32 +294,32 @@
         .btn-gold {
             display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
             padding: 0.52rem 1.05rem;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            color: var(--obsidian);
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.72rem; font-weight: 600;
+            background: var(--gold-gradient);
+            color: var(--dark-0);
+            font-family: var(--font-body);
+            font-size: 0.72rem; font-weight: 700;
             letter-spacing: 0.07em; text-transform: uppercase;
-            border: none; border-radius: 0.5rem;
+            border: none; border-radius: var(--r-md);
             cursor: pointer; transition: all 0.22s; white-space: nowrap;
         }
-        .btn-gold:hover { background: linear-gradient(135deg, var(--gold), var(--gold-bright)); transform: translateY(-1px); box-shadow: 0 5px 20px rgba(212,175,55,0.25); }
+        .btn-gold:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 5px 20px rgba(201,168,76,.28); }
         .btn-gold:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
 
         .btn-ghost {
             display: inline-flex; align-items: center; gap: 0.35rem;
             padding: 0.48rem 0.85rem;
             border: 1px solid var(--gold-line);
-            color: var(--gold);
+            color: var(--gold-primary);
             font-size: 0.72rem; font-weight: 500; letter-spacing: 0.04em;
-            border-radius: 0.5rem; cursor: pointer; background: none;
+            border-radius: var(--r-md); cursor: pointer; background: none;
             transition: all 0.2s; white-space: nowrap; text-decoration: none;
         }
-        .btn-ghost:hover { background: var(--gold-dim); border-color: rgba(212,175,55,0.4); }
+        .btn-ghost:hover { background: var(--gold-dim); border-color: rgba(201,168,76,.4); }
 
         /* ── Section title ────────────────────────────────────── */
-        .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--text); letter-spacing: 0.01em; }
+        .section-title { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 600; color: var(--text); letter-spacing: 0.01em; }
         .section-icon {
-            width: 34px; height: 34px; border-radius: 0.55rem;
+            width: 34px; height: 34px; border-radius: var(--r-md);
             background: var(--gold-dim); border: 1px solid var(--gold-line);
             display: flex; align-items: center; justify-content: center; flex-shrink: 0;
         }
@@ -293,15 +332,15 @@
         }
         .stat-box {
             padding: 1rem;
-            background: rgba(212,175,55,0.05);
+            background: rgba(201,168,76,.05);
             border: 1px solid var(--gold-line);
-            border-radius: 0.75rem;
+            border-radius: var(--r-lg);
             text-align: center;
         }
         .stat-num {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--font-serif);
             font-size: 1.8rem; font-weight: 700;
-            color: var(--gold); line-height: 1; display: block;
+            color: var(--gold-primary); line-height: 1; display: block;
         }
         .stat-lbl {
             font-size: 0.65rem; font-weight: 500;
@@ -313,8 +352,8 @@
         .opt-badge {
             font-size: 0.6rem; font-weight: 500; letter-spacing: 0.06em;
             text-transform: uppercase; padding: 0.1rem 0.45rem;
-            border-radius: 99px; border: 1px solid rgba(212,175,55,0.2);
-            color: var(--text-muted); background: rgba(212,175,55,0.05);
+            border-radius: var(--r-full); border: 1px solid rgba(201,168,76,.2);
+            color: var(--text-muted); background: rgba(201,168,76,.05);
         }
 
         /* ── Auto-validation badge ────────────────────────────── */
@@ -323,15 +362,15 @@
             padding: 0.6rem 1rem;
             background: rgba(74,222,128,0.05);
             border: 1px solid rgba(74,222,128,0.18);
-            border-radius: 0.625rem;
+            border-radius: var(--r-lg);
         }
 
         /* ── Spinner ──────────────────────────────────────────── */
         @keyframes spin { to { transform: rotate(360deg); } }
         .spinner {
             width: 40px; height: 40px;
-            border: 3px solid rgba(212,175,55,0.12);
-            border-top-color: var(--gold);
+            border: 3px solid rgba(201,168,76,.12);
+            border-top-color: var(--gold-primary);
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
@@ -356,7 +395,7 @@
         .toast-inner {
             background: var(--card);
             border: 1px solid var(--gold-line);
-            border-radius: 0.875rem;
+            border-radius: var(--r-xl);
             padding: 0.875rem 1.125rem;
             display: flex; align-items: flex-start; gap: 0.75rem;
             box-shadow: 0 12px 40px rgba(0,0,0,0.6);
@@ -378,7 +417,7 @@
         <div class="header-inner">
             <a href="/" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;">
                 <div class="logo-mark">
-                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:18px;height:18px;color:#080807">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:18px;height:18px;color:var(--dark-0)">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 </div>
@@ -399,7 +438,7 @@
         <!-- Page title -->
         <div class="page-title-block anim">
             <p class="label-text" style="margin-bottom:0.5rem;">Espace candidat</p>
-            <h1 style="font-family:'Cormorant Garamond',serif;font-size:2.25rem;font-weight:600;line-height:1.1;color:var(--text)">
+            <h1 style="font-family:var(--font-serif);font-size:2.25rem;font-weight:600;line-height:1.1;color:var(--text)">
                 Mon <span class="shimmer-text">Dossier</span>
             </h1>
             <p style="margin-top:0.5rem;font-size:0.875rem;color:var(--text-muted)">
@@ -416,27 +455,27 @@
         <!-- NOT LOGGED IN -->
         <div x-show="!loading && !isLoggedIn" class="lux-card anim" style="padding:3rem;text-align:center;">
             <div style="width:64px;height:64px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-line);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
-                <svg style="width:28px;height:28px;color:var(--gold)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <svg style="width:28px;height:28px;color:var(--gold-primary)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
             </div>
-            <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;margin-bottom:0.75rem;">Connexion requise</h2>
+            <h2 style="font-family:var(--font-serif);font-size:1.6rem;font-weight:600;margin-bottom:0.75rem;">Connexion requise</h2>
             <p style="color:var(--text-muted);font-size:0.875rem;margin-bottom:1.75rem;">Connectez-vous pour accéder à votre dossier de candidature.</p>
             <a href="/login" class="btn-gold" style="padding:0.75rem 2rem;font-size:0.85rem;">Se connecter</a>
         </div>
 
         <!-- ERROR -->
-        <div x-show="error && isLoggedIn" class="lux-card anim" style="padding:1.5rem;border-color:rgba(248,113,113,0.25);margin-bottom:1rem;">
+        <div x-show="error && isLoggedIn" class="lux-card anim" style="padding:1.5rem;border-color:rgba(231,76,60,.25);margin-bottom:1rem;">
             <div style="display:flex;align-items:center;gap:0.75rem;">
-                <svg style="width:18px;height:18px;color:#f87171;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                <p style="color:#f87171;font-size:0.875rem;" x-text="error"></p>
+                <svg style="width:18px;height:18px;color:var(--color-danger);flex-shrink:0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                <p style="color:var(--color-danger);font-size:0.875rem;" x-text="error"></p>
             </div>
         </div>
 
         <!-- NO DOSSIER -->
         <div x-show="!loading && isLoggedIn && applications.length === 0 && !error" class="lux-card anim" style="padding:3rem;text-align:center;">
             <div style="width:64px;height:64px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-line);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
-                <svg style="width:28px;height:28px;color:var(--gold)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <svg style="width:28px;height:28px;color:var(--gold-primary)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             </div>
-            <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;margin-bottom:0.75rem;">Aucun dossier trouvé</h2>
+            <h2 style="font-family:var(--font-serif);font-size:1.6rem;font-weight:600;margin-bottom:0.75rem;">Aucun dossier trouvé</h2>
             <p style="color:var(--text-muted);font-size:0.875rem;margin-bottom:0.5rem;">Aucun dossier n'est associé à votre adresse email.</p>
             <p class="label-text" x-text="userEmail" style="margin-top:0.25rem;"></p>
         </div>
@@ -454,21 +493,21 @@
                             <div style="
                                 position:relative;
                                 padding:2rem 2rem 1.6rem;
-                                background:linear-gradient(135deg,#0a0900 0%,#110f07 60%,#0e0c05 100%);
+                                background:linear-gradient(135deg,var(--dark-50) 0%,var(--dark-100) 60%,var(--dark-50) 100%);
                                 overflow:hidden;
                             ">
                                 <!-- Decorative corner glow -->
-                                <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,0.12) 0%,transparent 70%);pointer-events:none;"></div>
-                                <div style="position:absolute;bottom:-60px;left:-20px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+                                <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 70%);pointer-events:none;"></div>
+                                <div style="position:absolute;bottom:-60px;left:-20px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,transparent 70%);pointer-events:none;"></div>
 
                                 <!-- Diagonal stripe texture -->
-                                <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(55deg,rgba(212,175,55,0.025) 0px,rgba(212,175,55,0.025) 1px,transparent 1px,transparent 28px);pointer-events:none;"></div>
+                                <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(55deg,rgba(201,168,76,0.025) 0px,rgba(201,168,76,0.025) 1px,transparent 1px,transparent 28px);pointer-events:none;"></div>
 
                                 <!-- Top row: logo mark + status pill -->
                                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;position:relative;">
                                     <div style="display:flex;align-items:center;gap:0.5rem;">
-                                        <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold);"></div>
-                                        <span style="font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);">Travel Express</span>
+                                        <div style="width:8px;height:8px;border-radius:50%;background:var(--gold-primary);box-shadow:0 0 8px var(--gold-primary);"></div>
+                                        <span style="font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-primary);">Travel Express</span>
                                         <span style="color:var(--gold-line);font-size:0.8rem;margin:0 0.25rem;">·</span>
                                         <span style="font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);">Carte Candidat</span>
                                     </div>
@@ -491,14 +530,14 @@
                                     <div style="position:relative;flex-shrink:0;">
                                         <div style="
                                             width:76px;height:76px;border-radius:18px;
-                                            background:linear-gradient(145deg,#9A7B1E,#D4AF37,#F0C85C);
+                                            background:var(--gold-gradient);
                                             display:flex;align-items:center;justify-content:center;
-                                            font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;
-                                            color:#080807;letter-spacing:-1px;
-                                            box-shadow:0 8px 32px rgba(212,175,55,0.3),0 0 0 1px rgba(212,175,55,0.4);
+                                            font-family:var(--font-serif);font-size:1.9rem;font-weight:700;
+                                            color:var(--dark-0);letter-spacing:-1px;
+                                            box-shadow:0 8px 32px rgba(201,168,76,0.3),0 0 0 1px rgba(201,168,76,0.4);
                                         " x-text="app.student_name ? app.student_name.split(' ').map(n=>n[0]).join('').toUpperCase().substring(0,2) : '?'"></div>
                                         <!-- verified dot -->
-                                        <div style="position:absolute;bottom:-3px;right:-3px;width:18px;height:18px;border-radius:50%;background:#080807;border:2px solid #080807;display:flex;align-items:center;justify-content:center;">
+                                        <div style="position:absolute;bottom:-3px;right:-3px;width:18px;height:18px;border-radius:50%;background:var(--dark-50);border:2px solid var(--dark-50);display:flex;align-items:center;justify-content:center;">
                                             <svg style="width:11px;height:11px;color:#4ade80" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                                         </div>
                                     </div>
@@ -506,7 +545,7 @@
                                     <!-- Name + info -->
                                     <div style="flex:1;min-width:0;">
                                         <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.3rem;">Nom complet</p>
-                                        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="shimmer-text" x-text="app.student_name || 'Sans nom'"></h2>
+                                        <h2 style="font-family:var(--font-serif);font-size:1.9rem;font-weight:700;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="shimmer-text" x-text="app.student_name || 'Sans nom'"></h2>
                                         <p style="font-size:0.9rem;color:var(--text-muted);margin-top:0.35rem;display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
                                             <svg style="width:13px;height:13px;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                                             <span x-text="app.student_email"></span>
@@ -520,12 +559,12 @@
                                             <div style="
                                                 display:inline-flex;align-items:center;gap:0.35rem;
                                                 padding:0.3rem 0.75rem;
-                                                background:rgba(212,175,55,0.1);
+                                                background:rgba(201,168,76,0.1);
                                                 border:1px solid var(--gold-line);
-                                                border-radius:0.5rem;
+                                                border-radius:var(--r-md);
                                             ">
-                                                <svg style="width:11px;height:11px;color:var(--gold)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-                                                <span style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);" x-text="app.program_type"></span>
+                                                <svg style="width:11px;height:11px;color:var(--gold-primary)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                                                <span style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-primary);" x-text="app.program_type"></span>
                                             </div>
                                         </template>
                                         <!-- Dossier ID -->
@@ -535,12 +574,12 @@
 
                                 <!-- SIM chip decorative -->
                                 <div style="position:absolute;bottom:1.25rem;right:2rem;opacity:0.18;">
-                                    <div style="width:36px;height:28px;border-radius:4px;border:1px solid var(--gold);display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:2px;padding:3px;">
-                                        <div style="background:var(--gold);border-radius:1px;grid-column:1/-1;"></div>
-                                        <div style="background:var(--gold);border-radius:1px;"></div>
+                                    <div style="width:36px;height:28px;border-radius:4px;border:1px solid var(--gold-primary);display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:2px;padding:3px;">
+                                        <div style="background:var(--gold-primary);border-radius:1px;grid-column:1/-1;"></div>
+                                        <div style="background:var(--gold-primary);border-radius:1px;"></div>
                                         <div style="background:transparent;border-radius:1px;"></div>
-                                        <div style="background:var(--gold);border-radius:1px;"></div>
-                                        <div style="background:var(--gold);border-radius:1px;grid-column:1/-1;"></div>
+                                        <div style="background:var(--gold-primary);border-radius:1px;"></div>
+                                        <div style="background:var(--gold-primary);border-radius:1px;grid-column:1/-1;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -553,7 +592,7 @@
                                     <div>
                                         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.45rem;">
                                             <span style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(96,165,250,0.7);">Initial</span>
-                                            <span style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#60a5fa;" x-text="app.completion_percentage + '%'"></span>
+                                            <span style="font-family:var(--font-serif);font-size:1.2rem;font-weight:700;color:#60a5fa;" x-text="app.completion_percentage + '%'"></span>
                                         </div>
                                         <div style="height:6px;background:rgba(96,165,250,0.1);border-radius:99px;overflow:hidden;">
                                             <div style="height:100%;border-radius:99px;background:linear-gradient(90deg,#1d4ed8,#3b82f6,#60a5fa);transition:width 1s cubic-bezier(0.4,0,0.2,1);" :style="'width:' + app.completion_percentage + '%'"></div>
@@ -562,32 +601,32 @@
                                     </div>
                                     <div>
                                         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.45rem;">
-                                            <span style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(212,175,55,0.7);">Complémentaire</span>
-                                            <span style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--gold);" x-text="app.complementary_completion_percentage + '%'"></span>
+                                            <span style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.7);">Complémentaire</span>
+                                            <span style="font-family:var(--font-serif);font-size:1.2rem;font-weight:700;color:var(--gold-primary);" x-text="app.complementary_completion_percentage + '%'"></span>
                                         </div>
-                                        <div style="height:6px;background:rgba(212,175,55,0.1);border-radius:99px;overflow:hidden;">
-                                            <div style="height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-bright));transition:width 1s cubic-bezier(0.4,0,0.2,1);" :style="'width:' + app.complementary_completion_percentage + '%'"></div>
+                                        <div style="height:6px;background:rgba(201,168,76,0.1);border-radius:99px;overflow:hidden;">
+                                            <div style="height:100%;border-radius:99px;background:var(--gold-gradient);transition:width 1s cubic-bezier(0.4,0,0.2,1);" :style="'width:' + app.complementary_completion_percentage + '%'"></div>
                                         </div>
                                         <p style="font-size:0.7rem;color:var(--text-faint);margin-top:0.3rem;" x-text="app.documents.filter(d => d.is_complementary).length + ' / 7 documents'"></p>
                                     </div>
                                 </div>
 
                                 <!-- Stats strip -->
-                                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--gold-line);border-radius:0.75rem;overflow:hidden;">
+                                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--gold-line);border-radius:var(--r-lg);overflow:hidden;">
                                     <div style="padding:0.9rem;text-align:center;border-right:1px solid var(--gold-line);">
-                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:#60a5fa;line-height:1;" x-text="app.documents.filter(d => !d.is_complementary).length"></span>
+                                        <span style="display:block;font-family:var(--font-serif);font-size:1.75rem;font-weight:700;color:#60a5fa;line-height:1;" x-text="app.documents.filter(d => !d.is_complementary).length"></span>
                                         <span style="display:block;font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.25rem;">Initiaux</span>
                                     </div>
                                     <div style="padding:0.9rem;text-align:center;border-right:1px solid var(--gold-line);">
-                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:var(--gold);line-height:1;" x-text="app.documents.filter(d => d.is_complementary).length"></span>
+                                        <span style="display:block;font-family:var(--font-serif);font-size:1.75rem;font-weight:700;color:var(--gold-primary);line-height:1;" x-text="app.documents.filter(d => d.is_complementary).length"></span>
                                         <span style="display:block;font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.25rem;">Complémentaires</span>
                                     </div>
                                     <div style="padding:0.9rem;text-align:center;border-right:1px solid var(--gold-line);">
-                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--text);line-height:1;padding-top:0.2rem;" x-text="app.current_step_label || ('Étape ' + app.current_step)"></span>
+                                        <span style="display:block;font-family:var(--font-serif);font-size:1.1rem;font-weight:700;color:var(--text);line-height:1;padding-top:0.2rem;" x-text="app.current_step_label || ('Étape ' + app.current_step)"></span>
                                         <span style="display:block;font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.25rem;">Étape</span>
                                     </div>
                                     <div style="padding:0.9rem;text-align:center;">
-                                        <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:700;color:var(--text);line-height:1;padding-top:0.25rem;" x-text="app.created_at"></span>
+                                        <span style="display:block;font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--text);line-height:1;padding-top:0.25rem;" x-text="app.created_at"></span>
                                         <span style="display:block;font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-top:0.25rem;">Création</span>
                                     </div>
                                 </div>
@@ -641,7 +680,7 @@
                                         </div>
                                         <h3 class="section-title">Documents Initiaux</h3>
                                     </div>
-                                    <span class="label-text" style="color:var(--text-faint);">Programme : <span style="color:var(--gold);text-transform:capitalize;" x-text="app.program_type || 'licence'"></span></span>
+                                    <span class="label-text" style="color:var(--text-faint);">Programme : <span style="color:var(--gold-primary);text-transform:capitalize;" x-text="app.program_type || 'licence'"></span></span>
                                 </div>
 
                                 <div style="display:flex;flex-direction:column;gap:0.6rem;">
@@ -701,7 +740,7 @@
                                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem;">
                                     <div style="display:flex;align-items:center;gap:0.75rem;">
                                         <div class="section-icon">
-                                            <svg style="width:15px;height:15px;color:var(--gold)" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                                            <svg style="width:15px;height:15px;color:var(--gold-primary)" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
                                         </div>
                                         <h3 class="section-title">Documents Complémentaires</h3>
                                     </div>
@@ -757,8 +796,8 @@
                 </template>
 
                 <div class="page-footer">
-                    <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:var(--text-muted);">
-                        Travel Express &mdash; <span style="color:var(--gold);">Votre partenaire pour les études à l'étranger</span>
+                    <p style="font-family:var(--font-serif);font-size:1rem;font-style:italic;color:var(--text-muted);">
+                        Travel Express &mdash; <span style="color:var(--gold-primary);">Votre partenaire pour les études à l'étranger</span>
                     </p>
                 </div>
             </div>
@@ -769,12 +808,12 @@
     <!-- TOAST -->
     <div class="toast-wrap" :class="{ show: toast.show }">
         <div class="toast-inner">
-            <div :style="toast.type === 'success' ? 'color:#4ade80' : 'color:#f87171'">
+            <div :style="toast.type === 'success' ? 'color:#4ade80' : 'color:var(--color-danger)'">
                 <svg x-show="toast.type === 'success'" style="width:18px;height:18px;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                 <svg x-show="toast.type === 'error'" style="width:18px;height:18px;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
             </div>
             <div>
-                <p style="font-size:0.85rem;font-weight:500;color:var(--gold);" x-text="toast.title"></p>
+                <p style="font-size:0.85rem;font-weight:500;color:var(--gold-primary);" x-text="toast.title"></p>
                 <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.15rem;" x-text="toast.message"></p>
             </div>
         </div>

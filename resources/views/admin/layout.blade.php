@@ -6,37 +6,83 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? 'Admin Panel' }} - Travel Express</title>
 
-    <!-- Preload critical resources -->
+    <!-- Royal Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Bebas+Neue&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
+        /* ── Royal Design System ────────────────────────────────── */
         :root {
-            --gold: #d4af37;
-            --gold-light: #f4e4bc;
-            --gold-dark: #b8960c;
-            --noir: #0a0a0a;
-            --noir-light: #1a1a1a;
+            --gold-primary:  #C9A84C;
+            --gold-bright:   #F0D07A;
+            --gold-deep:     #8B6914;
+            --gold-gradient: linear-gradient(135deg, #8B6914 0%, #C9A84C 30%, #F0D07A 50%, #C9A84C 70%, #8B6914 100%);
+            --dark-0:   #080808;
+            --dark-50:  #0D0D0D;
+            --dark-100: #141414;
+            --dark-200: #1C1C1C;
+            --dark-300: #262626;
+            --dark-400: #333333;
+            --dark-500: #4A4A4A;
+            --dark-600: #6B6B6B;
+            --dark-700: #8A8A8A;
+            --dark-800: #B0B0B0;
+            --dark-900: #D4D4D4;
+            --glow-gold:        0 0 20px rgba(201,168,76,.25), 0 0 60px rgba(201,168,76,.08);
+            --glow-gold-strong: 0 0 30px rgba(201,168,76,.4),  0 0 80px rgba(201,168,76,.15);
+            --r-sm:   3px;
+            --r-md:   6px;
+            --r-lg:   10px;
+            --r-xl:   14px;
+            --r-full: 9999px;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-serif:   'Cormorant Garamond', Georgia, serif;
+            --font-body:    'Lato', sans-serif;
+            --color-success: #2ECABB;
+            --color-warning: #F0B428;
+            --color-danger:  #E74C3C;
+            /* Compatibility aliases */
+            --gold:     #C9A84C;
+            --gold-line: rgba(201,168,76,.18);
+            --gold-dim:  rgba(201,168,76,.08);
+            --bg:        #080808;
+            --bg-card:   #141414;
+            --text:      #D4D4D4;
+            --text-muted:#6B6B6B;
         }
 
-        * { font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+        *, *::before, *::after { box-sizing: border-box; }
 
-        body {
-            background-color: var(--noir);
+        * {
+            font-family: var(--font-body);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Loading overlay */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-serif);
+        }
+
+        body {
+            background-color: var(--dark-0);
+            color: var(--dark-900);
+            margin: 0;
+        }
+
+        /* ── Scrollbar ──────────────────────────────────────────── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark-100); }
+        ::-webkit-scrollbar-thumb { background: var(--gold-deep); border-radius: var(--r-full); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
+
+        /* ── Loading overlay ────────────────────────────────────── */
         .page-loading {
             position: fixed;
             inset: 0;
-            background: var(--noir);
+            background: var(--dark-0);
             z-index: 9999;
             display: flex;
             align-items: center;
@@ -53,36 +99,210 @@
         .loading-spinner {
             width: 40px;
             height: 40px;
-            border: 3px solid rgba(212, 175, 55, 0.1);
-            border-top-color: var(--gold);
+            border: 3px solid rgba(201,168,76,.12);
+            border-top-color: var(--gold-primary);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Elegant card */
+        /* ── Cards ──────────────────────────────────────────────── */
         .elegant-card {
-            background: linear-gradient(145deg, var(--noir-light) 0%, var(--noir) 100%);
-            border-radius: 1rem;
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            transition: all 0.3s ease;
+            background: var(--dark-100);
+            border-radius: var(--r-xl);
+            border: 1px solid rgba(201,168,76,.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .elegant-card:hover {
-            border-color: rgba(212, 175, 55, 0.3);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(201,168,76,.25);
+            box-shadow: var(--glow-gold);
         }
 
-        /* Quick fade animation */
+        /* ── KPI cards ──────────────────────────────────────────── */
+        .kpi-card {
+            background: var(--dark-100);
+            border: 1px solid rgba(201,168,76,.1);
+            border-radius: var(--r-xl);
+            overflow: hidden;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            border-color: rgba(201,168,76,.25);
+            box-shadow: var(--glow-gold);
+        }
+
+        .kpi-card-bar {
+            height: 3px;
+            background: var(--gold-gradient);
+        }
+
+        .kpi-number {
+            font-family: var(--font-display);
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        /* ── Tables ─────────────────────────────────────────────── */
+        .royal-table { width: 100%; border-collapse: collapse; }
+
+        .royal-table thead tr {
+            background: rgba(201,168,76,.06);
+        }
+
+        .royal-table th {
+            color: var(--gold-deep);
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.875rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(201,168,76,.12);
+        }
+
+        .royal-table td {
+            padding: 0.875rem 1rem;
+            font-size: 0.875rem;
+            color: var(--dark-800);
+            border-bottom: 1px solid rgba(255,255,255,.03);
+        }
+
+        .royal-table tbody tr {
+            transition: background 0.15s ease;
+        }
+
+        .royal-table tbody tr:hover {
+            background: rgba(201,168,76,.04);
+        }
+
+        /* ── Buttons ─────────────────────────────────────────────── */
+        .btn-royal {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            padding: 0.55rem 1.25rem;
+            background: var(--gold-gradient);
+            color: #080808;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: var(--r-md);
+            cursor: pointer;
+            transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn-royal:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(201,168,76,.3);
+        }
+
+        .btn-royal:active { transform: translateY(0); }
+        .btn-royal:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+        .btn-ghost-royal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gold-line);
+            color: var(--gold-primary);
+            font-size: 0.78rem;
+            font-weight: 500;
+            border-radius: var(--r-md);
+            cursor: pointer;
+            background: none;
+            transition: background 0.2s, border-color 0.2s;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn-ghost-royal:hover {
+            background: var(--gold-dim);
+            border-color: rgba(201,168,76,.35);
+        }
+
+        /* ── Main content area ──────────────────────────────────── */
+        .main-content {
+            background: var(--dark-0);
+        }
+
+        /* ── Page header ────────────────────────────────────────── */
+        .page-header-royal {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: rgba(8,8,8,.95);
+            border-bottom: 1px solid rgba(201,168,76,.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* ── Animations ─────────────────────────────────────────── */
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        .fade-in { animation: fadeIn 0.3s ease forwards; }
+        .fade-in { animation: fadeIn 0.35s ease forwards; }
+
+        /* ── Section label ──────────────────────────────────────── */
+        .section-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--dark-600);
+            padding: 0 0.75rem;
+            margin: 1rem 0 0.35rem;
+        }
+
+        /* ── Status pills ────────────────────────────────────────── */
+        .pill-royal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.65rem;
+            border-radius: var(--r-full);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            border: 1px solid;
+        }
+
+        .pill-success { color: var(--color-success); border-color: rgba(46,202,187,.25); background: rgba(46,202,187,.08); }
+        .pill-warning { color: var(--color-warning); border-color: rgba(240,180,40,.25); background: rgba(240,180,40,.08); }
+        .pill-danger  { color: var(--color-danger);  border-color: rgba(231,76,60,.25);  background: rgba(231,76,60,.08);  }
+        .pill-gold    { color: var(--gold-primary);  border-color: var(--gold-line);     background: var(--gold-dim);     }
+        .pill-muted   { color: var(--dark-600);      border-color: rgba(255,255,255,.08); background: rgba(255,255,255,.03); }
+
+        /* ── Gold gradient text utility ─────────────────────────── */
+        .text-gold-gradient {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ── Footer ─────────────────────────────────────────────── */
+        .royal-footer {
+            background: var(--dark-50);
+            border-top: 1px solid rgba(201,168,76,.1);
+        }
     </style>
 
     @stack('styles')
@@ -101,9 +321,9 @@
         <div class="main-content min-h-screen flex flex-col transition-all duration-300" style="margin-left: 0;" id="main-content">
             <!-- Header -->
             @include('admin.partials.header', [
-                'title' => $title ?? 'Dashboard',
-                'subtitle' => $subtitle ?? null,
-                'showSearch' => $showSearch ?? false
+                'title'      => $title      ?? 'Dashboard',
+                'subtitle'   => $subtitle   ?? null,
+                'showSearch' => $showSearch  ?? false
             ])
 
             <!-- Page Content -->
@@ -112,15 +332,16 @@
             </main>
 
             <!-- Footer -->
-            <footer class="bg-[#0a0a0a] border-t border-[#d4af37]/10 py-4 px-4 sm:px-6 lg:px-8 mt-auto">
+            <footer class="royal-footer py-4 px-4 sm:px-6 lg:px-8 mt-auto">
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p class="text-sm text-gray-500">
-                        &copy; {{ date('Y') }} Travel Express. Tous droits reserves.
+                    <p class="text-sm" style="color: var(--dark-600);">
+                        &copy; {{ date('Y') }} Travel Express. Tous droits réservés.
                     </p>
-                    <div class="flex items-center gap-4 text-sm text-gray-500">
-                        <span class="text-[#d4af37]">Version 2.0</span>
-                        <span class="text-gray-700">|</span>
-                        <a href="#" class="hover:text-[#d4af37] transition-colors">Support</a>
+                    <div class="flex items-center gap-4 text-sm" style="color: var(--dark-600);">
+                        <span style="color: var(--gold-primary); font-family: var(--font-display); font-size: 1rem; letter-spacing: 0.08em;">Version 2.0</span>
+                        <span style="color: var(--dark-400);">|</span>
+                        <a href="#" style="color: var(--dark-600); transition: color 0.2s; text-decoration: none;"
+                           onmouseover="this.style.color='var(--gold-primary)'" onmouseout="this.style.color='var(--dark-600)'">Support</a>
                     </div>
                 </div>
             </footer>
@@ -206,26 +427,41 @@
             }
         }
 
-        // Toast notification (simplified)
+        // Toast notification — Royal style
         function showToast(message, type = 'success') {
-            const colors = {
-                success: 'from-emerald-500 to-emerald-700',
-                error: 'from-red-500 to-red-700',
-                warning: 'from-amber-500 to-amber-700',
-                info: 'from-[#d4af37] to-[#b8960c]'
+            const colorMap = {
+                success: { bg: 'var(--color-success)',  border: 'rgba(46,202,187,.3)' },
+                error:   { bg: 'var(--color-danger)',   border: 'rgba(231,76,60,.3)'  },
+                warning: { bg: 'var(--color-warning)',  border: 'rgba(240,180,40,.3)' },
+                info:    { bg: 'var(--gold-primary)',   border: 'var(--gold-line)'    },
             };
+            const c = colorMap[type] || colorMap.info;
 
             const toast = document.createElement('div');
-            toast.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-2xl bg-gradient-to-r ${colors[type] || colors.info} text-white font-medium transform transition-transform duration-300 translate-x-full`;
+            toast.style.cssText = `
+                position: fixed; top: 1.25rem; right: 1.25rem; z-index: 9999;
+                padding: 0.875rem 1.25rem;
+                background: var(--dark-100);
+                border: 1px solid ${c.border};
+                border-left: 3px solid ${c.bg};
+                border-radius: var(--r-lg);
+                color: var(--dark-900);
+                font-family: var(--font-body);
+                font-size: 0.875rem;
+                font-weight: 500;
+                box-shadow: 0 8px 32px rgba(0,0,0,.6);
+                transform: translateX(120%);
+                transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+                max-width: 320px;
+            `;
             toast.textContent = message;
-
             document.body.appendChild(toast);
-            requestAnimationFrame(() => toast.classList.remove('translate-x-full'));
+            requestAnimationFrame(() => { toast.style.transform = 'translateX(0)'; });
 
             setTimeout(() => {
-                toast.classList.add('translate-x-full');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
+                toast.style.transform = 'translateX(120%)';
+                setTimeout(() => toast.remove(), 350);
+            }, 3500);
         }
 
         // Set initial margin for main content

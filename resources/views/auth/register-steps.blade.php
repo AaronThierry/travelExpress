@@ -5,237 +5,420 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription - Travel Express</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Royal Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Bebas+Neue&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+        :root {
+            --gold-primary: #C9A84C; --gold-bright: #F0D07A; --gold-deep: #8B6914;
+            --gold-gradient: linear-gradient(135deg, #8B6914 0%, #C9A84C 30%, #F0D07A 50%, #C9A84C 70%, #8B6914 100%);
+            --dark-0: #080808; --dark-100: #141414; --dark-200: #1C1C1C; --dark-300: #262626;
+            --dark-400: #333333; --dark-500: #4A4A4A; --dark-600: #6B6B6B;
+            --dark-700: #8A8A8A; --dark-800: #B0B0B0; --dark-900: #D4D4D4;
+            --glow-gold: 0 0 20px rgba(201,168,76,.25), 0 0 60px rgba(201,168,76,.08);
+            --glow-gold-strong: 0 0 30px rgba(201,168,76,.4), 0 0 80px rgba(201,168,76,.15);
+            --color-success: #2ECABB; --color-warning: #F0B428; --color-danger: #E74C3C;
+            --r-sm:3px; --r-md:6px; --r-lg:10px; --r-xl:14px; --r-full:9999px;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Lato', sans-serif;
         }
 
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark-0);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Gold grid overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(201,168,76,.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,168,76,.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shimmer {
+            0%   { background-position: -200% center; }
+            100% { background-position:  200% center; }
+        }
+
+        /* ---- ROYAL CARD ---- */
+        .royal-card {
+            background: var(--dark-100);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-xl);
+            position: relative;
+            overflow: hidden;
+        }
+        .royal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--gold-gradient);
+        }
+        .corner-tl, .corner-tr, .corner-bl, .corner-br {
+            position: absolute;
+            width: 18px; height: 18px;
+            border-color: var(--gold-primary);
+            border-style: solid;
+            opacity: .4;
+            pointer-events: none;
+        }
+        .corner-tl { top: 10px; left: 10px;  border-width: 1px 0 0 1px; border-radius: 2px 0 0 0; }
+        .corner-tr { top: 10px; right: 10px; border-width: 1px 1px 0 0; border-radius: 0 2px 0 0; }
+        .corner-bl { bottom: 10px; left: 10px;  border-width: 0 0 1px 1px; border-radius: 0 0 0 2px; }
+        .corner-br { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; border-radius: 0 0 2px 0; }
+
+        /* ---- LOGO / TITLE ---- */
+        .gold-text {
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s linear infinite;
+        }
+
+        /* ---- PROGRESS BAR ---- */
+        .progress-bar {
+            height: 8px;
+            background: var(--dark-300);
+            border-radius: var(--r-full);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            transition: width 0.5s ease;
+            border-radius: var(--r-full);
+        }
+
+        /* ---- STEP INDICATOR ---- */
         .step-indicator {
             position: relative;
             display: flex;
             justify-content: space-between;
             margin-bottom: 3rem;
         }
-
         .step {
             position: relative;
             flex: 1;
             text-align: center;
         }
-
         .step-circle {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: #e5e7eb;
-            color: #9ca3af;
+            background: var(--dark-300);
+            border: 1px solid rgba(201,168,76,.15);
+            color: var(--dark-700);
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 0.5rem;
+            font-family: var(--font-body);
             font-weight: 700;
-            font-size: 1.125rem;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
             position: relative;
             z-index: 2;
         }
-
         .step.active .step-circle {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            color: #080808;
+            box-shadow: var(--glow-gold-strong);
             transform: scale(1.1);
+            border-color: transparent;
         }
-
         .step.completed .step-circle {
-            background: #10b981;
-            color: white;
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            color: #080808;
+            border-color: transparent;
         }
+        .step-label {
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--dark-600);
+        }
+        .step.active .step-label  { color: var(--gold-primary); }
+        .step.completed .step-label { color: var(--gold-deep); }
 
         .step-line {
             position: absolute;
             top: 25px;
             left: 50%;
             right: -50%;
-            height: 3px;
-            background: #e5e7eb;
+            height: 2px;
+            background: var(--dark-400);
             z-index: 1;
             transition: all 0.3s ease;
         }
+        .step.completed .step-line { background: var(--gold-primary); }
+        .step:last-child .step-line { display: none; }
 
-        .step.completed .step-line {
-            background: #10b981;
-        }
+        /* ---- FORM STEPS ---- */
+        .form-step { display: none; animation: fadeInUp 0.5s ease; }
+        .form-step.active { display: block; }
 
-        .step:last-child .step-line {
-            display: none;
-        }
-
-        .form-step {
-            display: none;
-            animation: fadeInUp 0.5s ease;
-        }
-
-        .form-step.active {
-            display: block;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-
+        /* ---- INPUT GROUP ---- */
+        .input-group { position: relative; margin-bottom: 1.25rem; }
         .input-group input,
         .input-group select,
         .input-group textarea {
             width: 100%;
-            padding: 0.875rem 1rem 0.875rem 3rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 0.9375rem;
-            transition: all 0.3s ease;
-            background: white;
+            padding: .875rem 1rem .875rem 3rem;
+            background: var(--dark-200);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-lg);
+            font-family: var(--font-body);
+            font-size: .9rem;
+            color: var(--dark-900);
+            transition: border-color .25s, box-shadow .25s;
+            appearance: none;
+            -webkit-appearance: none;
+            outline: none;
         }
-
         .input-group textarea {
             resize: vertical;
             min-height: 100px;
+            padding-left: 3rem;
         }
-
+        .input-group input::placeholder,
+        .input-group textarea::placeholder { color: var(--dark-600); }
         .input-group input:focus,
         .input-group select:focus,
         .input-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(201,168,76,.12);
         }
-
+        .input-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238B6914' stroke-width='2.5'%3E%3Cpath d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 2.5rem;
+            cursor: pointer;
+        }
+        .input-group select option {
+            background: var(--dark-200);
+            color: var(--dark-900);
+        }
         .input-icon {
             position: absolute;
             left: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: #9ca3af;
+            color: var(--gold-deep);
             pointer-events: none;
+            font-size: .95rem;
         }
+        .input-group textarea ~ .input-icon { top: 1.2rem; transform: none; }
 
+        /* ---- GENDER OPTION ---- */
         .gender-option {
             flex: 1;
             padding: 1rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-lg);
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
-            background: white;
+            background: var(--dark-200);
+            color: var(--dark-800);
         }
-
         .gender-option:hover {
-            border-color: #667eea;
+            border-color: var(--gold-primary);
+            background: rgba(201,168,76,.05);
+            color: var(--gold-primary);
             transform: translateY(-2px);
         }
-
         .gender-option.selected {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            border-color: var(--gold-primary);
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            color: #080808;
+            box-shadow: var(--glow-gold);
         }
 
+        /* ---- INTEREST TAG ---- */
         .interest-tag {
             display: inline-block;
-            padding: 0.5rem 1rem;
-            margin: 0.25rem;
-            background: #f3f4f6;
-            border: 2px solid #e5e7eb;
-            border-radius: 20px;
+            padding: .5rem 1rem;
+            margin: .25rem;
+            background: var(--dark-300);
+            border: 1px solid rgba(201,168,76,.12);
+            border-radius: var(--r-full);
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.875rem;
+            font-family: var(--font-body);
+            font-size: .85rem;
+            color: var(--dark-800);
         }
-
         .interest-tag:hover {
-            border-color: #667eea;
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
             transform: translateY(-2px);
         }
-
         .interest-tag.selected {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-color: #667eea;
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            color: #080808;
+            border-color: transparent;
+            box-shadow: var(--glow-gold);
         }
 
+        /* ---- BUTTONS ---- */
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.875rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            font-family: var(--font-body);
+            font-size: .875rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: .875rem 2rem;
             border: none;
+            border-radius: var(--r-lg);
             cursor: pointer;
+            transition: box-shadow .3s, transform .2s;
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            color: #080808;
         }
-
         .btn-primary:hover {
+            box-shadow: var(--glow-gold-strong);
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
+        .btn-primary:active { transform: translateY(0); }
 
         .btn-secondary {
-            background: white;
-            color: #667eea;
-            padding: 0.875rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid #667eea;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            font-family: var(--font-body);
+            font-size: .875rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: .875rem 2rem;
+            border: 1px solid rgba(201,168,76,.25);
+            border-radius: var(--r-lg);
             cursor: pointer;
+            transition: border-color .25s, background .25s, color .25s;
+            background: transparent;
+            color: var(--dark-800);
         }
-
         .btn-secondary:hover {
-            background: #f9fafb;
+            border-color: var(--gold-primary);
+            background: rgba(201,168,76,.05);
+            color: var(--gold-primary);
         }
 
-        .progress-bar {
-            height: 8px;
-            background: #e5e7eb;
-            border-radius: 999px;
-            overflow: hidden;
-            margin-bottom: 2rem;
+        /* ---- LABEL ---- */
+        .royal-label {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .15em;
+            color: var(--gold-deep);
+            margin-bottom: 6px;
         }
 
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.5s ease;
-            border-radius: 999px;
+        /* ---- SECTION TITLE ---- */
+        .step-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            letter-spacing: .04em;
+            color: var(--dark-900);
+            margin-bottom: 1.5rem;
         }
+
+        /* ---- LINK ---- */
+        a.royal-link {
+            color: var(--gold-primary);
+            text-decoration: none;
+            transition: color .2s;
+            font-weight: 700;
+        }
+        a.royal-link:hover { color: var(--gold-bright); }
+
+        /* ---- INTERESTS CONTAINER ---- */
+        .interests-container {
+            padding: 1rem;
+            background: var(--dark-200);
+            border: 1px solid rgba(201,168,76,.1);
+            border-radius: var(--r-lg);
+        }
+
+        /* ---- BIO COUNTER ---- */
+        .char-counter { color: var(--dark-600); font-size: .8rem; margin-top: 4px; text-align: right; }
+
+        /* ---- COMPLETION BANNER ---- */
+        .completion-banner {
+            background: rgba(201,168,76,.06);
+            border: 1px solid rgba(201,168,76,.2);
+            border-radius: var(--r-lg);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: .75rem;
+        }
+        .completion-banner i { color: var(--gold-primary); font-size: 1.2rem; margin-top: 2px; }
+        .completion-banner h3 {
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: .9rem;
+            color: var(--gold-primary);
+            margin-bottom: 2px;
+        }
+        .completion-banner p { font-size: .82rem; color: var(--dark-700); }
     </style>
 </head>
-<body class="flex items-center justify-center p-4">
-    <div class="w-full max-w-3xl">
+<body style="display:flex;align-items:center;justify-content:center;padding:1rem;min-height:100vh;position:relative;z-index:1;">
+    <div class="w-full" style="max-width:48rem;position:relative;z-index:1;">
+
         <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-white mb-2">Créez votre compte</h1>
-            <p class="text-white text-opacity-90">Rejoignez Travel Express en quelques étapes simples</p>
+        <div style="text-align:center;margin-bottom:2rem;">
+            <h1 style="font-family:var(--font-display);font-size:2.5rem;letter-spacing:.05em;margin-bottom:.5rem;" class="gold-text">Créez votre compte</h1>
+            <p style="color:var(--dark-700);font-family:var(--font-body);font-size:.95rem;">Rejoignez Travel Express en quelques étapes simples</p>
         </div>
 
         <!-- Main Card -->
-        <div class="bg-white rounded-3xl shadow-2xl p-8">
+        <div class="royal-card" style="padding:2rem;box-shadow:var(--glow-gold);">
+            <div class="corner-tl"></div>
+            <div class="corner-tr"></div>
+            <div class="corner-bl"></div>
+            <div class="corner-br"></div>
+
             <!-- Progress Bar -->
             <div class="progress-bar">
                 <div class="progress-bar-fill" id="progressBar" style="width: 25%"></div>
@@ -246,32 +429,34 @@
                 <div class="step active" data-step="1">
                     <div class="step-circle">1</div>
                     <div class="step-line"></div>
-                    <div class="text-sm font-medium">Compte</div>
+                    <div class="step-label">Compte</div>
                 </div>
                 <div class="step" data-step="2">
                     <div class="step-circle">2</div>
                     <div class="step-line"></div>
-                    <div class="text-sm font-medium">Personnel</div>
+                    <div class="step-label">Personnel</div>
                 </div>
                 <div class="step" data-step="3">
                     <div class="step-circle">3</div>
                     <div class="step-line"></div>
-                    <div class="text-sm font-medium">Social</div>
+                    <div class="step-label">Social</div>
                 </div>
                 <div class="step" data-step="4">
                     <div class="step-circle">4</div>
-                    <div class="text-sm font-medium">Intérêts</div>
+                    <div class="step-label">Intérêts</div>
                 </div>
             </div>
 
             <!-- Form -->
             <form id="registrationForm">
+
                 <!-- Step 1: Account Info -->
                 <div class="form-step active" data-step="1">
-                    <h2 class="text-2xl font-bold mb-6 text-gray-900">Informations du compte</h2>
+                    <h2 class="step-title">Informations du compte</h2>
 
                     <div class="input-group">
                         <i class="fas fa-user input-icon"></i>
+                        <label class="royal-label" style="margin-bottom:0;position:absolute;top:-18px;">Nom complet</label>
                         <input type="text" name="name" placeholder="Nom complet" required>
                     </div>
 
@@ -290,16 +475,16 @@
                         <input type="password" name="password_confirmation" placeholder="Confirmer le mot de passe" required>
                     </div>
 
-                    <div class="flex justify-end mt-6">
+                    <div style="display:flex;justify-content:flex-end;margin-top:1.5rem;">
                         <button type="button" class="btn-primary" onclick="nextStep()">
-                            Suivant <i class="fas fa-arrow-right ml-2"></i>
+                            Suivant <i class="fas fa-arrow-right" style="margin-left:.5rem;"></i>
                         </button>
                     </div>
                 </div>
 
                 <!-- Step 2: Personal Info -->
                 <div class="form-step" data-step="2">
-                    <h2 class="text-2xl font-bold mb-6 text-gray-900">Informations personnelles</h2>
+                    <h2 class="step-title">Informations personnelles</h2>
 
                     <div class="input-group">
                         <i class="fas fa-globe input-icon"></i>
@@ -338,20 +523,20 @@
                         <input type="date" name="date_of_birth" placeholder="Date de naissance">
                     </div>
 
-                    <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-3">Genre</label>
-                        <div class="flex gap-3">
+                    <div style="margin-bottom:1.25rem;">
+                        <label class="royal-label">Genre</label>
+                        <div style="display:flex;gap:.75rem;">
                             <div class="gender-option" data-gender="male">
-                                <i class="fas fa-mars text-2xl mb-2"></i>
-                                <div class="font-medium">Homme</div>
+                                <i class="fas fa-mars" style="font-size:1.5rem;margin-bottom:.5rem;display:block;"></i>
+                                <div style="font-weight:700;font-size:.85rem;">Homme</div>
                             </div>
                             <div class="gender-option" data-gender="female">
-                                <i class="fas fa-venus text-2xl mb-2"></i>
-                                <div class="font-medium">Femme</div>
+                                <i class="fas fa-venus" style="font-size:1.5rem;margin-bottom:.5rem;display:block;"></i>
+                                <div style="font-weight:700;font-size:.85rem;">Femme</div>
                             </div>
                             <div class="gender-option" data-gender="other">
-                                <i class="fas fa-genderless text-2xl mb-2"></i>
-                                <div class="font-medium">Autre</div>
+                                <i class="fas fa-genderless" style="font-size:1.5rem;margin-bottom:.5rem;display:block;"></i>
+                                <div style="font-weight:700;font-size:.85rem;">Autre</div>
                             </div>
                         </div>
                         <input type="hidden" name="gender" id="genderInput">
@@ -368,19 +553,19 @@
                         </select>
                     </div>
 
-                    <div class="flex justify-between mt-6">
+                    <div style="display:flex;justify-content:space-between;margin-top:1.5rem;gap:.75rem;">
                         <button type="button" class="btn-secondary" onclick="prevStep()">
-                            <i class="fas fa-arrow-left mr-2"></i> Retour
+                            <i class="fas fa-arrow-left"></i> Retour
                         </button>
                         <button type="button" class="btn-primary" onclick="nextStep()">
-                            Suivant <i class="fas fa-arrow-right ml-2"></i>
+                            Suivant <i class="fas fa-arrow-right" style="margin-left:.5rem;"></i>
                         </button>
                     </div>
                 </div>
 
                 <!-- Step 3: Social & Professional -->
                 <div class="form-step" data-step="3">
-                    <h2 class="text-2xl font-bold mb-6 text-gray-900">Réseaux sociaux & Professionnel</h2>
+                    <h2 class="step-title">Réseaux sociaux &amp; Professionnel</h2>
 
                     <div class="input-group">
                         <i class="fas fa-building input-icon"></i>
@@ -417,23 +602,23 @@
                         <input type="url" name="website" placeholder="Site web personnel">
                     </div>
 
-                    <div class="flex justify-between mt-6">
+                    <div style="display:flex;justify-content:space-between;margin-top:1.5rem;gap:.75rem;">
                         <button type="button" class="btn-secondary" onclick="prevStep()">
-                            <i class="fas fa-arrow-left mr-2"></i> Retour
+                            <i class="fas fa-arrow-left"></i> Retour
                         </button>
                         <button type="button" class="btn-primary" onclick="nextStep()">
-                            Suivant <i class="fas fa-arrow-right ml-2"></i>
+                            Suivant <i class="fas fa-arrow-right" style="margin-left:.5rem;"></i>
                         </button>
                     </div>
                 </div>
 
                 <!-- Step 4: Interests & Bio -->
                 <div class="form-step" data-step="4">
-                    <h2 class="text-2xl font-bold mb-6 text-gray-900">Centres d'intérêt</h2>
+                    <h2 class="step-title">Centres d'intérêt</h2>
 
-                    <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-3">Sélectionnez vos intérêts</label>
-                        <div id="interestsContainer" class="p-4 bg-gray-50 rounded-xl">
+                    <div style="margin-bottom:1.5rem;">
+                        <label class="royal-label">Sélectionnez vos intérêts</label>
+                        <div id="interestsContainer" class="interests-container">
                             <span class="interest-tag" data-interest="Voyages">✈️ Voyages</span>
                             <span class="interest-tag" data-interest="Photographie">📷 Photographie</span>
                             <span class="interest-tag" data-interest="Gastronomie">🍽️ Gastronomie</span>
@@ -451,42 +636,42 @@
                     </div>
 
                     <div class="input-group">
-                        <i class="fas fa-pen input-icon" style="top: 1.5rem;"></i>
+                        <i class="fas fa-pen input-icon" style="top:1.2rem;transform:none;"></i>
                         <textarea name="bio" placeholder="Parlez-nous de vous... (optionnel)" maxlength="500"></textarea>
-                        <div class="text-right text-sm text-gray-500 mt-1">
+                        <div class="char-counter">
                             <span id="bioCount">0</span>/500 caractères
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-r from-violet-50 to-purple-50 border-2 border-violet-200 rounded-xl p-4 mb-6">
-                        <div class="flex items-start">
-                            <i class="fas fa-check-circle text-violet-600 text-xl mr-3 mt-1"></i>
-                            <div>
-                                <h3 class="font-semibold text-violet-900 mb-1">Presque terminé !</h3>
-                                <p class="text-sm text-violet-700">Vous êtes sur le point de rejoindre la communauté Travel Express.</p>
-                            </div>
+                    <div class="completion-banner">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h3>Presque terminé !</h3>
+                            <p>Vous êtes sur le point de rejoindre la communauté Travel Express.</p>
                         </div>
                     </div>
 
-                    <div class="flex justify-between mt-6">
+                    <div style="display:flex;justify-content:space-between;margin-top:1.5rem;gap:.75rem;">
                         <button type="button" class="btn-secondary" onclick="prevStep()">
-                            <i class="fas fa-arrow-left mr-2"></i> Retour
+                            <i class="fas fa-arrow-left"></i> Retour
                         </button>
                         <button type="submit" class="btn-primary">
-                            <i class="fas fa-check mr-2"></i> Créer mon compte
+                            <i class="fas fa-check" style="margin-right:.5rem;"></i> Créer mon compte
                         </button>
                     </div>
                 </div>
+
             </form>
         </div>
 
         <!-- Login Link -->
-        <div class="text-center mt-6">
-            <p class="text-white text-opacity-90">
+        <div style="text-align:center;margin-top:1.5rem;">
+            <p style="font-family:var(--font-body);font-size:.9rem;color:var(--dark-700);">
                 Vous avez déjà un compte ?
-                <a href="{{ route('login') }}" class="font-semibold hover:underline">Connectez-vous</a>
+                <a href="{{ route('login') }}" class="royal-link">Connectez-vous</a>
             </p>
         </div>
+
     </div>
 
     <script>
@@ -533,38 +718,30 @@
 
         function nextStep() {
             if (currentStep < totalSteps) {
-                // Hide current step
                 document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.remove('active');
                 document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('completed');
                 document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
 
-                // Show next step
                 currentStep++;
                 document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
                 document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
 
                 updateProgress();
-
-                // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
         function prevStep() {
             if (currentStep > 1) {
-                // Hide current step
                 document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.remove('active');
                 document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
 
-                // Show previous step
                 currentStep--;
                 document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
                 document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
                 document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('completed');
 
                 updateProgress();
-
-                // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
@@ -589,21 +766,16 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    // Store token and user data
                     localStorage.setItem('token', result.token);
                     localStorage.setItem('user', JSON.stringify(result.user));
-
-                    // Show success message
                     alert('Compte créé avec succès !');
-
-                    // Redirect to profile
                     window.location.href = '/profile';
                 } else {
                     alert('Erreur: ' + (result.message || 'Une erreur est survenue'));
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Une erreur est survenue lors de l\'inscription');
+                alert("Une erreur est survenue lors de l'inscription");
             }
         });
     </script>

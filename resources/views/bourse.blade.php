@@ -9,17 +9,63 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Bebas+Neue&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        .font-display { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; }
-        .font-sans { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; }
+        :root {
+            --gold-primary: #C9A84C;
+            --gold-bright:  #F0D07A;
+            --gold-deep:    #8B6914;
+            --gold-gradient: linear-gradient(135deg, #8B6914 0%, #C9A84C 30%, #F0D07A 50%, #C9A84C 70%, #8B6914 100%);
+            --dark-0: #080808; --dark-100: #141414; --dark-200: #1C1C1C;
+            --dark-300: #262626; --dark-400: #333333; --dark-500: #4A4A4A;
+            --dark-600: #6B6B6B; --dark-700: #8A8A8A; --dark-800: #B0B0B0; --dark-900: #D4D4D4;
+            --glow-gold: 0 0 20px rgba(201,168,76,.25), 0 0 60px rgba(201,168,76,.08);
+            --glow-gold-strong: 0 0 30px rgba(201,168,76,.4), 0 0 80px rgba(201,168,76,.15);
+            --r-sm:3px; --r-md:6px; --r-lg:10px; --r-xl:14px; --r-full:9999px;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Lato', sans-serif;
+            --color-success: #2ECABB;
+            --color-warning: #F0B428;
+            --color-danger:  #E74C3C;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--dark-0);
+            color: var(--dark-800);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: 0;
+            background-image:
+                linear-gradient(rgba(201,168,76,.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed; inset: 0; z-index: 0;
+            background:
+                radial-gradient(ellipse 70vw 50vh at 15% 0%, rgba(201,168,76,.05) 0%, transparent 70%),
+                radial-gradient(ellipse 50vw 40vh at 85% 100%, rgba(201,168,76,.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
     </style>
     <script src="{{ asset('js/country-codes.js') }}"></script>
 </head>
-<body class="font-sans text-dark antialiased bg-gradient-to-br from-slate-50 via-white to-primary-50 min-h-screen" x-data="{
+<body class="antialiased" x-data="{
     moyenne: '',
     resultat: null,
     bourses: [],
@@ -81,10 +127,10 @@
 
     getTypeColor(type) {
         switch(type) {
-            case 'complète': return 'bg-green-100 text-green-800 border-green-200';
-            case 'semi-complète': return 'bg-blue-100 text-blue-800 border-blue-200';
-            case 'partielle': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-            default: return 'bg-gray-100 text-gray-800 border-gray-200';
+            case 'complète': return 'badge-success';
+            case 'semi-complète': return 'badge-blue';
+            case 'partielle': return 'badge-warning';
+            default: return 'badge-gray';
         }
     },
 
@@ -94,7 +140,6 @@
         this.formSuccess = false;
         document.body.style.overflow = 'hidden';
 
-        // Pré-remplir les champs si une bourse est sélectionnée
         this.$nextTick(() => {
             if (bourse) {
                 const destinationSelect = document.getElementById('modal-destination');
@@ -126,7 +171,6 @@
         const form = event.target;
         const formData = new FormData(form);
 
-        // Récupérer le code téléphone
         const phoneCode = document.getElementById('modal-phone-code')?.value || '+226';
         const phone = phoneCode + formData.get('phone');
 
@@ -165,65 +209,387 @@
     }
 }">
 
-    <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-2xl border-b border-black/[0.08] shadow-sm">
-        <div class="w-full px-4 sm:px-6 lg:px-8">
-            <nav class="flex items-center justify-between h-[70px]">
-                <!-- Logo -->
-                <a href="/" class="flex items-center space-x-3 group">
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-br from-primary-600 via-accent-500 to-accent-600 rounded-xl blur-lg opacity-20 group-hover:opacity-40 transition-all duration-500"></div>
-                        <div class="relative w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-all duration-500 shadow-lg">
-                            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-lg sm:text-xl font-display font-extrabold text-dark leading-none">Travel Express</span>
-                        <span class="text-[8px] sm:text-[9px] font-sans font-bold text-primary-600 tracking-widest uppercase leading-none mt-0.5 opacity-80">Study Abroad</span>
-                    </div>
-                </a>
+    <style>
+        /* ── Header ─────────────────────────────────────────────────── */
+        .site-header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+            background: rgba(8,8,8,.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201,168,76,.15);
+        }
+        .header-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            height: 70px; padding: 0 1.5rem;
+            max-width: 1100px; margin: 0 auto;
+        }
+        .logo-link { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+        .logo-icon {
+            width: 44px; height: 44px; border-radius: var(--r-lg);
+            background: var(--gold-gradient);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .logo-icon svg { color: #000; }
+        .logo-name {
+            font-family: var(--font-serif); font-size: 1.3rem;
+            font-weight: 700; color: var(--dark-900); letter-spacing: .02em;
+        }
+        .logo-sub {
+            font-family: var(--font-body); font-size: .6rem;
+            font-weight: 700; letter-spacing: .2em;
+            text-transform: uppercase; color: var(--gold-primary);
+            display: block; margin-top: -2px;
+        }
+        .btn-back {
+            display: flex; align-items: center; gap: .5rem;
+            padding: .5rem 1.1rem;
+            border: 1px solid rgba(201,168,76,.25);
+            border-radius: var(--r-lg);
+            font-family: var(--font-body); font-size: .82rem; font-weight: 600;
+            color: var(--gold-primary); text-decoration: none;
+            transition: all .2s; background: transparent;
+        }
+        .btn-back:hover { background: rgba(201,168,76,.08); border-color: rgba(201,168,76,.5); }
 
-                <!-- Back Button -->
-                <a href="/" class="flex items-center space-x-2 px-4 py-2 text-sm font-semibold text-primary-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-all">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        /* ── Main ───────────────────────────────────────────────────── */
+        main {
+            position: relative; z-index: 1;
+            padding-top: 90px; padding-bottom: 3rem;
+        }
+        .page-inner { max-width: 900px; margin: 0 auto; padding: 0 1.25rem; }
+
+        /* ── Hero ───────────────────────────────────────────────────── */
+        .hero-section { text-align: center; margin-bottom: 2.5rem; }
+        .hero-icon {
+            width: 72px; height: 72px; border-radius: var(--r-xl);
+            background: var(--gold-gradient);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.25rem;
+            box-shadow: var(--glow-gold);
+        }
+        .hero-icon svg { color: #000; }
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem,5vw,3rem);
+            letter-spacing: .06em;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: .75rem;
+        }
+        .hero-desc { font-size: .95rem; color: var(--dark-600); max-width: 560px; margin: 0 auto; line-height: 1.6; }
+
+        /* ── Cards ──────────────────────────────────────────────────── */
+        .lux-card {
+            background: var(--dark-100);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-xl);
+            overflow: hidden; position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .lux-card::before {
+            content: '';
+            position: absolute; top: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201,168,76,.45), transparent);
+        }
+
+        /* ── Form inputs ────────────────────────────────────────────── */
+        .form-label {
+            display: block; font-size: .7rem; font-weight: 700;
+            letter-spacing: .15em; text-transform: uppercase;
+            color: var(--gold-deep); margin-bottom: .5rem;
+        }
+        .form-input {
+            width: 100%; padding: .875rem 1rem;
+            background: var(--dark-200);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-lg);
+            color: var(--dark-900);
+            font-family: var(--font-body); font-size: .95rem;
+            transition: border-color .25s, box-shadow .25s; outline: none;
+        }
+        .form-input:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(201,168,76,.1);
+        }
+        .form-input::placeholder { color: var(--dark-500); }
+
+        /* ── Buttons ────────────────────────────────────────────────── */
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .875rem 1.75rem;
+            background: var(--gold-gradient);
+            color: #080808;
+            font-family: var(--font-body); font-size: .85rem; font-weight: 700;
+            letter-spacing: .1em; text-transform: uppercase;
+            border: none; border-radius: var(--r-lg); cursor: pointer;
+            transition: box-shadow .3s, transform .2s;
+        }
+        .btn-primary:hover { box-shadow: var(--glow-gold-strong); transform: translateY(-2px); }
+        .btn-primary:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .875rem 1.5rem;
+            background: transparent;
+            color: var(--gold-primary);
+            border: 1px solid rgba(201,168,76,.3);
+            border-radius: var(--r-lg); cursor: pointer;
+            font-family: var(--font-body); font-size: .85rem; font-weight: 600;
+            letter-spacing: .06em; text-transform: uppercase;
+            transition: all .2s; text-decoration: none;
+        }
+        .btn-secondary:hover { background: rgba(201,168,76,.08); border-color: rgba(201,168,76,.55); }
+
+        /* ── Result box ─────────────────────────────────────────────── */
+        .result-box {
+            border-radius: var(--r-xl); padding: 1.25rem 1.5rem;
+            margin-bottom: 1.5rem; border: 1px solid;
+            transition: all .3s;
+        }
+        .result-success {
+            background: rgba(46,202,187,.07);
+            border-color: rgba(46,202,187,.25);
+        }
+        .result-warning {
+            background: rgba(240,180,40,.07);
+            border-color: rgba(240,180,40,.25);
+        }
+        .result-info {
+            background: rgba(96,165,250,.07);
+            border-color: rgba(96,165,250,.25);
+        }
+        .result-error {
+            background: rgba(231,76,60,.07);
+            border-color: rgba(231,76,60,.25);
+        }
+
+        /* ── Badges ─────────────────────────────────────────────────── */
+        .badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 3px 10px; border-radius: var(--r-full);
+            font-size: .7rem; font-weight: 700;
+            letter-spacing: .06em; text-transform: uppercase; border: 1px solid;
+        }
+        .badge-success { color:var(--color-success); border-color:rgba(46,202,187,.35); background:rgba(46,202,187,.08); }
+        .badge-blue    { color:#60a5fa; border-color:rgba(96,165,250,.35); background:rgba(96,165,250,.08); }
+        .badge-warning { color:var(--color-warning); border-color:rgba(240,180,40,.35); background:rgba(240,180,40,.08); }
+        .badge-gray    { color:var(--dark-700); border-color:rgba(176,176,176,.3); background:rgba(176,176,176,.06); }
+        .badge-gold    { color:var(--gold-primary); border-color:rgba(201,168,76,.3); background:rgba(201,168,76,.08); }
+
+        /* ── Scholarship card ───────────────────────────────────────── */
+        .bourse-card {
+            background: var(--dark-200);
+            border: 1px solid rgba(201,168,76,.12);
+            border-radius: var(--r-lg);
+            padding: 1.1rem 1.25rem;
+            transition: all .25s;
+        }
+        .bourse-card:hover {
+            background: var(--dark-300);
+            border-color: rgba(201,168,76,.3);
+            box-shadow: var(--glow-gold);
+        }
+
+        /* ── Info section ───────────────────────────────────────────── */
+        .info-section {
+            background: var(--dark-100);
+            border: 1px solid rgba(201,168,76,.12);
+            border-radius: var(--r-xl);
+            padding: 1.75rem 2rem;
+            margin-top: 2rem;
+        }
+        .info-step {
+            display: flex; align-items: flex-start; gap: .875rem;
+            padding: .75rem 0;
+            border-bottom: 1px solid rgba(201,168,76,.07);
+        }
+        .info-step:last-child { border-bottom: none; }
+        .step-num {
+            width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-body); font-size: .75rem; font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ── Modal overlay ──────────────────────────────────────────── */
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 50;
+            display: flex; align-items: center; justify-content: center;
+            padding: 1rem;
+            background: rgba(0,0,0,.7);
+            backdrop-filter: blur(4px);
+        }
+        .modal-box {
+            background: var(--dark-100);
+            border: 1px solid rgba(201,168,76,.2);
+            border-radius: var(--r-xl);
+            width: 100%; max-width: 520px;
+            max-height: 90vh; overflow-y: auto;
+            position: relative;
+            box-shadow: 0 24px 80px rgba(0,0,0,.8), var(--glow-gold);
+        }
+        .modal-box::before {
+            content: '';
+            position: absolute; top: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201,168,76,.5), transparent);
+        }
+        .modal-header {
+            position: sticky; top: 0;
+            background: var(--dark-100);
+            border-bottom: 1px solid rgba(201,168,76,.12);
+            padding: 1.25rem 1.5rem;
+            display: flex; align-items: center; justify-content: space-between;
+            border-radius: var(--r-xl) var(--r-xl) 0 0;
+            z-index: 10;
+        }
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem; font-weight: 400;
+            letter-spacing: .08em; color: var(--dark-900);
+        }
+        .modal-close {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: rgba(201,168,76,.08);
+            border: 1px solid rgba(201,168,76,.2);
+            color: var(--dark-700); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all .2s;
+        }
+        .modal-close:hover { color: var(--gold-primary); border-color: rgba(201,168,76,.5); }
+        .modal-body { padding: 1.5rem; }
+
+        /* ── Select styling ─────────────────────────────────────────── */
+        select.form-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg fill='%238B6914' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .75rem center; background-size: 1.1em; padding-right: 2.5rem; }
+        textarea.form-input { resize: vertical; min-height: 90px; }
+
+        /* ── Checkbox ───────────────────────────────────────────────── */
+        .checkbox-label { display: flex; align-items: flex-start; gap: .75rem; cursor: pointer; }
+        .checkbox-label input[type="checkbox"] {
+            width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;
+            accent-color: var(--gold-primary);
+        }
+
+        /* ── Trust badges ───────────────────────────────────────────── */
+        .trust-badge {
+            display: flex; align-items: center; gap: .4rem;
+            font-size: .75rem; color: var(--dark-600);
+        }
+
+        /* ── Footer ─────────────────────────────────────────────────── */
+        .site-footer {
+            position: relative; z-index: 1;
+            border-top: 1px solid rgba(201,168,76,.1);
+            padding: 1.5rem 1.25rem;
+            text-align: center;
+        }
+        .site-footer p { font-size: .85rem; color: var(--dark-600); }
+
+        /* ── Scrollbar ──────────────────────────────────────────────── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark-0); }
+        ::-webkit-scrollbar-thumb { background: rgba(201,168,76,.25); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,.5); }
+
+        /* Phone dropdown */
+        .phone-wrap { display: flex; gap: .5rem; }
+        .phone-flag-btn {
+            display: flex; align-items: center; gap: .4rem;
+            padding: .875rem .75rem;
+            background: var(--dark-200);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-lg);
+            cursor: pointer; color: var(--dark-900);
+            font-family: var(--font-body); font-size: .85rem; font-weight: 600;
+            transition: all .2s; white-space: nowrap; min-width: 110px;
+        }
+        .phone-flag-btn:hover { border-color: rgba(201,168,76,.4); }
+        .phone-dropdown {
+            position: absolute; z-index: 50; left: 0; top: calc(100% + 6px);
+            width: 260px;
+            background: var(--dark-200);
+            border: 1px solid rgba(201,168,76,.2);
+            border-radius: var(--r-lg);
+            box-shadow: 0 16px 48px rgba(0,0,0,.6);
+            overflow: hidden;
+        }
+        .phone-search {
+            width: 100%; padding: .6rem .875rem;
+            background: var(--dark-300);
+            border: none; border-bottom: 1px solid rgba(201,168,76,.1);
+            color: var(--dark-900); font-family: var(--font-body); font-size: .85rem;
+            outline: none;
+        }
+        .phone-list { max-height: 200px; overflow-y: auto; }
+        .phone-item {
+            display: flex; align-items: center; gap: .75rem;
+            padding: .6rem .875rem; cursor: pointer;
+            transition: background .15s;
+            font-size: .85rem;
+        }
+        .phone-item:hover,
+        .phone-item.selected { background: rgba(201,168,76,.08); }
+        .phone-item-country { flex: 1; color: var(--dark-800); }
+        .phone-item-code { color: var(--dark-600); font-weight: 600; }
+
+        /* Animate in */
+        @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        .animate-in { animation: fadeUp .5s ease both; }
+    </style>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo-link">
+                <div class="logo-icon">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    <span class="hidden sm:inline">Retour à l'accueil</span>
-                    <span class="sm:hidden">Retour</span>
-                </a>
-            </nav>
+                </div>
+                <div>
+                    <span class="logo-name">Travel Express</span>
+                    <span class="logo-sub">Study Abroad</span>
+                </div>
+            </a>
+
+            <a href="/" class="btn-back">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                <span class="hidden sm:inline">Retour à l'accueil</span>
+                <span class="sm:hidden">Retour</span>
+            </a>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="pt-[90px] sm:pt-[100px] pb-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
+    <main>
+        <div class="page-inner">
 
             <!-- Hero Section -->
-            <div class="text-center mb-8 sm:mb-12">
-                <div class="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-primary-600 to-accent-600 rounded-2xl shadow-xl shadow-primary-600/30 mb-4 sm:mb-6">
-                    <svg class="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            <div class="hero-section animate-in">
+                <div class="hero-icon">
+                    <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                     </svg>
                 </div>
-                <h1 class="text-2xl sm:text-4xl font-display font-extrabold text-dark mb-3 sm:mb-4">
-                    Testez votre <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-600">éligibilité</span>
-                </h1>
-                <p class="text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto">
+                <h1 class="hero-title">Testez votre éligibilité</h1>
+                <p class="hero-desc">
                     Entrez votre moyenne générale pour découvrir les bourses auxquelles vous pouvez prétendre
                 </p>
             </div>
 
             <!-- Calculator Card -->
-            <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-gray-100 p-4 sm:p-8 mb-6 sm:mb-8">
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <div class="flex-1">
-                        <label for="moyenne" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Votre moyenne générale <span class="text-red-500">*</span>
+            <div class="lux-card animate-in" style="padding:1.75rem;animation-delay:.05s;">
+                <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;">
+                    <div style="flex:1;min-width:200px;">
+                        <label for="moyenne" class="form-label">
+                            Votre moyenne générale <span style="color:var(--color-danger)">*</span>
                         </label>
-                        <div class="relative">
+                        <div style="position:relative;">
                             <input
                                 type="number"
                                 id="moyenne"
@@ -233,18 +599,19 @@
                                 max="20"
                                 step="0.01"
                                 placeholder="Ex: 14.5"
-                                class="w-full px-4 py-3 sm:py-4 text-base sm:text-lg border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
+                                class="form-input"
+                                style="padding-right:3rem;"
                             >
-                            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-semibold">/20</span>
+                            <span style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);color:var(--dark-600);font-weight:700;font-size:.9rem;">/20</span>
                         </div>
                     </div>
-                    <div class="sm:self-end">
+                    <div>
                         <button
                             @click="determinerBourse()"
-                            class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-primary-600/30 transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+                            class="btn-primary"
                         >
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
                             </svg>
                             <span>Vérifier</span>
                         </button>
@@ -255,56 +622,43 @@
             <!-- Result Section -->
             <template x-if="resultat">
                 <div
-                    class="rounded-2xl sm:rounded-3xl p-4 sm:p-6 mb-6 sm:mb-8 border-2 transition-all duration-300"
+                    class="result-box"
                     :class="{
-                        'bg-green-50 border-green-200': resultat.color === 'green',
-                        'bg-blue-50 border-blue-200': resultat.color === 'blue',
-                        'bg-yellow-50 border-yellow-200': resultat.color === 'yellow',
-                        'bg-red-50 border-red-200': resultat.color === 'red'
+                        'result-success': resultat.color === 'green',
+                        'result-info':    resultat.color === 'blue',
+                        'result-warning': resultat.color === 'yellow',
+                        'result-error':   resultat.color === 'red'
                     }"
                 >
-                    <div class="flex items-start gap-3 sm:gap-4">
+                    <div style="display:flex;align-items:flex-start;gap:1rem;">
                         <div
-                            class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center"
-                            :class="{
-                                'bg-green-100': resultat.color === 'green',
-                                'bg-blue-100': resultat.color === 'blue',
-                                'bg-yellow-100': resultat.color === 'yellow',
-                                'bg-red-100': resultat.color === 'red'
-                            }"
+                            style="width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid;"
+                            :style="resultat.type
+                                ? 'background:rgba(46,202,187,.12);border-color:rgba(46,202,187,.3);'
+                                : 'background:rgba(231,76,60,.12);border-color:rgba(231,76,60,.3);'"
                         >
                             <template x-if="resultat.type">
-                                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <svg width="20" height="20" fill="none" stroke="#2ECABB" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </template>
                             <template x-if="!resultat.type">
-                                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <svg width="20" height="20" fill="none" stroke="#E74C3C" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </template>
                         </div>
-                        <div class="flex-1">
+                        <div style="flex:1;">
                             <h3
-                                class="text-base sm:text-lg font-bold mb-1"
-                                :class="{
-                                    'text-green-800': resultat.color === 'green',
-                                    'text-blue-800': resultat.color === 'blue',
-                                    'text-yellow-800': resultat.color === 'yellow',
-                                    'text-red-800': resultat.color === 'red'
-                                }"
+                                style="font-family:var(--font-display);font-size:1.25rem;font-weight:400;letter-spacing:.06em;margin-bottom:.35rem;"
+                                :style="resultat.type ? 'color:var(--color-success)' : 'color:var(--color-danger)'"
                             >
                                 <span x-show="resultat.type">Éligible à une bourse <span x-text="resultat.type"></span></span>
                                 <span x-show="!resultat.type">Non éligible</span>
                             </h3>
                             <p
-                                class="text-sm sm:text-base"
-                                :class="{
-                                    'text-green-700': resultat.color === 'green',
-                                    'text-blue-700': resultat.color === 'blue',
-                                    'text-yellow-700': resultat.color === 'yellow',
-                                    'text-red-700': resultat.color === 'red'
-                                }"
+                                style="font-size:.9rem;line-height:1.6;"
+                                :style="resultat.type ? 'color:var(--dark-700)' : 'color:var(--dark-600)'"
                                 x-text="resultat.message"
                             ></p>
                         </div>
@@ -315,41 +669,38 @@
             <!-- Scholarships List -->
             <template x-if="bourses.length > 0">
                 <div>
-                    <h2 class="text-lg sm:text-2xl font-display font-bold text-dark mb-4 sm:mb-6 flex items-center gap-2">
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    <h2 style="font-family:var(--font-display);font-size:1.6rem;font-weight:400;letter-spacing:.06em;color:var(--dark-900);margin-bottom:1.25rem;display:flex;align-items:center;gap:.6rem;">
+                        <svg width="22" height="22" fill="none" stroke="var(--gold-primary)" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                         </svg>
                         Bourses disponibles pour vous
                     </h2>
 
-                    <div class="grid gap-3 sm:gap-4">
+                    <div style="display:flex;flex-direction:column;gap:.875rem;">
                         <template x-for="(bourse, index) in bourses" :key="index">
-                            <div class="bg-white rounded-xl sm:rounded-2xl shadow-md border border-gray-100 p-4 sm:p-6 hover:shadow-xl transition-all duration-300 group">
-                                <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-                                    <div class="flex items-center gap-3 sm:gap-4 flex-1">
-                                        <div class="text-2xl sm:text-3xl" x-text="bourse.icon"></div>
-                                        <div class="flex-1 min-w-0">
-                                            <div class="flex flex-wrap items-center gap-2 mb-1">
-                                                <h3 class="font-bold text-dark text-sm sm:text-base" x-text="bourse.nom"></h3>
-                                                <span
-                                                    class="px-2 py-0.5 text-[10px] sm:text-xs font-semibold rounded-full border"
-                                                    :class="getTypeColor(bourse.type)"
-                                                    x-text="bourse.type"
-                                                ></span>
+                            <div class="bourse-card">
+                                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:1rem;">
+                                    <div style="display:flex;align-items:center;gap:1rem;flex:1;min-width:200px;">
+                                        <div style="font-size:2rem;flex-shrink:0;" x-text="bourse.icon"></div>
+                                        <div style="flex:1;min-width:0;">
+                                            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-bottom:.35rem;">
+                                                <span style="font-family:var(--font-body);font-weight:700;color:var(--dark-900);font-size:.95rem;" x-text="bourse.nom"></span>
+                                                <span class="badge" :class="getTypeColor(bourse.type)" x-text="bourse.type"></span>
                                             </div>
-                                            <p class="text-xs sm:text-sm text-gray-600" x-text="bourse.description"></p>
-                                            <p class="text-xs text-gray-500 mt-1">
-                                                <span class="font-medium">Pays :</span> <span x-text="bourse.pays"></span>
+                                            <p style="font-size:.85rem;color:var(--dark-600);" x-text="bourse.description"></p>
+                                            <p style="font-size:.8rem;color:var(--dark-500);margin-top:.25rem;">
+                                                <span style="font-weight:700;color:var(--gold-deep);">Pays :</span> <span x-text="bourse.pays"></span>
                                             </p>
                                         </div>
                                     </div>
                                     <button
                                         @click="openContactModal(bourse)"
-                                        class="w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-accent-600 to-accent-500 text-white text-sm font-semibold rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 group-hover:shadow-accent-600/30"
+                                        class="btn-primary"
+                                        style="white-space:nowrap;"
                                     >
                                         <span>Postuler</span>
-                                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                         </svg>
                                     </button>
                                 </div>
@@ -360,44 +711,44 @@
             </template>
 
             <!-- Info Section -->
-            <div class="mt-8 sm:mt-12 bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-primary-100">
-                <h3 class="text-base sm:text-lg font-bold text-dark mb-3 sm:mb-4 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <div class="info-section">
+                <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:400;letter-spacing:.06em;color:var(--dark-900);margin-bottom:1.25rem;display:flex;align-items:center;gap:.5rem;">
+                    <svg width="18" height="18" fill="none" stroke="var(--gold-primary)" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     Comment ça marche ?
                 </h3>
-                <ul class="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700">
-                    <li class="flex items-start gap-2 sm:gap-3">
-                        <span class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-xs font-bold">1</span>
-                        <span><strong>16-20/20 :</strong> Bourse complète - 100% des frais couverts</span>
-                    </li>
-                    <li class="flex items-start gap-2 sm:gap-3">
-                        <span class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-xs font-bold">2</span>
-                        <span><strong>14-16/20 :</strong> Bourse complète - Excellents résultats</span>
-                    </li>
-                    <li class="flex items-start gap-2 sm:gap-3">
-                        <span class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
-                        <span><strong>12-14/20 :</strong> Bourse semi-complète - 50% des frais couverts</span>
-                    </li>
-                    <li class="flex items-start gap-2 sm:gap-3">
-                        <span class="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 bg-yellow-500 text-white rounded-full flex items-center justify-center text-xs font-bold">4</span>
-                        <span><strong>10-12/20 :</strong> Bourse partielle - Réduction sur les frais</span>
-                    </li>
-                </ul>
+                <div>
+                    <div class="info-step">
+                        <span class="step-num" style="background:var(--gold-gradient);color:#000;">1</span>
+                        <span style="font-size:.9rem;color:var(--dark-700);"><strong style="color:var(--dark-900);">16-20/20 :</strong> Bourse complète — 100% des frais couverts</span>
+                    </div>
+                    <div class="info-step">
+                        <span class="step-num" style="background:var(--gold-gradient);color:#000;">2</span>
+                        <span style="font-size:.9rem;color:var(--dark-700);"><strong style="color:var(--dark-900);">14-16/20 :</strong> Bourse complète — Excellents résultats</span>
+                    </div>
+                    <div class="info-step">
+                        <span class="step-num" style="background:rgba(96,165,250,.15);color:#60a5fa;border:1px solid rgba(96,165,250,.3);">3</span>
+                        <span style="font-size:.9rem;color:var(--dark-700);"><strong style="color:var(--dark-900);">12-14/20 :</strong> Bourse semi-complète — 50% des frais couverts</span>
+                    </div>
+                    <div class="info-step">
+                        <span class="step-num" style="background:rgba(240,180,40,.1);color:var(--color-warning);border:1px solid rgba(240,180,40,.3);">4</span>
+                        <span style="font-size:.9rem;color:var(--dark-700);"><strong style="color:var(--dark-900);">10-12/20 :</strong> Bourse partielle — Réduction sur les frais</span>
+                    </div>
+                </div>
             </div>
 
             <!-- CTA Section -->
-            <div class="mt-8 sm:mt-12 text-center">
-                <p class="text-gray-600 mb-4 text-sm sm:text-base">
+            <div style="text-align:center;margin-top:2.5rem;">
+                <p style="color:var(--dark-600);margin-bottom:1rem;font-size:.9rem;">
                     Besoin d'aide pour votre dossier de bourse ?
                 </p>
                 <button
                     @click="openContactModal(null)"
-                    class="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-primary-600/30 transform hover:scale-105 transition-all duration-300"
+                    class="btn-primary"
                 >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                     </svg>
                     <span>Contactez-nous</span>
                 </button>
@@ -414,7 +765,7 @@
         x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
-        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+        class="modal-overlay"
         @click.self="closeContactModal()"
         style="display: none;"
     >
@@ -426,63 +777,53 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
-            class="bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+            class="modal-box"
         >
             <!-- Modal Header -->
-            <div class="sticky top-0 bg-white border-b border-gray-100 px-4 sm:px-6 py-4 flex items-center justify-between rounded-t-2xl sm:rounded-t-3xl z-10">
+            <div class="modal-header">
                 <div>
-                    <h3 class="text-lg sm:text-xl font-display font-bold text-dark">Postuler pour une bourse</h3>
-                    <p class="text-xs sm:text-sm text-gray-500" x-show="selectedBourse" x-text="selectedBourse?.nom"></p>
+                    <h3 class="modal-title">Postuler</h3>
+                    <p style="font-size:.8rem;color:var(--gold-primary);" x-show="selectedBourse" x-text="selectedBourse?.nom"></p>
                 </div>
-                <button @click="closeContactModal()" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                <button @click="closeContactModal()" class="modal-close">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
 
             <!-- Modal Body -->
-            <div class="p-4 sm:p-6">
+            <div class="modal-body">
                 <!-- Success Message -->
-                <div x-show="formSuccess" class="text-center py-8">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30">
-                        <svg class="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                <div x-show="formSuccess" style="text-align:center;padding:2rem 1rem;">
+                    <div style="width:72px;height:72px;border-radius:50%;background:rgba(46,202,187,.12);border:1px solid rgba(46,202,187,.35);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
+                        <svg width="32" height="32" fill="none" stroke="#2ECABB" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
                         </svg>
                     </div>
-                    <h4 class="text-xl sm:text-2xl font-display font-bold text-gray-900 mb-2">Demande envoyée !</h4>
-                    <p class="text-gray-600 mb-6 text-sm sm:text-base">Notre équipe vous contactera sous 24h via WhatsApp ou email.</p>
-                    <button @click="closeContactModal()" class="px-6 py-2.5 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors">
-                        Fermer
-                    </button>
+                    <h4 style="font-family:var(--font-display);font-size:1.8rem;font-weight:400;letter-spacing:.06em;color:var(--dark-900);margin-bottom:.5rem;">Demande envoyée !</h4>
+                    <p style="color:var(--dark-600);margin-bottom:1.5rem;font-size:.9rem;">Notre équipe vous contactera sous 24h via WhatsApp ou email.</p>
+                    <button @click="closeContactModal()" class="btn-primary">Fermer</button>
                 </div>
 
                 <!-- Contact Form -->
-                <form x-show="!formSuccess" @submit="submitContactForm($event)" class="space-y-4">
+                <form x-show="!formSuccess" @submit="submitContactForm($event)" style="display:flex;flex-direction:column;gap:1rem;">
                     <!-- Name & Email -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;">
                         <div>
-                            <label for="modal-name" class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                Nom complet <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" id="modal-name" name="name" required placeholder="Votre nom"
-                                   class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm text-gray-900 placeholder-gray-400">
+                            <label for="modal-name" class="form-label">Nom complet <span style="color:var(--color-danger)">*</span></label>
+                            <input type="text" id="modal-name" name="name" required placeholder="Votre nom" class="form-input">
                         </div>
                         <div>
-                            <label for="modal-email" class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                Email <span class="text-red-500">*</span>
-                            </label>
-                            <input type="email" id="modal-email" name="email" required placeholder="votre@email.com"
-                                   class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm text-gray-900 placeholder-gray-400">
+                            <label for="modal-email" class="form-label">Email <span style="color:var(--color-danger)">*</span></label>
+                            <input type="email" id="modal-email" name="email" required placeholder="votre@email.com" class="form-input">
                         </div>
                     </div>
 
                     <!-- Phone -->
                     <div>
-                        <label for="modal-phone" class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            WhatsApp / Téléphone <span class="text-red-500">*</span>
-                        </label>
-                        <div class="flex gap-2" x-data="{
+                        <label for="modal-phone" class="form-label">WhatsApp / Téléphone <span style="color:var(--color-danger)">*</span></label>
+                        <div class="phone-wrap" x-data="{
                             open: false,
                             search: '',
                             selectedCode: '+226',
@@ -505,57 +846,47 @@
                         }">
                             <input type="hidden" id="modal-phone-code" name="phone_code" x-bind:value="selectedCode">
 
-                            <div class="relative">
-                                <button type="button" @click="open = !open"
-                                        class="flex items-center gap-1.5 w-[100px] sm:w-[120px] px-2 sm:px-3 py-2.5 sm:py-3 bg-gray-50 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-gray-900 text-xs sm:text-sm font-medium hover:bg-gray-100">
+                            <div style="position:relative;">
+                                <button type="button" @click="open = !open" class="phone-flag-btn">
                                     <img :src="'https://flagcdn.com/24x18/' + selectedIso + '.png'"
                                          :alt="selectedCountry"
-                                         class="w-5 h-[14px] object-cover rounded shadow-sm border border-gray-200"
+                                         style="width:20px;height:14px;object-fit:cover;border-radius:2px;"
                                          onerror="this.style.display='none'">
-                                    <span class="font-semibold" x-text="selectedCode"></span>
-                                    <svg class="w-3 h-3 ml-auto text-gray-400" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    <span x-text="selectedCode"></span>
+                                    <svg :class="{ 'rotate-180': open }" style="transition:transform .2s;margin-left:auto;" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
                                     </svg>
                                 </button>
 
-                                <div x-show="open" @click.away="open = false"
-                                     x-transition
-                                     class="absolute z-50 left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden"
-                                     style="display: none;">
-                                    <div class="p-2 border-b border-gray-100">
+                                <div x-show="open" @click.away="open = false" x-transition class="phone-dropdown" style="display: none;">
+                                    <div style="padding:.5rem;">
                                         <input type="text" x-model="search" placeholder="Rechercher..."
-                                               class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none"
-                                               @click.stop>
+                                               class="phone-search" style="border-radius:var(--r-md);" @click.stop>
                                     </div>
-                                    <div class="max-h-48 overflow-y-auto">
+                                    <div class="phone-list">
                                         <template x-for="c in filteredCountries" :key="c.iso">
-                                            <button type="button" @click="selectCountry(c)"
-                                                    class="flex items-center gap-3 w-full px-3 py-2.5 hover:bg-primary-50 transition-colors text-left"
-                                                    :class="{ 'bg-primary-50': selectedIso === c.iso }">
+                                            <div @click="selectCountry(c)" class="phone-item" :class="{ selected: selectedIso === c.iso }">
                                                 <img :src="'https://flagcdn.com/24x18/' + c.iso + '.png'"
                                                      :alt="c.country"
-                                                     class="w-5 h-[14px] object-cover rounded shadow-sm border border-gray-200">
-                                                <span class="flex-1 text-sm text-gray-700" x-text="c.country"></span>
-                                                <span class="text-sm font-semibold text-gray-500" x-text="c.code"></span>
-                                            </button>
+                                                     style="width:20px;height:14px;object-fit:cover;border-radius:2px;"
+                                                     onerror="this.style.display='none'">
+                                                <span class="phone-item-country" x-text="c.country"></span>
+                                                <span class="phone-item-code" x-text="c.code"></span>
+                                            </div>
                                         </template>
                                     </div>
                                 </div>
                             </div>
 
-                            <input type="tel" id="modal-phone" name="phone" required placeholder="65 60 45 92"
-                                   class="flex-1 min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm text-gray-900 placeholder-gray-400">
+                            <input type="tel" id="modal-phone" name="phone" required placeholder="65 60 45 92" class="form-input" style="flex:1;">
                         </div>
                     </div>
 
                     <!-- Destination & Project Type -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;">
                         <div>
-                            <label for="modal-destination" class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                Destination <span class="text-red-500">*</span>
-                            </label>
-                            <select id="modal-destination" name="destination" required
-                                    class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm text-gray-900">
+                            <label for="modal-destination" class="form-label">Destination <span style="color:var(--color-danger)">*</span></label>
+                            <select id="modal-destination" name="destination" required class="form-input">
                                 <option value="">Choisir...</option>
                                 <option value="china">🇨🇳 Chine</option>
                                 <option value="germany">🇩🇪 Allemagne</option>
@@ -564,11 +895,8 @@
                             </select>
                         </div>
                         <div>
-                            <label for="modal-project-type" class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                Type de projet <span class="text-red-500">*</span>
-                            </label>
-                            <select id="modal-project-type" name="project_type" required
-                                    class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm text-gray-900">
+                            <label for="modal-project-type" class="form-label">Type de projet <span style="color:var(--color-danger)">*</span></label>
+                            <select id="modal-project-type" name="project_type" required class="form-input">
                                 <option value="">Choisir...</option>
                                 <option value="etudes">📚 Études</option>
                                 <option value="travail">💼 Travail</option>
@@ -580,55 +908,54 @@
 
                     <!-- Message -->
                     <div>
-                        <label for="modal-message" class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            Votre message
-                        </label>
+                        <label for="modal-message" class="form-label">Votre message</label>
                         <textarea id="modal-message" name="message" rows="3"
                                   placeholder="Décrivez brièvement votre projet..."
-                                  class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-sm text-gray-900 placeholder-gray-400 resize-none"></textarea>
+                                  class="form-input"></textarea>
                     </div>
 
                     <!-- Consent -->
-                    <div class="flex items-start gap-2 sm:gap-3">
+                    <label class="checkbox-label">
                         <input type="checkbox" id="modal-consent" name="consent" required
-                               class="mt-0.5 w-4 h-4 text-primary-600 bg-gray-50 border-0 rounded focus:ring-primary-500 flex-shrink-0">
-                        <label for="modal-consent" class="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                            J'accepte d'être contacté(e) par Travel Express. <span class="text-red-500">*</span>
-                        </label>
-                    </div>
+                               style="accent-color:var(--gold-primary);width:16px;height:16px;flex-shrink:0;margin-top:2px;">
+                        <span style="font-size:.85rem;color:var(--dark-700);line-height:1.5;">
+                            J'accepte d'être contacté(e) par Travel Express. <span style="color:var(--color-danger)">*</span>
+                        </span>
+                    </label>
 
                     <!-- Submit Button -->
                     <button type="submit"
                             :disabled="formLoading"
-                            class="w-full py-3 sm:py-4 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100">
+                            class="btn-primary"
+                            style="width:100%;justify-content:center;padding:1rem;">
                         <span x-show="!formLoading">Envoyer ma demande</span>
-                        <svg x-show="!formLoading" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        <svg x-show="!formLoading" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                         </svg>
-                        <svg x-show="formLoading" class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        <svg x-show="formLoading" style="animation:spin .8s linear infinite;" width="18" height="18" fill="none" viewBox="0 0 24 24">
+                            <circle style="opacity:.25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path style="opacity:.75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
                         <span x-show="formLoading">Envoi en cours...</span>
                     </button>
 
                     <!-- Trust badges -->
-                    <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2">
-                        <div class="flex items-center gap-1.5 text-gray-500 text-[10px] sm:text-xs">
-                            <svg class="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1rem;padding-top:.5rem;">
+                        <div class="trust-badge">
+                            <svg width="14" height="14" fill="var(--color-success)" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
                             <span>Sécurisé</span>
                         </div>
-                        <div class="flex items-center gap-1.5 text-gray-500 text-[10px] sm:text-xs">
-                            <svg class="w-3.5 h-3.5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        <div class="trust-badge">
+                            <svg width="14" height="14" fill="none" stroke="var(--gold-primary)" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                             <span>Réponse 24h</span>
                         </div>
-                        <div class="flex items-center gap-1.5 text-gray-500 text-[10px] sm:text-xs">
-                            <svg class="w-3.5 h-3.5 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        <div class="trust-badge">
+                            <svg width="14" height="14" fill="none" stroke="var(--color-success)" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
                             </svg>
                             <span>Gratuit</span>
                         </div>
@@ -639,12 +966,8 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-6 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto text-center">
-            <p class="text-sm text-gray-600">
-                &copy; 2024 Travel Express Burkina Faso. Tous droits réservés.
-            </p>
-        </div>
+    <footer class="site-footer">
+        <p>&copy; 2024 Travel Express Burkina Faso. Tous droits réservés.</p>
     </footer>
 </body>
 </html>

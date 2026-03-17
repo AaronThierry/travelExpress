@@ -6,10 +6,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Inscription - Travel Express</title>
 
-    <!-- Google Fonts - Premium Typography -->
+    <!-- Google Fonts - Royal Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Bebas+Neue&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
     <!-- Flag Icons CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
@@ -17,208 +17,516 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        .font-display { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; }
-        .font-sans { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; }
+        :root {
+            --gold-primary: #C9A84C; --gold-bright: #F0D07A; --gold-deep: #8B6914;
+            --gold-gradient: linear-gradient(135deg, #8B6914 0%, #C9A84C 30%, #F0D07A 50%, #C9A84C 70%, #8B6914 100%);
+            --dark-0: #080808; --dark-100: #141414; --dark-200: #1C1C1C; --dark-300: #262626;
+            --dark-400: #333333; --dark-500: #4A4A4A; --dark-600: #6B6B6B;
+            --dark-700: #8A8A8A; --dark-800: #B0B0B0; --dark-900: #D4D4D4;
+            --glow-gold: 0 0 20px rgba(201,168,76,.25), 0 0 60px rgba(201,168,76,.08);
+            --glow-gold-strong: 0 0 30px rgba(201,168,76,.4), 0 0 80px rgba(201,168,76,.15);
+            --color-success: #2ECABB; --color-warning: #F0B428; --color-danger: #E74C3C;
+            --r-sm:3px; --r-md:6px; --r-lg:10px; --r-xl:14px; --r-full:9999px;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark-0);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Gold grid overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(201,168,76,.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,168,76,.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
 
         @keyframes slideIn {
             from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            to   { opacity: 1; transform: translateY(0); }
         }
         @keyframes fadeIn {
             from { opacity: 0; }
-            to { opacity: 1; }
+            to   { opacity: 1; }
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        @keyframes shimmer {
+            0%   { background-position: -200% center; }
+            100% { background-position:  200% center; }
+        }
+        @keyframes pulseGold {
+            0%, 100% { opacity: .25; }
+            50%       { opacity: .5; }
         }
 
         .slide-in { animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .fade-in { animation: fadeIn 0.4s ease-out; }
+        .fade-in  { animation: fadeIn 0.4s ease-out; }
 
-        .input-elegant {
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        /* ---- CARD ---- */
+        .royal-card {
+            background: var(--dark-100);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-xl);
+            position: relative;
+            overflow: hidden;
         }
-        .input-elegant:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 113, 227, 0.12);
-        }
-
-        .btn-elegant {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .btn-elegant:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(0, 113, 227, 0.3);
-        }
-        .btn-elegant:active {
-            transform: translateY(0);
-        }
-
-        /* Animated background blobs */
-        .blob {
+        .royal-card::before {
+            content: '';
             position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: float 8s ease-in-out infinite;
-        }
-        .blob-1 {
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, #0071e3, #0077ED);
-            top: -200px;
-            left: -200px;
-            animation-delay: 0s;
-        }
-        .blob-2 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, #FF9500, #FF6D00);
-            bottom: -150px;
-            right: -150px;
-            animation-delay: 2s;
-        }
-        .blob-3 {
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(135deg, #2997FF, #0369a1);
-            top: 50%;
-            left: -100px;
-            animation-delay: 4s;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--gold-gradient);
         }
 
-        /* Progress bar */
+        /* Corner decorations */
+        .corner-tl, .corner-tr, .corner-bl, .corner-br {
+            position: absolute;
+            width: 18px; height: 18px;
+            border-color: var(--gold-primary);
+            border-style: solid;
+            opacity: .5;
+            pointer-events: none;
+        }
+        .corner-tl { top: 10px; left: 10px;  border-width: 1px 0 0 1px; border-radius: 2px 0 0 0; }
+        .corner-tr { top: 10px; right: 10px; border-width: 1px 1px 0 0; border-radius: 0 2px 0 0; }
+        .corner-bl { bottom: 10px; left: 10px;  border-width: 0 0 1px 1px; border-radius: 0 0 0 2px; }
+        .corner-br { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; border-radius: 0 0 2px 0; }
+
+        /* ---- LOGO GOLD GRADIENT TEXT ---- */
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: .05em;
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s linear infinite;
+        }
+        .logo-sub {
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--gold-deep);
+            margin-top: 4px;
+        }
+
+        /* ---- TITLE ---- */
+        .royal-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: .04em;
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .royal-subtitle {
+            font-family: var(--font-body);
+            font-size: .8rem;
+            color: var(--dark-700);
+            letter-spacing: .05em;
+        }
+
+        /* ---- PROGRESS BAR ---- */
         .progress-bar {
             height: 4px;
-            background: #e5e7eb;
-            border-radius: 9999px;
+            background: var(--dark-300);
+            border-radius: var(--r-full);
             overflow: hidden;
         }
         .progress-fill {
             height: 100%;
-            background: linear-gradient(to right, #0071e3, #FF9500);
+            background: var(--gold-gradient);
+            background-size: 200% auto;
             transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: var(--r-full);
         }
 
-        /* Flag icons in select */
-        #country option {
-            padding-left: 30px;
-            background-repeat: no-repeat;
-            background-position: 6px center;
-            background-size: 20px 15px;
+        /* ---- LABELS ---- */
+        .royal-label {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .15em;
+            color: var(--gold-deep);
+            margin-bottom: 6px;
         }
-        .flag-icon {
-            display: inline-block;
-            width: 20px;
-            height: 15px;
-            margin-right: 8px;
-            border-radius: 2px;
+
+        /* ---- INPUTS ---- */
+        .royal-input {
+            width: 100%;
+            background: var(--dark-200);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-lg);
+            color: var(--dark-900);
+            font-family: var(--font-body);
+            font-size: .875rem;
+            padding: .875rem 1rem .875rem 2.75rem;
+            outline: none;
+            transition: border-color .25s, box-shadow .25s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        .royal-input::placeholder { color: var(--dark-600); }
+        .royal-input:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(201,168,76,.12);
+        }
+        .royal-input.no-icon {
+            padding-left: 1rem;
+        }
+        .input-icon-wrap {
+            position: relative;
+        }
+        .input-icon-wrap .icon {
+            position: absolute;
+            left: .875rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-deep);
+            pointer-events: none;
+            width: 16px; height: 16px;
+        }
+
+        /* Alpine dropdown override */
+        .royal-dropdown-btn {
+            width: 100%;
+            background: var(--dark-200);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-lg);
+            color: var(--dark-900);
+            font-family: var(--font-body);
+            font-size: .875rem;
+            padding: .875rem 2.5rem .875rem 1rem;
+            outline: none;
+            transition: border-color .25s, box-shadow .25s;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+        }
+        .royal-dropdown-btn:focus,
+        .royal-dropdown-btn.open {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(201,168,76,.12);
+        }
+        .royal-dropdown-btn .placeholder-text { color: var(--dark-600); }
+        .royal-dropdown-panel {
+            position: absolute;
+            left: 0; right: 0; top: 100%;
+            margin-top: 6px;
+            background: var(--dark-200);
+            border: 1px solid rgba(201,168,76,.2);
+            border-radius: var(--r-lg);
+            box-shadow: 0 20px 40px rgba(0,0,0,.6), var(--glow-gold);
+            z-index: 50;
+            max-height: 240px;
+            overflow: hidden;
+        }
+        .royal-dropdown-search {
+            padding: 10px;
+            border-bottom: 1px solid rgba(201,168,76,.1);
+            position: sticky;
+            top: 0;
+            background: var(--dark-200);
+        }
+        .royal-dropdown-search input {
+            width: 100%;
+            background: var(--dark-300);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-md);
+            color: var(--dark-900);
+            font-family: var(--font-body);
+            font-size: .8rem;
+            padding: .5rem .75rem;
+            outline: none;
+        }
+        .royal-dropdown-search input:focus { border-color: var(--gold-primary); }
+        .royal-dropdown-list { overflow-y: auto; max-height: 180px; }
+        .royal-dropdown-option {
+            width: 100%;
+            padding: .625rem 1rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            color: var(--dark-800);
+            font-family: var(--font-body);
+            font-size: .85rem;
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            transition: background .15s;
+        }
+        .royal-dropdown-option:hover { background: rgba(201,168,76,.07); color: var(--gold-bright); }
+        .royal-dropdown-option.selected { background: rgba(201,168,76,.12); color: var(--gold-primary); }
+
+        /* ---- SELECT ---- */
+        select.royal-input {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238B6914' stroke-width='2.5'%3E%3Cpath d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 2.5rem;
+            cursor: pointer;
+        }
+        select.royal-input option {
+            background: var(--dark-200);
+            color: var(--dark-900);
+        }
+
+        /* ---- BUTTONS ---- */
+        .btn-royal {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            font-family: var(--font-body);
+            font-size: .875rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .875rem 1.5rem;
+            border: none;
+            border-radius: var(--r-lg);
+            cursor: pointer;
+            transition: box-shadow .3s, transform .2s, opacity .2s;
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            color: #080808;
+        }
+        .btn-royal:hover {
+            box-shadow: var(--glow-gold-strong);
+            transform: translateY(-2px);
+        }
+        .btn-royal:active { transform: translateY(0); }
+        .btn-royal:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            font-family: var(--font-body);
+            font-size: .875rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .875rem 1.5rem;
+            border: 1px solid rgba(201,168,76,.25);
+            border-radius: var(--r-lg);
+            cursor: pointer;
+            transition: border-color .25s, background .25s;
+            background: transparent;
+            color: var(--dark-800);
+        }
+        .btn-ghost:hover {
+            border-color: var(--gold-primary);
+            background: rgba(201,168,76,.05);
+            color: var(--gold-primary);
+        }
+
+        /* ---- CHECKBOX ---- */
+        .royal-checkbox {
+            width: 16px; height: 16px;
+            accent-color: var(--gold-primary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* ---- ALERT MESSAGES ---- */
+        .alert-success {
+            background: rgba(46,202,187,.08);
+            border: 1px solid rgba(46,202,187,.25);
+            border-radius: var(--r-lg);
+            padding: .875rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            color: #2ECABB;
+            font-size: .875rem;
+        }
+        .alert-danger {
+            background: rgba(231,76,60,.08);
+            border: 1px solid rgba(231,76,60,.25);
+            border-radius: var(--r-lg);
+            padding: .875rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            color: var(--color-danger);
+            font-size: .875rem;
+        }
+
+        /* ---- FIELD ERROR ---- */
+        .field-error {
+            color: var(--color-danger);
+            font-size: .75rem;
+            margin-top: 4px;
+            font-family: var(--font-body);
+        }
+        .field-hint {
+            color: var(--dark-600);
+            font-size: .72rem;
+            margin-top: 4px;
+            font-family: var(--font-body);
+        }
+
+        /* ---- LINKS ---- */
+        a.royal-link {
+            color: var(--gold-primary);
+            text-decoration: none;
+            transition: color .2s;
+        }
+        a.royal-link:hover { color: var(--gold-bright); }
+
+        /* ---- DIVIDER ---- */
+        .royal-divider {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            margin: 1.25rem 0;
+        }
+        .royal-divider::before, .royal-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(201,168,76,.12);
+        }
+        .royal-divider span {
+            color: var(--dark-600);
+            font-size: .7rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
         }
     </style>
 </head>
-<body class="font-sans min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden">
+<body>
 
-    <!-- Animated Background Blobs -->
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-
-    <div class="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 relative z-10">
+    <div class="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 relative" style="z-index:1;">
         <div class="w-full max-w-md slide-in">
 
             <!-- Logo -->
             <div class="text-center mb-8 fade-in">
-                <a href="/" class="inline-flex items-center space-x-3.5 group">
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-br from-primary-600 via-accent-500 to-accent-600 rounded-2xl blur-xl opacity-20 group-hover:opacity-40 transition-all duration-500 animate-pulse"></div>
-                        <div class="relative w-16 h-16 bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-xl shadow-primary-600/20">
-                            <svg class="w-9 h-9 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                <a href="/" class="inline-flex flex-col items-center group" style="text-decoration:none;">
+                    <div class="relative mb-3">
+                        <div style="
+                            width:60px; height:60px;
+                            background: var(--dark-200);
+                            border: 1px solid rgba(201,168,76,.25);
+                            border-radius: var(--r-xl);
+                            display:flex; align-items:center; justify-content:center;
+                            box-shadow: var(--glow-gold);
+                            transition: box-shadow .3s;
+                        " class="logo-icon-wrap">
+                            <svg width="30" height="30" fill="none" stroke="url(#goldStroke)" viewBox="0 0 24 24" stroke-width="1.5">
+                                <defs>
+                                    <linearGradient id="goldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#8B6914"/>
+                                        <stop offset="50%" stop-color="#F0D07A"/>
+                                        <stop offset="100%" stop-color="#8B6914"/>
+                                    </linearGradient>
+                                </defs>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
                     </div>
-                    <div class="flex flex-col">
-                        <span class="text-3xl font-display font-bold text-dark tracking-tight leading-none group-hover:text-primary-600 transition-colors duration-300" style="letter-spacing: -0.02em;">Travel Express</span>
-                        <span class="text-xs font-sans font-bold text-primary-600 tracking-[0.15em] uppercase leading-none mt-1.5 opacity-90">Study Abroad Experts</span>
-                    </div>
+                    <span class="logo-text">Travel Express</span>
+                    <span class="logo-sub">Study Abroad Experts</span>
                 </a>
             </div>
 
             <!-- Register Card -->
-            <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/5 p-8 border border-white/20 relative overflow-hidden">
-                <!-- Card gradient overlay -->
-                <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-600 via-accent-500 to-accent-600"></div>
+            <div class="royal-card" style="padding: 2rem;">
+                <div class="corner-tl"></div>
+                <div class="corner-tr"></div>
+                <div class="corner-bl"></div>
+                <div class="corner-br"></div>
 
-                <div class="mb-6">
-                    <h2 class="text-3xl font-display font-bold text-dark mb-2" style="letter-spacing: -0.02em;">Créer un compte</h2>
-                    <p class="text-sm text-gray-600 font-medium tracking-wide">Étape <span id="stepIndicator">1</span>/3</p>
+                <div class="mb-5">
+                    <h2 class="royal-title">Créer un compte</h2>
+                    <p class="royal-subtitle" style="margin-top:4px;">
+                        Étape <span id="stepIndicator">1</span>/3
+                    </p>
                 </div>
 
                 <!-- Progress Bar -->
-                <div class="progress-bar mb-6">
+                <div class="progress-bar" style="margin-bottom:1.5rem;">
                     <div id="progressFill" class="progress-fill" style="width: 33.33%;"></div>
                 </div>
 
-                <div id="alert-container" class="mb-5"></div>
+                <div id="alert-container" style="margin-bottom:1rem;"></div>
 
-                <form id="registerForm" class="space-y-4">
+                <form id="registerForm">
                     <!-- Step 1: Personal Info -->
                     <div id="step1">
                         <!-- Name -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-bold text-dark mb-2 tracking-wide">Nom et Prénom</label>
-                            <div class="relative">
-                                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                    </svg>
-                                </div>
-                                <input type="text" id="name" required
-                                    class="w-full pl-12 pr-4 py-3.5 text-sm bg-gray-50/50 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-dark placeholder-gray-400 input-elegant transition-all"
-                                    placeholder="Jean Dupont">
+                        <div style="margin-bottom:1rem;">
+                            <label class="royal-label" for="name">Nom et Prénom</label>
+                            <div class="input-icon-wrap">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                                <input type="text" id="name" class="royal-input" required placeholder="Jean Dupont">
                             </div>
-                            <p class="text-red-600 text-xs mt-2 hidden font-medium" id="name-error"></p>
+                            <p class="field-error hidden" id="name-error"></p>
                         </div>
 
                         <!-- Email -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-bold text-dark mb-2 tracking-wide">Adresse e-mail</label>
-                            <div class="relative">
-                                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                    </svg>
-                                </div>
-                                <input type="email" id="email" required
-                                    class="w-full pl-12 pr-4 py-3.5 text-sm bg-gray-50/50 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-dark placeholder-gray-400 input-elegant transition-all"
-                                    placeholder="votre@email.com">
+                        <div style="margin-bottom:1rem;">
+                            <label class="royal-label" for="email">Adresse e-mail</label>
+                            <div class="input-icon-wrap">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <input type="email" id="email" class="royal-input" required placeholder="votre@email.com">
                             </div>
-                            <p class="text-red-600 text-xs mt-2 hidden font-medium" id="email-error"></p>
+                            <p class="field-error hidden" id="email-error"></p>
                         </div>
 
                         <!-- Country -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-bold text-dark mb-2 tracking-wide">Pays</label>
+                        <div style="margin-bottom:1.25rem;">
+                            <label class="royal-label">Pays</label>
                             <div class="relative" x-data="countrySelector()">
                                 <input type="hidden" id="country" name="country" required x-model="selectedValue">
 
-                                <button type="button" @click="open = !open"
-                                    class="w-full pl-4 pr-10 py-3.5 text-sm bg-gray-50/50 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-dark input-elegant transition-all text-left flex items-center gap-3"
-                                    :class="{'border-primary-500 ring-2 ring-primary-500': open}">
-                                    <span x-show="!selectedFlag" class="text-gray-400">Sélectionnez votre pays</span>
+                                <button type="button"
+                                    class="royal-dropdown-btn"
+                                    :class="{'open': open}"
+                                    @click="open = !open">
+                                    <span x-show="!selectedFlag" class="placeholder-text">Sélectionnez votre pays</span>
                                     <template x-if="selectedFlag">
-                                        <div class="flex items-center gap-3">
+                                        <div style="display:flex;align-items:center;gap:.75rem;">
                                             <img :src="`https://flagcdn.com/w20/${selectedFlag}.png`"
                                                  :alt="selectedCountry"
-                                                 class="w-6 h-4 object-cover rounded shadow-sm">
-                                            <span x-text="selectedCountry"></span>
+                                                 style="width:24px;height:16px;object-fit:cover;border-radius:2px;">
+                                            <span x-text="selectedCountry" style="color:var(--dark-900);"></span>
                                         </div>
                                     </template>
-                                    <svg class="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition-transform"
-                                         :class="{'rotate-180': open}"
+                                    <svg style="width:14px;height:14px;position:absolute;right:12px;top:50%;transform:translateY(-50%) rotate(0deg);transition:transform .2s;color:var(--gold-deep);"
+                                         :style="open ? 'transform:translateY(-50%) rotate(180deg)' : 'transform:translateY(-50%) rotate(0deg)'"
                                          fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
                                     </svg>
                                 </button>
 
@@ -230,39 +538,36 @@
                                      x-transition:leave="transition ease-in duration-150"
                                      x-transition:leave-start="opacity-100 scale-100"
                                      x-transition:leave-end="opacity-0 scale-95"
-                                     class="absolute left-0 right-0 top-full mt-2 bg-white border-2 border-gray-200 rounded-xl shadow-2xl z-50 max-h-60 overflow-hidden"
-                                     style="display: none;">
-
-                                    <div class="sticky top-0 bg-white p-3 border-b border-gray-200">
+                                     class="royal-dropdown-panel"
+                                     style="display:none;">
+                                    <div class="royal-dropdown-search">
                                         <input type="text"
                                                x-model="search"
                                                placeholder="Rechercher un pays..."
-                                               class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                               @click.stop>
                                     </div>
-
-                                    <div class="overflow-y-auto max-h-48">
+                                    <div class="royal-dropdown-list">
                                         <template x-for="country in filteredCountries" :key="country.value">
                                             <button type="button"
-                                                    @click="selectCountry(country)"
-                                                    class="w-full px-4 py-2.5 text-left hover:bg-primary-50 transition-colors flex items-center gap-3 text-sm"
-                                                    :class="{'bg-primary-100': selectedValue === country.value}">
+                                                    class="royal-dropdown-option"
+                                                    :class="{'selected': selectedValue === country.value}"
+                                                    @click="selectCountry(country)">
                                                 <img :src="`https://flagcdn.com/w20/${country.flag}.png`"
                                                      :alt="country.name"
-                                                     class="w-6 h-4 object-cover rounded shadow-sm">
+                                                     style="width:24px;height:16px;object-fit:cover;border-radius:2px;">
                                                 <span x-text="country.name"></span>
                                             </button>
                                         </template>
                                     </div>
                                 </div>
-                                    </div>
-                            <p class="text-red-600 text-xs mt-2 hidden font-medium" id="country-error"></p>
+                            </div>
+                            <p class="field-error hidden" id="country-error"></p>
                         </div>
 
-                        <button type="button" id="nextButton"
-                            class="w-full py-4 bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600 text-white text-sm font-bold rounded-xl shadow-lg flex items-center justify-center space-x-2.5 btn-elegant tracking-wide">
+                        <button type="button" id="nextButton" class="btn-royal" style="width:100%;">
                             <span>Suivant</span>
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                             </svg>
                         </button>
                     </div>
@@ -270,60 +575,47 @@
                     <!-- Step 2: Professional Info -->
                     <div id="step2" class="hidden">
                         <!-- Status -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-bold text-dark mb-2 tracking-wide">Statut actuel</label>
-                            <div class="relative">
-                                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                    </svg>
-                                </div>
-                                <select id="status" required
-                                    class="w-full pl-12 pr-4 py-3.5 text-sm bg-gray-50/50 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-dark input-elegant transition-all appearance-none">
+                        <div style="margin-bottom:1rem;">
+                            <label class="royal-label" for="status">Statut actuel</label>
+                            <div class="input-icon-wrap">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <select id="status" class="royal-input" required>
                                     <option value="">Sélectionnez votre statut</option>
                                     <option value="student">Étudiant</option>
                                     <option value="professional">Professionnel</option>
                                     <option value="graduate">Diplômé</option>
                                 </select>
-                                <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                    </svg>
-                                </div>
                             </div>
-                            <p class="text-red-600 text-xs mt-2 hidden font-medium" id="status-error"></p>
+                            <p class="field-error hidden" id="status-error"></p>
                         </div>
 
                         <!-- Specialty -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-bold text-dark mb-2 tracking-wide">Spécialité / Poste actuel</label>
-                            <div class="relative">
-                                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                </div>
-                                <input type="text" id="specialty" required
-                                    class="w-full pl-12 pr-4 py-3.5 text-sm bg-gray-50/50 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-dark placeholder-gray-400 input-elegant transition-all"
+                        <div style="margin-bottom:1.25rem;">
+                            <label class="royal-label" for="specialty">Spécialité / Poste actuel</label>
+                            <div class="input-icon-wrap">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                </svg>
+                                <input type="text" id="specialty" class="royal-input" required
                                     placeholder="Ex: Étudiant en Réseaux à l'Université de Pékin">
                             </div>
-                            <p class="text-xs text-gray-500 mt-1.5">Exemples: Étudiant en Réseaux à l'Université de Pékin, Ingénieur Système chez IBM</p>
-                            <p class="text-red-600 text-xs mt-2 hidden font-medium" id="specialty-error"></p>
+                            <p class="field-hint">Exemples: Étudiant en Réseaux à l'Université de Pékin, Ingénieur Système chez IBM</p>
+                            <p class="field-error hidden" id="specialty-error"></p>
                         </div>
 
-                        <div class="flex gap-3">
-                            <button type="button" id="prevButton"
-                                class="flex-1 py-4 bg-gray-100 hover:bg-gray-200 text-dark text-sm font-bold rounded-xl shadow-md flex items-center justify-center space-x-2 transition-all duration-300">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                        <div style="display:flex;gap:.75rem;">
+                            <button type="button" id="prevButton" class="btn-ghost" style="flex:1;">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12"/>
                                 </svg>
                                 <span>Retour</span>
                             </button>
-                            <button type="button" id="nextButton2"
-                                class="flex-1 py-4 bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600 text-white text-sm font-bold rounded-xl shadow-lg flex items-center justify-center space-x-2.5 btn-elegant tracking-wide">
+                            <button type="button" id="nextButton2" class="btn-royal" style="flex:1;">
                                 <span>Suivant</span>
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                                 </svg>
                             </button>
                         </div>
@@ -332,86 +624,71 @@
                     <!-- Step 3: Security -->
                     <div id="step3" class="hidden">
                         <!-- Password -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-bold text-dark mb-2 tracking-wide">Mot de passe</label>
-                            <div class="relative">
-                                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                    </svg>
-                                </div>
-                                <input type="password" id="password" required
-                                    class="w-full pl-12 pr-4 py-3.5 text-sm bg-gray-50/50 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-dark placeholder-gray-400 input-elegant transition-all"
-                                    placeholder="Minimum 8 caractères">
+                        <div style="margin-bottom:1rem;">
+                            <label class="royal-label" for="password">Mot de passe</label>
+                            <div class="input-icon-wrap">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                </svg>
+                                <input type="password" id="password" class="royal-input" required placeholder="Minimum 8 caractères">
                             </div>
-                            <p class="text-red-600 text-xs mt-2 hidden font-medium" id="password-error"></p>
+                            <p class="field-error hidden" id="password-error"></p>
                         </div>
 
                         <!-- Confirm Password -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-bold text-dark mb-2 tracking-wide">Confirmer le mot de passe</label>
-                            <div class="relative">
-                                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                    </svg>
-                                </div>
-                                <input type="password" id="password_confirmation" required
-                                    class="w-full pl-12 pr-4 py-3.5 text-sm bg-gray-50/50 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-dark placeholder-gray-400 input-elegant transition-all"
-                                    placeholder="Confirmez votre mot de passe">
+                        <div style="margin-bottom:1rem;">
+                            <label class="royal-label" for="password_confirmation">Confirmer le mot de passe</label>
+                            <div class="input-icon-wrap">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                </svg>
+                                <input type="password" id="password_confirmation" class="royal-input" required placeholder="Confirmez votre mot de passe">
                             </div>
-                            <p class="text-red-600 text-xs mt-2 hidden font-medium" id="password_confirmation-error"></p>
+                            <p class="field-error hidden" id="password_confirmation-error"></p>
                         </div>
 
                         <!-- Terms -->
-                        <div class="flex items-start mb-4">
-                            <input type="checkbox" id="terms" required class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-2 focus:ring-primary-500 transition-all mt-1">
-                            <label for="terms" class="ml-2.5 text-sm text-gray-700">
-                                J'accepte les <a href="#" class="text-primary-600 font-bold hover:text-primary-700 transition-colors relative group">
-                                    <span>conditions d'utilisation</span>
-                                    <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                                </a>
+                        <div style="display:flex;align-items:flex-start;gap:.625rem;margin-bottom:1.25rem;">
+                            <input type="checkbox" id="terms" required class="royal-checkbox" style="margin-top:2px;">
+                            <label for="terms" style="font-family:var(--font-body);font-size:.85rem;color:var(--dark-800);line-height:1.5;cursor:pointer;">
+                                J'accepte les
+                                <a href="#" class="royal-link" style="font-weight:700;">conditions d'utilisation</a>
                             </label>
                         </div>
 
-                        <div class="flex gap-3">
-                            <button type="button" id="prevButton2"
-                                class="flex-1 py-4 bg-gray-100 hover:bg-gray-200 text-dark text-sm font-bold rounded-xl shadow-md flex items-center justify-center space-x-2 transition-all duration-300">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                        <div style="display:flex;gap:.75rem;">
+                            <button type="button" id="prevButton2" class="btn-ghost" style="flex:1;">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12"/>
                                 </svg>
                                 <span>Retour</span>
                             </button>
-                            <button type="submit" id="registerButton"
-                                class="flex-1 py-4 bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600 text-white text-sm font-bold rounded-xl shadow-lg flex items-center justify-center space-x-2.5 btn-elegant tracking-wide">
+                            <button type="submit" id="registerButton" class="btn-royal" style="flex:1;">
                                 <span id="registerButtonText">Créer mon compte</span>
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
                             </button>
                         </div>
                     </div>
                 </form>
 
-                <div class="mt-6 text-center">
-                    <p class="text-sm text-gray-600">
-                        Vous avez déjà un compte?
-                        <a href="/login" class="text-primary-600 font-bold hover:text-primary-700 transition-colors relative inline-block group">
-                            <span>Se connecter</span>
-                            <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-600 to-accent-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                        </a>
-                    </p>
-                </div>
+                <div class="royal-divider"><span>Déjà inscrit</span></div>
+                <p style="text-align:center;font-family:var(--font-body);font-size:.85rem;color:var(--dark-700);">
+                    Vous avez déjà un compte ?
+                    <a href="/login" class="royal-link" style="font-weight:700;margin-left:.25rem;">Se connecter</a>
+                </p>
             </div>
 
-            <div class="mt-6 text-center">
-                <a href="/" class="inline-flex items-center space-x-2 text-sm text-gray-600 hover:text-dark transition-colors group font-medium">
-                    <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            <div style="text-align:center;margin-top:1.5rem;">
+                <a href="/" class="royal-link" style="font-size:.8rem;font-family:var(--font-body);display:inline-flex;align-items:center;gap:.5rem;color:var(--dark-600);">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
-                    <span>Retour à l'accueil</span>
+                    Retour à l'accueil
                 </a>
             </div>
+
         </div>
     </div>
 
@@ -469,7 +746,7 @@
                     {value: 'north_korea', name: 'Corée du Nord', flag: 'kp'},
                     {value: 'south_korea', name: 'Corée du Sud', flag: 'kr'},
                     {value: 'costa_rica', name: 'Costa Rica', flag: 'cr'},
-                    {value: 'ivory_coast', name: 'Côte d\'Ivoire', flag: 'ci'},
+                    {value: 'ivory_coast', name: "Côte d'Ivoire", flag: 'ci'},
                     {value: 'croatia', name: 'Croatie', flag: 'hr'},
                     {value: 'cuba', name: 'Cuba', flag: 'cu'},
                     {value: 'denmark', name: 'Danemark', flag: 'dk'},
@@ -639,21 +916,17 @@
         // Navigation entre les étapes
         // Step 1 -> Step 2
         document.getElementById('nextButton').addEventListener('click', function() {
-            // Validation Step 1
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const country = document.getElementById('country').value;
 
-            // Clear previous errors
             document.querySelectorAll('[id$="-error"]').forEach(el => el.classList.add('hidden'));
 
-            // Validate all fields
             if (!name || !email || !country) {
                 alert('Veuillez remplir tous les champs');
                 return;
             }
 
-            // Go to step 2
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
             document.getElementById('stepIndicator').textContent = '2';
@@ -663,20 +936,16 @@
 
         // Step 2 -> Step 3
         document.getElementById('nextButton2').addEventListener('click', function() {
-            // Validation Step 2
             const status = document.getElementById('status').value;
             const specialty = document.getElementById('specialty').value;
 
-            // Clear previous errors
             document.querySelectorAll('[id$="-error"]').forEach(el => el.classList.add('hidden'));
 
-            // Validate all fields
             if (!status || !specialty) {
                 alert('Veuillez remplir tous les champs');
                 return;
             }
 
-            // Go to step 3
             document.getElementById('step2').classList.add('hidden');
             document.getElementById('step3').classList.remove('hidden');
             document.getElementById('stepIndicator').textContent = '3';
@@ -686,7 +955,6 @@
 
         // Step 2 -> Step 1
         document.getElementById('prevButton').addEventListener('click', function() {
-            // Go back to step 1
             document.getElementById('step2').classList.add('hidden');
             document.getElementById('step1').classList.remove('hidden');
             document.getElementById('stepIndicator').textContent = '1';
@@ -696,7 +964,6 @@
 
         // Step 3 -> Step 2
         document.getElementById('prevButton2').addEventListener('click', function() {
-            // Go back to step 2
             document.getElementById('step3').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
             document.getElementById('stepIndicator').textContent = '2';
@@ -713,7 +980,6 @@
             document.querySelectorAll('[id$="-error"]').forEach(el => el.classList.add('hidden'));
             alertContainer.innerHTML = '';
 
-            // Validate passwords
             const password = document.getElementById('password').value;
             const passwordConfirmation = document.getElementById('password_confirmation').value;
 
@@ -733,20 +999,17 @@
 
             if (!document.getElementById('terms').checked) {
                 alertContainer.innerHTML = `
-                    <div class="bg-red-50 border-2 border-red-200 rounded-xl p-4 flex items-center space-x-3 shadow-sm">
-                        <div class="flex-shrink-0">
-                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                        <p class="text-red-800 text-sm font-bold">Veuillez accepter les conditions d'utilisation</p>
+                    <div class="alert-danger">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="flex-shrink:0;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Veuillez accepter les conditions d'utilisation</span>
                     </div>
                 `;
                 return;
             }
 
             button.disabled = true;
-            button.classList.add('opacity-75', 'cursor-not-allowed');
             buttonText.textContent = 'Inscription en cours...';
 
             try {
@@ -775,29 +1038,23 @@
                     localStorage.setItem('user', JSON.stringify(data.data.user));
 
                     alertContainer.innerHTML = `
-                        <div class="bg-green-50 border-2 border-green-200 rounded-xl p-4 flex items-center space-x-3 shadow-sm">
-                            <div class="flex-shrink-0">
-                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <p class="text-green-800 text-sm font-bold">${data.message}</p>
+                        <div class="alert-success">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="flex-shrink:0;">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>${data.message}</span>
                         </div>
                     `;
 
                     setTimeout(() => window.location.href = '/', 1200);
                 } else {
                     if (data.errors) {
-                        // Check which step has errors
                         const step1Fields = ['name', 'email', 'country'];
                         const step2Fields = ['status', 'specialty'];
-                        const step3Fields = ['password', 'password_confirmation'];
 
                         const hasStep1Error = Object.keys(data.errors).some(key => step1Fields.includes(key));
                         const hasStep2Error = Object.keys(data.errors).some(key => step2Fields.includes(key));
-                        const hasStep3Error = Object.keys(data.errors).some(key => step3Fields.includes(key));
 
-                        // Navigate to the step with errors
                         if (hasStep1Error && currentStep !== 1) {
                             document.getElementById('step2').classList.add('hidden');
                             document.getElementById('step3').classList.add('hidden');
@@ -814,7 +1071,6 @@
                             currentStep = 2;
                         }
 
-                        // Display individual field errors
                         Object.keys(data.errors).forEach(key => {
                             const el = document.getElementById(`${key}-error`);
                             if (el) {
@@ -823,45 +1079,37 @@
                             }
                         });
 
-                        // Also display a general error message
                         const firstError = Object.values(data.errors)[0][0];
                         alertContainer.innerHTML = `
-                            <div class="bg-red-50 border-2 border-red-200 rounded-xl p-4 flex items-center space-x-3 shadow-sm">
-                                <div class="flex-shrink-0">
-                                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </div>
-                                <p class="text-red-800 text-sm font-bold">${firstError}</p>
+                            <div class="alert-danger">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="flex-shrink:0;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span>${firstError}</span>
                             </div>
                         `;
                     } else if (data.message) {
                         alertContainer.innerHTML = `
-                            <div class="bg-red-50 border-2 border-red-200 rounded-xl p-4 flex items-center space-x-3 shadow-sm">
-                                <div class="flex-shrink-0">
-                                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </div>
-                                <p class="text-red-800 text-sm font-bold">${data.message}</p>
+                            <div class="alert-danger">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="flex-shrink:0;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span>${data.message}</span>
                             </div>
                         `;
                     }
                 }
             } catch (error) {
                 alertContainer.innerHTML = `
-                    <div class="bg-red-50 border-2 border-red-200 rounded-xl p-4 flex items-center space-x-3 shadow-sm">
-                        <div class="flex-shrink-0">
-                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                        <p class="text-red-800 text-sm font-bold">Erreur de connexion au serveur</p>
+                    <div class="alert-danger">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="flex-shrink:0;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Erreur de connexion au serveur</span>
                     </div>
                 `;
             } finally {
                 button.disabled = false;
-                button.classList.remove('opacity-75', 'cursor-not-allowed');
                 buttonText.textContent = 'Créer mon compte';
             }
         });

@@ -6,212 +6,452 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Connexion - Travel Express</title>
 
-    <!-- Google Fonts - Premium Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Bebas+Neue&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        .font-display { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; }
-        .font-sans { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        @keyframes glow {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
+        :root {
+            --gold-primary: #C9A84C;
+            --gold-bright:  #F0D07A;
+            --gold-deep:    #8B6914;
+            --gold-gradient: linear-gradient(135deg, #8B6914 0%, #C9A84C 30%, #F0D07A 50%, #C9A84C 70%, #8B6914 100%);
+            --dark-0: #080808; --dark-100: #141414; --dark-200: #1C1C1C;
+            --dark-300: #262626; --dark-400: #333333; --dark-500: #4A4A4A;
+            --dark-600: #6B6B6B; --dark-700: #8A8A8A; --dark-800: #B0B0B0; --dark-900: #D4D4D4;
+            --glow-gold: 0 0 20px rgba(201,168,76,.25), 0 0 60px rgba(201,168,76,.08);
+            --glow-gold-strong: 0 0 30px rgba(201,168,76,.4), 0 0 80px rgba(201,168,76,.15);
+            --r-sm:3px; --r-md:6px; --r-lg:10px; --r-xl:14px; --r-full:9999px;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Lato', sans-serif;
         }
 
-        .slide-in { animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .fade-in { animation: fadeIn 0.4s ease-out; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .input-elegant {
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .input-elegant:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 113, 227, 0.12);
-        }
-
-        .btn-elegant {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark-0);
+            color: var(--dark-800);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
             position: relative;
             overflow: hidden;
         }
-        .btn-elegant:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(0, 113, 227, 0.3);
-        }
-        .btn-elegant:active {
-            transform: translateY(0);
+
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(201,168,76,.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        /* Animated background blobs */
-        .blob {
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 440px;
+        }
+
+        /* --- Logo --- */
+        .logo-area {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .logo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--r-lg);
+            background: var(--gold-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--glow-gold);
+            flex-shrink: 0;
+        }
+        .logo-icon svg {
+            width: 26px;
+            height: 26px;
+            color: #080808;
+            stroke: #080808;
+        }
+        .logo-text-block { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: .05em;
+            line-height: 1;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo-subtitle {
+            font-family: var(--font-body);
+            font-size: 9px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--gold-deep);
+            margin-top: 3px;
+        }
+
+        /* --- Card --- */
+        .auth-card {
+            background: var(--dark-100);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-xl);
+            padding: 2.25rem 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glow-gold);
+        }
+
+        /* Gold top accent line */
+        .auth-card::before {
+            content: '';
             position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: float 8s ease-in-out infinite;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--gold-gradient);
         }
-        .blob-1 {
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, #0071e3, #0077ED);
-            top: -200px;
-            left: -200px;
-            animation-delay: 0s;
+
+        /* Corner decorations */
+        .corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(201,168,76,.25);
+            pointer-events: none;
         }
-        .blob-2 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, #FF9500, #FF6D00);
-            bottom: -150px;
-            right: -150px;
-            animation-delay: 2s;
+        .corner-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; border-radius: var(--r-sm) 0 0 0; }
+        .corner-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; border-radius: 0 var(--r-sm) 0 0; }
+        .corner-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; border-radius: 0 0 0 var(--r-sm); }
+        .corner-br { bottom: 10px; right: 10px; border-left: none; border-top: none; border-radius: 0 0 var(--r-sm) 0; }
+
+        /* --- Card header --- */
+        .card-header { margin-bottom: 1.75rem; }
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: .08em;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.4rem;
         }
-        .blob-3 {
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(135deg, #2997FF, #0369a1);
+        .card-subtitle {
+            font-family: var(--font-body);
+            font-size: 12px;
+            letter-spacing: .08em;
+            color: var(--dark-700);
+        }
+
+        /* --- Alert container --- */
+        #alert-container { margin-bottom: 1.25rem; }
+        .alert-success {
+            background: rgba(46,202,187,.08);
+            border: 1px solid rgba(46,202,187,.3);
+            border-radius: var(--r-md);
+            padding: .75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+        .alert-success p { color: #2ECABB; font-size: 13px; }
+        .alert-error {
+            background: rgba(231,76,60,.08);
+            border: 1px solid rgba(231,76,60,.3);
+            border-radius: var(--r-md);
+            padding: .75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+        .alert-error p { color: #E74C3C; font-size: 13px; }
+
+        /* --- Form --- */
+        .form-group { margin-bottom: 1.25rem; }
+        .form-label {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 10px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--gold-deep);
+            margin-bottom: .5rem;
+        }
+        .input-wrapper { position: relative; }
+        .input-icon {
+            position: absolute;
+            left: 14px;
             top: 50%;
-            right: -100px;
-            animation-delay: 4s;
+            transform: translateY(-50%);
+            color: var(--dark-600);
+            display: flex;
+            align-items: center;
+            pointer-events: none;
         }
+        .input-icon svg { width: 18px; height: 18px; }
+        .form-input {
+            width: 100%;
+            padding: .8rem 1rem .8rem 2.75rem;
+            background: var(--dark-200);
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: var(--r-md);
+            color: var(--dark-900);
+            font-family: var(--font-body);
+            font-size: 14px;
+            outline: none;
+            transition: border-color .25s, box-shadow .25s;
+        }
+        .form-input::placeholder { color: var(--dark-600); }
+        .form-input:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(201,168,76,.08);
+        }
+        .form-input-pr { padding-right: 3rem; }
+        .toggle-pw {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--dark-600);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            transition: color .2s;
+        }
+        .toggle-pw:hover { color: var(--gold-primary); }
+        .toggle-pw svg { width: 18px; height: 18px; }
+
+        .field-error {
+            color: #E74C3C;
+            font-size: 11px;
+            margin-top: .35rem;
+            display: none;
+        }
+
+        /* --- Remember / Forgot row --- */
+        .form-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        .remember-label {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            cursor: pointer;
+        }
+        .remember-label input[type="checkbox"] {
+            width: 15px; height: 15px;
+            accent-color: var(--gold-primary);
+            cursor: pointer;
+        }
+        .remember-text {
+            font-family: var(--font-body);
+            font-size: 12px;
+            color: var(--dark-800);
+        }
+        .forgot-link {
+            font-family: var(--font-body);
+            font-size: 12px;
+            color: var(--gold-primary);
+            text-decoration: none;
+            letter-spacing: .05em;
+            transition: color .2s;
+        }
+        .forgot-link:hover { color: var(--gold-bright); }
+
+        /* --- Primary button --- */
+        .btn-primary {
+            width: 100%;
+            padding: .9rem 1.5rem;
+            background: var(--gold-gradient);
+            color: #080808;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: var(--r-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .6rem;
+            transition: box-shadow .3s, opacity .2s, transform .2s;
+        }
+        .btn-primary:hover {
+            box-shadow: var(--glow-gold-strong);
+            transform: translateY(-1px);
+        }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-primary:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+        .btn-primary svg { width: 17px; height: 17px; }
+
+        /* --- Footer links --- */
+        .card-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        .card-footer p {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--dark-700);
+        }
+        .card-footer a {
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color .2s;
+        }
+        .card-footer a:hover { color: var(--gold-bright); }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            margin-top: 1.5rem;
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--dark-700);
+            text-decoration: none;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--gold-primary); }
+        .back-link svg { width: 15px; height: 15px; transition: transform .2s; }
+        .back-link:hover svg { transform: translateX(-3px); }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .page-wrapper { animation: slideUp .55s cubic-bezier(.16,1,.3,1) both; }
     </style>
 </head>
-<body class="font-sans min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden">
+<body>
 
-    <!-- Animated Background Blobs -->
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
+    <div class="page-wrapper">
 
-    <div class="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 relative z-10">
-        <div class="w-full max-w-md slide-in">
-
-            <!-- Logo - Matching the header design -->
-            <div class="text-center mb-8 fade-in">
-                <a href="/" class="inline-flex items-center space-x-3.5 group">
-                    <div class="relative">
-                        <!-- Glow effect -->
-                        <div class="absolute inset-0 bg-gradient-to-br from-primary-600 via-accent-500 to-accent-600 rounded-2xl blur-xl opacity-20 group-hover:opacity-40 transition-all duration-500 animate-pulse"></div>
-                        <!-- Icon container -->
-                        <div class="relative w-16 h-16 bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-xl shadow-primary-600/20">
-                            <svg class="w-9 h-9 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-3xl font-display font-bold text-dark tracking-tight leading-none group-hover:text-primary-600 transition-colors duration-300" style="letter-spacing: -0.02em;">Travel Express</span>
-                        <span class="text-xs font-sans font-bold text-primary-600 tracking-[0.15em] uppercase leading-none mt-1.5 opacity-90">Study Abroad Experts</span>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Login Card -->
-            <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/5 p-8 border border-white/20 relative overflow-hidden">
-                <!-- Card gradient overlay -->
-                <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-600 via-accent-500 to-accent-600"></div>
-
-                <div class="mb-8">
-                    <h2 class="text-3xl font-display font-bold text-dark mb-2" style="letter-spacing: -0.02em;">Connexion</h2>
-                    <p class="text-sm text-gray-600 font-medium tracking-wide">Accédez à votre espace personnel</p>
-                </div>
-
-                <div id="alert-container" class="mb-5"></div>
-
-                <form id="loginForm" class="space-y-5">
-                    <!-- Email -->
-                    <div>
-                        <label class="block text-sm font-bold text-dark mb-2 tracking-wide">Adresse e-mail</label>
-                        <div class="relative">
-                            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                            <input type="email" id="email" required
-                                class="w-full pl-12 pr-4 py-3.5 text-sm bg-gray-50/50 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-dark placeholder-gray-400 input-elegant transition-all"
-                                placeholder="votre@email.com">
-                        </div>
-                        <p class="text-red-600 text-xs mt-2 hidden font-medium" id="email-error"></p>
-                    </div>
-
-                    <!-- Password -->
-                    <div>
-                        <label class="block text-sm font-bold text-dark mb-2 tracking-wide">Mot de passe</label>
-                        <div class="relative">
-                            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                </svg>
-                            </div>
-                            <input type="password" id="password" required
-                                class="w-full pl-12 pr-12 py-3.5 text-sm bg-gray-50/50 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-dark placeholder-gray-400 input-elegant transition-all"
-                                placeholder="••••••••••">
-                            <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary-600 transition-colors">
-                                <svg id="eye-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <p class="text-red-600 text-xs mt-2 hidden font-medium" id="password-error"></p>
-                    </div>
-
-                    <div class="flex items-center justify-between text-sm">
-                        <label class="flex items-center cursor-pointer group">
-                            <input type="checkbox" id="remember" class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-2 focus:ring-primary-500 transition-all">
-                            <span class="ml-2.5 text-gray-700 font-medium group-hover:text-dark transition-colors">Se souvenir de moi</span>
-                        </label>
-                        <a href="/forgot-password" class="text-primary-600 hover:text-primary-700 font-bold transition-colors relative group">
-                            <span>Mot de passe oublié?</span>
-                            <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                        </a>
-                    </div>
-
-                    <button type="submit" id="loginButton"
-                        class="w-full py-4 bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600 text-white text-sm font-bold rounded-xl shadow-lg flex items-center justify-center space-x-2.5 btn-elegant tracking-wide">
-                        <span id="loginButtonText">Se connecter</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                        </svg>
-                    </button>
-                </form>
-
-                <div class="mt-6 text-center">
-                    <p class="text-sm text-gray-600">
-                        Pas encore de compte?
-                        <a href="/register" class="text-primary-600 font-bold hover:text-primary-700 transition-colors relative inline-block group">
-                            <span>Créer un compte</span>
-                            <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-600 to-accent-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                        </a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="mt-6 text-center">
-                <a href="/" class="inline-flex items-center space-x-2 text-sm text-gray-600 hover:text-dark transition-colors group font-medium">
-                    <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        <!-- Logo -->
+        <div class="logo-area">
+            <a href="/" class="logo-link">
+                <div class="logo-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    <span>Retour à l'accueil</span>
-                </a>
+                </div>
+                <div class="logo-text-block">
+                    <span class="logo-title">Travel Express</span>
+                    <span class="logo-subtitle">Study Abroad Experts</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Card -->
+        <div class="auth-card">
+            <div class="corner corner-tl"></div>
+            <div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div>
+            <div class="corner corner-br"></div>
+
+            <div class="card-header">
+                <h2 class="card-title">Connexion</h2>
+                <p class="card-subtitle">Accédez à votre espace personnel</p>
             </div>
+
+            <div id="alert-container"></div>
+
+            <form id="loginForm">
+                <!-- Email -->
+                <div class="form-group">
+                    <label class="form-label" for="email">Adresse e-mail</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </span>
+                        <input type="email" id="email" class="form-input" placeholder="votre@email.com" required>
+                    </div>
+                    <p class="field-error" id="email-error"></p>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label class="form-label" for="password">Mot de passe</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </span>
+                        <input type="password" id="password" class="form-input form-input-pr" placeholder="••••••••••" required>
+                        <button type="button" class="toggle-pw" onclick="togglePassword()">
+                            <svg id="eye-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="field-error" id="password-error"></p>
+                </div>
+
+                <!-- Remember / Forgot -->
+                <div class="form-row">
+                    <label class="remember-label">
+                        <input type="checkbox" id="remember">
+                        <span class="remember-text">Se souvenir de moi</span>
+                    </label>
+                    <a href="/forgot-password" class="forgot-link">Mot de passe oublié ?</a>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" id="loginButton" class="btn-primary">
+                    <span id="loginButtonText">Se connecter</span>
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                </button>
+            </form>
+
+            <div class="card-footer">
+                <p>Pas encore de compte ? <a href="/register">Créer un compte</a></p>
+            </div>
+        </div>
+
+        <div style="text-align:center;">
+            <a href="/" class="back-link">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Retour à l'accueil
+            </a>
         </div>
     </div>
 
@@ -234,15 +474,16 @@
             const buttonText = document.getElementById('loginButtonText');
             const alertContainer = document.getElementById('alert-container');
 
-            document.querySelectorAll('[id$="-error"]').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('[id$="-error"]').forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
             alertContainer.innerHTML = '';
 
             button.disabled = true;
-            button.classList.add('opacity-75', 'cursor-not-allowed');
             buttonText.textContent = 'Connexion en cours...';
 
             try {
-                // Use web route for session-based authentication
                 const response = await fetch('/web/login', {
                     method: 'POST',
                     headers: {
@@ -261,32 +502,23 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Store auth data
                     localStorage.setItem('auth_token', data.data.access_token);
                     localStorage.setItem('user', JSON.stringify(data.data.user));
                     localStorage.setItem('token_expires_at', data.data.expires_at);
                     localStorage.setItem('is_admin', data.data.user.is_admin ? 'true' : 'false');
 
                     alertContainer.innerHTML = `
-                        <div class="bg-green-50 border-2 border-green-200 rounded-xl p-4 flex items-center space-x-3 shadow-sm">
-                            <div class="flex-shrink-0">
-                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <p class="text-green-800 text-sm font-bold">${data.message}</p>
-                        </div>
-                    `;
+                        <div class="alert-success">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="color:#2ECABB;flex-shrink:0;">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <p>${data.message}</p>
+                        </div>`;
 
-                    // Check for redirect parameter
                     const urlParams = new URLSearchParams(window.location.search);
                     const redirectParam = urlParams.get('redirect');
-
                     let redirectUrl = '/';
-                    if (redirectParam === 'testimonial') {
-                        // Redirect to home with testimonial modal open
-                        redirectUrl = '/?openTestimonial=true';
-                    }
+                    if (redirectParam === 'testimonial') redirectUrl = '/?openTestimonial=true';
 
                     setTimeout(() => window.location.href = redirectUrl, 1200);
                 } else {
@@ -295,36 +527,29 @@
                             const el = document.getElementById(`${key}-error`);
                             if (el) {
                                 el.textContent = data.errors[key][0];
-                                el.classList.remove('hidden');
+                                el.style.display = 'block';
                             }
                         });
                     } else if (data.message) {
                         alertContainer.innerHTML = `
-                            <div class="bg-red-50 border-2 border-red-200 rounded-xl p-4 flex items-center space-x-3 shadow-sm">
-                                <div class="flex-shrink-0">
-                                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </div>
-                                <p class="text-red-800 text-sm font-bold">${data.message}</p>
-                            </div>
-                        `;
+                            <div class="alert-error">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="color:#E74C3C;flex-shrink:0;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <p>${data.message}</p>
+                            </div>`;
                     }
                 }
             } catch (error) {
                 alertContainer.innerHTML = `
-                    <div class="bg-red-50 border-2 border-red-200 rounded-xl p-4 flex items-center space-x-3 shadow-sm">
-                        <div class="flex-shrink-0">
-                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                        <p class="text-red-800 text-sm font-bold">Erreur de connexion au serveur</p>
-                    </div>
-                `;
+                    <div class="alert-error">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="color:#E74C3C;flex-shrink:0;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p>Erreur de connexion au serveur</p>
+                    </div>`;
             } finally {
                 button.disabled = false;
-                button.classList.remove('opacity-75', 'cursor-not-allowed');
                 buttonText.textContent = 'Se connecter';
             }
         });
