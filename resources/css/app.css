@@ -71,6 +71,13 @@
 @theme {
   --font-family-sans: var(--font-body);
   --font-family-display: var(--font-display);
+  /* Royal gold mapped to Tailwind accent utilities */
+  --color-accent-500: #C9A84C;
+  --color-accent-600: #9A6C0F;
+  --color-accent-700: #7A530A;
+  --color-primary-500: #C9A84C;
+  --color-primary-600: #8B6914;
+  --color-primary-700: #7A530A;
 }
 
 @layer base {
