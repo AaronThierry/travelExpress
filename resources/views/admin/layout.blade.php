@@ -354,7 +354,7 @@
         window.authToken = localStorage.getItem('auth_token');
         if (!window.authToken) {
             // Token absent → redirect to login
-            window.location.href = '/admin/login';
+            window.location.href = '/login';
         }
 
         // Hide loading overlay when page is ready
