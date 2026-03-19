@@ -6,6 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Travel Express - Votre partenaire pour réaliser vos projets à l'international. Études, travail et business en Chine, Espagne et Allemagne. Accompagnement personnalisé.">
     <title>Travel Express - Études, Travail & Business à l'International</title>
+    <link rel="icon" type="image/png" href="/images/logo/logo_travel.png">
+    <link rel="shortcut icon" type="image/png" href="/images/logo/logo_travel.png">
 
     <!-- Google Fonts - Royal Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
