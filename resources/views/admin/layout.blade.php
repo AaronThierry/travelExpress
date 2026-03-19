@@ -350,6 +350,13 @@
 
     <!-- Global Scripts -->
     <script>
+        // Global auth token for API calls (must be defined before page scripts)
+        window.authToken = localStorage.getItem('auth_token');
+        if (!window.authToken) {
+            // Token absent → redirect to login
+            window.location.href = '/admin/login';
+        }
+
         // Hide loading overlay when page is ready
         window.addEventListener('load', () => {
             const loader = document.getElementById('page-loading');
