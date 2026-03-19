@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Testimonial;
 use App\Models\ContactRequest;
+use App\Models\Evaluation;
+use App\Models\StudentApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -73,6 +75,14 @@ class DashboardController extends Controller
         $averageRating = Testimonial::where('is_approved', true)
             ->avg('rating');
 
+        // Evaluations stats
+        $totalEvaluations = Evaluation::count();
+        $verifiedEvaluations = Evaluation::where('is_verified', true)->count();
+
+        // Student applications stats
+        $totalApplications = StudentApplication::count();
+        $inProgressApplications = StudentApplication::whereIn('status', ['pending', 'in_progress'])->count();
+
         // Contact requests stats
         $totalRequests = ContactRequest::count();
         $newRequests = ContactRequest::where('status', 'new')->count();
@@ -109,6 +119,14 @@ class DashboardController extends Controller
                     'approved' => $approvedTestimonials,
                     'new_this_month' => $newTestimonialsThisMonth,
                     'average_rating' => round($averageRating, 1),
+                ],
+                'evaluations' => [
+                    'total' => $totalEvaluations,
+                    'verified' => $verifiedEvaluations,
+                ],
+                'student_applications' => [
+                    'total' => $totalApplications,
+                    'in_progress' => $inProgressApplications,
                 ],
                 'contact_requests' => [
                     'total' => $totalRequests,
