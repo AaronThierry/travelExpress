@@ -5438,34 +5438,59 @@
                             </div>
 
                             <!-- Upload de captures d'écran -->
-                            <div class="bg-white rounded p-2 border border-[#d4af37]/30">
-                                <div class="flex items-center justify-between mb-1.5">
-                                    <label class="text-[10px] font-semibold text-[#0a0a0a]">
-                                        📸 Captures d'ecran de votre conversation *
-                                    </label>
+                            <div class="rounded-lg border-2 overflow-hidden"
+                                 :class="screenshotPreviews.length === 0 ? 'border-[#d4af37] border-dashed' : 'border-[#d4af37]/50'">
+                                <!-- Header -->
+                                <div class="flex items-center justify-between px-3 py-2 bg-[#d4af37]/15">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-lg">📸</span>
+                                        <div>
+                                            <p class="text-[11px] font-bold text-[#d4af37] uppercase tracking-wider">Captures d'écran <span class="text-red-400">*</span></p>
+                                            <p class="text-[9px] text-[#d4af37]/70">Conversation avec <span x-text="discoverySource === 'ambassadeur_la_bobolaise' ? 'La Bobolaise' : 'Ley Ley'"></span> — obligatoire</p>
+                                        </div>
+                                    </div>
                                     <input type="file" id="screenshot-upload" @change="handleScreenshotUpload($event)"
                                            accept="image/*" multiple class="hidden">
-                                    <label for="screenshot-upload" class="inline-flex items-center gap-1 px-2 py-1 bg-[#d4af37]/10 hover:bg-[#d4af37]/20 border border-[#d4af37]/30 rounded cursor-pointer transition-all text-[10px] font-medium text-[#0a0a0a]">
-                                        <svg class="w-3 h-3 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    <label for="screenshot-upload"
+                                           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md cursor-pointer transition-all text-[10px] font-bold uppercase tracking-wide"
+                                           style="background:linear-gradient(135deg,#d4af37,#b8941e);color:#0a0a0a;">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                                         </svg>
                                         Ajouter
                                     </label>
                                 </div>
 
+                                <!-- Drop zone vide -->
+                                <div x-show="screenshotPreviews.length === 0"
+                                     class="flex flex-col items-center justify-center py-5 px-4 bg-[#d4af37]/5 cursor-pointer"
+                                     @click="document.getElementById('screenshot-upload').click()">
+                                    <svg class="w-8 h-8 text-[#d4af37]/60 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                    </svg>
+                                    <p class="text-[11px] font-semibold text-[#d4af37]/80 mb-0.5">Cliquez ici pour ajouter vos captures</p>
+                                    <p class="text-[9px] text-[#d4af37]/50">PNG, JPG, WEBP — plusieurs fichiers acceptés</p>
+                                </div>
+
                                 <!-- Prévisualisation des captures -->
-                                <div x-show="screenshotPreviews.length > 0" class="grid grid-cols-4 gap-1.5 mt-1.5">
+                                <div x-show="screenshotPreviews.length > 0" class="grid grid-cols-4 gap-1.5 p-2 bg-[#0a0a0a]/10">
                                     <template x-for="(preview, index) in screenshotPreviews" :key="index">
                                         <div class="relative group">
-                                            <img :src="preview" class="w-full h-14 object-cover rounded border border-gray-200">
+                                            <img :src="preview" class="w-full h-16 object-cover rounded border border-[#d4af37]/30">
                                             <button type="button" @click="removeScreenshot(index)"
-                                                    class="absolute top-0 right-0 p-0.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    class="absolute top-0.5 right-0.5 p-0.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                                 </svg>
                                             </button>
                                         </div>
                                     </template>
+                                    <!-- Ajouter plus -->
+                                    <label for="screenshot-upload" class="flex flex-col items-center justify-center h-16 rounded border-2 border-dashed border-[#d4af37]/30 cursor-pointer hover:border-[#d4af37]/60 transition-colors">
+                                        <svg class="w-4 h-4 text-[#d4af37]/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                        </svg>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -5627,7 +5652,7 @@
 
                     <!-- Suivant -->
                     <button type="button" @click="nextStep()" x-show="step < totalSteps"
-                            :disabled="(step === 1 && (!firstName || !lastName || !email)) || (step === 2 && (!university || !countryOfStudy || !studyLevel || !fieldOfStudy)) || (step === 3 && (!projectStory || projectStory.length < 50 || !discoverySource))"
+                            :disabled="(step === 1 && !isStep1Valid) || (step === 2 && !isStep2Valid) || (step === 3 && !isStep3Valid)"
                             class="group flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-bold transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-105 disabled:hover:scale-100"
                             style="background:linear-gradient(135deg,#0e0c08,#1a1508);border:1px solid rgba(212,175,55,0.32);color:#D4AF37;box-shadow:0 4px 20px rgba(212,175,55,0.1);"
                             onmouseover="if(!this.disabled){this.style.boxShadow='0 8px 28px rgba(212,175,55,0.25)';this.style.borderColor='rgba(212,175,55,0.55)';}"
