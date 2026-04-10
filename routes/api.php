@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\YuanFlow\AuthController as YfAuthController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\TestimonialController;
 use App\Http\Controllers\Api\ContactRequestController;
@@ -209,5 +210,31 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/student-applications/{id}/complementary/upload', [StudentApplicationAdminController::class, 'uploadComplementaryFile']);
         Route::post('/student-applications/{id}/advance-step', [StudentApplicationAdminController::class, 'advanceStep']);
         Route::post('/student-applications/bulk-update', [StudentApplicationAdminController::class, 'bulkUpdateStatus']);
+    });
+});
+
+// ============================================================
+//  YUANFLOW API — v1
+//  Application de transfert d'argent XOF → CNY
+// ============================================================
+Route::prefix('v1')->group(function () {
+
+    // ── Authentification (public) ──────────────────────────
+    Route::prefix('auth')->group(function () {
+        Route::post('/send-otp',              [YfAuthController::class, 'sendOtp']);
+        Route::post('/verify-otp',            [YfAuthController::class, 'verifyOtp']);
+        Route::post('/complete-registration', [YfAuthController::class, 'completeRegistration']);
+        Route::post('/login',                 [YfAuthController::class, 'login']);
+    });
+
+    // ── Routes protégées ──────────────────────────────────
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/auth/logout', [YfAuthController::class, 'logout']);
+        Route::get('/auth/me',      [YfAuthController::class, 'me']);
+
+        // TODO Phase 2 : profil, bénéficiaires
+        // TODO Phase 3 : taux de change
+        // TODO Phase 4 : transactions
+        // TODO Phase 5 : notifications
     });
 });
