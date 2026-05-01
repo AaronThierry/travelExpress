@@ -38,6 +38,11 @@ class YfTransaction extends Model
         return $this->belongsTo(Beneficiary::class, 'beneficiary_id');
     }
 
+    public function recipient()
+    {
+        return $this->belongsTo(YfRecipient::class, 'beneficiary_id');
+    }
+
     public static function generateRef(): string
     {
         return 'YF' . date('Ymd') . '-' . str_pad(

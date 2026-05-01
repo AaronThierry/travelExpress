@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\YuanFlow;
 
 use App\Http\Controllers\Controller;
-use App\Models\YuanFlow\OtpCode;
+use App\Http\Resources\YuanFlow\UserResource;
 use App\Models\YuanFlow\YfUser;
+use App\Services\YuanFlow\OtpService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,14 +13,19 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    public function __construct(private OtpService $otpService) {}
+
     /**
-     * Envoyer un code OTP
+     * POST /api/v1/auth/send-otp
+     * Supporte phone et email comme canal
      */
     public function sendOtp(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'phone'        => 'required|string|max:20',
-            'country_code' => 'required|string|max:5',
+            'channel'      => 'required|in:phone,email',
+            'phone'        => 'required_if:channel,phone|string|max:20',
+            'country_code' => 'required_if:channel,phone|string|max:5',
+            'email'        => 'required_if:channel,email|email|max:191',
             'type'         => 'required|in:registration,login,transaction,reset_pin',
         ]);
 
@@ -30,51 +36,40 @@ class AuthController extends Controller
             ], 400);
         }
 
-        $phone = $request->country_code . $request->phone;
+        $channel = $request->channel;
+        $value   = $channel === 'email' ? $request->email : $request->country_code . $request->phone;
 
-        // Rate limiting : 3 OTP max par heure
-        $recentCount = OtpCode::where('phone', $phone)
-            ->where('created_at', '>', now()->subHour())
-            ->count();
+        $result = $this->otpService->send($channel, $value, $request->type);
 
-        if ($recentCount >= 3) {
+        if (!$result['success']) {
+            $status = $result['code'] === 'OTP_RATE_LIMIT' ? 429 : 400;
             return response()->json([
                 'success' => false,
-                'error'   => ['code' => 'OTP_RATE_LIMIT', 'message' => 'Trop de tentatives. Réessayez dans 1 heure.'],
-            ], 429);
+                'error'   => ['code' => $result['code'], 'message' => $result['message']],
+            ], $status);
         }
-
-        $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
-
-        OtpCode::create([
-            'phone'      => $phone,
-            'code'       => $code,
-            'type'       => $request->type,
-            'expires_at' => now()->addMinutes(5),
-        ]);
-
-        // TODO: Envoyer SMS via Twilio / Orange SMS
-        \Log::info("YuanFlow OTP for $phone: $code");
 
         return response()->json([
             'success' => true,
             'message' => 'Code OTP envoyé avec succès',
             'data'    => [
-                'phone'      => $phone,
-                'expires_in' => 300,
-                'code'       => config('app.debug') ? $code : null,
+                'channel'    => $channel,
+                'expires_in' => $result['expires_in'],
+                'code'       => $result['debug_code'],
             ],
         ]);
     }
 
     /**
-     * Vérifier le code OTP
+     * POST /api/v1/auth/verify-otp
      */
     public function verifyOtp(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'phone'        => 'required|string|max:20',
-            'country_code' => 'required|string|max:5',
+            'channel'      => 'required|in:phone,email',
+            'phone'        => 'required_if:channel,phone|string|max:20',
+            'country_code' => 'required_if:channel,phone|string|max:5',
+            'email'        => 'required_if:channel,email|email|max:191',
             'code'         => 'required|string|size:6',
             'type'         => 'required|in:registration,login,transaction,reset_pin',
         ]);
@@ -86,49 +81,18 @@ class AuthController extends Controller
             ], 400);
         }
 
-        $phone = $request->country_code . $request->phone;
+        $channel = $request->channel;
+        $value   = $channel === 'email' ? $request->email : $request->country_code . $request->phone;
 
-        $otp = OtpCode::where('phone', $phone)
-            ->where('type', $request->type)
-            ->where('verified', false)
-            ->latest()
-            ->first();
+        $result = $this->otpService->verify($channel, $value, $request->code, $request->type);
 
-        if (!$otp) {
+        if (!$result['valid']) {
+            $status = $result['code'] === 'OTP_MAX_ATTEMPTS' ? 429 : 400;
             return response()->json([
                 'success' => false,
-                'error'   => ['code' => 'INVALID_OTP', 'message' => 'Code OTP incorrect'],
-            ], 400);
+                'error'   => ['code' => $result['code'], 'message' => $result['message']],
+            ], $status);
         }
-
-        if ($otp->isExpired()) {
-            return response()->json([
-                'success' => false,
-                'error'   => ['code' => 'OTP_EXPIRED', 'message' => 'Code OTP expiré'],
-            ], 400);
-        }
-
-        if ($otp->attempts >= 3) {
-            return response()->json([
-                'success' => false,
-                'error'   => ['code' => 'OTP_MAX_ATTEMPTS', 'message' => 'Trop de tentatives'],
-            ], 429);
-        }
-
-        $otp->increment('attempts');
-
-        if ($otp->code !== $request->code) {
-            return response()->json([
-                'success' => false,
-                'error'   => [
-                    'code'    => 'INVALID_OTP',
-                    'message' => 'Code OTP incorrect',
-                    'details' => 'Il vous reste ' . (3 - $otp->attempts) . ' tentative(s)',
-                ],
-            ], 400);
-        }
-
-        $otp->update(['verified' => true, 'verified_at' => now()]);
 
         return response()->json([
             'success' => true,
@@ -138,16 +102,17 @@ class AuthController extends Controller
     }
 
     /**
-     * Finaliser l'inscription
+     * POST /api/v1/auth/complete-registration
      */
     public function completeRegistration(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'phone'        => 'required|string|max:20',
-            'country_code' => 'required|string|max:5',
+            'channel'      => 'required|in:phone,email',
+            'phone'        => 'required_if:channel,phone|string|max:20',
+            'country_code' => 'required_if:channel,phone|string|max:5',
+            'email'        => 'required_if:channel,email|email|unique:yf_users,email',
             'first_name'   => 'required|string|max:100',
             'last_name'    => 'required|string|max:100',
-            'email'        => 'nullable|email|unique:yf_users,email',
             'pin'          => 'required|string|size:4|confirmed',
         ]);
 
@@ -158,59 +123,73 @@ class AuthController extends Controller
             ], 400);
         }
 
-        $phone = $request->country_code . $request->phone;
+        $channel = $request->channel;
+        $value   = $channel === 'email' ? $request->email : $request->country_code . $request->phone;
 
-        // Vérifier OTP validé
-        $otpVerified = OtpCode::where('phone', $phone)
-            ->where('type', 'registration')
-            ->where('verified', true)
-            ->where('created_at', '>', now()->subMinutes(10))
-            ->exists();
-
-        if (!$otpVerified) {
+        // OTP must have been verified recently
+        if (!$this->otpService->wasVerified($channel, $value, 'registration')) {
             return response()->json([
                 'success' => false,
-                'error'   => ['code' => 'OTP_NOT_VERIFIED', 'message' => 'Veuillez vérifier votre numéro de téléphone'],
+                'error'   => ['code' => 'OTP_NOT_VERIFIED', 'message' => 'Veuillez vérifier votre ' . ($channel === 'email' ? 'adresse email' : 'numéro de téléphone')],
             ], 400);
         }
 
-        if (YfUser::where('phone', $phone)->exists()) {
-            return response()->json([
-                'success' => false,
-                'error'   => ['code' => 'PHONE_ALREADY_EXISTS', 'message' => 'Ce numéro est déjà utilisé'],
-            ], 409);
+        // Prevent duplicate accounts
+        if ($channel === 'phone') {
+            $phone = $value;
+            if (YfUser::where('phone', $phone)->exists()) {
+                return response()->json([
+                    'success' => false,
+                    'error'   => ['code' => 'PHONE_ALREADY_EXISTS', 'message' => 'Ce numéro est déjà utilisé'],
+                ], 409);
+            }
         }
 
-        $user = YfUser::create([
-            'phone'             => $phone,
-            'country_code'      => $request->country_code,
-            'first_name'        => $request->first_name,
-            'last_name'         => $request->last_name,
-            'email'             => $request->email,
-            'pin_hash'          => Hash::make($request->pin),
-            'phone_verified_at' => now(),
-        ]);
+        $userData = [
+            'first_name' => $request->first_name,
+            'last_name'  => $request->last_name,
+            'pin_hash'   => Hash::make($request->pin),
+        ];
 
+        if ($channel === 'phone') {
+            $userData['phone']             = $value;
+            $userData['country_code']      = $request->country_code;
+            $userData['phone_verified_at'] = now();
+            if ($request->filled('email')) {
+                $userData['email'] = $request->email;
+            }
+        } else {
+            $userData['email']             = $value;
+            $userData['email_verified_at'] = now();
+            if ($request->filled('phone')) {
+                $userData['phone']        = $request->country_code . $request->phone;
+                $userData['country_code'] = $request->country_code;
+            }
+        }
+
+        $user  = YfUser::create($userData);
         $token = $user->createToken('yf-auth-token')->plainTextToken;
 
         return response()->json([
             'success' => true,
             'message' => 'Inscription réussie',
             'data'    => [
-                'user'  => $this->formatUser($user),
+                'user'  => new UserResource($user),
                 'token' => 'Bearer ' . $token,
             ],
         ], 201);
     }
 
     /**
-     * Connexion avec PIN
+     * POST /api/v1/auth/login
      */
     public function login(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'phone'        => 'required|string|max:20',
-            'country_code' => 'required|string|max:5',
+            'channel'      => 'required|in:phone,email',
+            'phone'        => 'required_if:channel,phone|string|max:20',
+            'country_code' => 'required_if:channel,phone|string|max:5',
+            'email'        => 'required_if:channel,email|email',
             'pin'          => 'required|string|size:4',
         ]);
 
@@ -221,8 +200,10 @@ class AuthController extends Controller
             ], 400);
         }
 
-        $phone = $request->country_code . $request->phone;
-        $user  = YfUser::where('phone', $phone)->first();
+        $channel = $request->channel;
+        $user    = $channel === 'email'
+            ? YfUser::where('email', $request->email)->first()
+            : YfUser::where('phone', $request->country_code . $request->phone)->first();
 
         if (!$user) {
             return response()->json([
@@ -251,14 +232,14 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Connexion réussie',
             'data'    => [
-                'user'  => $this->formatUser($user),
+                'user'  => new UserResource($user),
                 'token' => 'Bearer ' . $token,
             ],
         ]);
     }
 
     /**
-     * Déconnexion
+     * POST /api/v1/auth/logout
      */
     public function logout(Request $request): JsonResponse
     {
@@ -268,30 +249,13 @@ class AuthController extends Controller
     }
 
     /**
-     * Profil utilisateur connecté
+     * GET /api/v1/auth/me
      */
     public function me(Request $request): JsonResponse
     {
         return response()->json([
             'success' => true,
-            'data'    => ['user' => $this->formatUser($request->user())],
+            'data'    => ['user' => new UserResource($request->user())],
         ]);
-    }
-
-    // ── Helpers ────────────────────────────────────────────────────────────────
-
-    private function formatUser(YfUser $user): array
-    {
-        return [
-            'id'                => $user->id,
-            'phone'             => $user->phone,
-            'first_name'        => $user->first_name,
-            'last_name'         => $user->last_name,
-            'email'             => $user->email,
-            'kyc_status'        => $user->kyc_status,
-            'biometric_enabled' => $user->biometric_enabled,
-            'status'            => $user->status,
-            'phone_verified_at' => $user->phone_verified_at,
-        ];
     }
 }

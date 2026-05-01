@@ -28,20 +28,34 @@ class YfUser extends Authenticatable
         'kyc_document_front',
         'kyc_document_back',
         'phone_verified_at',
+        'country',
+        'avatar_url',
+        'is_profile_complete',
     ];
 
     protected $hidden = ['pin_hash'];
 
     protected $casts = [
-        'phone_verified_at' => 'datetime',
-        'email_verified_at' => 'datetime',
-        'biometric_enabled' => 'boolean',
-        'date_of_birth'     => 'date',
+        'phone_verified_at'  => 'datetime',
+        'email_verified_at'  => 'datetime',
+        'biometric_enabled'  => 'boolean',
+        'is_profile_complete'=> 'boolean',
+        'date_of_birth'      => 'date',
     ];
+
+    public function wallet()
+    {
+        return $this->hasOne(YfWallet::class, 'yf_user_id');
+    }
 
     public function beneficiaries()
     {
         return $this->hasMany(Beneficiary::class, 'yf_user_id');
+    }
+
+    public function recipients()
+    {
+        return $this->hasMany(YfRecipient::class, 'yf_user_id');
     }
 
     public function transactions()

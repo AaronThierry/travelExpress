@@ -2,6 +2,12 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\YuanFlow\AuthController as YfAuthController;
+use App\Http\Controllers\Api\YuanFlow\WalletController as YfWalletController;
+use App\Http\Controllers\Api\YuanFlow\TransferController as YfTransferController;
+use App\Http\Controllers\Api\YuanFlow\RateController as YfRateController;
+use App\Http\Controllers\Api\YuanFlow\UserController as YfUserController;
+use App\Http\Controllers\Api\YuanFlow\RecipientController as YfRecipientController;
+use App\Http\Controllers\Api\YuanFlow\NotificationController as YfNotificationController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\TestimonialController;
 use App\Http\Controllers\Api\ContactRequestController;
@@ -227,14 +233,43 @@ Route::prefix('v1')->group(function () {
         Route::post('/login',                 [YfAuthController::class, 'login']);
     });
 
+    // ── Taux de change (public) ───────────────────────────
+    Route::prefix('rates')->group(function () {
+        Route::get('/current',  [YfRateController::class, 'current']);
+        Route::get('/history',  [YfRateController::class, 'history']);
+        Route::post('/calculate', [YfRateController::class, 'calculate']);
+    });
+
     // ── Routes protégées ──────────────────────────────────
     Route::middleware('auth:sanctum')->group(function () {
+        // Auth
         Route::post('/auth/logout', [YfAuthController::class, 'logout']);
         Route::get('/auth/me',      [YfAuthController::class, 'me']);
 
-        // TODO Phase 2 : profil, bénéficiaires
-        // TODO Phase 3 : taux de change
-        // TODO Phase 4 : transactions
-        // TODO Phase 5 : notifications
+        // Profil utilisateur
+        Route::get('/user/profile',      [YfUserController::class, 'profile']);
+        Route::put('/user/profile',      [YfUserController::class, 'updateProfile']);
+        Route::post('/user/set-pin',     [YfUserController::class, 'setPin']);
+        Route::post('/user/verify-pin',  [YfUserController::class, 'verifyPin']);
+
+        // Portefeuille
+        Route::get('/wallet/balance',      [YfWalletController::class, 'balance']);
+        Route::get('/wallet/transactions', [YfWalletController::class, 'transactions']);
+
+        // Transferts
+        Route::post('/transfers/initiate',   [YfTransferController::class, 'initiate']);
+        Route::post('/transfers/{id}/confirm', [YfTransferController::class, 'confirm']);
+        Route::get('/transfers/{id}',        [YfTransferController::class, 'show']);
+
+        // Destinataires
+        Route::get('/recipients',                    [YfRecipientController::class, 'index']);
+        Route::post('/recipients',                   [YfRecipientController::class, 'store']);
+        Route::delete('/recipients/{id}',            [YfRecipientController::class, 'destroy']);
+        Route::patch('/recipients/{id}/favorite',    [YfRecipientController::class, 'toggleFavorite']);
+
+        // Notifications
+        Route::get('/notifications',              [YfNotificationController::class, 'index']);
+        Route::post('/notifications/{id}/read',   [YfNotificationController::class, 'markRead']);
+        Route::post('/notifications/read-all',    [YfNotificationController::class, 'markAllRead']);
     });
 });
