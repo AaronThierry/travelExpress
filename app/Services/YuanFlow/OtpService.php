@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Mail;
 class OtpService
 {
     const EXPIRY_MINUTES  = 5;
-    const MAX_PER_WINDOW  = 3;
-    const WINDOW_MINUTES  = 30;
+    const MAX_PER_WINDOW  = 30;
+    const WINDOW_MINUTES  = 5;
     const MAX_ATTEMPTS    = 3;
 
     /**
