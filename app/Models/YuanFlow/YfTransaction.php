@@ -9,7 +9,7 @@ class YfTransaction extends Model
     protected $table = 'yf_transactions';
 
     protected $fillable = [
-        'transaction_ref', 'yf_user_id', 'beneficiary_id',
+        'transaction_ref', 'yf_user_id', 'yf_recipient_id',
         'send_amount', 'send_currency',
         'receive_amount', 'receive_currency', 'exchange_rate',
         'transfer_fee', 'total_amount', 'status',
@@ -33,14 +33,9 @@ class YfTransaction extends Model
         return $this->belongsTo(YfUser::class, 'yf_user_id');
     }
 
-    public function beneficiary()
-    {
-        return $this->belongsTo(Beneficiary::class, 'beneficiary_id');
-    }
-
     public function recipient()
     {
-        return $this->belongsTo(YfRecipient::class, 'beneficiary_id');
+        return $this->belongsTo(YfRecipient::class, 'yf_recipient_id');
     }
 
     public static function generateRef(): string

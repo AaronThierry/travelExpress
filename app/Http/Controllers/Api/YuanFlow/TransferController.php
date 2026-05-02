@@ -13,7 +13,6 @@ use App\Models\YuanFlow\YfTransaction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class TransferController extends Controller
 {
@@ -46,7 +45,7 @@ class TransferController extends Controller
         $transfer = YfTransaction::create([
             'transaction_ref'  => YfTransaction::generateRef(),
             'yf_user_id'       => $user->id,
-            'beneficiary_id'   => $recipient->id,
+            'yf_recipient_id'  => $recipient->id,
             'send_amount'      => $amountXof,
             'receive_amount'   => $amountCny,
             'exchange_rate'    => $rate->rate,

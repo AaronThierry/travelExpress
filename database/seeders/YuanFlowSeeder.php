@@ -99,8 +99,8 @@ class YuanFlowSeeder extends Seeder
         YfTransaction::firstOrCreate(
             ['transaction_ref' => 'YF-TEST-000001'],
             [
-                'yf_user_id'     => $user->id,
-                'beneficiary_id' => $recipient->id,
+                'yf_user_id'      => $user->id,
+                'yf_recipient_id' => $recipient->id,
                 'send_amount'    => 50000,
                 'receive_amount' => 612.50,
                 'exchange_rate'  => 0.01225,
