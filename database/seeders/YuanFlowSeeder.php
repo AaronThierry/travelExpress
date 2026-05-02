@@ -38,11 +38,11 @@ class YuanFlowSeeder extends Seeder
         // ── Frais de transaction ──────────────────────────────────────────────
         if (TransactionFee::count() === 0) {
             TransactionFee::insert([
-                ['min_amount' => 0,       'max_amount' => 50000,   'fee_type' => 'fixed',      'fee_value' => 500,   'created_at' => now(), 'updated_at' => now()],
-                ['min_amount' => 50001,   'max_amount' => 200000,  'fee_type' => 'percentage', 'fee_value' => 1.0,   'created_at' => now(), 'updated_at' => now()],
-                ['min_amount' => 200001,  'max_amount' => 500000,  'fee_type' => 'percentage', 'fee_value' => 0.8,   'created_at' => now(), 'updated_at' => now()],
-                ['min_amount' => 500001,  'max_amount' => 1000000, 'fee_type' => 'percentage', 'fee_value' => 0.6,   'created_at' => now(), 'updated_at' => now()],
-                ['min_amount' => 1000001, 'max_amount' => null,    'fee_type' => 'percentage', 'fee_value' => 0.5,   'created_at' => now(), 'updated_at' => now()],
+                ['min_amount' => 0,       'max_amount' => 50000,   'fee_type' => 'fixed',      'fixed_fee' => 500,  'percentage_fee' => 0,   'created_at' => now(), 'updated_at' => now()],
+                ['min_amount' => 50001,   'max_amount' => 200000,  'fee_type' => 'percentage', 'fixed_fee' => 0,    'percentage_fee' => 1.0, 'created_at' => now(), 'updated_at' => now()],
+                ['min_amount' => 200001,  'max_amount' => 500000,  'fee_type' => 'percentage', 'fixed_fee' => 0,    'percentage_fee' => 0.8, 'created_at' => now(), 'updated_at' => now()],
+                ['min_amount' => 500001,  'max_amount' => 1000000, 'fee_type' => 'percentage', 'fixed_fee' => 0,    'percentage_fee' => 0.6, 'created_at' => now(), 'updated_at' => now()],
+                ['min_amount' => 1000001, 'max_amount' => null,    'fee_type' => 'percentage', 'fixed_fee' => 0,    'percentage_fee' => 0.5, 'created_at' => now(), 'updated_at' => now()],
             ]);
         }
 
