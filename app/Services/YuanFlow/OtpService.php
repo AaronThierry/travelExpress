@@ -124,10 +124,14 @@ class OtpService
 
     private function sendByEmail(string $email, string $code): void
     {
-        // TODO: Intégrer Mailgun / SMTP
         Log::channel('single')->info("[YuanFlow OTP Email] $email → $code");
 
-        // Exemple Mail::raw (activer quand SMTP configuré)
-        // Mail::raw("Votre code YuanFlow : $code (valable 5 min)", fn($m) => $m->to($email)->subject('Code de vérification YuanFlow'));
+        Mail::raw(
+            "Votre code de vérification YuanFlow : $code\n\nCe code est valable 5 minutes.\n\nSi vous n'avez pas demandé ce code, ignorez ce message.",
+            function ($m) use ($email, $code) {
+                $m->to($email)
+                  ->subject("[$code] Code de vérification YuanFlow");
+            }
+        );
     }
 }
