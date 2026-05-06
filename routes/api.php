@@ -231,6 +231,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/verify-otp',            [YfAuthController::class, 'verifyOtp']);
         Route::post('/complete-registration', [YfAuthController::class, 'completeRegistration']);
         Route::post('/login',                 [YfAuthController::class, 'login']);
+        Route::post('/email-login',           [YfAuthController::class, 'emailLogin']); // Flutter simplifié
     });
 
     // ── Taux de change (public) ───────────────────────────

@@ -239,6 +239,61 @@ class AuthController extends Controller
     }
 
     /**
+     * POST /api/v1/auth/email-login
+     * Flux simplifié Flutter : email seul → token (PIN géré localement)
+     */
+    public function emailLogin(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'email'      => 'required|email|max:191',
+            'first_name' => 'nullable|string|max:100',
+            'last_name'  => 'nullable|string|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'error'   => ['code' => 'VALIDATION_ERROR', 'message' => 'Email invalide', 'details' => $validator->errors()],
+            ], 400);
+        }
+
+        $isNewUser = false;
+        $user = YfUser::where('email', $request->email)->first();
+
+        if (!$user) {
+            $isNewUser = true;
+            $user = YfUser::create([
+                'email'             => $request->email,
+                'first_name'        => $request->input('first_name', ''),
+                'last_name'         => $request->input('last_name', ''),
+                'status'            => 'active',
+                'email_verified_at' => now(),
+            ]);
+
+            // Créer le wallet automatiquement
+            $user->wallet()->create(['balance_xof' => 0, 'balance_cny' => 0]);
+        }
+
+        if ($user->status !== 'active') {
+            return response()->json([
+                'success' => false,
+                'error'   => ['code' => 'ACCOUNT_SUSPENDED', 'message' => 'Compte suspendu'],
+            ], 403);
+        }
+
+        // Révoquer les anciens tokens et créer un nouveau
+        $user->tokens()->where('name', 'yf-flutter-token')->delete();
+        $token = $user->createToken('yf-flutter-token')->plainTextToken;
+
+        return response()->json([
+            'success'     => true,
+            'is_new_user' => $isNewUser,
+            'token'       => 'Bearer ' . $token,
+            'user'        => new UserResource($user),
+        ]);
+    }
+
+    /**
      * POST /api/v1/auth/logout
      */
     public function logout(Request $request): JsonResponse
