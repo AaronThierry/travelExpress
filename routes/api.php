@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\MonTailleurAuthController;
 use App\Http\Controllers\Api\YuanFlow\AuthController as YfAuthController;
 use App\Http\Controllers\Api\YuanFlow\WalletController as YfWalletController;
 use App\Http\Controllers\Api\YuanFlow\TransferController as YfTransferController;
@@ -32,6 +33,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+// ── Mon_tailleur auth ──────────────────────────────────────────
+Route::prefix('auth')->group(function () {
+    Route::post('/register', [MonTailleurAuthController::class, 'register']);
+    Route::post('/login',    [MonTailleurAuthController::class, 'login']);
+});
+Route::prefix('auth')->middleware('auth:sanctum')->group(function () {
+    Route::get('/me',      [MonTailleurAuthController::class, 'me']);
+    Route::post('/logout', [MonTailleurAuthController::class, 'logout']);
+});
 
 // Public routes (no authentication required)
 Route::post('/register', [AuthController::class, 'register']);
