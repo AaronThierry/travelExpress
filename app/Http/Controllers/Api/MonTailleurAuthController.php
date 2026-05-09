@@ -20,9 +20,9 @@ class MonTailleurAuthController extends Controller
             'name'                  => 'required|string|max:255',
             'email'                 => 'required|email|unique:users,email',
             'password'              => 'required|string|min:6|confirmed',
-            'role'                  => 'nullable|in:admin,employe,client',
+            'role'                  => 'nullable|string|in:client,tailleur,admin',
             'telephone'             => 'nullable|string|max:20',
-            'adresse'               => 'nullable|string',
+            'adresse'               => 'nullable|string|max:500',
         ]);
 
         if ($validator->fails()) {
@@ -39,13 +39,15 @@ class MonTailleurAuthController extends Controller
             'role'      => $request->input('role', 'client'),
             'telephone' => $request->telephone,
             'adresse'   => $request->adresse,
+            'bio'       => 'Nouveau membre de Mon Tailleur',
         ]);
 
         $token = $user->createToken('mon-tailleur-token')->plainTextToken;
 
         return response()->json([
-            'token' => $token,
-            'user'  => $this->formatUser($user),
+            'message' => 'Inscription réussie',
+            'user'    => $this->formatUser($user),
+            'token'   => $token,
         ], 201);
     }
 
@@ -70,7 +72,7 @@ class MonTailleurAuthController extends Controller
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
-                'message' => 'Email ou mot de passe incorrect',
+                'message' => 'Les identifiants fournis sont incorrects.',
             ], 401);
         }
 
@@ -78,8 +80,9 @@ class MonTailleurAuthController extends Controller
         $token = $user->createToken('mon-tailleur-token')->plainTextToken;
 
         return response()->json([
-            'token' => $token,
-            'user'  => $this->formatUser($user),
+            'message' => 'Connexion réussie',
+            'user'    => $this->formatUser($user),
+            'token'   => $token,
         ]);
     }
 
@@ -110,8 +113,8 @@ class MonTailleurAuthController extends Controller
             'role'              => $user->role ?? 'client',
             'telephone'         => $user->telephone,
             'adresse'           => $user->adresse,
-            'photo_profil'      => $user->photo_profil,
             'bio'               => $user->bio,
+            'photo_profil'      => $user->photo_profil,
             'email_verified_at' => $user->email_verified_at?->toIso8601String(),
             'created_at'        => $user->created_at->toIso8601String(),
             'updated_at'        => $user->updated_at->toIso8601String(),
