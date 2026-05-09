@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MonTailleurAuthController;
+use App\Http\Controllers\Api\PinController;
 use App\Http\Controllers\Api\YuanFlow\AuthController as YfAuthController;
 use App\Http\Controllers\Api\YuanFlow\WalletController as YfWalletController;
 use App\Http\Controllers\Api\YuanFlow\TransferController as YfTransferController;
@@ -42,6 +43,12 @@ Route::prefix('auth')->group(function () {
 Route::prefix('auth')->middleware('auth:sanctum')->group(function () {
     Route::get('/me',      [MonTailleurAuthController::class, 'me']);
     Route::post('/logout', [MonTailleurAuthController::class, 'logout']);
+
+    // PIN
+    Route::post('/pin/setup',  [PinController::class, 'setup']);
+    Route::post('/pin/verify', [PinController::class, 'verify']);
+    Route::get('/pin/status',  [PinController::class, 'status']);
+    Route::post('/pin/reset',  [PinController::class, 'reset']);
 });
 
 // Public routes (no authentication required)
