@@ -131,46 +131,71 @@ body{font-family:'Jost',system-ui,sans-serif;color:var(--ink);background:var(--b
 .cta:active{transform:translateY(1px)}
 .cta .ico{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:grid;place-items:center;font-size:15px}
 .cta .arr{font-family:'DM Mono',monospace;font-size:12px;color:var(--amber-l);margin-left:2px}
-.modal-bg{position:fixed;inset:0;z-index:100;background:rgba(26,21,53,.28);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center}
+.modal-bg{position:fixed;inset:0;z-index:100;background:rgba(26,21,53,.4);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:none;align-items:center;justify-content:center}
 .modal-bg.show{display:flex;animation:fade .25s ease}
 @keyframes fade{from{opacity:0}to{opacity:1}}
-@keyframes rise{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:none}}
-.modal{width:min(800px,94vw);max-height:92vh;border-radius:18px;background:#ffffff;box-shadow:0 0 0 1px var(--line-2),0 40px 100px -20px rgba(26,21,53,.35);animation:rise .32s cubic-bezier(.2,.8,.2,1);overflow:hidden;display:flex;flex-direction:column;position:relative}
-.modal-stripe{height:4px;background:linear-gradient(90deg,var(--ink) 0%,var(--amber) 50%,var(--ink) 100%);flex-shrink:0}
-.modal-head{display:flex;align-items:flex-start;justify-content:space-between;padding:22px 28px 18px;border-bottom:1px solid var(--line);flex-shrink:0}
-.modal-head .h{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;font-style:italic;letter-spacing:-.02em;line-height:1;color:var(--ink)}
+@keyframes rise{from{opacity:0;transform:translateY(28px) scale(.95)}to{opacity:1;transform:none}}
+.modal{width:min(960px,96vw);max-height:96vh;border-radius:22px;background:#ffffff;box-shadow:0 0 0 1px rgba(200,146,42,.15),0 0 0 6px rgba(26,21,53,.04),0 48px 120px -20px rgba(26,21,53,.45);animation:rise .35s cubic-bezier(.16,1,.3,1);overflow:hidden;display:flex;flex-direction:column;position:relative}
+.modal-stripe{height:5px;background:linear-gradient(90deg,var(--ink) 0%,var(--amber-2) 25%,var(--amber-l) 50%,var(--amber-2) 75%,var(--ink) 100%);flex-shrink:0}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;padding:26px 34px 20px;border-bottom:1px solid var(--line);flex-shrink:0}
+.modal-head .h{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:400;font-style:italic;letter-spacing:-.025em;line-height:1;color:var(--ink)}
 .modal-head .h em{font-style:normal;font-weight:700;color:var(--amber)}
-.modal-head .sub{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.24em;color:var(--ink-3);text-transform:uppercase;margin-top:8px}
-.close{width:34px;height:34px;border-radius:8px;border:1px solid var(--line-2);background:var(--bg);color:var(--ink-3);cursor:pointer;font-size:13px;display:grid;place-items:center;transition:all .2s;flex-shrink:0}
+.modal-head .sub{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.26em;color:var(--ink-3);text-transform:uppercase;margin-top:10px}
+.close{width:38px;height:38px;border-radius:10px;border:1px solid var(--line-2);background:var(--bg);color:var(--ink-3);cursor:pointer;font-size:14px;display:grid;place-items:center;transition:all .2s;flex-shrink:0}
 .close:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
-.modal-body{padding:20px 28px 8px;display:flex;flex-direction:column;gap:18px;overflow:hidden;min-height:0;flex:1}
-.name-field{display:flex;flex-direction:column;gap:6px}
-.name-field label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-3)}
-.name-field input{appearance:none;background:transparent;border:none;border-bottom:1.5px solid var(--line-3);color:var(--ink);font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;font-style:italic;letter-spacing:-.01em;padding:4px 2px 9px;outline:none;transition:border-color .2s}
-.name-field input::placeholder{color:var(--ink-4);font-style:italic}
-.name-field input:focus{border-bottom-color:var(--amber)}
-.pad-block{display:flex;flex-direction:column;gap:8px;flex:1;min-height:0}
-.pad-label{display:flex;align-items:center;justify-content:space-between;font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3)}
-.pad-label .stat{display:flex;gap:6px;align-items:center}
-.pad-label .stat .ddot{width:5px;height:5px;border-radius:50%;background:var(--bg-2)}
-.pad-label .stat.on .ddot{background:var(--amber);box-shadow:0 0 0 3px rgba(200,146,42,.15),0 0 8px rgba(200,146,42,.3)}
-.pad-wrap{flex:1;min-height:210px;background:linear-gradient(180deg,#fdfaf4 0%,#f8f2e6 100%);border:1.5px solid var(--line-2);border-radius:8px;position:relative;overflow:hidden}
-.pad-wrap::before{content:"";position:absolute;inset:0;background-image:linear-gradient(0deg,rgba(26,21,53,.06) 1px,transparent 1px);background-size:100% 28px;pointer-events:none}
-.pad-wrap::after{content:"";position:absolute;left:20px;right:20px;bottom:40px;border-top:1px solid rgba(26,21,53,.15);pointer-events:none}
-.pad-hint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:rgba(26,21,53,.14);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;pointer-events:none;transition:opacity .25s;white-space:nowrap}
+.modal-body{padding:22px 34px 10px;display:flex;flex-direction:column;gap:14px;overflow:hidden;min-height:0;flex:1}
+.pad-block{display:flex;flex-direction:column;gap:10px;flex:1;min-height:0}
+.pad-label{display:flex;align-items:center;justify-content:space-between;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3)}
+.pad-label .stat{display:flex;gap:7px;align-items:center}
+.pad-label .stat .ddot{width:6px;height:6px;border-radius:50%;background:var(--bg-2)}
+.pad-label .stat.on .ddot{background:var(--amber);box-shadow:0 0 0 3px rgba(200,146,42,.15),0 0 10px rgba(200,146,42,.35)}
+.pad-wrap{
+  flex:1;min-height:460px;
+  background:linear-gradient(170deg,#fffdf8 0%,#fdfaf2 40%,#f8f2e4 100%);
+  border:2px solid rgba(200,146,42,.18);
+  border-radius:14px;
+  position:relative;overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(200,146,42,.06),inset 0 2px 30px rgba(200,146,42,.04),0 0 0 5px rgba(200,146,42,.04);
+}
+.pad-wrap::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(0deg,rgba(26,21,53,.045) 1px,transparent 1px);
+  background-size:100% 52px;
+}
+.pad-wrap::after{
+  content:"";position:absolute;left:28px;right:28px;bottom:56px;
+  border-top:1.5px solid rgba(200,146,42,.22);pointer-events:none;
+}
+.pad-hint{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-56%);
+  color:rgba(26,21,53,.1);
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:52px;
+  pointer-events:none;transition:opacity .3s;white-space:nowrap;letter-spacing:-.02em;
+}
 .pad-hint.hide{opacity:0}
-.pad-x{position:absolute;left:20px;bottom:44px;font-family:'Cormorant Garamond',serif;color:rgba(26,21,53,.22);font-size:16px;font-style:italic;pointer-events:none}
+.pad-sub-hint{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,30px);
+  color:rgba(26,21,53,.09);
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.3em;text-transform:uppercase;
+  pointer-events:none;transition:opacity .3s;white-space:nowrap;
+}
+.pad-sub-hint.hide{opacity:0}
+.pad-x{
+  position:absolute;left:28px;bottom:60px;
+  font-family:'Cormorant Garamond',serif;color:rgba(200,146,42,.5);
+  font-size:28px;font-style:italic;pointer-events:none;line-height:1;
+}
 canvas#pad{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
-.pad-c{position:absolute;width:13px;height:13px;border:0 solid var(--amber);pointer-events:none;opacity:.4}
-.pad-c.tl{top:8px;left:8px;border-top-width:1.5px;border-left-width:1.5px}
-.pad-c.tr{top:8px;right:8px;border-top-width:1.5px;border-right-width:1.5px}
-.pad-c.bl{bottom:8px;left:8px;border-bottom-width:1.5px;border-left-width:1.5px}
-.pad-c.br{bottom:8px;right:8px;border-bottom-width:1.5px;border-right-width:1.5px}
-.modal-foot{display:flex;align-items:center;justify-content:space-between;padding:14px 28px 20px;border-top:1px solid var(--line);gap:12px;flex-shrink:0}
-.btn{appearance:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;padding:10px 20px;border-radius:99px;background:var(--bg);color:var(--ink-2);border:1px solid var(--line-2);transition:all .2s}
+.pad-c{position:absolute;width:20px;height:20px;border:0 solid var(--amber);pointer-events:none;opacity:.5}
+.pad-c.tl{top:12px;left:12px;border-top-width:2px;border-left-width:2px;border-radius:3px 0 0 0}
+.pad-c.tr{top:12px;right:12px;border-top-width:2px;border-right-width:2px;border-radius:0 3px 0 0}
+.pad-c.bl{bottom:12px;left:12px;border-bottom-width:2px;border-left-width:2px;border-radius:0 0 0 3px}
+.pad-c.br{bottom:12px;right:12px;border-bottom-width:2px;border-right-width:2px;border-radius:0 0 3px 0}
+.modal-foot{display:flex;align-items:center;justify-content:space-between;padding:16px 34px 24px;border-top:1px solid var(--line);gap:14px;flex-shrink:0}
+.btn{appearance:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:14px;font-weight:500;padding:12px 24px;border-radius:99px;background:var(--bg);color:var(--ink-2);border:1.5px solid var(--line-2);transition:all .2s}
 .btn:hover{background:var(--bg-1);color:var(--ink)}
-.btn.primary{background:var(--ink);color:#fff;border:none;font-weight:600;font-size:13.5px;padding:11px 24px;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 8px 24px -8px rgba(26,21,53,.4)}
-.btn.primary:hover{background:#241e45}
+.btn.primary{background:var(--ink);color:#fff;border:none;font-weight:600;font-size:15px;padding:14px 32px;letter-spacing:.01em;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 10px 28px -8px rgba(26,21,53,.45)}
+.btn.primary:hover{background:#241e45;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 14px 36px -8px rgba(26,21,53,.5)}
 .success{position:absolute;inset:0;background:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:10;text-align:center;padding:40px}
 .success.show{display:flex;animation:fade .3s}
 .seal-big{width:130px;height:130px;border-radius:50%;position:relative;display:grid;place-items:center;background:radial-gradient(circle at 35% 35%,rgba(200,146,42,.15),rgba(26,21,53,.06) 70%);border:1px solid rgba(200,146,42,.25);box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 20px 60px -10px rgba(26,21,53,.2);animation:sealPop .6s cubic-bezier(.2,1.4,.4,1)}
@@ -291,6 +316,7 @@ canvas#pad{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cu
           <canvas id="pad"></canvas>
           <span class="pad-x">✕</span>
           <span class="pad-hint" id="padHint">Signez ici</span>
+          <span class="pad-sub-hint" id="padSubHint">Glissez le doigt pour signer</span>
           <span class="pad-c tl"></span><span class="pad-c tr"></span>
           <span class="pad-c bl"></span><span class="pad-c br"></span>
         </div>
@@ -441,19 +467,19 @@ function openSignModal(v,pos){
 }
 function closeModal(){modal.classList.remove('show');selectedVoyageur=null}
 
-const canvas=document.getElementById('pad'),ctx=canvas.getContext('2d'),padWrap=document.getElementById('padWrap'),padHint=document.getElementById('padHint');
+const canvas=document.getElementById('pad'),ctx=canvas.getContext('2d'),padWrap=document.getElementById('padWrap'),padHint=document.getElementById('padHint'),padSubHint=document.getElementById('padSubHint');
 let drawing=false,lastX=0,lastY=0,strokes=[],current=null,hasInk=false;
-function resizePad(){const r=padWrap.getBoundingClientRect();const dpr=window.devicePixelRatio||1;const prev=hasInk?canvas.toDataURL():null;canvas.width=r.width*dpr;canvas.height=r.height*dpr;canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#1a1535';ctx.lineWidth=3.8;if(prev){const img=new Image();img.onload=()=>ctx.drawImage(img,0,0,r.width,r.height);img.src=prev}}
+function resizePad(){const r=padWrap.getBoundingClientRect();const dpr=window.devicePixelRatio||1;const prev=hasInk?canvas.toDataURL():null;canvas.width=r.width*dpr;canvas.height=r.height*dpr;canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#1a1535';ctx.lineWidth=4.5;if(prev){const img=new Image();img.onload=()=>ctx.drawImage(img,0,0,r.width,r.height);img.src=prev}}
 window.addEventListener('resize',()=>{if(modal.classList.contains('show'))resizePad()});
 function pointerPos(e){const r=canvas.getBoundingClientRect();const p=e.touches?e.touches[0]:e;return{x:p.clientX-r.left,y:p.clientY-r.top}}
-function startDraw(e){e.preventDefault();drawing=true;const{x,y}=pointerPos(e);lastX=x;lastY=y;current=[{x,y}];strokes.push(current);padHint.classList.add('hide');statLive.classList.add('on');statTxt.textContent='Capture'}
-function moveDraw(e){if(!drawing)return;e.preventDefault();const{x,y}=pointerPos(e);const mx=(x+lastX)/2,my=(y+lastY)/2;ctx.lineWidth=3.8;ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.quadraticCurveTo(lastX,lastY,mx,my);ctx.stroke();lastX=x;lastY=y;current.push({x,y});hasInk=true}
+function startDraw(e){e.preventDefault();drawing=true;const{x,y}=pointerPos(e);lastX=x;lastY=y;current=[{x,y}];strokes.push(current);padHint.classList.add('hide');padSubHint.classList.add('hide');statLive.classList.add('on');statTxt.textContent='Capture'}
+function moveDraw(e){if(!drawing)return;e.preventDefault();const{x,y}=pointerPos(e);const mx=(x+lastX)/2,my=(y+lastY)/2;ctx.lineWidth=4.5;ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.quadraticCurveTo(lastX,lastY,mx,my);ctx.stroke();lastX=x;lastY=y;current.push({x,y});hasInk=true}
 function endDraw(){if(!drawing)return;drawing=false;current=null;if(hasInk)statTxt.textContent='Prêt'}
 canvas.addEventListener('mousedown',startDraw);canvas.addEventListener('mousemove',moveDraw);window.addEventListener('mouseup',endDraw);
 canvas.addEventListener('touchstart',startDraw,{passive:false});canvas.addEventListener('touchmove',moveDraw,{passive:false});canvas.addEventListener('touchend',endDraw);canvas.addEventListener('touchcancel',endDraw);
-function clearPad(){ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);const dpr=window.devicePixelRatio||1;ctx.setTransform(dpr,0,0,dpr,0,0);strokes=[];hasInk=false;padHint.classList.remove('hide');statLive.classList.remove('on');statTxt.textContent='En attente'}
+function clearPad(){ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);const dpr=window.devicePixelRatio||1;ctx.setTransform(dpr,0,0,dpr,0,0);strokes=[];hasInk=false;padHint.classList.remove('hide');padSubHint.classList.remove('hide');statLive.classList.remove('on');statTxt.textContent='En attente'}
 document.getElementById('clearPad').addEventListener('click',clearPad);
-function strokesToSVG(){const r=padWrap.getBoundingClientRect();const W=r.width,H=r.height;const paths=strokes.filter(s=>s.length>1).map(s=>{let d=`M ${s[0].x.toFixed(1)} ${s[0].y.toFixed(1)}`;for(let i=1;i<s.length;i++){const p=s[i],q=s[i-1];const mx=(p.x+q.x)/2,my=(p.y+q.y)/2;d+=` Q ${q.x.toFixed(1)} ${q.y.toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`}return`<path d="${d}"/>`}).join('');return`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#1a1535" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`}
+function strokesToSVG(){const r=padWrap.getBoundingClientRect();const W=r.width,H=r.height;const paths=strokes.filter(s=>s.length>1).map(s=>{let d=`M ${s[0].x.toFixed(1)} ${s[0].y.toFixed(1)}`;for(let i=1;i<s.length;i++){const p=s[i],q=s[i-1];const mx=(p.x+q.x)/2,my=(p.y+q.y)/2;d+=` Q ${q.x.toFixed(1)} ${q.y.toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`}return`<path d="${d}"/>`}).join('');return`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#1a1535" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`}
 
 document.getElementById('confirmSign').addEventListener('click',async()=>{
   if(!hasInk){flashPad();return}
