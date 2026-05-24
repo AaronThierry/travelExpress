@@ -274,10 +274,6 @@ canvas#pad{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cu
       <button class="close" id="closeModal" aria-label="Fermer">✕</button>
     </div>
     <div class="modal-body">
-      <div class="name-field">
-        <label>Nom du signataire</label>
-        <input type="text" id="f_name" placeholder="Prénom & nom" autocomplete="off" inputmode="text" autocorrect="off" autocapitalize="words"/>
-      </div>
       <div class="pad-block">
         <div class="pad-label">
           <span>Zone de signature</span>
@@ -374,7 +370,6 @@ function render(){
           <span class="sig-x">✕</span>
           ${it.sigSvg||`<img alt="signature" src="${it.sig||''}" style="width:90%;height:78%;object-fit:contain;position:relative;z-index:1"/>`}
         </div>
-        <div class="bp-name">${esc(it.name||'Anonyme')}</div>
         <div class="bp-meta">
           <span data-ts="${it.ts}">${esc(fmtAgo(it.ts))}</span>
           <span class="bp-stamp">Scellé</span>
@@ -417,12 +412,12 @@ tickClock();setInterval(tickClock,30000);
 setInterval(()=>{document.querySelectorAll('[data-ts]').forEach(el=>el.textContent=fmtAgo(+el.dataset.ts));document.getElementById('mLast').textContent=(()=>{const i=loadAll();if(!i.length)return'—';return fmtAgo([...i].sort((a,b)=>b.ts-a.ts)[0].ts)})()},30000);
 render();window.addEventListener('resize',updateMinimap);
 
-const modal=document.getElementById('modal'),refLabel=document.getElementById('refLabel'),successRef=document.getElementById('successRef'),successEl=document.getElementById('success'),nameInput=document.getElementById('f_name'),statLive=document.getElementById('statLive'),statTxt=document.getElementById('statTxt');
+const modal=document.getElementById('modal'),refLabel=document.getElementById('refLabel'),successRef=document.getElementById('successRef'),successEl=document.getElementById('success'),statLive=document.getElementById('statLive'),statTxt=document.getElementById('statTxt');
 document.getElementById('openModal').addEventListener('click',openModal);
 document.getElementById('closeModal').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-function openModal(){nameInput.value='';clearPad();successEl.classList.remove('show');const items=loadAll();const ref=refOf(items.length+1,Date.now());refLabel.textContent=`RÉF ${ref}`;successRef.textContent=`RÉF ${ref}`;modal.classList.add('show');setTimeout(()=>{resizePad();nameInput.focus()},60)}
+function openModal(){clearPad();successEl.classList.remove('show');const items=loadAll();const ref=refOf(items.length+1,Date.now());refLabel.textContent=`RÉF ${ref}`;successRef.textContent=`RÉF ${ref}`;modal.classList.add('show');setTimeout(resizePad,60)}
 function closeModal(){modal.classList.remove('show')}
 
 const canvas=document.getElementById('pad'),ctx=canvas.getContext('2d'),padWrap=document.getElementById('padWrap'),padHint=document.getElementById('padHint');
@@ -439,13 +434,12 @@ function clearPad(){ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width
 document.getElementById('clearPad').addEventListener('click',clearPad);
 function strokesToSVG(){const r=padWrap.getBoundingClientRect();const W=r.width,H=r.height;const paths=strokes.filter(s=>s.length>1).map(s=>{let d=`M ${s[0].x.toFixed(1)} ${s[0].y.toFixed(1)}`;for(let i=1;i<s.length;i++){const p=s[i],q=s[i-1];const mx=(p.x+q.x)/2,my=(p.y+q.y)/2;d+=` Q ${q.x.toFixed(1)} ${q.y.toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`}return`<path d="${d}"/>`}).join('');return`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#1a1535" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`}
 document.getElementById('confirmSign').addEventListener('click',()=>{
-  const name=nameInput.value.trim();if(!name){nameInput.focus();flashInput();return}if(!hasInk){flashPad();return}
+  if(!hasInk){flashPad();return}
   const items=loadAll();const ts=Date.now();const ref=refOf(items.length+1,ts);const pos=positionFor({ts},items.length);
-  items.push({ref,ts,name,sigSvg:strokesToSVG(),sig:canvas.toDataURL('image/png'),pos});saveAll(items);render();
+  items.push({ref,ts,sigSvg:strokesToSVG(),sig:canvas.toDataURL('image/png'),pos});saveAll(items);render();
   successRef.textContent=`RÉF ${ref}`;successEl.classList.add('show');
   setTimeout(()=>setPan(-pos.x,-pos.y,true),600);setTimeout(closeModal,2600);
 });
-function flashInput(){const o=nameInput.style.borderBottomColor;nameInput.style.borderBottomColor='var(--amber)';setTimeout(()=>nameInput.style.borderBottomColor=o,1000)}
 function flashPad(){padWrap.animate([{boxShadow:'0 0 0 0 rgba(200,146,42,0)'},{boxShadow:'0 0 0 4px rgba(200,146,42,.4)'},{boxShadow:'0 0 0 0 rgba(200,146,42,0)'}],{duration:700})}
 resizePad();
 </script>
