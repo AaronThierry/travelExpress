@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MonTailleurAuthController;
 use App\Http\Controllers\Api\PinController;
+use App\Http\Controllers\Api\RegistreVoyageurController;
 use App\Http\Controllers\Api\YuanFlow\AuthController as YfAuthController;
 use App\Http\Controllers\Api\YuanFlow\WalletController as YfWalletController;
 use App\Http\Controllers\Api\YuanFlow\TransferController as YfTransferController;
@@ -34,6 +35,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+// ── Registre des signatures (kiosque public) ───────────────────
+Route::get('/registre', [RegistreVoyageurController::class, 'index']);
+Route::post('/registre/{id}/sign', [RegistreVoyageurController::class, 'sign']);
 
 // ── Mon_tailleur auth ──────────────────────────────────────────
 Route::prefix('auth')->group(function () {

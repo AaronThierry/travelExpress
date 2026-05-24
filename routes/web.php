@@ -61,6 +61,9 @@ Route::get('/profile/edit', function () {
 
 // Admin routes (protected by auth and admin middleware)
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/registre', function () {
+        return view('admin.registre');
+    })->name('admin.registre');
     Route::get('/dashboard', function () {
         return view('admin.dashboard', [
             'title' => 'Tableau de bord',
@@ -200,6 +203,10 @@ Route::get('/visa-document/{documentId}/preview', [App\Http\Controllers\VisaAppl
 
 // Admin API Routes (web-based, session auth - no token required)
 Route::prefix('admin/api')->middleware(['web', 'auth', 'admin'])->group(function () {
+    // Registre voyageurs
+    Route::get('/registre',        [App\Http\Controllers\Api\RegistreVoyageurController::class, 'adminIndex']);
+    Route::post('/registre',       [App\Http\Controllers\Api\RegistreVoyageurController::class, 'adminStore']);
+    Route::delete('/registre/{id}',[App\Http\Controllers\Api\RegistreVoyageurController::class, 'adminDestroy']);
     // Dashboard Stats
     Route::get('/stats', [App\Http\Controllers\Api\Admin\DashboardController::class, 'stats'])
         ->name('admin.api.stats')->middleware('permission:dashboard-stats');

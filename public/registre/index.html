@@ -181,6 +181,14 @@ canvas#pad{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cu
 .success h2 em{font-style:normal;font-weight:700;color:var(--amber)}
 .success p{margin-top:8px;color:var(--ink-3);font-size:13.5px;max-width:380px;line-height:1.65;font-weight:300}
 .success .sigref{margin-top:20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;color:var(--amber);padding:7px 16px;border:1px solid rgba(200,146,42,.2);border-radius:99px;background:var(--amber-bg)}
+/* unsigned cards : tap pour signer */
+.float.unsigned{cursor:pointer}
+.float.unsigned .card:active{transform:scale(.97)}
+/* signed cards : légèrement estompées */
+.float.signed .card{opacity:.82}
+.float.signed .card:hover{transform:none!important}
+/* stamp À signer */
+.bp-stamp.pending{background:var(--amber-l);color:var(--ink)}
 @media(max-width:720px){
   .title-block{padding:16px 20px 48px}.t-above{font-size:15px}.t-hero{font-size:48px}.tb-lead{font-size:12px;max-width:88vw}
   .footer{padding:12px 14px}.minimap{display:none}.hint{display:none}.card{width:318px}.bp-stub{width:54px}.bp-iata{font-size:22px}
@@ -255,9 +263,9 @@ canvas#pad{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cu
       <span class="sep"></span>
       <span><span class="k">Dernière</span><span class="v" id="mLast">—</span></span>
     </div>
-    <button class="cta" id="openModal">
-      <span class="ico">✍</span>
-      <span>Nouvelle signature</span>
+    <button class="cta" id="btnRefresh">
+      <span class="ico">↺</span>
+      <span>Actualiser</span>
       <span class="arr">→</span>
     </button>
   </div>
@@ -268,8 +276,8 @@ canvas#pad{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cu
     <div class="modal-stripe"></div>
     <div class="modal-head">
       <div>
-        <div class="h">Apposer une <em>signature</em></div>
-        <div class="sub" id="refLabel">RÉF —</div>
+        <div class="h">Signature de <em id="modalName">—</em></div>
+        <div class="sub" id="refLabel">BOB → — · RÉF —</div>
       </div>
       <button class="close" id="closeModal" aria-label="Fermer">✕</button>
     </div>
@@ -302,45 +310,52 @@ canvas#pad{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cu
 </div>
 
 <script>
-const STORAGE_KEY='travel-express-signatures-v3';
-const loadAll=()=>{try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]')}catch(e){return[]}};
-const saveAll=a=>{try{localStorage.setItem(STORAGE_KEY,JSON.stringify(a))}catch(e){}};
 const fmtClock=d=>`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
 const fmtDate=d=>`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
-function fmtAgo(ts){const s=Math.floor((Date.now()-ts)/1000);if(s<60)return"à l'instant";if(s<3600)return`il y a ${Math.floor(s/60)} min`;if(s<86400)return`il y a ${Math.floor(s/3600)} h`;const d=Math.floor(s/86400);if(d<7)return`il y a ${d} j`;return fmtDate(new Date(ts))}
+function fmtAgo(iso){const s=Math.floor((Date.now()-new Date(iso))/1000);if(s<60)return"à l'instant";if(s<3600)return`il y a ${Math.floor(s/60)} min`;if(s<86400)return`il y a ${Math.floor(s/3600)} h`;const d=Math.floor(s/86400);if(d<7)return`il y a ${d} j`;return fmtDate(new Date(iso))}
 const esc=s=>(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const refOf=(idx,ts)=>`TE-${new Date(ts).getFullYear()}-${String(idx).padStart(4,'0')}`;
+function iata(dest){return(dest||'').replace(/[^a-zA-ZÀ-ÿ]/g,'').substring(0,3).toUpperCase()}
 function seedRand(seed){let h=2166136261>>>0;const s=String(seed);for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return()=>{h+=0x6D2B79F5;let t=h;t=Math.imul(t^(t>>>15),1|t);t^=t+Math.imul(t^(t>>>7),61|t);return((t^(t>>>14))>>>0)/4294967296}}
-function positionFor(item,idx){if(item.pos)return item.pos;const g=Math.PI*(3-Math.sqrt(5));const a=idx*g;const r=240+Math.sqrt(idx)*240;const rand=seedRand(item.ts||idx);return{x:Math.cos(a)*r+(rand()-.5)*140,y:Math.sin(a)*r+(rand()-.5)*140}}
+function positionFor(id,idx){const g=Math.PI*(3-Math.sqrt(5));const a=idx*g;const r=240+Math.sqrt(idx)*240;const rand=seedRand(id);return{x:Math.cos(a)*r+(rand()-.5)*140,y:Math.sin(a)*r+(rand()-.5)*140}}
+
+let voyageurs=[],selectedVoyageur=null;
+
+async function loadVoyageurs(){
+  try{const res=await fetch('/api/registre');const json=await res.json();if(json.success){voyageurs=json.data;render()}}
+  catch(e){console.error(e)}
+}
 
 const stage=document.getElementById('stage'),world=document.getElementById('world');
 let pan={x:0,y:0},panStart=null,isPanning=false;
 function applyTransform(){world.style.transform=`translate(${pan.x}px,${pan.y}px)`;updateMinimap()}
 function setPan(x,y,animate=false){pan.x=x;pan.y=y;if(animate){world.style.transition='transform .6s cubic-bezier(.2,.8,.2,1)';applyTransform();setTimeout(()=>{world.style.transition=''},650)}else applyTransform()}
-stage.addEventListener('pointerdown',e=>{if(e.target.closest('button,a,input,.modal-bg,.card'))return;stage.setPointerCapture(e.pointerId);panStart={x:e.clientX-pan.x,y:e.clientY-pan.y};isPanning=true;stage.classList.add('grabbing')});
+stage.addEventListener('pointerdown',e=>{if(e.target.closest('button,a,input,.modal-bg,.unsigned'))return;stage.setPointerCapture(e.pointerId);panStart={x:e.clientX-pan.x,y:e.clientY-pan.y};isPanning=true;stage.classList.add('grabbing')});
 stage.addEventListener('pointermove',e=>{if(!isPanning||!panStart)return;pan.x=e.clientX-panStart.x;pan.y=e.clientY-panStart.y;applyTransform()});
 function endPan(){isPanning=false;panStart=null;stage.classList.remove('grabbing')}
 stage.addEventListener('pointerup',endPan);stage.addEventListener('pointercancel',endPan);stage.addEventListener('pointerleave',endPan);
 stage.addEventListener('wheel',e=>{pan.x-=e.deltaX;pan.y-=e.deltaY;applyTransform();e.preventDefault()},{passive:false});
 document.getElementById('recenter').addEventListener('click',()=>setPan(0,0,true));
+document.getElementById('btnRefresh').addEventListener('click',loadVoyageurs);
 
 function render(){
   world.querySelectorAll('.float,.empty').forEach(n=>n.remove());
-  const items=loadAll();
-  document.getElementById('mTotal').textContent=String(items.length).padStart(2,'0');
-  document.getElementById('mLast').textContent=items.length?fmtAgo([...items].sort((a,b)=>b.ts-a.ts)[0].ts):'—';
-  if(!items.length){
+  const signedList=voyageurs.filter(v=>v.signed);
+  document.getElementById('mTotal').textContent=String(voyageurs.length).padStart(2,'0');
+  const last=[...signedList].sort((a,b)=>new Date(b.signed_at)-new Date(a.signed_at))[0];
+  document.getElementById('mLast').textContent=last?fmtAgo(last.signed_at):'—';
+  if(!voyageurs.length){
     const e=document.createElement('div');e.className='empty';
-    e.innerHTML=`<div class="emblem"><span>✦</span></div><h3>Le livre est <em>vierge</em></h3><p>Aucune signature n'a encore été apposée. Touchez « Nouvelle signature » pour commencer le grand livre.</p>`;
+    e.innerHTML=`<div class="emblem"><span>✦</span></div><h3>Le livre est <em>vierge</em></h3><p>L'administrateur n'a pas encore enregistré de voyageurs. Revenez dans quelques instants.</p>`;
     world.appendChild(e);updateMinimap();return;
   }
-  [...items].sort((a,b)=>a.ts-b.ts).forEach((it,idx)=>{
-    const pos=positionFor(it,idx);
-    const rand=seedRand(it.ts);
+  voyageurs.forEach((v,idx)=>{
+    const pos=positionFor(v.id,idx);
+    const rand=seedRand(v.id);
     const rot=(rand()-.5)*4.5;const dur=7+rand()*5;const delay=-rand()*8;
     const fx=(rand()-.5)*8;const fy=-4-rand()*7;const rotAmp=(rand()-.5)*1.2;
     const f=document.createElement('div');
-    f.className='float';f.style.left=pos.x+'px';f.style.top=pos.y+'px';
+    f.className=`float ${v.signed?'signed':'unsigned'}`;
+    f.style.left=pos.x+'px';f.style.top=pos.y+'px';
     f.style.setProperty('--rot',rot.toFixed(2)+'deg');
     f.style.setProperty('--dur',dur.toFixed(1)+'s');
     f.style.setProperty('--delay',delay.toFixed(1)+'s');
@@ -348,12 +363,14 @@ function render(){
     f.style.setProperty('--fy',fy.toFixed(1)+'px');
     f.style.setProperty('--rot-amp',rotAmp.toFixed(2)+'deg');
     f.dataset.x=pos.x;f.dataset.y=pos.y;
-    const d=new Date(it.ts);const num=String(idx+1).padStart(3,'0');
+    const num=String(idx+1).padStart(3,'0');
+    const destCode=iata(v.destination);
+    const sigContent=v.signature_svg||`<span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:rgba(26,21,53,.22);position:relative;z-index:1">Toucher pour signer</span>`;
     f.innerHTML=`<article class="card">
       <div class="bp-main">
         <div class="bp-header">
           <span class="bp-airline">Travel Express</span>
-          <span class="bp-ref">${esc(it.ref)}</span>
+          <span class="bp-ref">${esc(v.ref)}</span>
         </div>
         <div class="bp-route">
           <div class="bp-city-grp">
@@ -362,27 +379,26 @@ function render(){
           </div>
           <span class="bp-plane">✈</span>
           <div class="bp-city-grp right">
-            <div class="bp-iata">MON</div>
-            <div class="bp-city-sub">Le Monde</div>
+            <div class="bp-iata">${esc(destCode)}</div>
+            <div class="bp-city-sub">${esc(v.destination)}</div>
           </div>
         </div>
-        <div class="sig-frame">
-          <span class="sig-x">✕</span>
-          ${it.sigSvg||`<img alt="signature" src="${it.sig||''}" style="width:90%;height:78%;object-fit:contain;position:relative;z-index:1"/>`}
-        </div>
+        <div class="sig-frame"><span class="sig-x">✕</span>${sigContent}</div>
+        <div class="bp-name">${esc(v.prenom)} ${esc(v.nom)}</div>
         <div class="bp-meta">
-          <span data-ts="${it.ts}">${esc(fmtAgo(it.ts))}</span>
-          <span class="bp-stamp">Scellé</span>
+          <span>${v.signed?fmtAgo(v.signed_at):'En attente'}</span>
+          <span class="bp-stamp ${v.signed?'':'pending'}">${v.signed?'Scellé':'À signer'}</span>
         </div>
       </div>
       <div class="bp-perf"></div>
       <div class="bp-stub">
-        <span class="stub-v">${esc(fmtDate(d))}</span>
+        <span class="stub-v">${esc(v.destination)}</span>
         <div class="stub-n">${num}</div>
-        <div class="stub-ok">✓</div>
-        <span class="stub-v">VALIDÉ</span>
+        <div class="stub-ok">${v.signed?'✓':'·'}</div>
+        <span class="stub-v">${v.signed?'VALIDÉ':'ATTENTE'}</span>
       </div>
     </article>`;
+    if(!v.signed)f.addEventListener('click',()=>openSignModal(v,pos));
     world.appendChild(f);
   });
   updateMinimap();
@@ -408,17 +424,22 @@ function updateMinimap(){
 }
 
 function tickClock(){document.getElementById('mClock').textContent=fmtClock(new Date())}
-tickClock();setInterval(tickClock,30000);
-setInterval(()=>{document.querySelectorAll('[data-ts]').forEach(el=>el.textContent=fmtAgo(+el.dataset.ts));document.getElementById('mLast').textContent=(()=>{const i=loadAll();if(!i.length)return'—';return fmtAgo([...i].sort((a,b)=>b.ts-a.ts)[0].ts)})()},30000);
-render();window.addEventListener('resize',updateMinimap);
+tickClock();setInterval(tickClock,30000);setInterval(loadVoyageurs,30000);
+loadVoyageurs();window.addEventListener('resize',updateMinimap);
 
 const modal=document.getElementById('modal'),refLabel=document.getElementById('refLabel'),successRef=document.getElementById('successRef'),successEl=document.getElementById('success'),statLive=document.getElementById('statLive'),statTxt=document.getElementById('statTxt');
-document.getElementById('openModal').addEventListener('click',openModal);
 document.getElementById('closeModal').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-function openModal(){clearPad();successEl.classList.remove('show');const items=loadAll();const ref=refOf(items.length+1,Date.now());refLabel.textContent=`RÉF ${ref}`;successRef.textContent=`RÉF ${ref}`;modal.classList.add('show');setTimeout(resizePad,60)}
-function closeModal(){modal.classList.remove('show')}
+
+function openSignModal(v,pos){
+  selectedVoyageur=v;clearPad();successEl.classList.remove('show');
+  document.getElementById('modalName').textContent=`${v.prenom} ${v.nom}`;
+  refLabel.textContent=`BOB → ${iata(v.destination)} · ${v.ref}`;
+  successRef.textContent=v.ref;
+  modal.classList.add('show');setTimeout(resizePad,60);
+}
+function closeModal(){modal.classList.remove('show');selectedVoyageur=null}
 
 const canvas=document.getElementById('pad'),ctx=canvas.getContext('2d'),padWrap=document.getElementById('padWrap'),padHint=document.getElementById('padHint');
 let drawing=false,lastX=0,lastY=0,strokes=[],current=null,hasInk=false;
@@ -433,12 +454,30 @@ canvas.addEventListener('touchstart',startDraw,{passive:false});canvas.addEventL
 function clearPad(){ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);const dpr=window.devicePixelRatio||1;ctx.setTransform(dpr,0,0,dpr,0,0);strokes=[];hasInk=false;padHint.classList.remove('hide');statLive.classList.remove('on');statTxt.textContent='En attente'}
 document.getElementById('clearPad').addEventListener('click',clearPad);
 function strokesToSVG(){const r=padWrap.getBoundingClientRect();const W=r.width,H=r.height;const paths=strokes.filter(s=>s.length>1).map(s=>{let d=`M ${s[0].x.toFixed(1)} ${s[0].y.toFixed(1)}`;for(let i=1;i<s.length;i++){const p=s[i],q=s[i-1];const mx=(p.x+q.x)/2,my=(p.y+q.y)/2;d+=` Q ${q.x.toFixed(1)} ${q.y.toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`}return`<path d="${d}"/>`}).join('');return`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#1a1535" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`}
-document.getElementById('confirmSign').addEventListener('click',()=>{
+
+document.getElementById('confirmSign').addEventListener('click',async()=>{
   if(!hasInk){flashPad();return}
-  const items=loadAll();const ts=Date.now();const ref=refOf(items.length+1,ts);const pos=positionFor({ts},items.length);
-  items.push({ref,ts,sigSvg:strokesToSVG(),sig:canvas.toDataURL('image/png'),pos});saveAll(items);render();
-  successRef.textContent=`RÉF ${ref}`;successEl.classList.add('show');
-  setTimeout(()=>setPan(-pos.x,-pos.y,true),600);setTimeout(closeModal,2600);
+  if(!selectedVoyageur)return;
+  const btn=document.getElementById('confirmSign');
+  btn.disabled=true;btn.textContent='Enregistrement…';
+  try{
+    const res=await fetch(`/api/registre/${selectedVoyageur.id}/sign`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({signature_svg:strokesToSVG()}),
+    });
+    const json=await res.json();
+    if(json.success){
+      successRef.textContent=selectedVoyageur.ref;
+      successEl.classList.add('show');
+      await loadVoyageurs();
+      const idx=voyageurs.findIndex(v=>v.id===selectedVoyageur.id);
+      const pos=positionFor(selectedVoyageur.id,idx>=0?idx:0);
+      setTimeout(()=>setPan(-pos.x,-pos.y,true),600);
+      setTimeout(closeModal,2600);
+    }else{alert(json.message||'Erreur')}
+  }catch(e){alert('Erreur réseau')}
+  btn.disabled=false;btn.textContent='Sceller dans le livre →';
 });
 function flashPad(){padWrap.animate([{boxShadow:'0 0 0 0 rgba(200,146,42,0)'},{boxShadow:'0 0 0 4px rgba(200,146,42,.4)'},{boxShadow:'0 0 0 0 rgba(200,146,42,0)'}],{duration:700})}
 resizePad();
