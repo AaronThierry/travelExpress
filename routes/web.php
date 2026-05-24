@@ -18,6 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Registre des signatures — borne tactile Travel Express
+Route::get('/registre', function () {
+    return response(file_get_contents(public_path('registre/index.html')))
+        ->header('Content-Type', 'text/html; charset=utf-8');
+})->name('registre');
+
 // Authentication routes
 Route::get('/login', function () {
     return view('auth.login');
