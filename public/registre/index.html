@@ -97,30 +97,41 @@ body{font-family:'Jost',system-ui,sans-serif;color:var(--ink);background:var(--b
 .float.signed .card:hover{transform:none!important;animation:none}
 
 .bp-main{flex:1;min-width:0;display:flex;flex-direction:column}
+
+/* Header — bandeau doré */
 .bp-header{
-  background:var(--ink);padding:12px 16px 11px;
+  background:linear-gradient(135deg,#b87d14 0%,#c4891f 30%,#daa82a 55%,#e8b840 75%,#d4a030 100%);
+  padding:10px 16px 9px;
   display:flex;align-items:center;justify-content:space-between;
   border-radius:14px 0 0 0;
-  background-image:linear-gradient(135deg,var(--ink) 0%,var(--ink-2) 100%)
+  position:relative;overflow:hidden
 }
-.bp-header::after{content:"";position:absolute;top:0;left:0;right:64px;height:38px;background:linear-gradient(90deg,transparent,rgba(196,137,31,.06) 60%,transparent);pointer-events:none}
-.bp-airline{font-family:'Jost',sans-serif;font-size:8px;font-weight:600;letter-spacing:.38em;color:var(--amber-l);text-transform:uppercase}
-.bp-ref{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.16em;color:rgba(255,255,255,.28)}
-.bp-route{display:flex;align-items:center;justify-content:space-between;padding:11px 16px 9px;border-bottom:1px dashed rgba(19,16,43,.1)}
+.bp-header::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.18) 0%,transparent 60%);pointer-events:none}
+.bp-airline{font-family:'Jost',sans-serif;font-size:8px;font-weight:700;letter-spacing:.38em;color:rgba(19,16,43,.8);text-transform:uppercase}
+.bp-ref{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.16em;color:rgba(19,16,43,.42)}
+
+/* Passager — nom très lisible */
+.bp-passenger{padding:10px 16px 8px;border-bottom:1px solid rgba(19,16,43,.06)}
+.bp-lbl{display:block;font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.28em;color:var(--ink-3);text-transform:uppercase;margin-bottom:3px}
+.bp-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;font-style:italic;color:var(--ink);letter-spacing:-.02em;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Route — IATA grands en ambre */
+.bp-route{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 9px;border-bottom:1px dashed rgba(19,16,43,.1);background:linear-gradient(135deg,rgba(196,137,31,.03),rgba(232,184,64,.07))}
 .bp-city-grp{display:flex;flex-direction:column}
 .bp-city-grp.right{align-items:flex-end}
-.bp-iata{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--ink);letter-spacing:-.01em;line-height:1}
-.bp-city-sub{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-top:2px}
+.bp-iata{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:var(--amber);letter-spacing:-.01em;line-height:1}
+.bp-city-sub{font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-top:2px}
 .bp-plane-wrap{display:flex;flex-direction:column;align-items:center;gap:3px}
-.bp-plane{font-size:14px;color:var(--amber);opacity:.75;transform:rotate(-45deg);display:inline-block}
-.bp-flight-line{width:60px;height:1px;background:linear-gradient(90deg,transparent,rgba(19,16,43,.12) 30%,rgba(19,16,43,.12) 70%,transparent)}
+.bp-plane{font-size:15px;color:var(--amber);opacity:.8;transform:rotate(-45deg);display:inline-block}
+.bp-flight-line{width:54px;height:1px;background:linear-gradient(90deg,transparent,rgba(196,137,31,.35) 30%,rgba(196,137,31,.35) 70%,transparent)}
 
+/* Zone signature */
 .sig-frame{
   flex:1;position:relative;overflow:hidden;
-  margin:9px 14px;border-radius:6px;
+  margin:8px 14px;border-radius:6px;
   border:1px solid rgba(19,16,43,.09);
   background:linear-gradient(175deg,#fefcf7 0%,#f9f3e8 100%);
-  display:grid;place-items:center;min-height:90px
+  display:grid;place-items:center;min-height:88px
 }
 .sig-frame::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(0deg,rgba(19,16,43,.05) 1px,transparent 1px);background-size:100% 22px}
 .sig-frame::after{content:"";position:absolute;left:12px;right:12px;bottom:14px;border-top:1px solid rgba(19,16,43,.14);pointer-events:none}
@@ -135,29 +146,31 @@ body{font-family:'Jost',system-ui,sans-serif;color:var(--ink);background:var(--b
 .sig-tap .tap-icon{font-size:20px;color:rgba(196,137,31,.45);animation:tapPulse 2s ease-in-out infinite}
 @keyframes tapPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.15);opacity:.9}}
 
-.bp-name{padding:2px 16px 0;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;font-style:italic;color:var(--ink);letter-spacing:-.01em;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bp-meta{display:flex;align-items:center;justify-content:space-between;padding:5px 16px 12px;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
+/* Méta bas de carte */
+.bp-meta{display:flex;align-items:center;justify-content:space-between;padding:5px 16px 10px;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
 .bp-stamp{display:flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;background:var(--ink);color:#fff;font-family:'Jost',sans-serif;font-size:7px;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
 .bp-stamp::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--amber-l)}
 .bp-stamp.pending{background:var(--amber-l);color:var(--ink)}
 .bp-stamp.pending::before{background:var(--amber-2)}
 
+/* Perforation */
 .bp-perf{width:18px;flex-shrink:0;position:relative;display:flex;flex-direction:column;align-items:center}
 .bp-perf::before{content:"";position:absolute;top:-14px;bottom:-14px;left:50%;border-left:1.5px dashed rgba(19,16,43,.11);z-index:2}
 .bp-perf::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;border-radius:50%;background:var(--bg);box-shadow:0 -46px 0 var(--bg),0 46px 0 var(--bg),0 -92px 0 var(--bg),0 92px 0 var(--bg),0 -138px 0 var(--bg),0 138px 0 var(--bg)}
 
+/* Talon (stub) — fond sombre + barre dorée */
 .bp-stub{
-  width:68px;flex-shrink:0;
+  width:64px;flex-shrink:0;
   background:linear-gradient(175deg,var(--ink) 0%,var(--ink-2) 100%);
   border-radius:0 14px 14px 0;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:12px;padding:14px 6px;position:relative;overflow:hidden
+  gap:10px;padding:14px 5px;position:relative;overflow:hidden
 }
-.bp-stub::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 18%,rgba(196,137,31,.12),transparent 62%)}
-.bp-stub::after{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(196,137,31,.4) 50%,transparent)}
-.stub-v{writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.2em;color:rgba(255,255,255,.25);text-transform:uppercase}
-.stub-n{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;font-style:italic;color:var(--amber-l);line-height:1;text-align:center}
-.stub-ok{width:28px;height:28px;border-radius:50%;background:var(--gold-shine);display:grid;place-items:center;font-size:12px;color:var(--ink);font-weight:700;box-shadow:0 0 0 1px rgba(196,137,31,.3),0 4px 14px rgba(196,137,31,.3)}
+.bp-stub::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--amber-l) 50%,transparent)}
+.bp-stub::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 20%,rgba(196,137,31,.1),transparent 62%);pointer-events:none}
+.stub-v{writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.2em;color:rgba(255,255,255,.22);text-transform:uppercase;position:relative;z-index:1}
+.stub-n{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;font-style:italic;color:var(--amber-l);line-height:1;text-align:center;position:relative;z-index:1}
+.stub-ok{width:28px;height:28px;border-radius:50%;background:var(--gold-shine);display:grid;place-items:center;font-size:12px;color:var(--ink);font-weight:700;box-shadow:0 0 0 1px rgba(196,137,31,.3),0 4px 14px rgba(196,137,31,.3);position:relative;z-index:1}
 
 /* ── EMPTY ── */
 .empty{position:absolute;left:0;top:0;transform:translate(-50%,-50%);text-align:center;padding:48px;width:520px;pointer-events:none}
@@ -411,7 +424,7 @@ canvas#pad{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cu
 
 @media(max-width:720px){
   .title-block{padding:16px 20px 50px}.t-above{font-size:15px}.t-hero{font-size:52px}.tb-lead{font-size:12px;max-width:88vw}
-  .footer{padding:12px 14px}.minimap{display:none}.hint{display:none}.card{width:330px}.bp-stub{width:56px}.bp-iata{font-size:24px}
+  .footer{padding:12px 14px}.minimap{display:none}.hint{display:none}.card{width:330px}.bp-stub{width:56px}.bp-iata{font-size:28px}.bp-name{font-size:20px}
 }
 </style>
 </head>
@@ -609,6 +622,10 @@ function render(){
           <span class="bp-airline">Travel Express</span>
           <span class="bp-ref">${esc(v.ref)}</span>
         </div>
+        <div class="bp-passenger">
+          <span class="bp-lbl">Passager</span>
+          <div class="bp-name">${esc(v.prenom)} ${esc(v.nom)}</div>
+        </div>
         <div class="bp-route">
           <div class="bp-city-grp">
             <div class="bp-iata">BOB</div>
@@ -624,7 +641,6 @@ function render(){
           </div>
         </div>
         <div class="sig-frame"><span class="sig-x">✕</span>${sigContent}</div>
-        <div class="bp-name">${esc(v.prenom)} ${esc(v.nom)}</div>
         <div class="bp-meta">
           <span>${v.signed?fmtAgo(v.signed_at):'En attente'}</span>
           <span class="bp-stamp ${v.signed?'':'pending'}">${v.signed?'Scellé':'À signer'}</span>
