@@ -53,9 +53,8 @@ body{font-family:'Jost',system-ui,sans-serif;color:var(--ink);background:var(--b
 .origin .star{position:absolute;width:14px;height:14px;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 35%,#fff 0%,var(--amber-l) 38%,var(--amber) 78%);border-radius:50%;box-shadow:0 0 0 1px rgba(196,137,31,.45),0 0 18px rgba(196,137,31,.4),0 0 44px rgba(196,137,31,.18);animation:beacon 4s ease-in-out infinite}
 @keyframes beacon{0%,100%{box-shadow:0 0 0 1px rgba(196,137,31,.38),0 0 14px rgba(196,137,31,.32),0 0 38px rgba(196,137,31,.12)}50%{box-shadow:0 0 0 1px rgba(196,137,31,.55),0 0 28px rgba(196,137,31,.55),0 0 66px rgba(196,137,31,.22)}}
 
-/* ── FLOAT ── */
-.float{position:absolute;left:0;top:0;transform-origin:center;--rot:0deg;transform:translate(-50%,-50%) rotate(var(--rot));animation:floaty var(--dur,8s) ease-in-out infinite;animation-delay:var(--delay,0s)}
-@keyframes floaty{0%,100%{transform:translate(-50%,-50%) rotate(var(--rot)) translate(0,0)}50%{transform:translate(-50%,-50%) rotate(calc(var(--rot) + var(--rot-amp,.5deg))) translate(var(--fx,0px),var(--fy,-5px))}}
+/* ── FLOAT — position gérée par JS (trajectoires paramétriques) ── */
+.float{position:absolute;left:0;top:0;transform-origin:center;--rot:0deg;transform:translate(-50%,-50%) rotate(var(--rot))}
 .float:hover{z-index:50}
 
 /* ── CARD (boarding pass) ── */
@@ -549,6 +548,8 @@ function seedRand(seed){let h=2166136261>>>0;const s=String(seed);for(let i=0;i<
 function positionFor(id,idx){const g=Math.PI*(3-Math.sqrt(5));const a=idx*g;const r=240+Math.sqrt(idx)*240;const rand=seedRand(id);return{x:Math.cos(a)*r+(rand()-.5)*140,y:Math.sin(a)*r+(rand()-.5)*140}}
 
 let voyageurs=[],selectedVoyageur=null;
+let floatData=[],animFrame=null,lastMM=0;
+const animStart=performance.now();
 
 async function loadVoyageurs(){
   try{const res=await fetch('/api/registre');const json=await res.json();if(json.success){voyageurs=json.data;render()}}
@@ -568,6 +569,8 @@ document.getElementById('recenter').addEventListener('click',()=>setPan(0,0,true
 document.getElementById('btnRefresh').addEventListener('click',loadVoyageurs);
 
 function render(){
+  if(animFrame){cancelAnimationFrame(animFrame);animFrame=null}
+  floatData=[];
   world.querySelectorAll('.float,.empty').forEach(n=>n.remove());
   const signedList=voyageurs.filter(v=>v.signed);
   document.getElementById('mTotal').textContent=String(voyageurs.length).padStart(2,'0');
@@ -580,19 +583,23 @@ function render(){
   }
   voyageurs.forEach((v,idx)=>{
     const pos=positionFor(v.id,idx);
-    const rand=seedRand(v.id);
-    const rot=(rand()-.5)*4.5;const dur=7+rand()*5;const delay=-rand()*8;
-    const fx=(rand()-.5)*8;const fy=-4-rand()*7;const rotAmp=(rand()-.5)*1.2;
+    const r1=seedRand(v.id);
+    const r2=seedRand(v.id*17+31);
+    const br=(r1()-.5)*4.5;
+    /* Trajectoire = somme de 2 sinusoïdes sur X et Y avec fréquences distinctes → figure de Lissajous infinie */
+    const a1=85+r2()*95, a1y=70+r2()*85;   /* amplitudes primaires */
+    const a2=32+r2()*42, a2y=28+r2()*38;   /* amplitudes secondaires */
+    const w1=0.042+r2()*0.088, w1y=0.036+r2()*0.082; /* fréquences primaires (lent) */
+    const w2=0.16+r2()*0.20,  w2y=0.14+r2()*0.19;   /* fréquences secondaires (moyen) */
+    const p1=r2()*Math.PI*2, p1y=r2()*Math.PI*2;
+    const p2=r2()*Math.PI*2, p2y=r2()*Math.PI*2;
+    const ra=(r2()-.5)*3.8, rw=0.028+r2()*0.044, rp=r2()*Math.PI*2;
     const f=document.createElement('div');
     f.className=`float ${v.signed?'signed':'unsigned'}`;
     f.style.left=pos.x+'px';f.style.top=pos.y+'px';
-    f.style.setProperty('--rot',rot.toFixed(2)+'deg');
-    f.style.setProperty('--dur',dur.toFixed(1)+'s');
-    f.style.setProperty('--delay',delay.toFixed(1)+'s');
-    f.style.setProperty('--fx',fx.toFixed(1)+'px');
-    f.style.setProperty('--fy',fy.toFixed(1)+'px');
-    f.style.setProperty('--rot-amp',rotAmp.toFixed(2)+'deg');
+    f.style.setProperty('--rot',br.toFixed(2)+'deg');
     f.dataset.x=pos.x;f.dataset.y=pos.y;
+    floatData.push({el:f,bx:pos.x,by:pos.y,a1,a1y,a2,a2y,w1,w1y,w2,w2y,p1,p1y,p2,p2y,br,ra,rw,rp});
     const num=String(idx+1).padStart(3,'0');
     const destCode=iata(v.destination);
     const sigContent=v.signature_svg||`<div class="sig-tap"><span class="tap-icon">✦</span><span>Toucher pour signer</span></div>`;
@@ -646,7 +653,26 @@ function render(){
       });
     }
   });
+  startFloatAnim();
   updateMinimap();
+}
+
+function startFloatAnim(){
+  if(animFrame)cancelAnimationFrame(animFrame);
+  const tick=(now)=>{
+    const t=(now-animStart)/1000;
+    floatData.forEach(d=>{
+      const x=d.bx + d.a1*Math.sin(d.w1*t+d.p1) + d.a2*Math.sin(d.w2*t+d.p2);
+      const y=d.by + d.a1y*Math.cos(d.w1y*t+d.p1y) + d.a2y*Math.cos(d.w2y*t+d.p2y);
+      const rot=d.br + d.ra*Math.sin(d.rw*t+d.rp);
+      d.el.style.left=x.toFixed(1)+'px';
+      d.el.style.top=y.toFixed(1)+'px';
+      d.el.style.setProperty('--rot',rot.toFixed(3)+'deg');
+    });
+    if(now-lastMM>600){updateMinimap();lastMM=now}
+    animFrame=requestAnimationFrame(tick);
+  };
+  animFrame=requestAnimationFrame(tick);
 }
 
 const mmArea=document.getElementById('mmArea'),mmView=document.getElementById('mmView'),mmCoords=document.getElementById('mmCoords');
