@@ -394,6 +394,22 @@ canvas#pad{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cu
   animation:riseIn .38s .72s ease both
 }
 
+/* ── ANIMATION SIGNATURE (écriture continue) ── */
+@property --pl {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 3000;
+}
+@keyframes inkWrite {
+  0%    { stroke-dashoffset: var(--pl); opacity: 0 }
+  5%    { opacity: 1 }
+  54%   { stroke-dashoffset: 0; opacity: 1 }
+  72%   { stroke-dashoffset: 0; opacity: 1 }
+  88%   { stroke-dashoffset: 0; opacity: 0 }
+  100%  { stroke-dashoffset: var(--pl); opacity: 0 }
+}
+.sig-frame svg path { fill: none }
+
 @media(max-width:720px){
   .title-block{padding:16px 20px 50px}.t-above{font-size:15px}.t-hero{font-size:52px}.tb-lead{font-size:12px;max-width:88vw}
   .footer{padding:12px 14px}.minimap{display:none}.hint{display:none}.card{width:330px}.bp-stub{width:56px}.bp-iata{font-size:24px}
@@ -617,6 +633,18 @@ function render(){
     </article>`;
     if(!v.signed)f.addEventListener('click',()=>openSignModal(v,pos));
     world.appendChild(f);
+    if(v.signed && v.signature_svg){
+      requestAnimationFrame(()=>{
+        f.querySelectorAll('.sig-frame svg path').forEach((path,i)=>{
+          const len=Math.ceil(path.getTotalLength())+40;
+          path.style.setProperty('--pl',len);
+          path.style.strokeDasharray=len;
+          const dur=4.5;
+          const delay=(-(i*0.42)%dur).toFixed(2);
+          path.style.animation=`inkWrite ${dur}s ${delay}s linear infinite`;
+        });
+      });
+    }
   });
   updateMinimap();
 }
