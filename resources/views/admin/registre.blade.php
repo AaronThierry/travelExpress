@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Registre des voyageurs — Admin Travel Express</title>
+<link rel="icon" type="image/png" href="/images/logo/logo_travel.png"/>
+<link rel="shortcut icon" type="image/png" href="/images/logo/logo_travel.png"/>
+<link rel="apple-touch-icon" href="/images/logo/logo_travel.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Mono:wght@0,400;0,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
