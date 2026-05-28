@@ -744,6 +744,8 @@ function render(){
     f.dataset.x=pos.x;f.dataset.y=pos.y;
     floatData.push({el:f,bx:pos.x,by:pos.y,a1,a1y,a2,a2y,w1,w1y,w2,w2y,p1,p1y,p2,p2y,br,ra,rw,rp});
     const num=String(idx+1).padStart(3,'0');
+    const depCode=iata(v.depart||'');
+    const depName=v.depart||'';
     const destCode=iata(v.destination);
     const sigContent=v.signature_svg
       ?v.signature_svg
@@ -766,8 +768,8 @@ function render(){
     </div>
     <div class="bp-route">
       <div class="bp-city-grp">
-        <div class="bp-iata">BOB</div>
-        <div class="bp-city-sub">Bobo-Dioulasso</div>
+        <div class="bp-iata">${depCode||'—'}</div>
+        <div class="bp-city-sub">${esc(depName)}</div>
       </div>
       <div class="bp-plane-wrap">
         <div class="bp-flight-track">
@@ -872,7 +874,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 function openSignModal(v,pos){
   selectedVoyageur=v;clearPad();successEl.classList.remove('show');
   document.getElementById('modalName').textContent=`${v.prenom} ${v.nom}`;
-  refLabel.textContent=`BOB → ${iata(v.destination)} · ${v.ref}`;
+  refLabel.textContent=`${iata(v.depart||'')||'—'} → ${iata(v.destination)} · ${v.ref}`;
   successRef.textContent=v.ref;
   modal.classList.add('show');setTimeout(resizePad,60);
 }

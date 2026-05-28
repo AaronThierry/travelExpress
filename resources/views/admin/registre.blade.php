@@ -48,7 +48,7 @@ body{font-family:'Jost',system-ui,sans-serif;color:var(--ink);background:var(--b
 .form-card{background:var(--card);border:1px solid var(--line-2);border-radius:14px;padding:24px 28px;margin-bottom:28px}
 .form-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;font-weight:600;color:var(--ink);margin-bottom:18px}
 .form-title em{color:var(--amber);font-style:normal}
-.form-row{display:grid;grid-template-columns:1fr 1fr 1.4fr auto;gap:12px;align-items:end}
+.form-row{display:grid;grid-template-columns:1fr 1fr 1fr 1.4fr auto;gap:12px;align-items:end}
 .field{display:flex;flex-direction:column;gap:5px}
 .field label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-3)}
 .field input{
@@ -102,7 +102,7 @@ body{font-family:'Jost',system-ui,sans-serif;color:var(--ink);background:var(--b
 @media(max-width:720px){
   .wrap{padding:20px 16px 40px}
   .stats{grid-template-columns:1fr 1fr}
-  .form-row{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
+  .form-row{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto}
   .btn-add{grid-column:1/-1}
 }
 </style>
@@ -139,6 +139,10 @@ body{font-family:'Jost',system-ui,sans-serif;color:var(--ink);background:var(--b
         <input type="text" id="f_prenom" placeholder="Jean" autocomplete="off"/>
       </div>
       <div class="field">
+        <label>Départ</label>
+        <input type="text" id="f_dep" placeholder="Bobo-Dioulasso, Paris…" autocomplete="off"/>
+      </div>
+      <div class="field">
         <label>Destination</label>
         <input type="text" id="f_dest" placeholder="Paris, Chine, Canada…" autocomplete="off"/>
       </div>
@@ -161,6 +165,7 @@ body{font-family:'Jost',system-ui,sans-serif;color:var(--ink);background:var(--b
         <tr>
           <th>Réf.</th>
           <th>Nom & Prénom</th>
+          <th>Départ</th>
           <th>Destination</th>
           <th>Statut</th>
           <th>Date signature</th>
@@ -195,7 +200,7 @@ async function load() {
 
     const tbody = document.getElementById('tbody');
     if (!json.data.length) {
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="7">Aucun voyageur enregistré pour le moment.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="8">Aucun voyageur enregistré pour le moment.</td></tr>';
       return;
     }
 
@@ -203,6 +208,12 @@ async function load() {
       <tr data-id="${v.id}">
         <td><span class="ref-badge">${v.ref}</span></td>
         <td class="name-cell">${esc(v.prenom)} ${esc(v.nom)}</td>
+        <td>
+          <span class="dest-tag">
+            <span class="iata">${iata(v.depart||'')}</span>
+            ${esc(v.depart||'—')}
+          </span>
+        </td>
         <td>
           <span class="dest-tag">
             <span class="iata">${iata(v.destination)}</span>
@@ -225,18 +236,19 @@ async function load() {
 async function addVoyageur() {
   const nom    = document.getElementById('f_nom').value.trim();
   const prenom = document.getElementById('f_prenom').value.trim();
+  const dep    = document.getElementById('f_dep').value.trim();
   const dest   = document.getElementById('f_dest').value.trim();
   const msg    = document.getElementById('formMsg');
   const btn    = document.getElementById('btnAdd');
 
-  if (!nom || !prenom || !dest) { msg.textContent = 'Tous les champs sont requis.'; msg.className = 'form-msg error'; return; }
+  if (!nom || !prenom || !dest) { msg.textContent = 'Nom, prénom et destination sont requis.'; msg.className = 'form-msg error'; return; }
 
   btn.disabled = true;
   try {
     const res = await fetch('/admin/api/registre', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF },
-      body: JSON.stringify({ nom, prenom, destination: dest }),
+      body: JSON.stringify({ nom, prenom, depart: dep || null, destination: dest }),
     });
     const json = await res.json();
     if (json.success) {
@@ -244,6 +256,7 @@ async function addVoyageur() {
       msg.className = 'form-msg';
       document.getElementById('f_nom').value = '';
       document.getElementById('f_prenom').value = '';
+      document.getElementById('f_dep').value = '';
       document.getElementById('f_dest').value = '';
       load();
       setTimeout(() => { msg.textContent = ''; }, 4000);
@@ -272,7 +285,7 @@ function esc(s) {
 
 // Entrer avec la touche Entrée dans les champs
 document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && ['f_nom','f_prenom','f_dest'].includes(document.activeElement?.id)) addVoyageur();
+  if (e.key === 'Enter' && ['f_nom','f_prenom','f_dep','f_dest'].includes(document.activeElement?.id)) addVoyageur();
 });
 
 load();

@@ -19,6 +19,7 @@ class RegistreVoyageurController extends Controller
             'id'            => $v->id,
             'nom'           => $v->nom,
             'prenom'        => $v->prenom,
+            'depart'        => $v->depart,
             'destination'   => $v->destination,
             'signed'        => !is_null($v->signed_at),
             'signed_at'     => $v->signed_at?->toIso8601String(),
@@ -68,6 +69,7 @@ class RegistreVoyageurController extends Controller
             'id'          => $v->id,
             'nom'         => $v->nom,
             'prenom'      => $v->prenom,
+            'depart'      => $v->depart,
             'destination' => $v->destination,
             'signed'      => !is_null($v->signed_at),
             'signed_at'   => $v->signed_at?->format('d/m/Y H:i'),
@@ -91,6 +93,7 @@ class RegistreVoyageurController extends Controller
         $validator = Validator::make($request->all(), [
             'nom'         => 'required|string|max:100',
             'prenom'      => 'required|string|max:100',
+            'depart'      => 'nullable|string|max:150',
             'destination' => 'required|string|max:150',
         ]);
 
@@ -101,6 +104,7 @@ class RegistreVoyageurController extends Controller
         $v = RegistreVoyageur::create([
             'nom'         => $request->nom,
             'prenom'      => $request->prenom,
+            'depart'      => $request->depart,
             'destination' => $request->destination,
         ]);
 
@@ -111,6 +115,7 @@ class RegistreVoyageurController extends Controller
                 'id'          => $v->id,
                 'nom'         => $v->nom,
                 'prenom'      => $v->prenom,
+                'depart'      => $v->depart,
                 'destination' => $v->destination,
                 'signed'      => false,
                 'ref'         => 'TE-' . $v->created_at->year . '-' . str_pad($v->id, 4, '0', STR_PAD_LEFT),
