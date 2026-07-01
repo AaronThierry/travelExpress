@@ -18,6 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Prospection terrain — agents commerciaux
+Route::get('/prospections', function () {
+    return view('prospections');
+})->name('prospections');
+
+// API publique — prospects (terrain, sans auth)
+Route::post('/api/prospects', [App\Http\Controllers\Api\ProspectController::class, 'store']);
+Route::get('/api/prospects/{id}', [App\Http\Controllers\Api\ProspectController::class, 'show']);
+Route::put('/api/prospects/{id}', [App\Http\Controllers\Api\ProspectController::class, 'update']);
+
 // Registre des signatures — borne tactile Travel Express
 Route::get('/registre', function () {
     return response(file_get_contents(public_path('registre/index.html')))
@@ -127,6 +137,14 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
             'showSearch' => true
         ]);
     })->name('admin.roles')->middleware('permission:roles-view');
+
+    Route::get('/prospections', function () {
+        return view('admin.prospections', [
+            'title'      => 'Prospections',
+            'subtitle'   => 'Prospects collectés sur le terrain',
+            'showSearch' => false,
+        ]);
+    })->name('admin.prospections');
 });
 
 // Mon dossier page
@@ -207,6 +225,10 @@ Route::prefix('admin/api')->middleware(['web', 'auth', 'admin'])->group(function
     Route::get('/registre',        [App\Http\Controllers\Api\RegistreVoyageurController::class, 'adminIndex']);
     Route::post('/registre',       [App\Http\Controllers\Api\RegistreVoyageurController::class, 'adminStore']);
     Route::delete('/registre/{id}',[App\Http\Controllers\Api\RegistreVoyageurController::class, 'adminDestroy']);
+
+    // Prospects terrain
+    Route::get('/prospects',       [App\Http\Controllers\Api\ProspectController::class, 'adminIndex']);
+    Route::delete('/prospects/{id}',[App\Http\Controllers\Api\ProspectController::class, 'adminDestroy']);
     // Dashboard Stats
     Route::get('/stats', [App\Http\Controllers\Api\Admin\DashboardController::class, 'stats'])
         ->name('admin.api.stats')->middleware('permission:dashboard-stats');
