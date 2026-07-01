@@ -110,6 +110,53 @@ class ProspectController extends Controller
         return response()->json(['success' => true, 'message' => 'Prospect supprimé.']);
     }
 
+    public function exportExcel(Request $request)
+    {
+        $query = Prospect::query()->orderByDesc('created_at');
+
+        if ($request->filled('destination')) {
+            $query->where('destination', $request->destination);
+        }
+        if ($request->filled('filiere')) {
+            $query->where('filiere', $request->filiere);
+        }
+
+        $prospects = $query->get();
+        $filename  = 'prospects_' . now()->format('Ymd_His') . '.csv';
+
+        $headers = [
+            'Content-Type'        => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'Pragma'              => 'no-cache',
+            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires'             => '0',
+        ];
+
+        $callback = function () use ($prospects) {
+            $handle = fopen('php://output', 'w');
+            // UTF-8 BOM pour Excel
+            fwrite($handle, "\xEF\xBB\xBF");
+
+            fputcsv($handle, ['#', 'Nom complet', 'WhatsApp', 'Email', 'Destination', 'Filière', 'Date d\'ajout'], ';');
+
+            foreach ($prospects as $i => $p) {
+                fputcsv($handle, [
+                    $i + 1,
+                    $p->nom_complet,
+                    $p->whatsapp,
+                    $p->email ?? '',
+                    $p->destination,
+                    $p->filiere,
+                    $p->created_at->format('d/m/Y H:i'),
+                ], ';');
+            }
+
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function exportPdf(Request $request)
     {
         $query = Prospect::query()->orderByDesc('created_at');

@@ -50,8 +50,11 @@
             <button onclick="loadProspects()" style="padding:.5rem 1rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:.5rem;color:var(--gold-primary);font-size:.8rem;font-weight:600;cursor:pointer;">
                 Actualiser
             </button>
-            <button onclick="exportPdf()" id="btn-export" style="padding:.5rem 1rem;background:linear-gradient(135deg,#8B6914,#C9A84C,#F0D07A,#C9A84C,#8B6914);border:none;border-radius:.5rem;color:#0a0a0a;font-size:.8rem;font-weight:700;cursor:pointer;letter-spacing:.05em;box-shadow:0 2px 12px rgba(201,168,76,.25);">
-                ⬇ Exporter PDF
+            <button onclick="exportPdf()" id="btn-export-pdf" style="padding:.5rem 1rem;background:linear-gradient(135deg,#8B6914,#C9A84C,#F0D07A,#C9A84C,#8B6914);border:none;border-radius:.5rem;color:#0a0a0a;font-size:.8rem;font-weight:700;cursor:pointer;letter-spacing:.05em;box-shadow:0 2px 12px rgba(201,168,76,.25);">
+                ⬇ PDF
+            </button>
+            <button onclick="exportExcel()" id="btn-export-excel" style="padding:.5rem 1rem;background:rgba(33,115,70,.15);border:1px solid rgba(33,115,70,.4);border-radius:.5rem;color:#2dbd7a;font-size:.8rem;font-weight:700;cursor:pointer;letter-spacing:.05em;">
+                ⬇ Excel
             </button>
         </div>
     </div>
@@ -189,6 +192,27 @@
         }
     }
 
+    function exportExcel() {
+        const dest = document.getElementById('filter-dest').value;
+        const fil  = document.getElementById('filter-fil').value;
+        const params = new URLSearchParams();
+        if (dest) params.append('destination', dest);
+        if (fil)  params.append('filiere', fil);
+
+        const btn = document.getElementById('btn-export-excel');
+        btn.textContent = '⏳ …';
+        btn.disabled = true;
+
+        const link = document.createElement('a');
+        link.href = `/admin/api/prospects/export-excel${params.toString() ? '?' + params : ''}`;
+        link.download = '';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        setTimeout(() => { btn.textContent = '⬇ Excel'; btn.disabled = false; }, 2000);
+    }
+
     function exportPdf() {
         const dest = document.getElementById('filter-dest').value;
         const fil  = document.getElementById('filter-fil').value;
@@ -196,22 +220,18 @@
         if (dest) params.append('destination', dest);
         if (fil)  params.append('filiere', fil);
 
-        const btn = document.getElementById('btn-export');
-        btn.textContent = '⏳ Génération…';
+        const btn = document.getElementById('btn-export-pdf');
+        btn.textContent = '⏳ …';
         btn.disabled = true;
 
-        const url = `/admin/api/prospects/export-pdf${params.toString() ? '?' + params : ''}`;
         const link = document.createElement('a');
-        link.href = url;
+        link.href = `/admin/api/prospects/export-pdf${params.toString() ? '?' + params : ''}`;
         link.download = '';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
 
-        setTimeout(() => {
-            btn.textContent = '⬇ Exporter PDF';
-            btn.disabled = false;
-        }, 2500);
+        setTimeout(() => { btn.textContent = '⬇ PDF'; btn.disabled = false; }, 2500);
     }
 
     function esc(str) {

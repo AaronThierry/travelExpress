@@ -228,7 +228,8 @@ Route::prefix('admin/api')->middleware(['web', 'auth', 'admin'])->group(function
 
     // Prospects terrain
     Route::get('/prospects',            [App\Http\Controllers\Api\ProspectController::class, 'adminIndex']);
-    Route::get('/prospects/export-pdf', [App\Http\Controllers\Api\ProspectController::class, 'exportPdf']);
+    Route::get('/prospects/export-pdf',   [App\Http\Controllers\Api\ProspectController::class, 'exportPdf']);
+    Route::get('/prospects/export-excel', [App\Http\Controllers\Api\ProspectController::class, 'exportExcel']);
     Route::delete('/prospects/{id}',    [App\Http\Controllers\Api\ProspectController::class, 'adminDestroy']);
     // Dashboard Stats
     Route::get('/stats', [App\Http\Controllers\Api\Admin\DashboardController::class, 'stats'])
