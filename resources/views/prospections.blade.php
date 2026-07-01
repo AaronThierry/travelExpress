@@ -347,7 +347,7 @@
 
         <div class="form-group">
             <label>Numéro WhatsApp <span class="req">*</span></label>
-            <input type="tel" id="whatsapp" placeholder="+221 77 000 00 00" autocomplete="off">
+            <input type="tel" id="whatsapp" value="+226 " placeholder="+226 XX XX XX XX" autocomplete="off">
             <div class="field-error" id="err_wa">Le numéro WhatsApp est requis.</div>
         </div>
 
