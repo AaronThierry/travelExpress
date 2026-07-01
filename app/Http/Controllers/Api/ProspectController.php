@@ -11,7 +11,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class ProspectController extends Controller
 {
@@ -229,15 +228,13 @@ class ProspectController extends Controller
         $filename = 'prospects_' . now()->format('Ymd_His') . '.xlsx';
         $writer   = new Xlsx($spreadsheet);
 
-        ob_start();
-        $writer->save('php://output');
-        $content = ob_get_clean();
+        $tmpFile = tempnam(sys_get_temp_dir(), 'te_xlsx_');
+        $writer->save($tmpFile);
 
-        return response($content, 200, [
-            'Content-Type'        => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
-            'Cache-Control'       => 'max-age=0',
-        ]);
+        return response()->download($tmpFile, $filename, [
+            'Content-Type'  => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Cache-Control' => 'max-age=0',
+        ])->deleteFileAfterSend(true);
     }
 
     public function exportPdf(Request $request)
