@@ -6,6 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Prospect;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class ProspectController extends Controller
 {
@@ -113,48 +119,125 @@ class ProspectController extends Controller
     public function exportExcel(Request $request)
     {
         $query = Prospect::query()->orderByDesc('created_at');
-
-        if ($request->filled('destination')) {
-            $query->where('destination', $request->destination);
-        }
-        if ($request->filled('filiere')) {
-            $query->where('filiere', $request->filiere);
-        }
-
+        if ($request->filled('destination')) $query->where('destination', $request->destination);
+        if ($request->filled('filiere'))     $query->where('filiere', $request->filiere);
         $prospects = $query->get();
-        $filename  = 'prospects_' . now()->format('Ymd_His') . '.csv';
 
-        $headers = [
-            'Content-Type'        => 'text/csv; charset=UTF-8',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
-            'Pragma'              => 'no-cache',
-            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
-            'Expires'             => '0',
-        ];
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Prospects');
 
-        $callback = function () use ($prospects) {
-            $handle = fopen('php://output', 'w');
-            // UTF-8 BOM pour Excel
-            fwrite($handle, "\xEF\xBB\xBF");
+        // ── Ligne 1 : titre Travel Express ──────────────────────────────
+        $sheet->mergeCells('A1:G1');
+        $sheet->setCellValue('A1', 'TRAVEL EXPRESS — Rapport de prospection terrain');
+        $sheet->getStyle('A1')->applyFromArray([
+            'font'      => ['bold' => true, 'size' => 14, 'color' => ['rgb' => 'FFFFFF']],
+            'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => '0A0A0A']],
+            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER],
+        ]);
+        $sheet->getRowDimension(1)->setRowHeight(28);
 
-            fputcsv($handle, ['#', 'Nom complet', 'WhatsApp', 'Email', 'Destination', 'Filière', 'Date d\'ajout'], ';');
+        // ── Ligne 2 : sous-titre date + filtres ─────────────────────────
+        $sheet->mergeCells('A2:G2');
+        $filtresTxt = 'Généré le ' . now()->format('d/m/Y à H:i');
+        if ($request->filled('destination')) $filtresTxt .= ' · Destination : ' . $request->destination;
+        if ($request->filled('filiere'))     $filtresTxt .= ' · Filière : ' . $request->filiere;
+        $sheet->setCellValue('A2', $filtresTxt);
+        $sheet->getStyle('A2')->applyFromArray([
+            'font'      => ['italic' => true, 'size' => 9, 'color' => ['rgb' => 'C9A84C']],
+            'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => '141414']],
+            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+        ]);
+        $sheet->getRowDimension(2)->setRowHeight(18);
 
-            foreach ($prospects as $i => $p) {
-                fputcsv($handle, [
-                    $i + 1,
-                    $p->nom_complet,
-                    $p->whatsapp,
-                    $p->email ?? '',
-                    $p->destination,
-                    $p->filiere,
-                    $p->created_at->format('d/m/Y H:i'),
-                ], ';');
-            }
+        // ── Ligne 3 : ligne dorée de séparation ─────────────────────────
+        $sheet->mergeCells('A3:G3');
+        $sheet->getStyle('A3')->applyFromArray([
+            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'C9A84C']],
+        ]);
+        $sheet->getRowDimension(3)->setRowHeight(3);
 
-            fclose($handle);
-        };
+        // ── Ligne 4 : en-têtes colonnes ─────────────────────────────────
+        $headers = ['#', 'Nom complet', 'WhatsApp', 'Email', 'Destination', 'Filière', "Date d'ajout"];
+        foreach ($headers as $col => $label) {
+            $cell = chr(65 + $col) . '4';
+            $sheet->setCellValue($cell, $label);
+        }
+        $sheet->getStyle('A4:G4')->applyFromArray([
+            'font'      => ['bold' => true, 'size' => 10, 'color' => ['rgb' => '0A0A0A']],
+            'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'C9A84C']],
+            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER],
+            'borders'   => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['rgb' => '8B6914']]],
+        ]);
+        $sheet->getRowDimension(4)->setRowHeight(20);
 
-        return response()->stream($callback, 200, $headers);
+        // ── Lignes données ───────────────────────────────────────────────
+        foreach ($prospects as $i => $p) {
+            $row   = $i + 5;
+            $isEven = ($i % 2 === 0);
+            $bgColor = $isEven ? 'FAFAFA' : 'FFFFFF';
+
+            $sheet->setCellValue("A{$row}", $i + 1);
+            $sheet->setCellValue("B{$row}", $p->nom_complet);
+            $sheet->setCellValue("C{$row}", $p->whatsapp);
+            $sheet->setCellValue("D{$row}", $p->email ?? '');
+            $sheet->setCellValue("E{$row}", $p->destination);
+            $sheet->setCellValue("F{$row}", $p->filiere);
+            $sheet->setCellValue("G{$row}", $p->created_at->format('d/m/Y H:i'));
+
+            $sheet->getStyle("A{$row}:G{$row}")->applyFromArray([
+                'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => $bgColor]],
+                'font'      => ['size' => 9],
+                'alignment' => ['vertical' => Alignment::VERTICAL_CENTER],
+                'borders'   => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['rgb' => 'E8E0CC']]],
+            ]);
+            $sheet->getStyle("A{$row}")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            $sheet->getStyle("B{$row}")->getFont()->setBold(true);
+            $sheet->getStyle("G{$row}")->getFont()->setColor((new \PhpOffice\PhpSpreadsheet\Style\Color('FF888888')));
+            $sheet->getRowDimension($row)->setRowHeight(18);
+        }
+
+        // ── Ligne finale : total ─────────────────────────────────────────
+        $lastRow = $prospects->count() + 5;
+        $sheet->mergeCells("A{$lastRow}:F{$lastRow}");
+        $sheet->setCellValue("A{$lastRow}", 'TOTAL');
+        $sheet->setCellValue("G{$lastRow}", $prospects->count() . ' prospect(s)');
+        $sheet->getStyle("A{$lastRow}:G{$lastRow}")->applyFromArray([
+            'font'      => ['bold' => true, 'size' => 9, 'color' => ['rgb' => '0A0A0A']],
+            'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'F0D07A']],
+            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+        ]);
+
+        // ── Largeurs colonnes ────────────────────────────────────────────
+        $sheet->getColumnDimension('A')->setWidth(6);
+        $sheet->getColumnDimension('B')->setWidth(28);
+        $sheet->getColumnDimension('C')->setWidth(18);
+        $sheet->getColumnDimension('D')->setWidth(28);
+        $sheet->getColumnDimension('E')->setWidth(16);
+        $sheet->getColumnDimension('F')->setWidth(22);
+        $sheet->getColumnDimension('G')->setWidth(16);
+
+        // ── Figer la ligne d'en-tête ─────────────────────────────────────
+        $sheet->freezePane('A5');
+
+        // ── Propriétés du document ───────────────────────────────────────
+        $spreadsheet->getProperties()
+            ->setCreator('Travel Express')
+            ->setTitle('Prospects Terrain')
+            ->setDescription('Export généré le ' . now()->format('d/m/Y'));
+
+        $filename = 'prospects_' . now()->format('Ymd_His') . '.xlsx';
+        $writer   = new Xlsx($spreadsheet);
+
+        ob_start();
+        $writer->save('php://output');
+        $content = ob_get_clean();
+
+        return response($content, 200, [
+            'Content-Type'        => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+            'Cache-Control'       => 'max-age=0',
+        ]);
     }
 
     public function exportPdf(Request $request)
