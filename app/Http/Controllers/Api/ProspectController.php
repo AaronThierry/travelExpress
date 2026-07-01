@@ -6,11 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Prospect;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Border;
 
 class ProspectController extends Controller
 {
@@ -122,119 +117,187 @@ class ProspectController extends Controller
         if ($request->filled('filiere'))     $query->where('filiere', $request->filiere);
         $prospects = $query->get();
 
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setTitle('Prospects');
-
-        // ── Ligne 1 : titre Travel Express ──────────────────────────────
-        $sheet->mergeCells('A1:G1');
-        $sheet->setCellValue('A1', 'TRAVEL EXPRESS — Rapport de prospection terrain');
-        $sheet->getStyle('A1')->applyFromArray([
-            'font'      => ['bold' => true, 'size' => 14, 'color' => ['rgb' => 'FFFFFF']],
-            'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => '0A0A0A']],
-            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER],
-        ]);
-        $sheet->getRowDimension(1)->setRowHeight(28);
-
-        // ── Ligne 2 : sous-titre date + filtres ─────────────────────────
-        $sheet->mergeCells('A2:G2');
         $filtresTxt = 'Généré le ' . now()->format('d/m/Y à H:i');
         if ($request->filled('destination')) $filtresTxt .= ' · Destination : ' . $request->destination;
         if ($request->filled('filiere'))     $filtresTxt .= ' · Filière : ' . $request->filiere;
-        $sheet->setCellValue('A2', $filtresTxt);
-        $sheet->getStyle('A2')->applyFromArray([
-            'font'      => ['italic' => true, 'size' => 9, 'color' => ['rgb' => 'C9A84C']],
-            'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => '141414']],
-            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
-        ]);
-        $sheet->getRowDimension(2)->setRowHeight(18);
 
-        // ── Ligne 3 : ligne dorée de séparation ─────────────────────────
-        $sheet->mergeCells('A3:G3');
-        $sheet->getStyle('A3')->applyFromArray([
-            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'C9A84C']],
-        ]);
-        $sheet->getRowDimension(3)->setRowHeight(3);
+        $e = fn($v) => htmlspecialchars((string)($v ?? ''), ENT_QUOTES | ENT_XML1, 'UTF-8');
 
-        // ── Ligne 4 : en-têtes colonnes ─────────────────────────────────
-        $headers = ['#', 'Nom complet', 'WhatsApp', 'Email', 'Destination', 'Filière', "Date d'ajout"];
-        foreach ($headers as $col => $label) {
-            $cell = chr(65 + $col) . '4';
-            $sheet->setCellValue($cell, $label);
-        }
-        $sheet->getStyle('A4:G4')->applyFromArray([
-            'font'      => ['bold' => true, 'size' => 10, 'color' => ['rgb' => '0A0A0A']],
-            'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'C9A84C']],
-            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER],
-            'borders'   => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['rgb' => '8B6914']]],
-        ]);
-        $sheet->getRowDimension(4)->setRowHeight(20);
-
-        // ── Lignes données ───────────────────────────────────────────────
+        $rows = '';
         foreach ($prospects as $i => $p) {
-            $row   = $i + 5;
-            $isEven = ($i % 2 === 0);
-            $bgColor = $isEven ? 'FAFAFA' : 'FFFFFF';
-
-            $sheet->setCellValue("A{$row}", $i + 1);
-            $sheet->setCellValue("B{$row}", $p->nom_complet);
-            $sheet->setCellValue("C{$row}", $p->whatsapp);
-            $sheet->setCellValue("D{$row}", $p->email ?? '');
-            $sheet->setCellValue("E{$row}", $p->destination);
-            $sheet->setCellValue("F{$row}", $p->filiere);
-            $sheet->setCellValue("G{$row}", $p->created_at->format('d/m/Y H:i'));
-
-            $sheet->getStyle("A{$row}:G{$row}")->applyFromArray([
-                'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => $bgColor]],
-                'font'      => ['size' => 9],
-                'alignment' => ['vertical' => Alignment::VERTICAL_CENTER],
-                'borders'   => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['rgb' => 'E8E0CC']]],
-            ]);
-            $sheet->getStyle("A{$row}")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-            $sheet->getStyle("B{$row}")->getFont()->setBold(true);
-            $sheet->getStyle("G{$row}")->getFont()->setColor((new \PhpOffice\PhpSpreadsheet\Style\Color('FF888888')));
-            $sheet->getRowDimension($row)->setRowHeight(18);
+            $bg = $i % 2 === 0 ? 'sEven' : 'sOdd';
+            $rows .= "<Row ss:Height=\"18\">"
+                . "<Cell ss:StyleID=\"sNum\"><Data ss:Type=\"Number\">" . ($i + 1) . "</Data></Cell>"
+                . "<Cell ss:StyleID=\"sBold\"><Data ss:Type=\"String\">{$e($p->nom_complet)}</Data></Cell>"
+                . "<Cell ss:StyleID=\"{$bg}\"><Data ss:Type=\"String\">{$e($p->whatsapp)}</Data></Cell>"
+                . "<Cell ss:StyleID=\"{$bg}\"><Data ss:Type=\"String\">{$e($p->email)}</Data></Cell>"
+                . "<Cell ss:StyleID=\"sDest\"><Data ss:Type=\"String\">{$e($p->destination)}</Data></Cell>"
+                . "<Cell ss:StyleID=\"sFil\"><Data ss:Type=\"String\">{$e($p->filiere)}</Data></Cell>"
+                . "<Cell ss:StyleID=\"sDate\"><Data ss:Type=\"String\">{$e($p->created_at->format('d/m/Y H:i'))}</Data></Cell>"
+                . "</Row>\n";
         }
 
-        // ── Ligne finale : total ─────────────────────────────────────────
-        $lastRow = $prospects->count() + 5;
-        $sheet->mergeCells("A{$lastRow}:F{$lastRow}");
-        $sheet->setCellValue("A{$lastRow}", 'TOTAL');
-        $sheet->setCellValue("G{$lastRow}", $prospects->count() . ' prospect(s)');
-        $sheet->getStyle("A{$lastRow}:G{$lastRow}")->applyFromArray([
-            'font'      => ['bold' => true, 'size' => 9, 'color' => ['rgb' => '0A0A0A']],
-            'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'F0D07A']],
-            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+        $total = $prospects->count();
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
+            . '<?mso-application progid="Excel.Sheet"?>' . "\n"
+            . '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
+            . ' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
+            . ' xmlns:x="urn:schemas-microsoft-com:office:excel">' . "\n"
+
+            // ── Styles ──────────────────────────────────────────────────
+            . '<Styles>'
+
+            . '<Style ss:ID="sTitle">'
+            . '<Alignment ss:Horizontal="Center" ss:Vertical="Center"/>'
+            . '<Font ss:Bold="1" ss:Size="14" ss:Color="#FFFFFF"/>'
+            . '<Interior ss:Color="#0A0A0A" ss:Pattern="Solid"/>'
+            . '</Style>'
+
+            . '<Style ss:ID="sSub">'
+            . '<Alignment ss:Horizontal="Center"/>'
+            . '<Font ss:Italic="1" ss:Size="9" ss:Color="#C9A84C"/>'
+            . '<Interior ss:Color="#1C1C1C" ss:Pattern="Solid"/>'
+            . '</Style>'
+
+            . '<Style ss:ID="sGold">'
+            . '<Interior ss:Color="#C9A84C" ss:Pattern="Solid"/>'
+            . '</Style>'
+
+            . '<Style ss:ID="sHeader">'
+            . '<Alignment ss:Horizontal="Center" ss:Vertical="Center"/>'
+            . '<Font ss:Bold="1" ss:Size="10" ss:Color="#0A0A0A"/>'
+            . '<Interior ss:Color="#C9A84C" ss:Pattern="Solid"/>'
+            . '<Borders>'
+            . '<Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#8B6914"/>'
+            . '<Border ss:Position="Top"    ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#8B6914"/>'
+            . '<Border ss:Position="Left"   ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#8B6914"/>'
+            . '<Border ss:Position="Right"  ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#8B6914"/>'
+            . '</Borders>'
+            . '</Style>'
+
+            . '<Style ss:ID="sEven">'
+            . '<Alignment ss:Vertical="Center"/>'
+            . '<Font ss:Size="9"/>'
+            . '<Interior ss:Color="#FAFAFA" ss:Pattern="Solid"/>'
+            . '<Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E8E0CC"/></Borders>'
+            . '</Style>'
+
+            . '<Style ss:ID="sOdd">'
+            . '<Alignment ss:Vertical="Center"/>'
+            . '<Font ss:Size="9"/>'
+            . '<Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>'
+            . '<Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E8E0CC"/></Borders>'
+            . '</Style>'
+
+            . '<Style ss:ID="sBold">'
+            . '<Alignment ss:Vertical="Center"/>'
+            . '<Font ss:Bold="1" ss:Size="9"/>'
+            . '<Interior ss:Color="#FAFAFA" ss:Pattern="Solid"/>'
+            . '<Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E8E0CC"/></Borders>'
+            . '</Style>'
+
+            . '<Style ss:ID="sNum">'
+            . '<Alignment ss:Horizontal="Center" ss:Vertical="Center"/>'
+            . '<Font ss:Size="9" ss:Color="#AAAAAA"/>'
+            . '<Interior ss:Color="#FAFAFA" ss:Pattern="Solid"/>'
+            . '<Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E8E0CC"/></Borders>'
+            . '</Style>'
+
+            . '<Style ss:ID="sDest">'
+            . '<Alignment ss:Horizontal="Center" ss:Vertical="Center"/>'
+            . '<Font ss:Size="9" ss:Color="#7A5F0A" ss:Bold="1"/>'
+            . '<Interior ss:Color="#FEF9EC" ss:Pattern="Solid"/>'
+            . '<Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E8D98A"/></Borders>'
+            . '</Style>'
+
+            . '<Style ss:ID="sFil">'
+            . '<Alignment ss:Horizontal="Center" ss:Vertical="Center"/>'
+            . '<Font ss:Size="9" ss:Color="#1A7A71" ss:Bold="1"/>'
+            . '<Interior ss:Color="#EDFAF8" ss:Pattern="Solid"/>'
+            . '<Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#82D5CC"/></Borders>'
+            . '</Style>'
+
+            . '<Style ss:ID="sDate">'
+            . '<Alignment ss:Vertical="Center"/>'
+            . '<Font ss:Size="9" ss:Color="#888888"/>'
+            . '<Interior ss:Color="#FAFAFA" ss:Pattern="Solid"/>'
+            . '<Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E8E0CC"/></Borders>'
+            . '</Style>'
+
+            . '<Style ss:ID="sTotal">'
+            . '<Alignment ss:Horizontal="Center" ss:Vertical="Center"/>'
+            . '<Font ss:Bold="1" ss:Size="9" ss:Color="#0A0A0A"/>'
+            . '<Interior ss:Color="#F0D07A" ss:Pattern="Solid"/>'
+            . '</Style>'
+
+            . '</Styles>' . "\n"
+
+            // ── Feuille ─────────────────────────────────────────────────
+            . '<Worksheet ss:Name="Prospects">'
+            . '<Table ss:DefaultRowHeight="15">'
+
+            // Largeurs colonnes
+            . '<Column ss:Width="30"/>'   // #
+            . '<Column ss:Width="160"/>'  // Nom
+            . '<Column ss:Width="110"/>'  // WhatsApp
+            . '<Column ss:Width="160"/>'  // Email
+            . '<Column ss:Width="90"/>'   // Destination
+            . '<Column ss:Width="130"/>'  // Filière
+            . '<Column ss:Width="95"/>'   // Date
+
+            // Ligne 1 — Titre
+            . '<Row ss:Height="28"><Cell ss:MergeAcross="6" ss:StyleID="sTitle">'
+            . '<Data ss:Type="String">TRAVEL EXPRESS — Rapport de prospection terrain</Data>'
+            . '</Cell></Row>'
+
+            // Ligne 2 — Sous-titre
+            . '<Row ss:Height="18"><Cell ss:MergeAcross="6" ss:StyleID="sSub">'
+            . '<Data ss:Type="String">' . $e($filtresTxt) . '</Data>'
+            . '</Cell></Row>'
+
+            // Ligne 3 — Bande dorée
+            . '<Row ss:Height="4"><Cell ss:MergeAcross="6" ss:StyleID="sGold"><Data ss:Type="String"></Data></Cell></Row>'
+
+            // Ligne 4 — En-têtes
+            . '<Row ss:Height="20">'
+            . '<Cell ss:StyleID="sHeader"><Data ss:Type="String">#</Data></Cell>'
+            . '<Cell ss:StyleID="sHeader"><Data ss:Type="String">Nom complet</Data></Cell>'
+            . '<Cell ss:StyleID="sHeader"><Data ss:Type="String">WhatsApp</Data></Cell>'
+            . '<Cell ss:StyleID="sHeader"><Data ss:Type="String">Email</Data></Cell>'
+            . '<Cell ss:StyleID="sHeader"><Data ss:Type="String">Destination</Data></Cell>'
+            . '<Cell ss:StyleID="sHeader"><Data ss:Type="String">Filière</Data></Cell>'
+            . '<Cell ss:StyleID="sHeader"><Data ss:Type="String">Date d\'ajout</Data></Cell>'
+            . '</Row>'
+
+            // Données
+            . $rows
+
+            // Ligne total
+            . '<Row ss:Height="20">'
+            . '<Cell ss:MergeAcross="5" ss:StyleID="sTotal"><Data ss:Type="String">TOTAL</Data></Cell>'
+            . '<Cell ss:StyleID="sTotal"><Data ss:Type="String">' . $total . ' prospect(s)</Data></Cell>'
+            . '</Row>'
+
+            . '</Table>'
+
+            // Figer les 4 premières lignes (en-têtes)
+            . '<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">'
+            . '<SplitHorizontal>4</SplitHorizontal>'
+            . '<TopRowBottomPane>4</TopRowBottomPane>'
+            . '<ActivePane>2</ActivePane>'
+            . '</WorksheetOptions>'
+
+            . '</Worksheet>'
+            . '</Workbook>';
+
+        $filename = 'prospects_' . now()->format('Ymd_His') . '.xls';
+
+        return response($xml, 200, [
+            'Content-Type'        => 'application/vnd.ms-excel; charset=UTF-8',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+            'Cache-Control'       => 'max-age=0',
+            'Pragma'              => 'public',
         ]);
-
-        // ── Largeurs colonnes ────────────────────────────────────────────
-        $sheet->getColumnDimension('A')->setWidth(6);
-        $sheet->getColumnDimension('B')->setWidth(28);
-        $sheet->getColumnDimension('C')->setWidth(18);
-        $sheet->getColumnDimension('D')->setWidth(28);
-        $sheet->getColumnDimension('E')->setWidth(16);
-        $sheet->getColumnDimension('F')->setWidth(22);
-        $sheet->getColumnDimension('G')->setWidth(16);
-
-        // ── Figer la ligne d'en-tête ─────────────────────────────────────
-        $sheet->freezePane('A5');
-
-        // ── Propriétés du document ───────────────────────────────────────
-        $spreadsheet->getProperties()
-            ->setCreator('Travel Express')
-            ->setTitle('Prospects Terrain')
-            ->setDescription('Export généré le ' . now()->format('d/m/Y'));
-
-        $filename = 'prospects_' . now()->format('Ymd_His') . '.xlsx';
-        $writer   = new Xlsx($spreadsheet);
-
-        $tmpFile = tempnam(sys_get_temp_dir(), 'te_xlsx_');
-        $writer->save($tmpFile);
-
-        return response()->download($tmpFile, $filename, [
-            'Content-Type'  => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Cache-Control' => 'max-age=0',
-        ])->deleteFileAfterSend(true);
     }
 
     public function exportPdf(Request $request)
