@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Prospect;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class ProspectController extends Controller
@@ -107,6 +108,36 @@ class ProspectController extends Controller
         }
         $prospect->delete();
         return response()->json(['success' => true, 'message' => 'Prospect supprimé.']);
+    }
+
+    public function exportPdf(Request $request)
+    {
+        $query = Prospect::query()->orderByDesc('created_at');
+
+        if ($request->filled('destination')) {
+            $query->where('destination', $request->destination);
+        }
+        if ($request->filled('filiere')) {
+            $query->where('filiere', $request->filiere);
+        }
+
+        $prospects    = $query->get();
+        $generatedAt  = now()->format('d/m/Y à H:i');
+        $filters      = [
+            'destination' => $request->destination ?: null,
+            'filiere'     => $request->filiere ?: null,
+        ];
+
+        $pdf = Pdf::loadView('pdf.prospects', compact('prospects', 'generatedAt', 'filters'))
+            ->setPaper('a4', 'landscape')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'defaultFont'          => 'sans-serif',
+                'dpi'                  => 120,
+            ]);
+
+        $filename = 'prospects_' . now()->format('Ymd_His') . '.pdf';
+        return $pdf->download($filename);
     }
 
     private function format(Prospect $p): array

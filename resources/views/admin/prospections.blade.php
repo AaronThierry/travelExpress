@@ -46,9 +46,12 @@
                 <option>Autre</option>
             </select>
         </div>
-        <div style="padding-top:1.1rem;">
+        <div style="padding-top:1.1rem;display:flex;gap:.5rem;">
             <button onclick="loadProspects()" style="padding:.5rem 1rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:.5rem;color:var(--gold-primary);font-size:.8rem;font-weight:600;cursor:pointer;">
                 Actualiser
+            </button>
+            <button onclick="exportPdf()" id="btn-export" style="padding:.5rem 1rem;background:linear-gradient(135deg,#8B6914,#C9A84C,#F0D07A,#C9A84C,#8B6914);border:none;border-radius:.5rem;color:#0a0a0a;font-size:.8rem;font-weight:700;cursor:pointer;letter-spacing:.05em;box-shadow:0 2px 12px rgba(201,168,76,.25);">
+                ⬇ Exporter PDF
             </button>
         </div>
     </div>
@@ -184,6 +187,31 @@
             showToast('Erreur réseau.', 'error');
             btn.disabled = false;
         }
+    }
+
+    function exportPdf() {
+        const dest = document.getElementById('filter-dest').value;
+        const fil  = document.getElementById('filter-fil').value;
+        const params = new URLSearchParams();
+        if (dest) params.append('destination', dest);
+        if (fil)  params.append('filiere', fil);
+
+        const btn = document.getElementById('btn-export');
+        btn.textContent = '⏳ Génération…';
+        btn.disabled = true;
+
+        const url = `/admin/api/prospects/export-pdf${params.toString() ? '?' + params : ''}`;
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = '';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        setTimeout(() => {
+            btn.textContent = '⬇ Exporter PDF';
+            btn.disabled = false;
+        }, 2500);
     }
 
     function esc(str) {
