@@ -4165,7 +4165,7 @@
                         </h4>
                         <ul class="space-y-4">
                             <li>
-                                <a href="https://maps.google.com" target="_blank" class="flex items-start gap-3 group">
+                                <a href="https://www.google.com/maps/dir/?api=1&destination=12.368780,-1.496232&travelmode=driving" target="_blank" class="flex items-start gap-3 group">
                                     <div class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary-500/20 transition-colors">
                                         <svg class="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
