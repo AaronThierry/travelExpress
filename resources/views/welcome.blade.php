@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Travel Express - Votre partenaire pour réaliser vos projets à l'international. Études, travail et business en Chine, Espagne et Allemagne. Accompagnement personnalisé.">
-    <title>Travel Express - Études, Travail & Business à l'International</title>
+    <x-seo :organization="true" />
     <link rel="icon" type="image/png" href="/images/logo/logo_travel.png">
     <link rel="shortcut icon" type="image/png" href="/images/logo/logo_travel.png">
 

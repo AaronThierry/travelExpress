@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Testez votre éligibilité aux bourses d'études - Travel Express Burkina Faso">
-    <title>Ma Bourse - Travel Express</title>
+    <x-seo
+        title="Bourses d'études à l'international — Testez votre éligibilité | Travel Express"
+        description="Vérifiez en quelques minutes votre éligibilité aux bourses d'études en Chine, Espagne et Allemagne avec Travel Express, agence à Ouagadougou." />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -1,2 +1,21 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /profile
+Disallow: /profile/
+Disallow: /mon-dossier
+Disallow: /prospections
+Disallow: /registre
+Disallow: /dossier/
+Disallow: /visa/
+Disallow: /student/
+Disallow: /document/
+Disallow: /visa-document/
+Disallow: /api/
+
+Sitemap: https://travels.express/sitemap.xml

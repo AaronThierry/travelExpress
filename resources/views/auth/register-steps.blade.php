@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription - Travel Express</title>
+    <x-seo title="Inscription - Travel Express" :noindex="true" />
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Royal Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

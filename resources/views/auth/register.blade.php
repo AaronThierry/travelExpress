@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" href="/images/logo/logo_travel.png">
     <link rel="shortcut icon" type="image/png" href="/images/logo/logo_travel.png">
-    <title>Inscription - Travel Express</title>
+    <x-seo title="Inscription - Travel Express" :noindex="true" />
 
     <!-- Google Fonts - Royal Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

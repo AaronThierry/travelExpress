@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" href="/images/logo/logo_travel.png">
     <link rel="shortcut icon" type="image/png" href="/images/logo/logo_travel.png">
-    <title>Connexion - Travel Express</title>
+    <x-seo title="Connexion - Travel Express" :noindex="true" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

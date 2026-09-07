@@ -18,6 +18,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// SEO — sitemap.xml généré dynamiquement depuis config/seo.php
+Route::get('/sitemap.xml', function () {
+    $base = rtrim(config('seo.base_url'), '/');
+    $now  = now()->toAtomString();
+
+    $urls = collect(config('seo.sitemap'))->map(function ($meta, $path) use ($base, $now) {
+        $loc = $base . ($path === '/' ? '/' : rtrim($path, '/'));
+        return "  <url>\n"
+            . "    <loc>{$loc}</loc>\n"
+            . "    <lastmod>{$now}</lastmod>\n"
+            . "    <changefreq>{$meta['changefreq']}</changefreq>\n"
+            . "    <priority>{$meta['priority']}</priority>\n"
+            . "  </url>";
+    })->implode("\n");
+
+    $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        . "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
+        . $urls . "\n"
+        . "</urlset>\n";
+
+    return response($xml, 200, ['Content-Type' => 'application/xml']);
+})->name('sitemap');
+
 // Prospection terrain — agents commerciaux
 Route::get('/prospections', function () {
     return view('prospections');

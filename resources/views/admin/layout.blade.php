@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title ?? 'Admin Panel' }} - Travel Express</title>
+    <x-seo :title="($title ?? 'Admin Panel') . ' - Travel Express'" :noindex="true" />
     <link rel="icon" type="image/png" href="/images/logo/logo_travel.png">
     <link rel="shortcut icon" type="image/png" href="/images/logo/logo_travel.png">
 

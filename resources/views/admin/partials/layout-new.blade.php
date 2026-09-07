@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" href="/images/logo/logo_travel.png">
     <link rel="shortcut icon" type="image/png" href="/images/logo/logo_travel.png">
-    <title>{{ $title ?? 'Admin Panel' }} - Travel Express</title>
+    <x-seo :title="($title ?? 'Admin Panel') . ' - Travel Express'" :noindex="true" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
