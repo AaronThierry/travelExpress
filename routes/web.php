@@ -157,6 +157,11 @@ Route::get('/bourse', function () {
     return view('bourse');
 })->name('bourse');
 
+// Évaluation étudiant — page dédiée (même formulaire que la modale de l'accueil)
+Route::get('/studentevaluation', function () {
+    return view('student-evaluation');
+})->name('student.evaluation');
+
 // Student Application Upload Routes (legacy - unique_token)
 Route::get('/student/upload/{token}', [App\Http\Controllers\StudentApplicationController::class, 'showUploadForm'])
     ->name('student.upload.form');
