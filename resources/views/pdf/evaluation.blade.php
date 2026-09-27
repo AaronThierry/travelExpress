@@ -595,7 +595,7 @@
                     <div class="rating-line">
                         <strong>Source de decouverte:</strong> {{ $evaluation->discovery_source_label }}
                         @if($evaluation->tiktok_channel)
-                            &nbsp;&mdash;&nbsp;<strong>Chaine:</strong> {{ $evaluation->tiktok_channel_label }}
+                            &nbsp;&mdash;&nbsp;<strong>Chaine:</strong> {{ trim(preg_replace('/[\x{1F000}-\x{1FFFF}\x{2600}-\x{27BF}\x{FE0F}\x{200D}]/u', '', $evaluation->tiktok_channel_label)) }}
                         @endif
                         @if($evaluation->discovery_source_detail) ({{ $evaluation->discovery_source_detail }})@endif
                     </div>
