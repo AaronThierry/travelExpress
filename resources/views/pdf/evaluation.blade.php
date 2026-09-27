@@ -1,3 +1,7 @@
+@php
+    $logoPath = public_path('images/logo/logo_travel.png');
+    $logoDataUri = is_file($logoPath) ? 'data:image/png;base64,' . base64_encode(file_get_contents($logoPath)) : null;
+@endphp
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -517,7 +521,9 @@
         <table class="header-table">
             <tr>
                 <td class="header-left">
-                    <img src="{{ public_path('images/logo/logo_travel.png') }}" alt="Travel Express" class="logo-img">
+                    @if($logoDataUri)
+                        <img src="{{ $logoDataUri }}" alt="Travel Express" class="logo-img">
+                    @endif
                     <div class="logo-text">
                         <div class="company-name">TRAVEL EXPRESS</div>
                         <div class="company-tagline">Excellence in International Education</div>
@@ -589,7 +595,7 @@
                     <div class="rating-line">
                         <strong>Source de decouverte:</strong> {{ $evaluation->discovery_source_label }}
                         @if($evaluation->tiktok_channel)
-                            &nbsp;&mdash;&nbsp;<strong>Chaine:</strong> {{ $evaluation->tiktok_channel_label }}
+                            &nbsp;&mdash;&nbsp;<strong>Chaine:</strong> {{ trim(preg_replace('/[\x{1F000}-\x{1FFFF}\x{2600}-\x{27BF}\x{FE0F}\x{200D}]/u', '', $evaluation->tiktok_channel_label)) }}
                         @endif
                         @if($evaluation->discovery_source_detail) ({{ $evaluation->discovery_source_detail }})@endif
                     </div>
