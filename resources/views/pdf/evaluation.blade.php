@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Attestation - {{ $evaluation->first_name }} {{ $evaluation->last_name }}</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
 
         @page {
             margin: 0;
@@ -78,7 +78,7 @@
             font-size: 18pt;
             font-weight: 700;
             letter-spacing: 3px;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
             color: #ffffff;
         }
 
@@ -102,7 +102,7 @@
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         /* ===== CONTENT ===== */
@@ -122,7 +122,7 @@
             text-transform: uppercase;
             letter-spacing: 6px;
             color: #0a0a0a;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
             margin-bottom: 6px;
         }
 
@@ -139,7 +139,7 @@
             color: #0a0a0a;
             margin-top: 8px;
             font-weight: 600;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         /* ===== SECTIONS ===== */
@@ -171,7 +171,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         /* ===== INFO TABLE ===== */
@@ -201,7 +201,7 @@
             color: #0a0a0a;
             font-size: 8.5pt;
             border-right: 1px solid #f0f0f0;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         .info-value {
@@ -231,7 +231,7 @@
             font-size: 52pt;
             font-weight: 800;
             color: #d4af37;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
             line-height: 1;
         }
 
@@ -260,7 +260,7 @@
         .rating-line strong {
             color: #0a0a0a;
             font-weight: 700;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         .badge {
@@ -272,7 +272,7 @@
             margin-left: 8px;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         .badge-success {
@@ -303,7 +303,7 @@
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .ratings-table td {
@@ -317,7 +317,7 @@
             font-size: 16pt;
             font-weight: 800;
             color: #d4af37;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         /* ===== TEXT BOX ===== */
@@ -328,7 +328,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         .text-box {
@@ -364,7 +364,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         .signature-grid {
@@ -395,7 +395,7 @@
             letter-spacing: 2px;
             margin-bottom: 8px;
             font-weight: 700;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
             background: #f5f5f5;
             padding: 6px 10px;
             border-radius: 4px;
@@ -421,7 +421,7 @@
             font-weight: 700;
             color: #0a0a0a;
             margin-top: 8px;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         .signature-date {
@@ -445,7 +445,7 @@
             font-weight: 800;
             color: #0a0a0a;
             margin: 10px 0 5px 0;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
             letter-spacing: 2px;
         }
 
@@ -453,7 +453,7 @@
             font-size: 9pt;
             font-weight: 600;
             color: #666666;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         /* ===== LEGAL ===== */
@@ -472,7 +472,7 @@
         .legal strong {
             color: #0a0a0a;
             font-weight: 700;
-            font-family: 'Poppins', 'DejaVu Sans', sans-serif;
+            font-family: 'Montserrat', 'DejaVu Sans', sans-serif;
         }
 
         /* ===== FOOTER ===== */
@@ -503,7 +503,7 @@
             color: #d4af37;
             font-weight: 700;
             letter-spacing: 2px;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .footer-right {
