@@ -57,20 +57,12 @@
             vertical-align: middle;
         }
 
-        .logo-box {
-            display: inline-block;
-            background: #d4af37;
-            width: 42px;
+        .logo-img {
             height: 42px;
+            width: auto;
             border-radius: 6px;
-            text-align: center;
-            line-height: 42px;
-            font-size: 16pt;
-            font-weight: 800;
-            color: #0a0a0a;
             vertical-align: middle;
             margin-right: 14px;
-            font-family: 'Poppins', sans-serif;
         }
 
         .logo-text {
@@ -525,7 +517,7 @@
         <table class="header-table">
             <tr>
                 <td class="header-left">
-                    <span class="logo-box">TE</span>
+                    <img src="{{ public_path('images/logo/logo_travel.png') }}" alt="Travel Express" class="logo-img">
                     <div class="logo-text">
                         <div class="company-name">TRAVEL EXPRESS</div>
                         <div class="company-tagline">Excellence in International Education</div>
