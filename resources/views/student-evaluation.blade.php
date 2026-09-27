@@ -18,9 +18,16 @@
 
     <style>
         html, body { background: #080808; }
+        /* Centre verticalement le formulaire (au lieu de l'alignement "haut"
+           pensé pour une modale flottante sur la page d'accueil) */
+        body.page-student-evaluation > div.fixed.inset-0 {
+            align-items: center !important;
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
     </style>
 </head>
-<body class="font-sans antialiased"
+<body class="page-student-evaluation font-sans antialiased"
       style="background:#080808;color:#f5f0e8;"
       x-data="{ evaluationModalOpen: true }"
       x-init="window.addEventListener('close-evaluation-modal', () => { evaluationModalOpen = false; })"
