@@ -62,7 +62,7 @@
         }
 
         .logo-img {
-            height: 42px;
+            height: 60px;
             width: auto;
             border-radius: 6px;
             vertical-align: middle;
