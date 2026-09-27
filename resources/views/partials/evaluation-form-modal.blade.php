@@ -541,6 +541,7 @@
                                         <option value="master_1">Master 1</option>
                                         <option value="master_2">Master 2</option>
                                         <option value="doctorat">Doctorat</option>
+                                        <option value="langue_chinoise">Langue chinoise</option>
                                         <option value="formation_professionnelle">Formation professionnelle</option>
                                         <option value="autre">Autre</option>
                                     </select>
