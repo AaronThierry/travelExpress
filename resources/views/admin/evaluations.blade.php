@@ -266,6 +266,12 @@
     <!-- List -->
     <div id="evaluations-list" class="hidden space-y-4"></div>
 
+    <!-- Pagination -->
+    <div id="eval-pagination" class="hidden flex items-center justify-between mt-5 pt-4" style="border-top:1px solid rgba(212,175,55,.1);">
+        <p class="text-xs" id="eval-pagination-info" style="color:rgba(255,255,255,.4);"></p>
+        <div class="flex gap-2" id="eval-pagination-buttons"></div>
+    </div>
+
     <!-- Empty -->
     <div id="empty-state" class="hidden state-box text-center py-14">
         <div class="w-14 h-14 rounded-2xl mx-auto flex items-center justify-center mb-4" style="background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.15);">
@@ -283,6 +289,7 @@
     let pendingAction = null;
     let pendingId = null;
     let currentEvaluationData = null;
+    let currentEvalPage = 1;
 
     async function loadStats() {
         try {
@@ -297,20 +304,23 @@
         } catch(e) {}
     }
 
-    async function loadEvaluations() {
-        const loading = document.getElementById('loading');
-        const error   = document.getElementById('error');
-        const list    = document.getElementById('evaluations-list');
-        const empty   = document.getElementById('empty-state');
+    async function loadEvaluations(page = 1) {
+        currentEvalPage = page;
+        const loading    = document.getElementById('loading');
+        const error      = document.getElementById('error');
+        const list       = document.getElementById('evaluations-list');
+        const empty      = document.getElementById('empty-state');
+        const pagination = document.getElementById('eval-pagination');
         loading.classList.remove('hidden');
-        [error, list, empty].forEach(el => el.classList.add('hidden'));
+        [error, list, empty, pagination].forEach(el => el.classList.add('hidden'));
         try {
-            const r = await fetch('/api/admin/evaluations', {
+            const r = await fetch(`/api/admin/evaluations?page=${page}&per_page=15`, {
                 headers: { 'Authorization': `Bearer ${authToken}`, 'Accept': 'application/json' }
             });
             if (!r.ok) throw new Error('Erreur ' + r.status);
             const result = await r.json();
-            const evaluations = result.data?.data || result.data || [];
+            const paginator = result.data || {};
+            const evaluations = paginator.data || [];
             loading.classList.add('hidden');
             if (!evaluations.length) {
                 empty.classList.remove('hidden');
@@ -318,12 +328,37 @@
             } else {
                 list.classList.remove('hidden');
                 renderEvaluations(evaluations);
+                renderEvalPagination(paginator);
             }
         } catch(err) {
             loading.classList.add('hidden');
             error.classList.remove('hidden');
             document.getElementById('error-message').textContent = err.message;
         }
+    }
+
+    function renderEvalPagination(paginator) {
+        const container = document.getElementById('eval-pagination');
+        const info       = document.getElementById('eval-pagination-info');
+        const buttons    = document.getElementById('eval-pagination-buttons');
+        const { current_page, last_page, total } = paginator;
+
+        if (!last_page || last_page <= 1) {
+            container.classList.add('hidden');
+            return;
+        }
+
+        container.classList.remove('hidden');
+        info.textContent = `${total} évaluation${total > 1 ? 's' : ''} — page ${current_page}/${last_page}`;
+
+        let html = '';
+        if (current_page > 1) {
+            html += `<button onclick="loadEvaluations(${current_page - 1})" class="px-3 py-1.5 text-sm rounded-lg transition-colors" style="border:1px solid rgba(212,175,55,.2);color:rgba(255,255,255,.6);">← Précédent</button>`;
+        }
+        if (current_page < last_page) {
+            html += `<button onclick="loadEvaluations(${current_page + 1})" class="px-3 py-1.5 text-sm rounded-lg transition-colors" style="border:1px solid rgba(212,175,55,.2);color:rgba(255,255,255,.6);">Suivant →</button>`;
+        }
+        buttons.innerHTML = html;
     }
 
     function renderEvaluations(evaluations) {
@@ -596,7 +631,7 @@
             const r = await fetch(endpoint, { method: fetchMethod, headers });
             if (!r.ok) throw new Error('Erreur');
             showToast('success', 'Évaluation supprimée', 'L\'évaluation a été supprimée.');
-            loadEvaluations(); loadStats();
+            loadEvaluations(currentEvalPage); loadStats();
         } catch(e) {
             showToast('error', 'Erreur', e.message);
         }
